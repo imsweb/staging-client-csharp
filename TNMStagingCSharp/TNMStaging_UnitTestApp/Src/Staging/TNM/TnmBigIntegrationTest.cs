@@ -89,8 +89,8 @@ namespace TNMStaging_UnitTestApp.Src.Staging.TNM
         {
             FileStream fstream = File.Open(sFilePath, FileMode.Open, FileAccess.Read, FileShare.Read);
             GZipStream decompressionStream = new GZipStream(fstream, CompressionMode.Decompress);
-            TNMStaging_UnitTestApp.Src.Staging.IntegrationUtils.IntegrationResult result =
-                    TNMStaging_UnitTestApp.Src.Staging.TNM.TnmIntegrationSchemaSelection.processSchemaSelection(
+            IntegrationUtils.IntegrationResult result =
+                    TnmIntegrationSchemaSelection.processSchemaSelection(
                         staging, "tnm_schema_identification.txt.gz", decompressionStream, null);
 
 
@@ -130,9 +130,8 @@ namespace TNMStaging_UnitTestApp.Src.Staging.TNM
 
                             FileStream fstream = File.Open(f, FileMode.Open, FileAccess.Read, FileShare.Read);
                             GZipStream decompressionStream = new GZipStream(fstream, CompressionMode.Decompress);
-                            TNMStaging_UnitTestApp.Src.Staging.IntegrationUtils.IntegrationResult result =
-                                TNMStaging_UnitTestApp.Src.Staging.TNM.TnmIntegrationSchemaStage.
-                                    processTNMSchema(staging, sFilename, decompressionStream);
+                            IntegrationUtils.IntegrationResult result =
+                                TnmIntegrationSchemaStage.processTNMSchema(staging, sFilename, decompressionStream);
                             totalCases += result.getNumCases();
                             totalFailures += result.getNumFailures();
 
@@ -145,7 +144,7 @@ namespace TNMStaging_UnitTestApp.Src.Staging.TNM
 
             String perMs = String.Format("{0,12:F4}", ((float)stopwatch.Elapsed.TotalMilliseconds / totalCases)).Trim();
             IntegrationUtils.WritelineToLog("");
-            IntegrationUtils.WritelineToLog("Completed " + totalCases + " cases (" + totalFiles + " files) in " + TNMStaging_UnitTestApp.Src.Staging.IntegrationUtils.GenerateTotalTimeString(stopwatch) + " (" + perMs + " ms/case).");
+            IntegrationUtils.WritelineToLog("Completed " + totalCases + " cases (" + totalFiles + " files) in " + IntegrationUtils.GenerateTotalTimeString(stopwatch) + " (" + perMs + " ms/case).");
             if (totalFailures > 0)
                 IntegrationUtils.WritelineToLog("There were " + totalFailures + " failing cases.");
 
