@@ -37,7 +37,9 @@ Versions supported:
 
 To download the latest staging library.
 
-Each download zip file contains the TNM Staging DLL and associated files. For more information, please reference the accompanying readme.txt file. Detailed documentation on how to use the DLL can be found in the wiki.
+Requirements: You will need the .NET Framework 4.5.2 installed to use this library. 
+
+Each download zip file contains the TNM Staging DLL and associated files. For more information, please reference the accompanying readme.txt file. Detailed documentation on how to use the DLL can be found in the [Wiki](https://github.com/imsweb/staging-client-csharp/wiki/).
 
 ## Usage
 
