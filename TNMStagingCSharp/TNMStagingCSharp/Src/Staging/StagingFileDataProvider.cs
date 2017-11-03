@@ -29,13 +29,21 @@ namespace TNMStagingCSharp.Src.Staging
             _algorithm = algorithm;
             _version = version;
 
-            String basedir = System.IO.Directory.GetCurrentDirectory() + "\\..\\..\\..\\";
-            if (System.IO.Directory.GetCurrentDirectory().IndexOf("x64") >= 0) basedir += "\\..\\";
+            String basedir = System.IO.Directory.GetCurrentDirectory() + "\\";
+            if (!Directory.Exists(basedir + "Algorithms\\"))
+            {
+                basedir = System.IO.Directory.GetCurrentDirectory() + "\\..\\..\\..\\";
+                if (System.IO.Directory.GetCurrentDirectory().IndexOf("x64") >= 0) basedir += "\\..\\";
+                basedir += "Resources\\";
+            }
+
+
+            String directory = "";
 
             // loop over all tables and load them into Map
             try
             {
-                String directory = basedir + "Resources\\Algorithms\\" + algorithm.ToLower() + "\\" + version + "\\tables";
+                directory = basedir + "Algorithms\\" + algorithm.ToLower() + "\\" + version + "\\tables";
                 foreach (String file in readLines(directory + "\\ids.txt"))
                 {
                     if (file.Length != 0)
@@ -64,7 +72,7 @@ namespace TNMStagingCSharp.Src.Staging
             // loop over all schemas and load them into Map
             try
             {
-                String directory = basedir + "Resources\\Algorithms\\" + algorithm.ToLower() + "\\" + version + "\\schemas";
+                directory = basedir + "Algorithms\\" + algorithm.ToLower() + "\\" + version + "\\schemas";
 
                 foreach (String file in readLines(directory + "\\ids.txt"))
                 {
