@@ -35,7 +35,7 @@ Versions supported:
 
 ## Download
 
-To download the latest staging library.
+To download [the beta version of staging library - TNMStagingCSharp_v10.zip](https://github.com/imsweb/staging-client-csharp/releases/download/v1.0-beta/TNMStagingCSharp_v10.zip).
 
 Requirements: You will need the .NET Framework 4.5.2 installed to use this library. 
 
