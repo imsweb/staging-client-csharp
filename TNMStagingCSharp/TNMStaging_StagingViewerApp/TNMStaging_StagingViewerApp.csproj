@@ -33,6 +33,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="CommonMark, Version=0.1.0.0, Culture=neutral, PublicKeyToken=001ef8810438905d, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Debug\CommonMark.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -61,6 +65,12 @@
     <Compile Include="dlgHowTo.Designer.cs">
       <DependentUpon>dlgHowTo.cs</DependentUpon>
     </Compile>
+    <Compile Include="dlgTable.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="dlgTable.Designer.cs">
+      <DependentUpon>dlgTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="FrmMain.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -74,6 +84,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="dlgHowTo.resx">
       <DependentUpon>dlgHowTo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="dlgTable.resx">
+      <DependentUpon>dlgTable.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FrmMain.resx">
       <DependentUpon>FrmMain.cs</DependentUpon>
