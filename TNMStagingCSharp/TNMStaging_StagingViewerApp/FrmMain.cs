@@ -13,6 +13,9 @@ using System.Diagnostics;
 using TNMStagingCSharp.Src.Staging;
 using TNMStagingCSharp.Src.DecisionEngine;
 using TNMStagingCSharp.Src.Staging.Entities;
+using TNMStagingCSharp.Src.Staging.CS;
+using TNMStagingCSharp.Src.Staging.TNM;
+
 
 namespace TNMStaging_StagingViewerApp
 {
@@ -38,6 +41,9 @@ namespace TNMStaging_StagingViewerApp
         {
             InitializeComponent();
 
+            String sCaption = "Staging Algorithm Viewer - Version ";
+            sCaption += Globals.PROGRAM_VERSION;
+            Text = sCaption;
 
             lblSchemaTitle.Text = "";
             lblSchemaSubtitle.Text = "";
@@ -450,7 +456,9 @@ namespace TNMStaging_StagingViewerApp
             btnSchemaViewTable_Click(sender, e);
         }
 
-
+        //=======================================================================================================================================
+        // Staging Tab
+        //=======================================================================================================================================
         void SetupStageTesterTab()
         {
             String sSiteCode = "";
@@ -483,10 +491,17 @@ namespace TNMStaging_StagingViewerApp
 
         private void cmbxSite_SelectedIndexChanged(object sender, EventArgs e)
         {
+            cmbDescriminator.SelectedIndex = -1;
             LocateSchema();
         }
 
         private void cmbxHist_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            cmbDescriminator.SelectedIndex = -1;
+            LocateSchema();
+        }
+
+        private void cmbDescriminator_SelectedIndexChanged(object sender, EventArgs e)
         {
             LocateSchema();
         }
@@ -574,7 +589,24 @@ namespace TNMStaging_StagingViewerApp
             lblSummaryStageWarning.Visible = false;
         }
 
-        void GetSchemas(String site, String hist, String descrim)
+        private void DisableStaging()
+        {
+            dataGridVariables.Enabled = false;
+            btnStageCase.Enabled = false;
+            btnTablePath.Enabled = false;
+            btnClearInputs.Enabled = false;
+            btnSetDefaults.Enabled = false;
+            btnClearResults.Enabled = false;
+            dataGridResults.Enabled = false;
+            dataGridResults.Rows.Clear();
+            txtStageResult.Text = "";
+            richTxErrorMessage.Text = "";
+
+            lblSummaryStageWarning.Visible = true;
+        }
+
+
+        void GetSchemas(String site, String hist, String discrim)
         {
             //String sDescriminatorKey = "";
             //String sDescriminatorTableId = "";
@@ -605,69 +637,35 @@ namespace TNMStaging_StagingViewerApp
                     thisStagingSchema = lstSchemas[0];
                     bNoSchemasFound = false;
                 }
-                else
+                else if (lstSchemas.Count > 1)
                 {
-                    if (descrim.Length > 0)
+                    if (discrim.Length > 0)
                     {
-                        //lookup.setInput(TnmStagingData.SSF25_KEY, discrim);
+                        // Add the discriminator key to the lookup.
+                        SchemaLookup newlookup = new SchemaLookup(site, hist);
+                        newlookup.setInput(msCurrentDescriminatorKey, discrim);
+                        lstSchemas = mStaging.lookupSchema(newlookup);
+                        if (lstSchemas.Count == 1)
+                        {
+                            thisStagingSchema = lstSchemas[0];
+                            bNoSchemasFound = false;
+                        }
+                        else
+                        {
+                            // Load and show the Descriminator selection. 
+                            lstSchemas = mStaging.lookupSchema(lookup);
+                            LoadAndShowDiscriminator(lstSchemas);
+                            bNoSchemasFound = false;
+                        }
+                    }
+                    else
+                    {
+                        // Load and show the Descriminator selection. 
+                        LoadAndShowDiscriminator(lstSchemas);
+                        bNoSchemasFound = false;
                     }
                 }
             }
-
-            /*
-		pvStagingSchema = pStaging->lookupSchema(pLookup);
-		if (pvStagingSchema == NULL)
-		{
-			delete pLookup;
-			return NULL;
-		}		
-		iNumMappedSchemas = (int)pvStagingSchema->size();
-		if(iNumMappedSchemas == 1)
-		{
-			if (pvStagingSchema->at(0) != NULL)
-			{
-				pSchema = pStaging->getSchema(*pvStagingSchema->at(0)->GetId());
-				if (pSchema)
-				{
-					delete pLookup;
-					delete pvStagingSchema;
-					return pSchema->GetId()->c_str();
-				}
-			}
-		}
-		else if (iNumMappedSchemas > 1)
-		{
-			// get the discriminator key and add it to pLookup
-			const char *sKey = TNMStage_get_discrim_key(sAlgorithmName, sAlgorithmVersion, sSite, sHist);
-			if ((sKey != NULL) && (sDiscrim != NULL))
-			{
-				strKey = sKey;
-				strDis = sDiscrim;
-				pLookup->setInput(&strKey, &strDis);
-				if (pvStagingSchema)
-					delete pvStagingSchema;
-				pvStagingSchema = pStaging->lookupSchema(pLookup);
-				if ((pvStagingSchema == NULL) || (pvStagingSchema->size() == 0) || (pvStagingSchema->size() > 1))
-				{
-					delete pLookup;
-					return NULL;
-				}		
-				// get the schema ID
-				if (pvStagingSchema->at(0) != NULL)
-				{
-					pSchema = pStaging->getSchema(*pvStagingSchema->at(0)->GetId());
-					if (pSchema)
-					{
-						delete pLookup;
-						delete pvStagingSchema;
-						return pSchema->GetId()->c_str();
-					}
-				}
-			}
-		}
-        */
-
-
 
             if (bNoSchemasFound)
             {
@@ -686,11 +684,9 @@ namespace TNMStaging_StagingViewerApp
                 lblDescriminator.Visible = false;
                 cmbDescriminator.Items.Clear();
             }
-            else
+            else if (thisStagingSchema != null)
             {
                 msCurrentStagingSchemaID = thisStagingSchema.getId();
-                msCurrentDescriminatorKey = "";
-                msCurrentDescriminatorTableId = "";
 
                 dataGridVariables.Rows.Clear();
                 ClearStagingResults();
@@ -698,11 +694,17 @@ namespace TNMStaging_StagingViewerApp
                 this.lstSchemas.Items.Clear();
                 this.lstSchemas.Items.Add(thisStagingSchema.getName());
 
-                cmbDescriminator.Text = "";
-                cmbDescriminator.Visible = false;
-                lblDescriminator.Text = "Descriminator:";
-                lblDescriminator.Visible = false;
-                cmbDescriminator.Items.Clear();
+                if (discrim.Length == 0)
+                {
+                    msCurrentDescriminatorKey = "";
+                    msCurrentDescriminatorTableId = "";
+
+                    cmbDescriminator.Text = "";
+                    cmbDescriminator.Visible = false;
+                    lblDescriminator.Text = "Descriminator:";
+                    lblDescriminator.Visible = false;
+                    cmbDescriminator.Items.Clear();
+                }
 
                 PopulateVariablesList(msCurrentStagingSchemaID);
             }
@@ -901,6 +903,94 @@ namespace TNMStaging_StagingViewerApp
         }
 
 
+        private void LoadAndShowDiscriminator(List<StagingSchema> lstSchemas)
+        {
+            String sDiscrimKeyID = "";
+            String sDescrimTableId = "";
+            StagingSchema thisSchema = null;
+            HashSet<String> setDiscrim = null;
+            List<StagingSchemaInput> lstInputs = null;
+            StagingSchemaInput thisStagingSchemaInput = null;
+
+            for (int i = 0; (i < lstSchemas.Count) && (sDiscrimKeyID == ""); i++)
+            {
+                thisSchema = lstSchemas[i];
+                if (thisSchema != null)
+                {
+                    setDiscrim = thisSchema.getSchemaDiscriminators();
+                    if (setDiscrim.Count > 0)
+                    {
+                        sDiscrimKeyID = setDiscrim.First();
+                        lstInputs = thisSchema.getInputs();
+                        for (int inp = 0; inp < lstInputs.Count; inp++)
+                        {
+                            thisStagingSchemaInput = lstInputs[inp];
+                            if (thisStagingSchemaInput.getKey() == sDiscrimKeyID)
+                            {
+                                sDescrimTableId = thisStagingSchemaInput.getTable();
+                            }
+                        }
+                    }
+                }
+            }
+
+            msCurrentStagingSchemaID = "";
+            msCurrentDescriminatorKey = "";
+            msCurrentDescriminatorTableId = "";
+
+            if ((sDiscrimKeyID != "") && (sDescrimTableId != ""))
+            {
+                msCurrentDescriminatorKey = sDiscrimKeyID;
+                msCurrentDescriminatorTableId = sDescrimTableId;
+
+                // clear other controls
+                dataGridVariables.Rows.Clear();
+                ClearStagingResults();
+                cmbDescriminator.Text = "";
+                cmbDescriminator.Visible = true;
+                cmbDescriminator.Items.Clear();
+
+                // Populate the list box with the schema names
+                this.lstSchemas.Items.Clear();
+                for (int i = 0; i < lstSchemas.Count; i++)
+                {
+                    thisSchema = lstSchemas[i];
+                    this.lstSchemas.Items.Add(thisSchema.getName());
+                }
+
+                //*******************************************************************************
+                // Get the descriminator variable name and populate the descriminator value list
+                //*******************************************************************************
+
+                // Get the label from table pointed to by tableid
+                StagingTable thisTable = mStaging.getTable(sDescrimTableId);
+                if (thisTable != null)
+                {
+                    lblDescriminator.Text = thisTable.getTitle();
+                    lblDescriminator.Visible = true;
+                    cmbDescriminator.Left = 109;
+                    cmbDescriminator.Width = 802;
+                    lblDescriminator.Refresh();
+                    if (lblDescriminator.Left + lblDescriminator.Width > cmbDescriminator.Left)
+                    {
+                        cmbDescriminator.Left = lblDescriminator.Left + lblDescriminator.Width + 20;
+                        cmbDescriminator.Width = 802 - (cmbDescriminator.Left - 109);
+                    }
+                    // Populate the variable value selection list			
+                    int iNumRows = thisTable.getRawRows().Count;
+                    String sValue = "";
+                    String sLabel = "";
+                    for (int n = 0; n < iNumRows; n++)
+                    {
+                        sValue = thisTable.getRawRows()[n][0];
+                        sLabel = thisTable.getRawRows()[n][1];
+                        cmbDescriminator.Items.Add(sValue + " - " + sLabel);
+                    }
+                }
+            }
+        }
+
+
         private void btnClearAll_Click(object sender, EventArgs e)
         {
             // Enable the staging controls - just in case they are currently disabled 
@@ -927,73 +1017,11 @@ namespace TNMStaging_StagingViewerApp
             ClearStagingResults();
         }
 
-        private void cmbDescriminator_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            /*
-			 try
-			 {
-				 //
-				 // A new discriminator value has been selected, see what needs to be updated.
-				 //
-				 if ((cmbDescriminator->SelectedIndex >= 0) && (cmbxHist->SelectedIndex >= 0) && 
-					 (cmbxSite->SelectedIndex >= 0))
-				 {
-					 String ^ NewSchema = LocateSchemaUsingDescriminator();
-
-					 // If the schema is the same as the last one, then leave the input list alone
-					 if (NewSchema == "")
-						 LocateSchema();
-					 else if (NewSchema != gsCurrentSchemaID)
-					 {
-						 // hide the SS-2017 variable warning
-						 lblSummaryStageWarning->Visible = false;
-						 EnableStaging();
-
-						 // clear the schema list
-						 lstbxSchemas->Items->Clear();
-						 ClearStagingResults();
-
-						 char *sSchema = (char*)(void*)Marshal::StringToHGlobalAnsi(NewSchema->ToString());
-						 String ^SchemaS = gcnew String(sSchema);
-
-						 lstbxSchemas->Items->Add(gcnew String(TNMStage_get_schema_name(gpsLoadedAlgorithmName->c_str(), gpsLoadedAlgorithmVersion->c_str(), sSchema)));
-
-						 PopulateVariablesList(sSchema);
-
-						 Marshal::FreeHGlobal((IntPtr)sSchema);
-						 gsCurrentSchemaID = NewSchema;
-					 }				 
-				 }
-			 }
-			 catch (sgException &x)
-			 {
-				 x.AddCallpath("cmbDescriminator_SelectedIndexChanged()", "tnmMainScreen");
-				 DisplayException(x);		
-			 }
-			 catch (std::exception &e) 
-			 {
-				 sgException x;
-				 x.SetErrorMessageExplicit(e.what());
-				 DisplayException(x);
-			 }
-			 catch (...)
-			 {
-				 sgException x;
-				 x.AddCallpath("cmbDescriminator_SelectedIndexChanged()", "tnmMainScreen");
-				 x.SetErrorMessageExplicit("An internal exception was thrown.");
-				 DisplayException(x);
-			 }             
-             */
-        }
-
         private void btnStageCase_Click(object sender, EventArgs e)
         {
             if (lstSchemas.Items.Count == 1)
             {
-                if (mProvider.getAlgorithm().IndexOf("cs") >= 0)
-                    StageCSCase();
-                else // has to be TNM
-                    StageTNMCase();
+                StageCase();
             }
         }
 
@@ -1016,6 +1044,8 @@ namespace TNMStaging_StagingViewerApp
         {
             String sKey = "";
             String sDefault = "";
+            String sValueDescription = "";
+            String sTableID = "";
             StagingSchema thisSchema = null;
             IInput input = null;
             for (int i = 0; i < dataGridVariables.Rows.Count; i++)
@@ -1029,7 +1059,14 @@ namespace TNMStaging_StagingViewerApp
                     if (input != null)
                     {
                         sDefault = input.getDefault();
-                        dataGridVariables[(int)stageVarInputCols.SELECTED_VALUE, i].Value = sDefault;
+                        if (sDefault != null)
+                        {
+                            dataGridVariables[(int)stageVarInputCols.SELECTED_VALUE, i].Value = sDefault;
+                            sValueDescription = "";
+                            sTableID = input.getTable();
+                            if (sDefault.Length > 0) sValueDescription = GetLabelOfSelectedValue(sTableID, sDefault);
+                            dataGridVariables[(int)stageVarInputCols.VALUE_DESCRIPTION, i].Value = sValueDescription;
+                        }
                     }
                 }
             }
@@ -1038,16 +1075,6 @@ namespace TNMStaging_StagingViewerApp
         private void btnClearResults_Click(object sender, EventArgs e)
         {
             ClearStagingResults();
-        }
-
-        private void btnTablePath_Click(object sender, EventArgs e)
-        {
-            /*
-            dlgDisplayStagingPath ^ pDlg = gcnew dlgDisplayStagingPath(richTxStagingPath->Text);
-            if (pDlg->ShowDialog() == System::Windows::Forms::DialogResult::OK)
-            {
-            }
-            */
         }
 
         // For TNM Version 1.0, summary stage information is in the mappings, but that version
@@ -1071,7 +1098,7 @@ namespace TNMStaging_StagingViewerApp
             setNotAllowedStagingInputKeys.Add("seer_primary_tumor");
             // If the input list consists of SEER Mets, SEER Nodes, and SEER Primary Tumor then it only
             // summary stages.
-            bOnlySummaryStageInputs = (setStagingInputKeys == setNotAllowedStagingInputKeys);
+            bOnlySummaryStageInputs = (setStagingInputKeys.SetEquals(setNotAllowedStagingInputKeys));
             if (!bOnlySummaryStageInputs)
             {
                 setNotAllowedStagingInputKeys.Add("sex");
@@ -1196,21 +1223,6 @@ namespace TNMStaging_StagingViewerApp
                 }
             }
         }
-        private void DisableStaging()
-        {
-            dataGridVariables.Enabled = false;
-            btnStageCase.Enabled = false;
-            btnTablePath.Enabled = false;
-            btnClearInputs.Enabled = false;
-            btnSetDefaults.Enabled = false;
-            btnClearResults.Enabled = false;
-            dataGridResults.Enabled = false;
-            dataGridResults.Rows.Clear();
-            txtStageResult.Text = "";
-            richTxErrorMessage.Text = "";
-
-            lblSummaryStageWarning.Visible = true;
-        }
 
         private String GetLabelOfSelectedValue(String sTableId, String sDefault)
         {
@@ -1299,15 +1311,6 @@ namespace TNMStaging_StagingViewerApp
             return sValueDescription;
         }
 
-        private void StageCSCase()
-        {
-
-        }
-        private void StageTNMCase()
-        {
-
-        }
-
         private void dataGridVariables_CellEndEdit(object sender, DataGridViewCellEventArgs e)
         {
             ValidateVariableValue();
@@ -1349,15 +1352,12 @@ namespace TNMStaging_StagingViewerApp
                 // get schema id from the special edit box
                 if (msCurrentStagingSchemaID != "")
                 {
+                    sCellValue = "";
                     if (dataGridVariables[(int)stageVarInputCols.SELECTED_VALUE, rowIndex].Value != null)
                     {
-                        if (String.IsNullOrEmpty(dataGridVariables[(int)stageVarInputCols.SELECTED_VALUE, rowIndex].Value.ToString()))
-                            sCellValue = "";
-				        else
+                        if (!String.IsNullOrEmpty(dataGridVariables[(int)stageVarInputCols.SELECTED_VALUE, rowIndex].Value.ToString()))
 					        sCellValue = dataGridVariables[(int)stageVarInputCols.SELECTED_VALUE, rowIndex].Value.ToString();
                     }
-                    else
-                        sCellValue = "";
 
                     sTableID = dataGridVariables[(int)stageVarInputCols.TABLE_ID, rowIndex].Value.ToString();
                     sFieldKey = dataGridVariables[(int)stageVarInputCols.FIELD_KEY, rowIndex].Value.ToString();
@@ -1369,7 +1369,7 @@ namespace TNMStaging_StagingViewerApp
                     {
                         DataGridViewCell cell = dataGridVariables.Rows[rowIndex].Cells[columnIndex];
                         cell.Style.BackColor = System.Drawing.Color.Red;
-                        dataGridVariables[(int)stageVarInputCols.VALUE_DESCRIPTION, rowIndex].Value = sValueDescription;
+                        //dataGridVariables[(int)stageVarInputCols.VALUE_DESCRIPTION, rowIndex].Value = sValueDescription;
                     }
                     else // change it back to the original color - they might have corrected a value
                     {
@@ -1379,9 +1379,9 @@ namespace TNMStaging_StagingViewerApp
                         cell.Style.BackColor = cell_other.Style.BackColor;
 
                         // If a default value was supplied, then get it's description for the associated table.					
-                        if (sCellValue.Length > 0)
+                        if (sCellValue.Length <= 0)
                         {
-                            dataGridVariables[(int)stageVarInputCols.VALUE_DESCRIPTION, rowIndex].Value = sValueDescription;
+                            //dataGridVariables[(int)stageVarInputCols.VALUE_DESCRIPTION, rowIndex].Value = sValueDescription;
                             sValueDescription = GetLabelOfSelectedValue(sTableID, "");
                             dataGridVariables[(int)stageVarInputCols.VALUE_DESCRIPTION, rowIndex].Value = sValueDescription;
                         }
@@ -1431,5 +1431,123 @@ namespace TNMStaging_StagingViewerApp
                 }
             }
         }
+
+        private void btnTablePath_Click(object sender, EventArgs e)
+        {
+            dlgStagingPath dlg = new TNMStaging_StagingViewerApp.dlgStagingPath(richTxStagingPath.Text);
+            dlg.ShowDialog();
+        }
+
+        private void StageCase()
+        {
+            // First, clear the list of results
+            dataGridResults.Rows.Clear();
+            richTxErrorMessage.Text = "";
+            richTxStagingPath.Text = "";
+
+            // Set the inputs.
+            StagingData data = null;
+            bool bCSStage = (mProvider.getAlgorithm().IndexOf("cs") >= 0);
+            bool bTNMStage = (mProvider.getAlgorithm().IndexOf("tnm") >= 0);
+
+            if (bCSStage)           data = new CsStagingData();
+            else if (bTNMStage)     data = new TnmStagingData();
+            
+
+            String sSite = cmbxSite.Text;
+            if (sSite.IndexOf("-") > 0)
+            {
+                sSite = sSite.Substring(0, sSite.IndexOf("-") - 1);
+                sSite = sSite.Trim();
+            }
+            data.setInput("site", sSite);
+            data.setInput("hist", cmbxHist.Text);
+            data.setInput("year_dx", txtYearDx.Text);
+
+            if (cmbDescriminator.Visible && (msCurrentDescriminatorKey != ""))
+            {
+                String sDiscrimVal = cmbDescriminator.Text;
+                if (sDiscrimVal.IndexOf("-") > 0)
+                {
+                    sDiscrimVal = sDiscrimVal.Substring(0, sDiscrimVal.IndexOf("-") - 1);
+                    sDiscrimVal = sDiscrimVal.Trim();
+                }
+                data.setInput(msCurrentDescriminatorKey, sDiscrimVal);
+            }
+
+            String sFieldKey = "";
+            String sFieldValue = "";
+            for (int i = 0; i < dataGridVariables.Rows.Count; i++)
+            {
+                // get the variable 'key' - last column in the grid
+                sFieldKey = dataGridVariables[(int)stageVarInputCols.FIELD_KEY, i].Value.ToString();
+                sFieldValue = dataGridVariables[(int)stageVarInputCols.SELECTED_VALUE, i].Value.ToString();
+                data.setInput(sFieldKey, sFieldValue);
+            }
+
+            // Perform the staging
+            mStaging.stage(data);
+
+            
+            if (data.getResult() == StagingData.Result.STAGED) txtStageResult.Text = "Staged";
+            else if (data.getResult() == StagingData.Result.FAILED_MISSING_SITE_OR_HISTOLOGY) txtStageResult.Text = "Missing Site or Histology";
+            else if (data.getResult() == StagingData.Result.FAILED_NO_MATCHING_SCHEMA) txtStageResult.Text = "No Matching Schema";
+            else if (data.getResult() == StagingData.Result.FAILED_MULITPLE_MATCHING_SCHEMAS) txtStageResult.Text = "Multiple Matching Schemas";
+            else if (data.getResult() == StagingData.Result.FAILED_INVALID_YEAR_DX) txtStageResult.Text = "Invalid Year Dx";
+            else if (data.getResult() == StagingData.Result.FAILED_INVALID_INPUT) txtStageResult.Text = "Invalid Input";
+
+            List<Error> lstErrors = data.getErrors();
+            for (int i=0; i < lstErrors.Count; i++)
+            {
+                richTxErrorMessage.Text += lstErrors[i].getMessage() + "\r\n";
+            }
+            List<string> lstPath = data.getPath();
+            for (int i = 0; i < lstPath.Count; i++)
+            {
+                richTxStagingPath.Text += lstPath[i] + "\r\n";
+            }
+
+            // Display the Outputs
+            Dictionary<string, string> dictOut = data.getOutput();
+            int iRow = 0;
+            String sFieldName = "";
+            foreach (KeyValuePair<string, string> entry in dictOut)
+            {
+                if ((entry.Key != "schema_number") && (entry.Key != "csver_derived"))
+                {
+                    // Put the output variables in the output list
+                    iRow = dataGridResults.RowCount;
+                    dataGridResults.RowCount++;
+                    sFieldName = GetSchemaOutputName(data.getSchemaId(), entry.Key);
+                   
+                    dataGridResults[(int)stageVarOutputCols.OUTPUT_NAME, iRow].Value = sFieldName;
+                    dataGridResults[(int)stageVarOutputCols.OUTPUT_VALUE, iRow].Value = entry.Value;
+                }
+            }
+        }
+
+        private String GetSchemaOutputName(String sSchemaId, String sKey)
+        {
+            String sRetval = sKey;
+            StagingSchema thisSchema = mStaging.getSchema(sSchemaId);
+            List<StagingSchemaOutput> lstOutputs = null;
+            if (thisSchema != null)
+            {
+                lstOutputs = thisSchema.getOutputs();
+            }
+            if (lstOutputs != null)
+            {
+                for (int i=0; i < lstOutputs.Count; i++)
+                {
+                    if (lstOutputs[i].getKey() == sKey)
+                    {
+                        sRetval = lstOutputs[i].getName();
+                    }
+                }
+            }
+
+            return sRetval;
+        }
+
     }
 }

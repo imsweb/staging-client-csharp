@@ -45,7 +45,7 @@
             this.panel1.Location = new System.Drawing.Point(10, 25);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(673, 144);
-            this.panel1.TabIndex = 20;
+            this.panel1.TabIndex = 1;
             // 
             // webBrPickerNotes
             // 
@@ -56,7 +56,7 @@
             this.webBrPickerNotes.MinimumSize = new System.Drawing.Size(20, 20);
             this.webBrPickerNotes.Name = "webBrPickerNotes";
             this.webBrPickerNotes.Size = new System.Drawing.Size(671, 142);
-            this.webBrPickerNotes.TabIndex = 0;
+            this.webBrPickerNotes.TabIndex = 2;
             this.webBrPickerNotes.WebBrowserShortcutsEnabled = false;
             // 
             // label2
@@ -65,7 +65,7 @@
             this.label2.Location = new System.Drawing.Point(20, 456);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(184, 13);
-            this.label2.TabIndex = 19;
+            this.label2.TabIndex = 4;
             this.label2.Text = "** Double click on a value to select it.";
             // 
             // dataGridViewPicker
@@ -81,7 +81,7 @@
             this.dataGridViewPicker.RowHeadersVisible = false;
             this.dataGridViewPicker.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
             this.dataGridViewPicker.Size = new System.Drawing.Size(673, 275);
-            this.dataGridViewPicker.TabIndex = 18;
+            this.dataGridViewPicker.TabIndex = 3;
             this.dataGridViewPicker.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewPicker_CellContentDoubleClick);
             this.dataGridViewPicker.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewPicker_CellDoubleClick);
             // 
@@ -92,7 +92,7 @@
             this.label1.Location = new System.Drawing.Point(8, 9);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(44, 13);
-            this.label1.TabIndex = 17;
+            this.label1.TabIndex = 0;
             this.label1.Text = "Notes:";
             // 
             // btnClose
@@ -100,7 +100,7 @@
             this.btnClose.Location = new System.Drawing.Point(608, 456);
             this.btnClose.Name = "btnClose";
             this.btnClose.Size = new System.Drawing.Size(75, 23);
-            this.btnClose.TabIndex = 16;
+            this.btnClose.TabIndex = 5;
             this.btnClose.Text = "Close";
             this.btnClose.UseVisualStyleBackColor = true;
             this.btnClose.Click += new System.EventHandler(this.btnClose_Click);

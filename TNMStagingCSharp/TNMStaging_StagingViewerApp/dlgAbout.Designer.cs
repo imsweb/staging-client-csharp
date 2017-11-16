@@ -96,7 +96,7 @@
             this.label6.Location = new System.Drawing.Point(34, 196);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(72, 13);
-            this.label6.TabIndex = 5;
+            this.label6.TabIndex = 10;
             this.label6.Text = "Tech Support";
             // 
             // label7
@@ -114,7 +114,7 @@
             this.label8.Location = new System.Drawing.Point(34, 170);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(67, 13);
-            this.label8.TabIndex = 7;
+            this.label8.TabIndex = 8;
             this.label8.Text = "Git Hub Wiki";
             // 
             // linkLabel1
@@ -123,7 +123,7 @@
             this.linkLabel1.Location = new System.Drawing.Point(138, 119);
             this.linkLabel1.Name = "linkLabel1";
             this.linkLabel1.Size = new System.Drawing.Size(162, 13);
-            this.linkLabel1.TabIndex = 8;
+            this.linkLabel1.TabIndex = 5;
             this.linkLabel1.TabStop = true;
             this.linkLabel1.Tag = "https://staging.seer.cancer.gov/";
             this.linkLabel1.Text = "https://staging.seer.cancer.gov/";
@@ -135,7 +135,7 @@
             this.linkLabel2.Location = new System.Drawing.Point(138, 143);
             this.linkLabel2.Name = "linkLabel2";
             this.linkLabel2.Size = new System.Drawing.Size(237, 13);
-            this.linkLabel2.TabIndex = 9;
+            this.linkLabel2.TabIndex = 7;
             this.linkLabel2.TabStop = true;
             this.linkLabel2.Tag = "";
             this.linkLabel2.Text = "https://github.com/imsweb/staging-client-csharp";
@@ -147,7 +147,7 @@
             this.linkLabel3.Location = new System.Drawing.Point(138, 170);
             this.linkLabel3.Name = "linkLabel3";
             this.linkLabel3.Size = new System.Drawing.Size(260, 13);
-            this.linkLabel3.TabIndex = 10;
+            this.linkLabel3.TabIndex = 9;
             this.linkLabel3.TabStop = true;
             this.linkLabel3.Tag = "";
             this.linkLabel3.Text = "https://github.com/imsweb/staging-client-csharp/wiki";

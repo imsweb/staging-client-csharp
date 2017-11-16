@@ -41,12 +41,12 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle13 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle14 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle15 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle16 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle17 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle18 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle13 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle14 = new System.Windows.Forms.DataGridViewCellStyle();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.mnuHelp = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuHelpHowToUse = new System.Windows.Forms.ToolStripMenuItem();
@@ -103,8 +103,6 @@
             this.grpResults = new System.Windows.Forms.GroupBox();
             this.btnTablePath = new System.Windows.Forms.Button();
             this.dataGridResults = new System.Windows.Forms.DataGridView();
-            this.dataGridViewTextBoxColumn9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn10 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.txtStageResult = new System.Windows.Forms.TextBox();
             this.label89 = new System.Windows.Forms.Label();
             this.label28 = new System.Windows.Forms.Label();
@@ -130,6 +128,9 @@
             this.label1 = new System.Windows.Forms.Label();
             this.cmbAlgorithms = new System.Windows.Forms.ComboBox();
             this.tmrLoad = new System.Windows.Forms.Timer(this.components);
+            this.richTxStagingPath = new System.Windows.Forms.RichTextBox();
+            this.dataGridViewTextBoxColumn9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn10 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.menuStrip1.SuspendLayout();
             this.tabControl.SuspendLayout();
             this.tabSchemas.SuspendLayout();
@@ -221,7 +222,7 @@
             this.btnSchemaViewTable.Location = new System.Drawing.Point(11, 248);
             this.btnSchemaViewTable.Name = "btnSchemaViewTable";
             this.btnSchemaViewTable.Size = new System.Drawing.Size(83, 23);
-            this.btnSchemaViewTable.TabIndex = 90;
+            this.btnSchemaViewTable.TabIndex = 35;
             this.btnSchemaViewTable.Text = "&View Table...";
             this.btnSchemaViewTable.UseVisualStyleBackColor = true;
             this.btnSchemaViewTable.Click += new System.EventHandler(this.btnSchemaViewTable_Click);
@@ -229,10 +230,10 @@
             // btnSchemaViewSelection
             // 
             this.btnSchemaViewSelection.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnSchemaViewSelection.Location = new System.Drawing.Point(806, 10);
+            this.btnSchemaViewSelection.Location = new System.Drawing.Point(806, 12);
             this.btnSchemaViewSelection.Name = "btnSchemaViewSelection";
             this.btnSchemaViewSelection.Size = new System.Drawing.Size(180, 23);
-            this.btnSchemaViewSelection.TabIndex = 89;
+            this.btnSchemaViewSelection.TabIndex = 22;
             this.btnSchemaViewSelection.Text = "&View Schema Selection Criteria...";
             this.btnSchemaViewSelection.UseVisualStyleBackColor = true;
             this.btnSchemaViewSelection.Click += new System.EventHandler(this.btnSchemaViewSelection_Click);
@@ -273,7 +274,7 @@
             this.dataGridOutputs.ShowCellErrors = false;
             this.dataGridOutputs.ShowRowErrors = false;
             this.dataGridOutputs.Size = new System.Drawing.Size(855, 144);
-            this.dataGridOutputs.TabIndex = 84;
+            this.dataGridOutputs.TabIndex = 37;
             // 
             // dataGridViewTextBoxColumn1
             // 
@@ -358,7 +359,7 @@
             this.dataGridStagingInputs.ShowCellErrors = false;
             this.dataGridStagingInputs.ShowRowErrors = false;
             this.dataGridStagingInputs.Size = new System.Drawing.Size(854, 190);
-            this.dataGridStagingInputs.TabIndex = 80;
+            this.dataGridStagingInputs.TabIndex = 34;
             this.dataGridStagingInputs.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridStagingInputs_CellDoubleClick);
             // 
             // dataGridViewTextBoxColumn12
@@ -440,7 +441,7 @@
             this.pnlSchemaDescr.Location = new System.Drawing.Point(606, 91);
             this.pnlSchemaDescr.Name = "pnlSchemaDescr";
             this.pnlSchemaDescr.Size = new System.Drawing.Size(380, 128);
-            this.pnlSchemaDescr.TabIndex = 23;
+            this.pnlSchemaDescr.TabIndex = 31;
             // 
             // wbSchemaDescr
             // 
@@ -450,7 +451,7 @@
             this.wbSchemaDescr.MinimumSize = new System.Drawing.Size(20, 20);
             this.wbSchemaDescr.Name = "wbSchemaDescr";
             this.wbSchemaDescr.Size = new System.Drawing.Size(378, 126);
-            this.wbSchemaDescr.TabIndex = 22;
+            this.wbSchemaDescr.TabIndex = 32;
             this.wbSchemaDescr.WebBrowserShortcutsEnabled = false;
             // 
             // pnlSchemaNotes
@@ -460,7 +461,7 @@
             this.pnlSchemaNotes.Location = new System.Drawing.Point(130, 90);
             this.pnlSchemaNotes.Name = "pnlSchemaNotes";
             this.pnlSchemaNotes.Size = new System.Drawing.Size(380, 128);
-            this.pnlSchemaNotes.TabIndex = 22;
+            this.pnlSchemaNotes.TabIndex = 28;
             // 
             // wbSchemaNotes
             // 
@@ -470,7 +471,7 @@
             this.wbSchemaNotes.MinimumSize = new System.Drawing.Size(20, 20);
             this.wbSchemaNotes.Name = "wbSchemaNotes";
             this.wbSchemaNotes.Size = new System.Drawing.Size(378, 126);
-            this.wbSchemaNotes.TabIndex = 22;
+            this.wbSchemaNotes.TabIndex = 29;
             this.wbSchemaNotes.WebBrowserShortcutsEnabled = false;
             // 
             // lblSchemaSubtitle
@@ -480,7 +481,7 @@
             this.lblSchemaSubtitle.Location = new System.Drawing.Point(127, 67);
             this.lblSchemaSubtitle.Name = "lblSchemaSubtitle";
             this.lblSchemaSubtitle.Size = new System.Drawing.Size(91, 13);
-            this.lblSchemaSubtitle.TabIndex = 20;
+            this.lblSchemaSubtitle.TabIndex = 26;
             this.lblSchemaSubtitle.Text = "lblSchemaSubtitle";
             // 
             // lblSchemaTitle
@@ -490,7 +491,7 @@
             this.lblSchemaTitle.Location = new System.Drawing.Point(127, 45);
             this.lblSchemaTitle.Name = "lblSchemaTitle";
             this.lblSchemaTitle.Size = new System.Drawing.Size(76, 13);
-            this.lblSchemaTitle.TabIndex = 19;
+            this.lblSchemaTitle.TabIndex = 24;
             this.lblSchemaTitle.Text = "lblSchemaTitle";
             // 
             // cmbSchemaSelect
@@ -500,7 +501,7 @@
             this.cmbSchemaSelect.Location = new System.Drawing.Point(130, 12);
             this.cmbSchemaSelect.Name = "cmbSchemaSelect";
             this.cmbSchemaSelect.Size = new System.Drawing.Size(297, 21);
-            this.cmbSchemaSelect.TabIndex = 18;
+            this.cmbSchemaSelect.TabIndex = 21;
             this.cmbSchemaSelect.SelectedIndexChanged += new System.EventHandler(this.cmbSchemaSelect_SelectedIndexChanged);
             // 
             // label11
@@ -510,7 +511,7 @@
             this.label11.Location = new System.Drawing.Point(8, 435);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(55, 13);
-            this.label11.TabIndex = 17;
+            this.label11.TabIndex = 36;
             this.label11.Text = "Outputs:";
             // 
             // label10
@@ -520,7 +521,7 @@
             this.label10.Location = new System.Drawing.Point(8, 232);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(46, 13);
-            this.label10.TabIndex = 16;
+            this.label10.TabIndex = 33;
             this.label10.Text = "Inputs:";
             // 
             // label9
@@ -530,7 +531,7 @@
             this.label9.Location = new System.Drawing.Point(525, 90);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(75, 13);
-            this.label9.TabIndex = 15;
+            this.label9.TabIndex = 30;
             this.label9.Text = "Description:";
             // 
             // label8
@@ -540,7 +541,7 @@
             this.label8.Location = new System.Drawing.Point(8, 90);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(44, 13);
-            this.label8.TabIndex = 14;
+            this.label8.TabIndex = 27;
             this.label8.Text = "Notes:";
             // 
             // label7
@@ -550,7 +551,7 @@
             this.label7.Location = new System.Drawing.Point(8, 67);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(54, 13);
-            this.label7.TabIndex = 13;
+            this.label7.TabIndex = 25;
             this.label7.Text = "Subtitle:";
             // 
             // label6
@@ -560,7 +561,7 @@
             this.label6.Location = new System.Drawing.Point(8, 45);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(36, 13);
-            this.label6.TabIndex = 12;
+            this.label6.TabIndex = 23;
             this.label6.Text = "Title:";
             // 
             // label5
@@ -570,7 +571,7 @@
             this.label5.Location = new System.Drawing.Point(8, 15);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(107, 13);
-            this.label5.TabIndex = 11;
+            this.label5.TabIndex = 20;
             this.label5.Text = "Select a Schema:";
             // 
             // tabStage
@@ -608,10 +609,10 @@
             this.lblSummaryStageWarning.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.lblSummaryStageWarning.BackColor = System.Drawing.Color.LightBlue;
             this.lblSummaryStageWarning.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblSummaryStageWarning.Location = new System.Drawing.Point(15, 219);
+            this.lblSummaryStageWarning.Location = new System.Drawing.Point(28, 218);
             this.lblSummaryStageWarning.Name = "lblSummaryStageWarning";
             this.lblSummaryStageWarning.Size = new System.Drawing.Size(940, 44);
-            this.lblSummaryStageWarning.TabIndex = 139;
+            this.lblSummaryStageWarning.TabIndex = 112;
             this.lblSummaryStageWarning.Text = "You are working with a site/histology that only summary stages.  You will need to" +
     " directly code it using the SEER Summary Stage 2000 manual.";
             this.lblSummaryStageWarning.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -625,7 +626,7 @@
             this.lblDblMessage.Location = new System.Drawing.Point(166, 341);
             this.lblDblMessage.Name = "lblDblMessage";
             this.lblDblMessage.Size = new System.Drawing.Size(222, 13);
-            this.lblDblMessage.TabIndex = 138;
+            this.lblDblMessage.TabIndex = 114;
             this.lblDblMessage.Text = "(Double-click on a row to view the field table.)";
             // 
             // lblInputVariables
@@ -635,36 +636,36 @@
             this.lblInputVariables.Location = new System.Drawing.Point(5, 126);
             this.lblInputVariables.Name = "lblInputVariables";
             this.lblInputVariables.Size = new System.Drawing.Size(220, 13);
-            this.lblInputVariables.TabIndex = 137;
+            this.lblInputVariables.TabIndex = 111;
             this.lblInputVariables.Text = "Input Variables Required For Staging:";
             // 
             // txtYearDx
             // 
-            this.txtYearDx.Location = new System.Drawing.Point(116, 68);
+            this.txtYearDx.Location = new System.Drawing.Point(109, 63);
             this.txtYearDx.MaxLength = 4;
             this.txtYearDx.Name = "txtYearDx";
             this.txtYearDx.Size = new System.Drawing.Size(64, 20);
-            this.txtYearDx.TabIndex = 136;
+            this.txtYearDx.TabIndex = 108;
             this.txtYearDx.Leave += new System.EventHandler(this.txbxYearDx_Leave);
             // 
             // lblYearDx
             // 
             this.lblYearDx.AutoSize = true;
             this.lblYearDx.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblYearDx.Location = new System.Drawing.Point(5, 71);
+            this.lblYearDx.Location = new System.Drawing.Point(5, 66);
             this.lblYearDx.Name = "lblYearDx";
             this.lblYearDx.Size = new System.Drawing.Size(56, 13);
-            this.lblYearDx.TabIndex = 135;
+            this.lblYearDx.TabIndex = 107;
             this.lblYearDx.Text = "Year Dx:";
             // 
             // lblSchemaListHeader
             // 
             this.lblSchemaListHeader.AutoSize = true;
             this.lblSchemaListHeader.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblSchemaListHeader.Location = new System.Drawing.Point(510, 12);
+            this.lblSchemaListHeader.Location = new System.Drawing.Point(510, 15);
             this.lblSchemaListHeader.Name = "lblSchemaListHeader";
             this.lblSchemaListHeader.Size = new System.Drawing.Size(126, 13);
-            this.lblSchemaListHeader.TabIndex = 127;
+            this.lblSchemaListHeader.TabIndex = 102;
             this.lblSchemaListHeader.Text = "Schema(s) Detected:";
             // 
             // btnClearResults
@@ -673,7 +674,7 @@
             this.btnClearResults.Location = new System.Drawing.Point(867, 341);
             this.btnClearResults.Name = "btnClearResults";
             this.btnClearResults.Size = new System.Drawing.Size(125, 23);
-            this.btnClearResults.TabIndex = 134;
+            this.btnClearResults.TabIndex = 117;
             this.btnClearResults.Text = "Clear Staging Results";
             this.btnClearResults.UseVisualStyleBackColor = true;
             this.btnClearResults.Click += new System.EventHandler(this.btnClearResults_Click);
@@ -682,20 +683,20 @@
             // 
             this.cmbxSite.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbxSite.FormattingEnabled = true;
-            this.cmbxSite.Location = new System.Drawing.Point(116, 17);
+            this.cmbxSite.Location = new System.Drawing.Point(109, 12);
             this.cmbxSite.Name = "cmbxSite";
-            this.cmbxSite.Size = new System.Drawing.Size(362, 21);
-            this.cmbxSite.TabIndex = 120;
+            this.cmbxSite.Size = new System.Drawing.Size(369, 21);
+            this.cmbxSite.TabIndex = 101;
             this.cmbxSite.SelectedIndexChanged += new System.EventHandler(this.cmbxSite_SelectedIndexChanged);
             // 
             // label23
             // 
             this.label23.AutoSize = true;
             this.label23.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label23.Location = new System.Drawing.Point(5, 20);
+            this.label23.Location = new System.Drawing.Point(5, 15);
             this.label23.Name = "label23";
             this.label23.Size = new System.Drawing.Size(33, 13);
-            this.label23.TabIndex = 121;
+            this.label23.TabIndex = 100;
             this.label23.Text = "Site:";
             // 
             // btnClearAll
@@ -703,7 +704,7 @@
             this.btnClearAll.Location = new System.Drawing.Point(917, 12);
             this.btnClearAll.Name = "btnClearAll";
             this.btnClearAll.Size = new System.Drawing.Size(75, 23);
-            this.btnClearAll.TabIndex = 133;
+            this.btnClearAll.TabIndex = 104;
             this.btnClearAll.Text = "Clear All";
             this.btnClearAll.UseVisualStyleBackColor = true;
             this.btnClearAll.Click += new System.EventHandler(this.btnClearAll_Click);
@@ -712,30 +713,30 @@
             // 
             this.cmbxHist.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbxHist.FormattingEnabled = true;
-            this.cmbxHist.Location = new System.Drawing.Point(116, 42);
+            this.cmbxHist.Location = new System.Drawing.Point(109, 37);
             this.cmbxHist.Name = "cmbxHist";
             this.cmbxHist.Size = new System.Drawing.Size(97, 21);
-            this.cmbxHist.TabIndex = 122;
+            this.cmbxHist.TabIndex = 106;
             this.cmbxHist.SelectedIndexChanged += new System.EventHandler(this.cmbxHist_SelectedIndexChanged);
             // 
             // label16
             // 
             this.label16.AutoSize = true;
             this.label16.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label16.Location = new System.Drawing.Point(5, 45);
+            this.label16.Location = new System.Drawing.Point(5, 40);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(63, 13);
-            this.label16.TabIndex = 123;
+            this.label16.TabIndex = 105;
             this.label16.Text = "Histology:";
             // 
             // lblDescriminator
             // 
             this.lblDescriminator.AutoSize = true;
             this.lblDescriminator.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblDescriminator.Location = new System.Drawing.Point(5, 96);
+            this.lblDescriminator.Location = new System.Drawing.Point(5, 91);
             this.lblDescriminator.Name = "lblDescriminator";
             this.lblDescriminator.Size = new System.Drawing.Size(84, 13);
-            this.lblDescriminator.TabIndex = 125;
+            this.lblDescriminator.TabIndex = 109;
             this.lblDescriminator.Text = "Discriminator:";
             this.lblDescriminator.Visible = false;
             // 
@@ -745,16 +746,16 @@
             this.lstSchemas.Location = new System.Drawing.Point(642, 12);
             this.lstSchemas.Name = "lstSchemas";
             this.lstSchemas.Size = new System.Drawing.Size(269, 69);
-            this.lstSchemas.TabIndex = 126;
+            this.lstSchemas.TabIndex = 103;
             // 
             // cmbDescriminator
             // 
             this.cmbDescriminator.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbDescriminator.FormattingEnabled = true;
-            this.cmbDescriminator.Location = new System.Drawing.Point(116, 93);
+            this.cmbDescriminator.Location = new System.Drawing.Point(109, 88);
             this.cmbDescriminator.Name = "cmbDescriminator";
-            this.cmbDescriminator.Size = new System.Drawing.Size(795, 21);
-            this.cmbDescriminator.TabIndex = 124;
+            this.cmbDescriminator.Size = new System.Drawing.Size(802, 21);
+            this.cmbDescriminator.TabIndex = 110;
             this.cmbDescriminator.Visible = false;
             this.cmbDescriminator.SelectedIndexChanged += new System.EventHandler(this.cmbDescriminator_SelectedIndexChanged);
             // 
@@ -764,7 +765,7 @@
             this.btnSetDefaults.Location = new System.Drawing.Point(764, 341);
             this.btnSetDefaults.Name = "btnSetDefaults";
             this.btnSetDefaults.Size = new System.Drawing.Size(97, 23);
-            this.btnSetDefaults.TabIndex = 132;
+            this.btnSetDefaults.TabIndex = 116;
             this.btnSetDefaults.Text = "Set All Defaults";
             this.btnSetDefaults.UseVisualStyleBackColor = true;
             this.btnSetDefaults.Click += new System.EventHandler(this.btnSetDefaults_Click);
@@ -775,7 +776,7 @@
             this.btnClearInputs.Location = new System.Drawing.Point(683, 341);
             this.btnClearInputs.Name = "btnClearInputs";
             this.btnClearInputs.Size = new System.Drawing.Size(75, 23);
-            this.btnClearInputs.TabIndex = 131;
+            this.btnClearInputs.TabIndex = 115;
             this.btnClearInputs.Text = "Clear Inputs";
             this.btnClearInputs.UseVisualStyleBackColor = true;
             this.btnClearInputs.Click += new System.EventHandler(this.btnClearInputs_Click);
@@ -790,11 +791,12 @@
             this.grpResults.Controls.Add(this.label89);
             this.grpResults.Controls.Add(this.label28);
             this.grpResults.Controls.Add(this.richTxErrorMessage);
+            this.grpResults.Controls.Add(this.richTxStagingPath);
             this.grpResults.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.grpResults.Location = new System.Drawing.Point(8, 375);
             this.grpResults.Name = "grpResults";
             this.grpResults.Size = new System.Drawing.Size(984, 212);
-            this.grpResults.TabIndex = 130;
+            this.grpResults.TabIndex = 118;
             this.grpResults.TabStop = false;
             this.grpResults.Text = "Results";
             // 
@@ -804,8 +806,8 @@
             this.btnTablePath.Location = new System.Drawing.Point(882, 17);
             this.btnTablePath.Name = "btnTablePath";
             this.btnTablePath.Size = new System.Drawing.Size(91, 23);
-            this.btnTablePath.TabIndex = 85;
-            this.btnTablePath.Text = "Staging Path";
+            this.btnTablePath.TabIndex = 122;
+            this.btnTablePath.Text = "Staging Path...";
             this.btnTablePath.UseVisualStyleBackColor = true;
             this.btnTablePath.Click += new System.EventHandler(this.btnTablePath_Click);
             // 
@@ -833,51 +835,30 @@
             this.dataGridResults.Name = "dataGridResults";
             this.dataGridResults.ReadOnly = true;
             this.dataGridResults.RowHeadersVisible = false;
+            this.dataGridResults.RowTemplate.DefaultCellStyle.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dataGridResults.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.dataGridResults.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.ColumnHeaderSelect;
             this.dataGridResults.Size = new System.Drawing.Size(392, 181);
-            this.dataGridResults.TabIndex = 84;
-            // 
-            // dataGridViewTextBoxColumn9
-            // 
-            dataGridViewCellStyle13.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle13.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridViewTextBoxColumn9.DefaultCellStyle = dataGridViewCellStyle13;
-            this.dataGridViewTextBoxColumn9.HeaderText = "Name";
-            this.dataGridViewTextBoxColumn9.Name = "dataGridViewTextBoxColumn9";
-            this.dataGridViewTextBoxColumn9.ReadOnly = true;
-            this.dataGridViewTextBoxColumn9.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.dataGridViewTextBoxColumn9.Width = 300;
-            // 
-            // dataGridViewTextBoxColumn10
-            // 
-            dataGridViewCellStyle14.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle14.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridViewTextBoxColumn10.DefaultCellStyle = dataGridViewCellStyle14;
-            this.dataGridViewTextBoxColumn10.FillWeight = 120F;
-            this.dataGridViewTextBoxColumn10.HeaderText = "Value";
-            this.dataGridViewTextBoxColumn10.Name = "dataGridViewTextBoxColumn10";
-            this.dataGridViewTextBoxColumn10.ReadOnly = true;
-            this.dataGridViewTextBoxColumn10.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.dataGridViewTextBoxColumn10.Width = 70;
+            this.dataGridResults.TabIndex = 119;
             // 
             // txtStageResult
             // 
-            this.txtStageResult.Location = new System.Drawing.Point(489, 19);
+            this.txtStageResult.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtStageResult.Location = new System.Drawing.Point(505, 19);
             this.txtStageResult.Name = "txtStageResult";
             this.txtStageResult.ReadOnly = true;
-            this.txtStageResult.Size = new System.Drawing.Size(387, 20);
-            this.txtStageResult.TabIndex = 24;
+            this.txtStageResult.Size = new System.Drawing.Size(371, 20);
+            this.txtStageResult.TabIndex = 121;
             this.txtStageResult.WordWrap = false;
             // 
             // label89
             // 
             this.label89.AutoSize = true;
-            this.label89.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label89.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label89.Location = new System.Drawing.Point(412, 23);
             this.label89.Name = "label89";
-            this.label89.Size = new System.Drawing.Size(71, 13);
-            this.label89.TabIndex = 23;
+            this.label89.Size = new System.Drawing.Size(84, 13);
+            this.label89.TabIndex = 120;
             this.label89.Text = "Stage Result:";
             // 
             // label28
@@ -885,11 +866,11 @@
             this.label28.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.label28.AutoSize = true;
-            this.label28.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label28.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label28.Location = new System.Drawing.Point(412, 49);
             this.label28.Name = "label28";
-            this.label28.Size = new System.Drawing.Size(58, 13);
-            this.label28.TabIndex = 21;
+            this.label28.Size = new System.Drawing.Size(67, 13);
+            this.label28.TabIndex = 123;
             this.label28.Text = "Messages:";
             // 
             // richTxErrorMessage
@@ -905,7 +886,7 @@
             this.richTxErrorMessage.Name = "richTxErrorMessage";
             this.richTxErrorMessage.ReadOnly = true;
             this.richTxErrorMessage.Size = new System.Drawing.Size(559, 135);
-            this.richTxErrorMessage.TabIndex = 19;
+            this.richTxErrorMessage.TabIndex = 124;
             this.richTxErrorMessage.Text = "";
             // 
             // btnStageCase
@@ -914,7 +895,7 @@
             this.btnStageCase.Location = new System.Drawing.Point(8, 341);
             this.btnStageCase.Name = "btnStageCase";
             this.btnStageCase.Size = new System.Drawing.Size(122, 23);
-            this.btnStageCase.TabIndex = 129;
+            this.btnStageCase.TabIndex = 113;
             this.btnStageCase.Text = "Stage Case";
             this.btnStageCase.UseVisualStyleBackColor = true;
             this.btnStageCase.Click += new System.EventHandler(this.btnStageCase_Click);
@@ -1024,7 +1005,7 @@
             this.btnClose.Location = new System.Drawing.Point(894, 4);
             this.btnClose.Name = "btnClose";
             this.btnClose.Size = new System.Drawing.Size(110, 27);
-            this.btnClose.TabIndex = 0;
+            this.btnClose.TabIndex = 1000;
             this.btnClose.Text = "&Close";
             this.btnClose.UseVisualStyleBackColor = true;
             this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
@@ -1052,7 +1033,7 @@
             this.pbLoad.Location = new System.Drawing.Point(172, 29);
             this.pbLoad.Name = "pbLoad";
             this.pbLoad.Size = new System.Drawing.Size(243, 19);
-            this.pbLoad.TabIndex = 18;
+            this.pbLoad.TabIndex = 6;
             this.pbLoad.Visible = false;
             // 
             // lblAlgorithmName
@@ -1070,7 +1051,7 @@
             this.lblNumSchemas.Location = new System.Drawing.Point(625, 6);
             this.lblNumSchemas.Name = "lblNumSchemas";
             this.lblNumSchemas.Size = new System.Drawing.Size(83, 13);
-            this.lblNumSchemas.TabIndex = 16;
+            this.lblNumSchemas.TabIndex = 3;
             this.lblNumSchemas.Text = "lblNumSchemas";
             // 
             // lblDLLVersion
@@ -1081,7 +1062,7 @@
             this.lblDLLVersion.Location = new System.Drawing.Point(912, 6);
             this.lblDLLVersion.Name = "lblDLLVersion";
             this.lblDLLVersion.Size = new System.Drawing.Size(72, 13);
-            this.lblDLLVersion.TabIndex = 15;
+            this.lblDLLVersion.TabIndex = 5;
             this.lblDLLVersion.Text = "lblDLLVersion";
             // 
             // lblDLLDate
@@ -1092,7 +1073,7 @@
             this.lblDLLDate.Location = new System.Drawing.Point(912, 29);
             this.lblDLLDate.Name = "lblDLLDate";
             this.lblDLLDate.Size = new System.Drawing.Size(60, 13);
-            this.lblDLLDate.TabIndex = 14;
+            this.lblDLLDate.TabIndex = 8;
             this.lblDLLDate.Text = "lblDLLDate";
             // 
             // label4
@@ -1103,7 +1084,7 @@
             this.label4.Location = new System.Drawing.Point(769, 29);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(34, 13);
-            this.label4.TabIndex = 13;
+            this.label4.TabIndex = 7;
             this.label4.Text = "Date";
             // 
             // label3
@@ -1114,7 +1095,7 @@
             this.label3.Location = new System.Drawing.Point(769, 6);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(123, 13);
-            this.label3.TabIndex = 12;
+            this.label3.TabIndex = 4;
             this.label3.Text = "Staging DLL Version";
             // 
             // label2
@@ -1124,7 +1105,7 @@
             this.label2.Location = new System.Drawing.Point(433, 6);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(176, 13);
-            this.label2.TabIndex = 11;
+            this.label2.TabIndex = 2;
             this.label2.Text = "Number of Available Schemas";
             // 
             // label1
@@ -1134,7 +1115,7 @@
             this.label1.Location = new System.Drawing.Point(6, 6);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(146, 13);
-            this.label1.TabIndex = 10;
+            this.label1.TabIndex = 0;
             this.label1.Text = "Select Staging Algorithm";
             // 
             // cmbAlgorithms
@@ -1144,12 +1125,49 @@
             this.cmbAlgorithms.Location = new System.Drawing.Point(172, 3);
             this.cmbAlgorithms.Name = "cmbAlgorithms";
             this.cmbAlgorithms.Size = new System.Drawing.Size(243, 21);
-            this.cmbAlgorithms.TabIndex = 9;
+            this.cmbAlgorithms.TabIndex = 1;
             this.cmbAlgorithms.SelectedIndexChanged += new System.EventHandler(this.cmbAlgorithms_SelectedIndexChanged);
             // 
             // tmrLoad
             // 
             this.tmrLoad.Tick += new System.EventHandler(this.tmrLoad_Tick);
+            // 
+            // richTxStagingPath
+            // 
+            this.richTxStagingPath.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.richTxStagingPath.BackColor = System.Drawing.SystemColors.Control;
+            this.richTxStagingPath.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.richTxStagingPath.Location = new System.Drawing.Point(498, 49);
+            this.richTxStagingPath.Name = "richTxStagingPath";
+            this.richTxStagingPath.ReadOnly = true;
+            this.richTxStagingPath.Size = new System.Drawing.Size(462, 48);
+            this.richTxStagingPath.TabIndex = 140;
+            this.richTxStagingPath.Text = "";
+            this.richTxStagingPath.Visible = false;
+            // 
+            // dataGridViewTextBoxColumn9
+            // 
+            dataGridViewCellStyle13.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle13.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewTextBoxColumn9.DefaultCellStyle = dataGridViewCellStyle13;
+            this.dataGridViewTextBoxColumn9.HeaderText = "Name";
+            this.dataGridViewTextBoxColumn9.Name = "dataGridViewTextBoxColumn9";
+            this.dataGridViewTextBoxColumn9.ReadOnly = true;
+            this.dataGridViewTextBoxColumn9.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.dataGridViewTextBoxColumn9.Width = 300;
+            // 
+            // dataGridViewTextBoxColumn10
+            // 
+            dataGridViewCellStyle14.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle14.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewTextBoxColumn10.DefaultCellStyle = dataGridViewCellStyle14;
+            this.dataGridViewTextBoxColumn10.FillWeight = 120F;
+            this.dataGridViewTextBoxColumn10.HeaderText = "Value";
+            this.dataGridViewTextBoxColumn10.Name = "dataGridViewTextBoxColumn10";
+            this.dataGridViewTextBoxColumn10.ReadOnly = true;
+            this.dataGridViewTextBoxColumn10.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.dataGridViewTextBoxColumn10.Width = 74;
             // 
             // FrmMain
             // 
@@ -1260,8 +1278,6 @@
         private System.Windows.Forms.GroupBox grpResults;
         private System.Windows.Forms.Button btnTablePath;
         private System.Windows.Forms.DataGridView dataGridResults;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn9;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn10;
         private System.Windows.Forms.TextBox txtStageResult;
         private System.Windows.Forms.Label label89;
         private System.Windows.Forms.Label label28;
@@ -1273,6 +1289,9 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn8;
         private System.Windows.Forms.DataGridViewTextBoxColumn SelectedValue;
         private System.Windows.Forms.DataGridViewTextBoxColumn sFieldKey;
+        private System.Windows.Forms.RichTextBox richTxStagingPath;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn9;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn10;
     }
 }
 

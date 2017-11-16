@@ -53,6 +53,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Globals.cs" />
     <Compile Include="dlgAbout.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -64,6 +65,12 @@
     </Compile>
     <Compile Include="dlgHowTo.Designer.cs">
       <DependentUpon>dlgHowTo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="dlgStagingPath.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="dlgStagingPath.Designer.cs">
+      <DependentUpon>dlgStagingPath.cs</DependentUpon>
     </Compile>
     <Compile Include="dlgTable.cs">
       <SubType>Form</SubType>
@@ -90,6 +97,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="dlgHowTo.resx">
       <DependentUpon>dlgHowTo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="dlgStagingPath.resx">
+      <DependentUpon>dlgStagingPath.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="dlgTable.resx">
       <DependentUpon>dlgTable.cs</DependentUpon>
