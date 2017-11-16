@@ -23,9 +23,9 @@ namespace TNMStaging_UnitTestApp.Src.Staging.TNM
         // * @param fileName name of file
         // * @param is InputStream
         // * @return IntegrationResult
-        public static IntegrationUtils.IntegrationResult processTNMSchema(TNMStagingCSharp.Src.Staging.Staging staging, String fileName, Stream inputStream) //throws IOException, InterruptedException 
+        public static IntegrationUtils.IntegrationResult processTNMSchema(TNMStagingCSharp.Src.Staging.Staging staging, String fileName, Stream inputStream, bool bJSONFormat) //throws IOException, InterruptedException 
         {
-            return processTNMSchema(staging, fileName, inputStream, -1);
+            return processTNMSchema(staging, fileName, inputStream, -1, bJSONFormat);
         }
 
 
@@ -33,6 +33,8 @@ namespace TNMStaging_UnitTestApp.Src.Staging.TNM
         {
             public Dictionary<TnmInput, String> mInputValues;
             public Dictionary<TnmOutput, String> mOutputValues;
+            public bool mbJSONFormat;
+            public String msExpectedResult;
             public String msFileName;
             public int miLineNum;
         }
@@ -48,7 +50,7 @@ namespace TNMStaging_UnitTestApp.Src.Staging.TNM
         // * @param is InputStream
         // * @param singleLineNumber if not null, only process this line number
         // * @return IntegrationResult
-        public static IntegrationUtils.IntegrationResult processTNMSchema(TNMStagingCSharp.Src.Staging.Staging staging, String fileName, Stream inputStream, int singleLineNumber) //throws IOException, InterruptedException 
+        public static IntegrationUtils.IntegrationResult processTNMSchema(TNMStagingCSharp.Src.Staging.Staging staging, String fileName, Stream inputStream, int singleLineNumber, bool bJSONFormat) //throws IOException, InterruptedException 
         {
             Dictionary<TnmOutput, String> output_values = null;
             Dictionary<TnmInput, String> input_values = null;
@@ -88,6 +90,7 @@ namespace TNMStaging_UnitTestApp.Src.Staging.TNM
             String[] input_strs;
             String[] output_strs;
             String[] entries;
+            String sExpectedResult = "";
 
             while (line != null)
             {
@@ -95,85 +98,181 @@ namespace TNMStaging_UnitTestApp.Src.Staging.TNM
 
                 if (iLineNumber >= 0)
                 {
-                    if (line.IndexOf("input=") >= 0) input_line = line.Trim();
-                    if (line.IndexOf("expectedOutput=") >= 0) output_line = line.Trim();
+                    input_values = new Dictionary<TnmInput, String>();
+                    output_values = new Dictionary<TnmOutput, String>();
 
-                    if (output_line.Length > 0)
+                    if (bJSONFormat)
                     {
-                        input_line = input_line.Substring(7, input_line.Length - 8).Trim();
-                        output_line = output_line.Substring(16, output_line.Length - 17).Trim();
+                        if (line.IndexOf("input=") >= 0) input_line = line.Trim();
+                        if (line.IndexOf("expectedOutput=") >= 0) output_line = line.Trim();
 
-                        input_strs = input_line.Split(",".ToCharArray());
-                        output_strs = output_line.Split(",".ToCharArray());
-
-                        // set up a mapping of output field positions in the CSV file
-                        output_values = new Dictionary<TnmOutput, String>();
-                        input_values = new Dictionary<TnmInput, String>();
-
-                        foreach (String s in input_strs)
+                        if (output_line.Length > 0)
                         {
-                            entries = s.Split("=".ToCharArray());
-                            if (entries.Length == 2)
+                            input_line = input_line.Substring(7, input_line.Length - 8).Trim();
+                            output_line = output_line.Substring(16, output_line.Length - 17).Trim();
+
+                            input_strs = input_line.Split(",".ToCharArray());
+                            output_strs = output_line.Split(",".ToCharArray());
+
+                            // set up a mapping of output field positions in the CSV file
+
+                            foreach (String s in input_strs)
                             {
-                                entries[0] = entries[0].Trim();
-                                entries[1] = entries[1].Trim();
-                                foreach (TnmInput inp in TnmInput.Values)
+                                entries = s.Split("=".ToCharArray());
+                                if (entries.Length == 2)
                                 {
-                                    if (inp.toString() == entries[0])
+                                    entries[0] = entries[0].Trim();
+                                    entries[1] = entries[1].Trim();
+                                    foreach (TnmInput inp in TnmInput.Values)
                                     {
-                                        input_values.Add(inp, entries[1]);
+                                        if (inp.toString() == entries[0])
+                                        {
+                                            input_values.Add(inp, entries[1]);
+                                        }
                                     }
                                 }
-                            }
-                            else
-                            {
-                                System.Diagnostics.Trace.WriteLine("Line " + iLineNumber + " has " + entries.Length + " cells; it should be 2. (" + input_line + ")");
-                            }
-                        }
-
-                        foreach (String s in output_strs)
-                        {
-                            entries = s.Split("=".ToCharArray());
-                            if (entries.Length == 2)
-                            {
-                                entries[0] = entries[0].Trim();
-                                entries[1] = entries[1].Trim();
-                                foreach (TnmOutput outp in TnmOutput.Values)
+                                else
                                 {
-                                    if (outp.toString() == entries[0])
-                                    {
-                                        output_values.Add(outp, entries[1]);
-                                    }
+                                    System.Diagnostics.Trace.WriteLine("Line " + iLineNumber + " has " + entries.Length + " cells; it should be 2. (" + input_line + ")");
                                 }
                             }
-                            else
+
+                            foreach (String s in output_strs)
                             {
-                                System.Diagnostics.Trace.WriteLine("Line " + iLineNumber + " has " + entries.Length + " cells; it should be 2. (" + output_line + ")");
+                                entries = s.Split("=".ToCharArray());
+                                if (entries.Length == 2)
+                                {
+                                    entries[0] = entries[0].Trim();
+                                    entries[1] = entries[1].Trim();
+                                    foreach (TnmOutput outp in TnmOutput.Values)
+                                    {
+                                        if (outp.toString() == entries[0])
+                                        {
+                                            output_values.Add(outp, entries[1]);
+                                        }
+                                    }
+                                }
+                                else
+                                {
+                                    System.Diagnostics.Trace.WriteLine("Line " + iLineNumber + " has " + entries.Length + " cells; it should be 2. (" + output_line + ")");
+                                }
                             }
                         }
-
-                        processedCases++;
-
-                        MultiTask_DataObj obj = new MultiTask_DataObj();
-                        obj.mInputValues = input_values;
-                        obj.mOutputValues = output_values;
-                        obj.msFileName = fileName;
-                        obj.miLineNum = iLineNumber;
-
-                        thisMultiTasksExecutor.AddDataItem(obj);
-
-                        /*
-                        iLineCounter++;
-                        if (iLineCounter > 50000)
-                        {
-                            IntegrationUtils.WritelineToLog("Time: " + stopwatch.Elapsed.TotalMilliseconds + " ms.");
-                            iLineCounter = 0;
-                        }
-                        */
-
-                        input_line = "";
-                        output_line = "";
                     }
+                    else
+                    {
+                        // Each line is a comma delimited string.
+                        input_strs = line.Split(",".ToCharArray());
+
+                        if (input_strs.Length == 54)
+                        {
+                            String sVal = "";
+                            for (int i=0; i < 54; i++)
+                            {
+                                sVal = input_strs[i].Trim();
+                                if (sVal.Length > 0)
+                                {
+                                    TnmInput in_key = TnmInput.PRIMARY_SITE;
+                                    TnmOutput out_key = TnmOutput.DERIVED_VERSION;
+                                    switch (i)
+                                    {
+                                        case 0: in_key = TnmInput.PRIMARY_SITE; break;
+                                        case 1: in_key = TnmInput.HISTOLOGY; break;
+                                        case 2: in_key = TnmInput.DX_YEAR; break;
+                                        case 3: in_key = TnmInput.BEHAVIOR; break;
+                                        case 4: in_key = TnmInput.GRADE; break;
+                                        case 5: in_key = TnmInput.SEX; break;
+                                        case 6: in_key = TnmInput.AGE_AT_DX; break;
+                                        case 7: in_key = TnmInput.RX_SUMM_SURGERY; break;
+                                        case 8: in_key = TnmInput.RX_SUMM_RADIATION; break;
+                                        case 9: in_key = TnmInput.REGIONAL_NODES_POSITIVE; break;
+                                        case 10: in_key = TnmInput.CLIN_T; break;
+                                        case 11: in_key = TnmInput.CLIN_N; break;
+                                        case 12: in_key = TnmInput.CLIN_M; break;
+                                        case 13: in_key = TnmInput.CLIN_STAGE_GROUP_DIRECT; break;
+                                        case 14: in_key = TnmInput.PATH_T; break;
+                                        case 15: in_key = TnmInput.PATH_N; break;
+                                        case 16: in_key = TnmInput.PATH_M; break;
+                                        case 17: in_key = TnmInput.PATH_STAGE_GROUP_DIRECT; break;
+                                        case 18: in_key = TnmInput.SSF1; break;
+                                        case 19: in_key = TnmInput.SSF2; break;
+                                        case 20: in_key = TnmInput.SSF3; break;
+                                        case 21: in_key = TnmInput.SSF4; break;
+                                        case 22: in_key = TnmInput.SSF5; break;
+                                        case 23: in_key = TnmInput.SSF6; break;
+                                        case 24: in_key = TnmInput.SSF7; break;
+                                        case 25: in_key = TnmInput.SSF8; break;
+                                        case 26: in_key = TnmInput.SSF9; break;
+                                        case 27: in_key = TnmInput.SSF10; break;
+                                        case 28: in_key = TnmInput.SSF11; break;
+                                        case 29: in_key = TnmInput.SSF12; break;
+                                        case 30: in_key = TnmInput.SSF13; break;
+                                        case 31: in_key = TnmInput.SSF14; break;
+                                        case 32: in_key = TnmInput.SSF15; break;
+                                        case 33: in_key = TnmInput.SSF16; break;
+                                        case 34: in_key = TnmInput.SSF17; break;
+                                        case 35: in_key = TnmInput.SSF18; break;
+                                        case 36: in_key = TnmInput.SSF19; break;
+                                        case 37: in_key = TnmInput.SSF20; break;
+                                        case 38: in_key = TnmInput.SSF21; break;
+                                        case 39: in_key = TnmInput.SSF22; break;
+                                        case 40: in_key = TnmInput.SSF23; break;
+                                        case 41: in_key = TnmInput.SSF24; break;
+                                        case 42: in_key = TnmInput.SSF25; break;
+                                        case 43: out_key = TnmOutput.DERIVED_VERSION; break;
+                                        case 44: out_key = TnmOutput.CLIN_STAGE_GROUP; break;
+                                        case 45: out_key = TnmOutput.PATH_STAGE_GROUP; break;
+                                        case 46: out_key = TnmOutput.COMBINED_STAGE_GROUP; break;
+                                        case 47: out_key = TnmOutput.COMBINED_T; break;
+                                        case 48: out_key = TnmOutput.COMBINED_N; break;
+                                        case 49: out_key = TnmOutput.COMBINED_M; break;
+                                        case 50: out_key = TnmOutput.SOURCE_T; break;
+                                        case 51: out_key = TnmOutput.SOURCE_N; break;
+                                        case 52: out_key = TnmOutput.SOURCE_M; break;
+                                    }
+                                    if (i <= 42)
+                                    {
+                                        input_values.Add(in_key, sVal);
+                                    }
+                                    else if (i <= 52)
+                                    {
+                                        output_values.Add(out_key, sVal);
+                                    }
+                                }
+                            }
+                            sExpectedResult = input_strs[53];
+                        }
+                        else
+                        {
+                            System.Diagnostics.Trace.WriteLine("Error: Line " + iLineNumber + " has " + input_strs.Length + " entries.");
+                        }
+                    }
+
+
+                    processedCases++;
+
+                    MultiTask_DataObj obj = new MultiTask_DataObj();
+                    obj.mInputValues = input_values;
+                    obj.mOutputValues = output_values;
+                    obj.mbJSONFormat = bJSONFormat;
+                    obj.msExpectedResult = sExpectedResult;
+                    obj.msFileName = fileName;
+                    obj.miLineNum = iLineNumber;
+
+                    thisMultiTasksExecutor.AddDataItem(obj);
+
+                    // DEBUG
+                    /*
+                    iLineCounter++;
+                    if (iLineCounter >= 50000)
+                    {
+                        IntegrationUtils.WritelineToLog("Line: " + iLineNumber + "   Time: " + stopwatch.Elapsed.TotalMilliseconds + " ms.");
+                        iLineCounter = 0;
+                    }
+                    */
+
+                    input_line = "";
+                    output_line = "";
 
                 }
 
@@ -241,6 +340,24 @@ namespace TNMStaging_UnitTestApp.Src.Staging.TNM
                 List<String> mismatches = new List<String>();
 
                 // compare results
+                if (thisDataObj.mbJSONFormat)
+                {
+                    String sNewResultStr = "";
+                    String sOldResultStr = thisDataObj.msExpectedResult.Trim();
+                    if (data.getResult() == StagingData.Result.STAGED) sNewResultStr = "STAGED";
+                    else if (data.getResult() == StagingData.Result.FAILED_MISSING_SITE_OR_HISTOLOGY) sNewResultStr = "FAILED_MISSING_SITE_OR_HISTOLOGY";
+                    else if (data.getResult() == StagingData.Result.FAILED_NO_MATCHING_SCHEMA) sNewResultStr = "FAILED_NO_MATCHING_SCHEMA";
+                    else if (data.getResult() == StagingData.Result.FAILED_MULITPLE_MATCHING_SCHEMAS) sNewResultStr = "FAILED_MULITPLE_MATCHING_SCHEMAS";
+                    else if (data.getResult() == StagingData.Result.FAILED_INVALID_YEAR_DX) sNewResultStr = "FAILED_INVALID_YEAR_DX";
+                    else if (data.getResult() == StagingData.Result.FAILED_INVALID_INPUT) sNewResultStr = "FAILED_INVALID_INPUT";
+
+                    if (sNewResultStr != sOldResultStr)
+                    {
+                        mismatches.Add("   " + thisDataObj.miLineNum + " --> Result: EXPECTED '" + sOldResultStr + "' ACTUAL: '" + sNewResultStr + "'");
+                    }
+                }
+
+                // compare output
                 foreach (KeyValuePair<String, String> entry in output)
                 {
                     String expected = "";

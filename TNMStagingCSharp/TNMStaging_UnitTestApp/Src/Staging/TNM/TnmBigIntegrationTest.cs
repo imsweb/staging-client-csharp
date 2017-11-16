@@ -131,7 +131,7 @@ namespace TNMStaging_UnitTestApp.Src.Staging.TNM
                             FileStream fstream = File.Open(f, FileMode.Open, FileAccess.Read, FileShare.Read);
                             GZipStream decompressionStream = new GZipStream(fstream, CompressionMode.Decompress);
                             IntegrationUtils.IntegrationResult result =
-                                TnmIntegrationSchemaStage.processTNMSchema(staging, sFilename, decompressionStream);
+                                TnmIntegrationSchemaStage.processTNMSchema(staging, sFilename, decompressionStream, false);
                             totalCases += result.getNumCases();
                             totalFailures += result.getNumFailures();
 

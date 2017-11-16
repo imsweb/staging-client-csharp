@@ -564,7 +564,7 @@ namespace TNMStaging_UnitTestApp.Src.Staging.TNM
                 _STAGING = TNM13_STAGING;
 
                 TNMStaging_UnitTestApp.Src.Staging.IntegrationUtils.IntegrationResult TNMResult =
-                        TNMStaging_UnitTestApp.Src.Staging.TNM.TnmIntegrationSchemaStage.processTNMSchema(_STAGING, sFilePath, decompressionStream);
+                        TNMStaging_UnitTestApp.Src.Staging.TNM.TnmIntegrationSchemaStage.processTNMSchema(_STAGING, sFilePath, decompressionStream, true);
 
                 fstream.Close();
                 decompressionStream.Close();

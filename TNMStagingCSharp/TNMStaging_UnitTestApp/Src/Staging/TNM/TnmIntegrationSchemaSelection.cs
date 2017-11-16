@@ -94,6 +94,7 @@ namespace TNMStaging_UnitTestApp.Src.Staging.TNM
 
                         thisMultiTasksExecutor.AddDataItem(obj);
 
+                        // DEBUG
                         /*
                         iLineCounter++;
                         if (iLineCounter >= 500000)

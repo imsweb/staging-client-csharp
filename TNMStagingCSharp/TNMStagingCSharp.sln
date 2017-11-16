@@ -13,6 +13,9 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TNMStaging_UnitTestApp", "TNMStaging_UnitTestApp\TNMStaging_UnitTestApp.csproj", "{48C20EF1-4AAD-432C-9D95-BF998D6B0093}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TNMStaging_StagingViewerApp", "TNMStaging_StagingViewerApp\TNMStaging_StagingViewerApp.csproj", "{C4460A58-9546-43E1-991C-B978D9734B48}"
+	ProjectSection(ProjectDependencies) = postProject
+		{15A927C7-9920-4FAD-9DAE-B1088A7021A3} = {15A927C7-9920-4FAD-9DAE-B1088A7021A3}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
