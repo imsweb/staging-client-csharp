@@ -149,16 +149,10 @@ namespace TNMStaging_StagingViewerApp
 
                 Refresh();
 
+                mStaging = null;
+
                 string sName = (string)cmbAlgorithms.Items[cmbAlgorithms.SelectedIndex];
                 LoadAlgorithm(sName);
-
-                tabControl.Enabled = true;
-
-                // unselect listbox selections
-                //panel1.Refresh();
-                //cmbSchemaSelect.SelectedItem = -1;
-                //cmbSchemaSelect.SelectedText = "";
-                //Refresh();
             }
         }
 
@@ -206,6 +200,7 @@ namespace TNMStaging_StagingViewerApp
 
         public async void LoadAlgorithm(string sFilename)
         {
+            bool bFailure = false;
             const int WAIT_AMT = 300;
             UpdateProgress(0);
             pbLoad.Visible = true;
@@ -222,24 +217,54 @@ namespace TNMStaging_StagingViewerApp
             {
                 await Task.Delay(WAIT_AMT);
 
-                FileStream SourceStream = File.Open(sFullFilename, FileMode.Open);
-                await Task.Delay(WAIT_AMT);
-                mProvider = new ExternalStagingFileDataProvider(SourceStream);
-                await Task.Delay(WAIT_AMT);
-                mStaging = Staging.getInstance(mProvider);
+                FileStream SourceStream = null;
 
+                try
+                {
+                    SourceStream = File.Open(sFullFilename, FileMode.Open);
+                    await Task.Delay(WAIT_AMT);
+                    mProvider = new ExternalStagingFileDataProvider(SourceStream);
+                    await Task.Delay(WAIT_AMT);
+                    mStaging = Staging.getInstance(mProvider);
+                }
+                catch (Exception e)
+                {
+                    bFailure = true;
+                    MessageBox.Show("Unable to load the algorithm " + sFilename + ".", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    tabControl.Enabled = false;
+                    pbLoad.Visible = false;
+                    tmrLoad.Enabled = false;
+                }
+
+                if (!bFailure)
+                {
+                    UpdateProgress(100);
+                    await Task.Delay(WAIT_AMT);
+                }
+
+                SourceStream.Close();
+                if (!bFailure)
+                {
+                    UpdateAlgorithmHeaderValues();
+                    LoadSchemas();
+                    SetupStageTesterTab();
+                }
+            }
+            if (!bFailure)
+            {
+                pbLoad.Visible = false;
+                tmrLoad.Enabled = false;
                 UpdateProgress(100);
                 await Task.Delay(WAIT_AMT);
 
-                SourceStream.Close();
-                UpdateAlgorithmHeaderValues();
-                LoadSchemas();
-                SetupStageTesterTab();
+
+                tabControl.Enabled = true;
+
+                // unselect listbox selections
+                cmbSchemaSelect.SelectedItem = -1;
+                cmbSchemaSelect.SelectedText = "";
+                Refresh();
             }
-            pbLoad.Visible = false;
-            tmrLoad.Enabled = false;
-            UpdateProgress(100);
-            await Task.Delay(WAIT_AMT);
         }
 
         private void UpdateProgress(int iNewValue)
