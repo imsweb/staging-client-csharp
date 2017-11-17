@@ -91,6 +91,7 @@ namespace TNMStaging_UnitTestApp.Src.Staging.TNM
             String[] output_strs;
             String[] entries;
             String sExpectedResult = "";
+            bool bStageThis = true;
 
             while (line != null)
             {
@@ -98,16 +99,19 @@ namespace TNMStaging_UnitTestApp.Src.Staging.TNM
 
                 if (iLineNumber >= 0)
                 {
-                    input_values = new Dictionary<TnmInput, String>();
-                    output_values = new Dictionary<TnmOutput, String>();
-
+                    bStageThis = true;
                     if (bJSONFormat)
                     {
+                        bStageThis = false;
                         if (line.IndexOf("input=") >= 0) input_line = line.Trim();
                         if (line.IndexOf("expectedOutput=") >= 0) output_line = line.Trim();
 
                         if (output_line.Length > 0)
                         {
+                            bStageThis = true;
+                            input_values = new Dictionary<TnmInput, String>();
+                            output_values = new Dictionary<TnmOutput, String>();
+
                             input_line = input_line.Substring(7, input_line.Length - 8).Trim();
                             output_line = output_line.Substring(16, output_line.Length - 17).Trim();
 
@@ -161,6 +165,9 @@ namespace TNMStaging_UnitTestApp.Src.Staging.TNM
                     }
                     else
                     {
+                        input_values = new Dictionary<TnmInput, String>();
+                        output_values = new Dictionary<TnmOutput, String>();
+
                         // Each line is a comma delimited string.
                         input_strs = line.Split(",".ToCharArray());
 
@@ -248,32 +255,34 @@ namespace TNMStaging_UnitTestApp.Src.Staging.TNM
                         }
                     }
 
-
-                    processedCases++;
-
-                    MultiTask_DataObj obj = new MultiTask_DataObj();
-                    obj.mInputValues = input_values;
-                    obj.mOutputValues = output_values;
-                    obj.mbJSONFormat = bJSONFormat;
-                    obj.msExpectedResult = sExpectedResult;
-                    obj.msFileName = fileName;
-                    obj.miLineNum = iLineNumber;
-
-                    thisMultiTasksExecutor.AddDataItem(obj);
-
-                    // DEBUG
-                    /*
-                    iLineCounter++;
-                    if (iLineCounter >= 50000)
+                    if (bStageThis)
                     {
-                        IntegrationUtils.WritelineToLog("Line: " + iLineNumber + "   Time: " + stopwatch.Elapsed.TotalMilliseconds + " ms.");
-                        iLineCounter = 0;
+                        processedCases++;
+
+                        MultiTask_DataObj obj = new MultiTask_DataObj();
+                        obj.mInputValues = input_values;
+                        obj.mOutputValues = output_values;
+                        obj.mbJSONFormat = bJSONFormat;
+                        obj.msExpectedResult = sExpectedResult;
+                        obj.msFileName = fileName;
+                        obj.miLineNum = iLineNumber;
+
+                        thisMultiTasksExecutor.AddDataItem(obj);
+
+                        // DEBUG
+                        /*
+                        iLineCounter++;
+                        if (iLineCounter >= 50000)
+                        {
+                            IntegrationUtils.WritelineToLog("Line: " + iLineNumber + "   Time: " + stopwatch.Elapsed.TotalMilliseconds + " ms.");
+                            iLineCounter = 0;
+                        }
+                        */
+
+                        input_line = "";
+                        output_line = "";
+
                     }
-                    */
-
-                    input_line = "";
-                    output_line = "";
-
                 }
 
                 line = reader.ReadLine();
@@ -340,7 +349,7 @@ namespace TNMStaging_UnitTestApp.Src.Staging.TNM
                 List<String> mismatches = new List<String>();
 
                 // compare results
-                if (thisDataObj.mbJSONFormat)
+                if (!thisDataObj.mbJSONFormat)
                 {
                     String sNewResultStr = "";
                     String sOldResultStr = thisDataObj.msExpectedResult.Trim();

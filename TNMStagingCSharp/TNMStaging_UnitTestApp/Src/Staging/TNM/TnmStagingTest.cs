@@ -19,6 +19,8 @@ namespace TNMStaging_UnitTestApp.Src.Staging.TNM
     [TestClass]
     public class TnmStagingTest : StagingTest
     {
+        private String sCurrentVersion = "1.5";
+
         public override String getAlgorithm()
         {
             return "tnm";
@@ -27,7 +29,7 @@ namespace TNMStaging_UnitTestApp.Src.Staging.TNM
 
         public override String getVersion()
         {
-            return "1.5";
+            return sCurrentVersion;
         }
 
         public override StagingFileDataProvider getProvider()
@@ -549,6 +551,7 @@ namespace TNMStaging_UnitTestApp.Src.Staging.TNM
                 String basedir = System.IO.Directory.GetCurrentDirectory() + "\\..\\..\\..\\";
                 if (System.IO.Directory.GetCurrentDirectory().IndexOf("x64") >= 0) basedir += "\\..\\";
 
+                sCurrentVersion = "1.3";
                 String sFilePath = basedir + "Resources\\Test\\TNM\\TNM_13.zip";
 
                 FileStream SourceStream = File.Open(sFilePath, FileMode.Open);
@@ -570,6 +573,7 @@ namespace TNMStaging_UnitTestApp.Src.Staging.TNM
                 decompressionStream.Close();
 
                 _STAGING = OLD_STAGING;
+                sCurrentVersion = "1.5";
 
 
                 // make sure there were no errors returned
