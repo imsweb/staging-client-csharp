@@ -1444,6 +1444,8 @@ namespace TNMStaging_StagingViewerApp
                     sSelectedValue = dlg.GetSelectedValue();
                     sSelectedValueLabel = dlg.GetSelectedValueLabel();
 
+                    dataGridVariables.EndEdit();
+
                     // Place the selected value in the table cell.
                     dataGridVariables[(int)stageVarInputCols.SELECTED_VALUE, rowIndex].Value = sSelectedValue;
                     dataGridVariables[(int)stageVarInputCols.VALUE_DESCRIPTION, rowIndex].Value = sSelectedValueLabel;
@@ -1506,7 +1508,9 @@ namespace TNMStaging_StagingViewerApp
             {
                 // get the variable 'key' - last column in the grid
                 sFieldKey = dataGridVariables[(int)stageVarInputCols.FIELD_KEY, i].Value.ToString();
-                sFieldValue = dataGridVariables[(int)stageVarInputCols.SELECTED_VALUE, i].Value.ToString();
+                sFieldValue = "";
+                if (dataGridVariables[(int)stageVarInputCols.SELECTED_VALUE, i].Value != null)
+                    sFieldValue = dataGridVariables[(int)stageVarInputCols.SELECTED_VALUE, i].Value.ToString();
                 data.setInput(sFieldKey, sFieldValue);
             }
 
