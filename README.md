@@ -1,6 +1,6 @@
 # staging-client-csharp
 
-A cancer staging client library for Java applications.
+A cancer staging client library for C Sharp applications.
 
 ## Supported staging algorithms
 
