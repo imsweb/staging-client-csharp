@@ -31,8 +31,12 @@ namespace TNMStagingCSharp.Src.Staging
         // @param histology histology
         public SchemaLookup(String site, String histology)
         {
-            setInput(StagingData.PRIMARY_SITE_KEY, site);
-            setInput(StagingData.HISTOLOGY_KEY, histology);
+            if (site != null)
+                if (site.Length > 0)
+                    setInput(StagingData.PRIMARY_SITE_KEY, site);
+            if (histology != null)
+                if (histology.Length > 0)
+                    setInput(StagingData.HISTOLOGY_KEY, histology);
             CreateHash();
         }
 
@@ -41,6 +45,13 @@ namespace TNMStagingCSharp.Src.Staging
         public virtual ReadOnlyCollection<String> getAllowedKeys()
         {
             return null;
+        }
+
+        // Return a list of keys that are set.
+        // @return a set of keys
+        public HashSet<String> getKeys()
+        {
+            return new HashSet<String>(_inputs.Keys);
         }
 
         // Return a Map of all inputs

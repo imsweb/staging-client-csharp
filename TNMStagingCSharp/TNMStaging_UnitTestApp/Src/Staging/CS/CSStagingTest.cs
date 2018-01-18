@@ -158,11 +158,11 @@ namespace TNMStaging_UnitTestApp.Src
             Assert.AreEqual(138, lookup[0].getSchemaNum());
 
             // test searching on only site
-            lookup = _STAGING.lookupSchema(new CsSchemaLookup("C401", null, null));
+            lookup = _STAGING.lookupSchema(new CsSchemaLookup("C401", null));
             Assert.AreEqual(5, lookup.Count);
 
             // test searching on only hist
-            lookup = _STAGING.lookupSchema(new CsSchemaLookup(null, "9702", null));
+            lookup = _STAGING.lookupSchema(new CsSchemaLookup(null, "9702"));
             Assert.AreEqual(2, lookup.Count);
 
             // test that searching on only ssf25 returns no results

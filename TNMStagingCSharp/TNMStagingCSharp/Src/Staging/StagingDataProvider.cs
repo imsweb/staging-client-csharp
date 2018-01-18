@@ -199,23 +199,22 @@ namespace TNMStagingCSharp.Src.Staging
             return table;
         }
 
+
         // Return true if the site is valid
         // @param site primary site
         // @return true if the side is valid
         public bool isValidSite(String site)
         {
             bool valid = (site != null);
-
             if (valid)
             {
                 ITable table = getTable(PRIMARY_SITE_TABLE);
                 if (table == null)
                     throw new System.InvalidOperationException("Unable to locate " + PRIMARY_SITE_TABLE + " table");
-
+                
                 valid = getValidSites().Contains(site);
-            }
-
-            return valid;
+             }
+             return valid;
         }
 
         // Return true if the histology is valid
@@ -224,7 +223,6 @@ namespace TNMStagingCSharp.Src.Staging
         public bool isValidHistology(String histology)
         {
             bool valid = (histology != null);
-
             if (valid)
             {
                 ITable table = getTable(HISTOLOGY_TABLE);
@@ -233,7 +231,6 @@ namespace TNMStagingCSharp.Src.Staging
 
                 valid = getValidHistologies().Contains(histology);
             }
-
             return valid;
         }
 
@@ -436,16 +433,9 @@ namespace TNMStagingCSharp.Src.Staging
             // site or histology must be supplied
             if (site != null || histology != null)
             {
-                HashSet<String> keysToMatch = new HashSet<String>();
-
-                if (site != null)
-                    keysToMatch.Add(StagingData.PRIMARY_SITE_KEY);
-                if (histology != null)
-                    keysToMatch.Add(StagingData.HISTOLOGY_KEY);
-
                 HashSet<String> lstSchemaIds = getSchemaIds();
 
-                // sometimes discriminator is a default value (like 988), so first search for site/hist only match even if discriminator was supplied
+                // loop over selection table and match using only the supplied keys
                 foreach (String schemaId in lstSchemaIds)
                 {
                     StagingSchema schema = (StagingSchema)(getDefinition(schemaId));
@@ -453,35 +443,11 @@ namespace TNMStagingCSharp.Src.Staging
                     if (schema.getSchemaSelectionTable() != null)
                     {
                         StagingTable table = (StagingTable)(getTable(schema.getSchemaSelectionTable()));
-                        if (table != null && DecisionEngineFuncs.matchTable(table, lookup.getInputs(), keysToMatch) != null)
+                        if (table != null && DecisionEngineFuncs.matchTable(table, lookup.getInputs(), lookup.getKeys()) != null)
                             matchedSchemas.Add(schema);
                     }
                 }
-
-                // if multiple matches were found on site/hist and a discriminator was supplied, trim down the list
-                if (hasDiscriminator && matchedSchemas.Count > 1)
-                {
-                    List<StagingSchema> trimmedMatches = new List<StagingSchema>(20);
-                    StagingTable table = null;
-                    StagingSchema schema = null;
-                    for (int i=0; i < matchedSchemas.Count; i++)
-                    {
-                        schema = matchedSchemas[i];
-                        if (schema.getSchemaSelectionTable() != null)
-                        {
-                            table = (StagingTable)(getTable(schema.getSchemaSelectionTable()));
-                            if (table != null && DecisionEngineFuncs.matchTable(table, lookup.getInputs()) != null)
-                            {
-                                trimmedMatches.Add(schema);
-                            }
-                        }
-                    }
-
-                    matchedSchemas = trimmedMatches;
-                }
-
             }
-
 
             return matchedSchemas;
         }

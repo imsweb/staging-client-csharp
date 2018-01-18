@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-
+using System;
+using System.Collections.Generic;
 using TNMStagingCSharp.Src.Staging.CS;
 
 
@@ -21,6 +22,14 @@ namespace TNMStaging_UnitTestApp.Src
             lookup.setInput(CsStagingData.SSF25_KEY, "111");
             Assert.IsTrue(lookup.hasDiscriminator());
         }
+
+        [TestMethod]
+        public void testGetKeys()
+        {
+            Assert.IsTrue((new CsSchemaLookup("C629", "9100").getKeys()).SetEquals(new HashSet<String>() { "site", "hist" }));
+            Assert.IsTrue((new CsSchemaLookup("C629", "9100", "001").getKeys()).SetEquals(new HashSet<String>() { "site", "hist", "ssf25" }));
+        }
+
 
         [TestMethod]
         [ExpectedException(typeof(System.InvalidOperationException))]
