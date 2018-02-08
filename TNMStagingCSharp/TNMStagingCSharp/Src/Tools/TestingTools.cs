@@ -22,11 +22,12 @@ namespace TNMStagingCSharp.Src.Tools
         public const bool RUN_LARGE_TNM_TESTS = true;
         public const bool RUN_LARGE_CS_TESTS = true;
 
-        public const bool RUN_HUGE_GOOD_TNM_TESTS = true;
-        public const bool RUN_HUGE_BAD_TNM_TESTS = true;
+        public const bool RUN_HUGE_GOOD_TNM_TESTS = false;
+        public const bool RUN_HUGE_BAD_TNM_TESTS = false;
+        public const bool USE_LOCAL_ZIP_FILE_FOR_TNM_TESTS = true;
 
-        public const bool RUN_HUGE_GOOD_CS_TESTS = true;
-        public const bool RUN_HUGE_BAD_CS_TESTS = true;
+        public const bool RUN_HUGE_GOOD_CS_TESTS = false;
+        public const bool RUN_HUGE_BAD_CS_TESTS = false;
 
     }
 

@@ -28,7 +28,18 @@ namespace TNMStaging_UnitTestApp.Src.Staging.TNM
 
                 IntegrationUtils.WritelineToLog("Starting TNMBigIntegrationTest::testBigIntegrationTestGood...");
 
-                TNMStagingCSharp.Src.Staging.Staging staging = TNMStagingCSharp.Src.Staging.Staging.getInstance(TnmDataProvider.getInstance(TnmVersion.v1_5));
+                TNMStagingCSharp.Src.Staging.Staging staging = null;
+                if (DebugSettings.USE_LOCAL_ZIP_FILE_FOR_TNM_TESTS)
+                {
+                    String filename = "TNM_15.zip";
+                    FileStream SourceStream = File.Open(filename, FileMode.Open);
+                    ExternalStagingFileDataProvider provider = new ExternalStagingFileDataProvider(SourceStream);
+                    staging = TNMStagingCSharp.Src.Staging.Staging.getInstance(provider);
+                }
+                else
+                {
+                    staging = TNMStagingCSharp.Src.Staging.Staging.getInstance(TnmDataProvider.getInstance(TnmVersion.v1_6));
+                }
 
                 // hard-code data directory based on Windows vs Linux
                 String dataDirectory;
@@ -59,7 +70,7 @@ namespace TNMStaging_UnitTestApp.Src.Staging.TNM
 
                 IntegrationUtils.WritelineToLog("Starting TNMBigIntegrationTest::testBigIntegrationTestBad...");
 
-                TNMStagingCSharp.Src.Staging.Staging staging = TNMStagingCSharp.Src.Staging.Staging.getInstance(TnmDataProvider.getInstance(TnmVersion.v1_5));
+                TNMStagingCSharp.Src.Staging.Staging staging = TNMStagingCSharp.Src.Staging.Staging.getInstance(TnmDataProvider.getInstance(TnmVersion.v1_6));
 
                 // hard-code data directory based on Windows vs Linux
                 String dataDirectory;

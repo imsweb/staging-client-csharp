@@ -119,7 +119,7 @@ namespace TNMStaging_UnitTestApp.Src
         [TestMethod]
         public void testCachedSiteAndHistology()
         {
-            TnmDataProvider provider = TnmDataProvider.getInstance(TnmVersion.v1_5);
+            TnmDataProvider provider = TnmDataProvider.getInstance(TnmVersion.v1_6);
             Assert.IsTrue(provider.getValidSites().Count > 0);
             Assert.IsTrue(provider.getValidHistologies().Count > 0);
 
@@ -227,16 +227,19 @@ namespace TNMStaging_UnitTestApp.Src
 
                 // build a list of input tables that should be excluded
                 HashSet<String> ids = new HashSet<String>();
-                foreach (StagingMapping mapping in schema.getMappings())
-                {
-                    if (ids.Contains(mapping.getId()))
-                        errors.Add("The mapping id " + schemaId + ":" + mapping.getId() + " is duplicated.  This should never happen");
-                    ids.Add(mapping.getId());
-                }
+                List<IMapping> mappings = schema.getMappings();
+                if (mappings != null)
+                    foreach (StagingMapping mapping in mappings)
+                    {
+                        if (ids.Contains(mapping.getId()))
+                            errors.Add("The mapping id " + schemaId + ":" + mapping.getId() + " is duplicated.  This should never happen");
+                        ids.Add(mapping.getId());
+                    }
             }
 
             assertNoErrors(errors, "input values and their assocated validation tables");
         }
+
 
         // * Helper method to assert failures when tracked errors exist
         // * @param errors

@@ -2,6 +2,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Text;
 using System.Text.RegularExpressions;
 
@@ -868,7 +869,12 @@ namespace TNMStagingCSharp.Src.DecisionEngine
                                         if (context.ContainsKey(mapFromKey))
                                             sContextValue = context[mapFromKey];
 
+                                        // DEBUG
+                                        //Debug.WriteLine("Table " + tableId + ":  Change " + key.getTo() + " to " + sContextValue);
+
+
                                         context[key.getTo()] = sContextValue;
+
 
                                     }
                                 }

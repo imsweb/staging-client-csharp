@@ -20,7 +20,7 @@ NCI will be developing SEER Summary Stage 2017, which will be effective for diag
 
 Versions supported:
 
-- 1.5 (released November 2017)
+- 1.6 (released February 2018)
 
 ### Collaborative Staging
 
@@ -35,7 +35,7 @@ Versions supported:
 
 ## Download
 
-To download [the beta version of staging library - TNMStagingCSharp_v11.zip](https://github.com/imsweb/staging-client-csharp/releases/download/v1.1-beta/TNMStagingCSharp_v11.zip).
+To download [the beta version of staging library - TNMStagingCSharp_v13.zip](https://github.com/imsweb/staging-client-csharp/releases/download/v1.3-beta/TNMStagingCSharp_v11.zip).
 
 The download zip file contains the TNM Staging DLL and associated files. For more information, please reference the accompanying readme.txt file. Detailed documentation on how to use the DLL can be found in the [Wiki](https://github.com/imsweb/staging-client-csharp/wiki/).
 

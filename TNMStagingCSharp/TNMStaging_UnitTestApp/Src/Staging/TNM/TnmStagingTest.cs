@@ -19,7 +19,7 @@ namespace TNMStaging_UnitTestApp.Src.Staging.TNM
     [TestClass]
     public class TnmStagingTest : StagingTest
     {
-        private String sCurrentVersion = "1.5";
+        private String sCurrentVersion = "1.6";
 
         public override String getAlgorithm()
         {
@@ -59,13 +59,13 @@ namespace TNMStaging_UnitTestApp.Src.Staging.TNM
             Assert.IsTrue(_STAGING.getTableIds().Count > 0);
 
             Assert.IsNotNull(_STAGING.getSchema("urethra"));
-            Assert.IsNotNull(_STAGING.getTable("extension_bdi"));
+            Assert.IsNotNull(_STAGING.getTable("ssf4_mpn"));
         }
 
         [TestMethod]
         public void testVersionInitiaizationTypes()
         {
-            TNMStagingCSharp.Src.Staging.Staging staging10 = TNMStagingCSharp.Src.Staging.Staging.getInstance(TnmDataProvider.getInstance(TnmVersion.v1_5));
+            TNMStagingCSharp.Src.Staging.Staging staging10 = TNMStagingCSharp.Src.Staging.Staging.getInstance(TnmDataProvider.getInstance(TnmVersion.v1_6));
             Assert.AreEqual(TnmVersion.LATEST.getVersion(), staging10.getVersion());
 
             TNMStagingCSharp.Src.Staging.Staging stagingLatest = TNMStagingCSharp.Src.Staging.Staging.getInstance(TnmDataProvider.getInstance());
@@ -184,7 +184,7 @@ namespace TNMStaging_UnitTestApp.Src.Staging.TNM
             Assert.AreEqual("testis", lookup[0].getId());
 
             // now invalidate the cache
-            TnmDataProvider.getInstance(TnmVersion.v1_5).invalidateCache();
+            TnmDataProvider.getInstance(TnmVersion.v1_6).invalidateCache();
 
             // try the lookup again
             lookup = _STAGING.lookupSchema(new TnmSchemaLookup("C629", "9231"));
@@ -214,10 +214,9 @@ namespace TNMStaging_UnitTestApp.Src.Staging.TNM
 
             // test a table that has multiple inputs
             context = new Dictionary<String, String>();
-            context["ss2017_t"] = "L";
-            context["ss2017_n"] = "RE";
-            context["ss2017_m"] = "D";
-            Assert.AreEqual(136, _STAGING.findMatchingTableRow("summary_stage_rpa", context));
+            context["m_prefix"] = "p";
+            context["root_m"] = "0";
+            Assert.AreEqual(8, _STAGING.findMatchingTableRow("concatenate_m_40642", context));
         }
 
         [TestMethod]
@@ -229,10 +228,7 @@ namespace TNMStaging_UnitTestApp.Src.Staging.TNM
             data1.setInput(TnmInput.BEHAVIOR, "3");
             data1.setInput(TnmInput.GRADE, "9");
             data1.setInput(TnmInput.DX_YEAR, "2013");
-            data1.setInput(TnmInput.SEER_PRIMARY_TUMOR, "100");
-            data1.setInput(TnmInput.SEER_REGIONAL_NODES, "100");
             data1.setInput(TnmInput.REGIONAL_NODES_POSITIVE, "99");
-            data1.setInput(TnmInput.SEER_METS, "10");
             data1.setInput(TnmInput.AGE_AT_DX, "060");
             data1.setInput(TnmInput.SEX, "1");
             data1.setInput(TnmInput.RX_SUMM_SURGERY, "8");
@@ -245,13 +241,24 @@ namespace TNMStaging_UnitTestApp.Src.Staging.TNM
             data1.setInput(TnmInput.PATH_M, "6");
             data1.setSsf(1, "020");
 
-            TnmStagingData data2 = new TnmStagingData.TnmStagingInputBuilder().withInput(TnmInput.PRIMARY_SITE, "C680").withInput(TnmInput.HISTOLOGY, "8000").withInput(
-                    TnmInput.BEHAVIOR, "3").withInput(TnmInput.GRADE, "9").withInput(TnmInput.DX_YEAR, "2013").withInput(
-                    TnmInput.SEER_PRIMARY_TUMOR, "100").withInput(TnmInput.SEER_REGIONAL_NODES, "100").withInput(TnmInput.REGIONAL_NODES_POSITIVE, "99")
-                    .withInput(TnmInput.SEER_METS, "10").withInput(TnmInput.AGE_AT_DX, "060").withInput(TnmInput.SEX, "1").withInput(
-                            TnmInput.RX_SUMM_SURGERY, "8").withInput(TnmInput.RX_SUMM_RADIATION, "9").withInput(TnmInput.CLIN_T, "1").withInput(
-                            TnmInput.CLIN_N, "2").withInput(TnmInput.CLIN_M, "3").withInput(TnmInput.PATH_T, "4").withInput(TnmInput.PATH_N,
-                            "5").withInput(TnmInput.PATH_M, "6").withSsf(1, "020").build();
+            TnmStagingData data2 = new TnmStagingData.TnmStagingInputBuilder()
+                .withInput(TnmInput.PRIMARY_SITE, "C680")
+                .withInput(TnmInput.HISTOLOGY, "8000")
+                .withInput(TnmInput.BEHAVIOR, "3")
+                .withInput(TnmInput.GRADE, "9")
+                .withInput(TnmInput.DX_YEAR, "2013")
+                .withInput(TnmInput.REGIONAL_NODES_POSITIVE, "99")
+                .withInput(TnmInput.AGE_AT_DX, "060")
+                .withInput(TnmInput.SEX, "1")
+                .withInput(TnmInput.RX_SUMM_SURGERY, "8")
+                .withInput(TnmInput.RX_SUMM_RADIATION, "9")
+                .withInput(TnmInput.CLIN_T, "1")
+                .withInput(TnmInput.CLIN_N, "2")
+                .withInput(TnmInput.CLIN_M, "3")
+                .withInput(TnmInput.PATH_T, "4")
+                .withInput(TnmInput.PATH_N, "5")
+                .withInput(TnmInput.PATH_M, "6")
+                .withSsf(1, "020").build();
 
             Assert.IsTrue(TNMStaging_UnitTestApp.Src.Staging.ComparisonUtils.CompareStringDictionaries(data1.getInput(), data2.getInput()));
         }
@@ -281,7 +288,7 @@ namespace TNMStaging_UnitTestApp.Src.Staging.TNM
             Assert.AreEqual(StagingData.Result.STAGED, data.getResult());
             Assert.AreEqual("urethra", data.getSchemaId());
             Assert.AreEqual(0, data.getErrors().Count);
-            Assert.AreEqual(29, data.getPath().Count);
+            Assert.AreEqual(25, data.getPath().Count);
             Assert.AreEqual(10, data.getOutput().Count);
 
             // check outputs
@@ -328,8 +335,7 @@ namespace TNMStaging_UnitTestApp.Src.Staging.TNM
         {
             HashSet<String> tables = _STAGING.getInvolvedTables("adnexa_uterine_other");
             HashSet<String> hash1 = new HashSet<String>()
-                { "extension_bcn", "histology", "nodes_dcc", "primary_site", "schema_selection_adnexa_uterine_other", "seer_mets_48348",
-                  "summary_stage_rpa", "year_dx_validation" };
+                { "primary_site", "histology", "schema_selection_adnexa_uterine_other", "year_dx_validation" };
             Assert.IsTrue(tables.SetEquals(hash1));
         }
 
@@ -344,19 +350,19 @@ namespace TNMStaging_UnitTestApp.Src.Staging.TNM
         [TestMethod]
         public void testGetInputs()
         {
-            HashSet<String> test1 = new HashSet<String>() { "site", "hist", "seer_primary_tumor", "seer_nodes", "seer_mets" };
+            HashSet<String> test1 = new HashSet<String>() { "site", "hist" };
             HashSet<String> test2 = _STAGING.getInputs(_STAGING.getSchema("adnexa_uterine_other"));
             Assert.IsTrue(test1.SetEquals(test2));
 
             test1 = new HashSet<String>() {"site", "hist", "behavior", "systemic_surg_seq", "radiation_surg_seq", "nodes_pos", "clin_t", "clin_n", "clin_m",
-                            "path_t", "path_n", "path_m", "seer_primary_tumor", "seer_nodes", "seer_mets", "ssf13", "ssf15", "ssf16", "clin_stage_group_direct",
+                            "path_t", "path_n", "path_m", "ssf13", "ssf15", "ssf16", "clin_stage_group_direct",
                             "path_stage_group_direct" };
             test2 = _STAGING.getInputs(_STAGING.getSchema("testis"));
             Assert.IsTrue(test1.SetEquals(test2));
 
             // test with and without context
             test1 = new HashSet<String>() {"site", "hist", "systemic_surg_seq", "radiation_surg_seq", "nodes_pos", "clin_t", "clin_n", "clin_m", "path_t",
-                            "path_n", "path_m", "seer_primary_tumor", "seer_nodes", "seer_mets", "ssf1", "ssf8", "ssf10", "clin_stage_group_direct",
+                            "path_n", "path_m", "ssf1", "ssf8", "ssf10", "clin_stage_group_direct",
                             "path_stage_group_direct" };
             test2 = _STAGING.getInputs(_STAGING.getSchema("prostate"));
             Assert.IsTrue(test1.SetEquals(test2));
@@ -368,10 +374,11 @@ namespace TNMStaging_UnitTestApp.Src.Staging.TNM
             context[StagingData.YEAR_DX_KEY] = "2004";
 
             // for that context, only summary stage is calculated
-            test1 = new HashSet<String>() { "site", "hist", "seer_primary_tumor", "seer_nodes", "seer_mets" };
+            test1 = new HashSet<String>() { "site", "hist"};
             test2 = _STAGING.getInputs(_STAGING.getSchema("prostate"), context);
             Assert.IsTrue(test1.SetEquals(test2));
         }
+
 
         [TestMethod]
         public void testIsCodeValid()
@@ -393,8 +400,8 @@ namespace TNMStaging_UnitTestApp.Src.Staging.TNM
             Assert.IsTrue(_STAGING.isCodeValid("urethra", "year_dx", "2016"));
 
             // test valid and invalid fields
-            Assert.IsTrue(_STAGING.isCodeValid("urethra", "seer_primary_tumor", "100"));
-            Assert.IsFalse(_STAGING.isCodeValid("urethra", "seer_primary_tumor", "150"));
+            Assert.IsTrue(_STAGING.isCodeValid("urethra", "clin_t", "c4"));
+            Assert.IsFalse(_STAGING.isCodeValid("urethra", "clin_t", "c5"));
             Assert.IsTrue(_STAGING.isCodeValid("urethra", "ssf1", "020"));
             Assert.IsFalse(_STAGING.isCodeValid("urethra", "ssf1", "030"));
         }

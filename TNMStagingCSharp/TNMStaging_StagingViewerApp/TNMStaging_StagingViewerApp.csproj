@@ -51,6 +51,7 @@
     <Reference Include="System.Xml" />
     <Reference Include="TNMStagingCSharp">
       <HintPath>..\TNMStagingCSharp\bin\Release\TNMStagingCSharp.dll</HintPath>
+      <Private>False</Private>
     </Reference>
   </ItemGroup>
   <ItemGroup>

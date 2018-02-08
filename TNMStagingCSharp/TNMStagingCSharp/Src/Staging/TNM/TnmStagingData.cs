@@ -17,9 +17,6 @@ namespace TNMStagingCSharp.Src.Staging.TNM
         public static readonly TnmInput SEX = new TnmInput("sex");
         public static readonly TnmInput DX_YEAR = new TnmInput("year_dx");
         public static readonly TnmInput AGE_AT_DX = new TnmInput("age_dx");
-        public static readonly TnmInput SEER_PRIMARY_TUMOR = new TnmInput("seer_primary_tumor");
-        public static readonly TnmInput SEER_REGIONAL_NODES = new TnmInput("seer_nodes");
-        public static readonly TnmInput SEER_METS = new TnmInput("seer_mets");
         public static readonly TnmInput CLIN_STAGE_GROUP_DIRECT = new TnmInput("clin_stage_group_direct");
         public static readonly TnmInput PATH_STAGE_GROUP_DIRECT = new TnmInput("path_stage_group_direct");
         public static readonly TnmInput RX_SUMM_SURGERY = new TnmInput("systemic_surg_seq");
@@ -68,9 +65,6 @@ namespace TNMStagingCSharp.Src.Staging.TNM
                 yield return SEX;
                 yield return DX_YEAR;
                 yield return AGE_AT_DX;
-                yield return SEER_PRIMARY_TUMOR;
-                yield return SEER_REGIONAL_NODES;
-                yield return SEER_METS;
                 yield return CLIN_STAGE_GROUP_DIRECT;
                 yield return PATH_STAGE_GROUP_DIRECT;
                 yield return RX_SUMM_SURGERY;
