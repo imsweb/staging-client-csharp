@@ -35,7 +35,7 @@ Versions supported:
 
 ## Download
 
-To download [the beta version of staging library - TNMStagingCSharp_v13.zip](https://github.com/imsweb/staging-client-csharp/releases/download/v1.3-beta/TNMStagingCSharp_v11.zip).
+To download [the beta version of staging library - TNMStagingCSharp_v13.zip](https://github.com/imsweb/staging-client-csharp/releases/download/v1.3-beta/TNMStagingCSharp_v13.zip).
 
 The download zip file contains the TNM Staging DLL and associated files. For more information, please reference the accompanying readme.txt file. Detailed documentation on how to use the DLL can be found in the [Wiki](https://github.com/imsweb/staging-client-csharp/wiki/).
 
@@ -43,7 +43,7 @@ The download zip file contains the TNM Staging DLL and associated files. For mor
 
 Functional Requirements: You will need the .NET Framework 4.5.2 or higher installed to use this library. 
 
-Data Requirements: You will need the algorithm data files for the TNM Staging Library to work properly. At present there are CS 02.05.50 and TNM 1.5 algorithms. You can find a copy of these data files within the TNM Staging source code in the Resources\Algorithms directory. The algorithm data files can be either in separate JSON files, or can be collected together in a compressed file such as .ZIP or .GZ. You can download the zip versions of [CS 02.05.50](https://github.com/imsweb/staging-client-csharp/releases/download/v1.0-beta/CS_02_05_50.zip) and [TNM 1.5](https://github.com/imsweb/staging-client-csharp/releases/download/v1.0-beta/TNM_15.zip) here. 
+Data Requirements: You will need the algorithm data files for the TNM Staging Library to work properly. At present there are CS 02.05.50 and TNM 1.5 algorithms. You can find a copy of these data files within the TNM Staging source code in the Resources\Algorithms directory. The algorithm data files can be either in separate JSON files, or can be collected together in a compressed file such as .ZIP or .GZ. You can download the zip versions of [CS 02.05.50](https://github.com/imsweb/staging-client-csharp/releases/download/v1.0-beta/CS_02_05_50.zip) and [TNM 1.6](https://github.com/imsweb/staging-client-csharp/releases/download/v1.3-beta/TNM_16.zip) here. 
 
 ## Usage
 
