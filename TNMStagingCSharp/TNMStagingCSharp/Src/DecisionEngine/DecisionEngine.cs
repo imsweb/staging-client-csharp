@@ -113,7 +113,7 @@ namespace TNMStagingCSharp.Src.DecisionEngine
             for (int i = 0; i < iRowCount; i++)
             {
                 matchAll = true;
-                for (int c=0; c < iColCount; c++)
+                for (int c = 0; c < iColCount; c++)
                 {
                     col = pColDefs[c];
                     sColKey = col.getKey();
@@ -217,7 +217,7 @@ namespace TNMStagingCSharp.Src.DecisionEngine
                     }
 
             StringBuilder MyStringBuilder = new StringBuilder("");
-            for (int i=0; i < inputs.Count; i++)
+            for (int i = 0; i < inputs.Count; i++)
             {
                 if (MyStringBuilder.Length > 0) MyStringBuilder.Append(",");
                 MyStringBuilder.Append(inputs[i]);
@@ -291,18 +291,7 @@ namespace TNMStagingCSharp.Src.DecisionEngine
                     path = pIncTables[i];
 
                     // make a copy of the context so mapping changes are only included for a single table path
-                    if (pathContext == null)
-                    {
-                        pathContext = new Dictionary<String, String>(context, StringComparer.Ordinal);
-                    }
-                    else
-                    {
-                        pathContext.Clear();
-                        foreach (KeyValuePair<String, String> pair in context)
-                        {
-                            pathContext.Add(pair.Key, pair.Value);
-                        }
-                    }
+                    pathContext = new Dictionary<String, String>(context, StringComparer.Ordinal);
 
                     ITable table = getProvider().getTable(path.getId());
                     if (table == null)
@@ -344,18 +333,7 @@ namespace TNMStagingCSharp.Src.DecisionEngine
                     path = pExcTables[i];
 
                     // make a copy of the context so mapping changes are only included for a single table path
-                    if (pathContext == null)
-                    {
-                        pathContext = new Dictionary<String, String>(context, StringComparer.Ordinal);
-                    }
-                    else
-                    {
-                        pathContext.Clear();
-                        foreach (KeyValuePair<String, String> pair in context)
-                        {
-                            pathContext.Add(pair.Key, pair.Value);
-                        }
-                    }
+                    pathContext = new Dictionary<String, String>(context, StringComparer.Ordinal);
 
                     ITable table = getProvider().getTable(path.getId());
                     if (table == null)

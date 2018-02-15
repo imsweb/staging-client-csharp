@@ -62,7 +62,7 @@ namespace TNMStaging_UnitTestApp.Src.Staging.TNM
             // go over each file
             int processedCases = 0;
             int iLineNumber = 0;
-            int iLineCounter = 0;
+            //int iLineCounter = 0;
 
             MultiTasksExecutor thisMultiTasksExecutor = new MultiTasksExecutor();
             thisMultiTasksExecutor.AddAction(new MultiTasksExecutor.ActionCallBack(MultiTask_TaskCompute));

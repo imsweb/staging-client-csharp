@@ -21,8 +21,8 @@ namespace TNMStagingCSharp.Src.Staging
                 { CTX_ALGORITHM_VERSION, CTX_YEAR_CURRENT });
 
 
-        private DecisionEngineClass _engine = null;
-        private StagingDataProvider _provider = null;
+        private DecisionEngineClass _engine;
+        private StagingDataProvider _provider;
 
         // Private constructor
         // @param provider data provider
@@ -439,18 +439,9 @@ namespace TNMStagingCSharp.Src.Staging
 
             // if valid outputs are defined on the schema level, only return outputs that defined; this removed "temporary" outputs that may be defined during the
             // staging process
-            List<String> lstKeysToRemove = new List<String>();
-            foreach (String entry in outputs)
+            if (schema.getOutputMap() != null)
             {
-                if (!schema.getOutputMap().ContainsKey(entry))
-                {
-                    lstKeysToRemove.Add(entry);
-                }
-            }
-
-            foreach (String sKeyName in lstKeysToRemove)
-            {
-                outputs.Remove(sKeyName);
+                outputs.RemoveWhere(entry => !schema.getOutputMap().ContainsKey(entry));
             }
 
             return outputs;
