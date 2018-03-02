@@ -82,7 +82,6 @@ namespace TNMStagingCSharp.Src.Staging.Entities
                 high = DecisionEngine.DecisionEngineFuncs.translateValue(_high, context);
 
             // if input, low and high values represent decimal numbers then do a float comparison
-
             if (!low.Equals(high))
             {
                 float fConverted, fLow, fHigh;
@@ -98,24 +97,6 @@ namespace TNMStagingCSharp.Src.Staging.Entities
                 }
 
             }
-
-
-            /*
-            if (!low.Equals(high) && isNumeric(low) && isNumeric(high))
-            {
-                if (!isNumeric(value)) return false;
-
-                float fConverted, fLow, fHigh;
-                float.TryParse(value, out fConverted);
-                float.TryParse(low, out fLow);
-                float.TryParse(high, out fHigh);
-
-                return (fConverted >= fLow) && (fConverted <= fHigh);
-
-                //float converted = NumberUtils.createFloat(value);
-                //return (converted >= NumberUtils.createFloat(low)) && (converted <= NumberUtils.createFloat(high));
-            }
-            */
 
             // if the context value(s) failed or the low and high values are different length, return false
             if (low.Length != high.Length || low.Length != value.Length)

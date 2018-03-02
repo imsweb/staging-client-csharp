@@ -35,7 +35,7 @@ Versions supported:
 
 ## Download
 
-To download [the beta version of staging library - TNMStagingCSharp_v13.zip](https://github.com/imsweb/staging-client-csharp/releases/download/v1.3-beta/TNMStagingCSharp_v13.zip).
+To download [the beta version of staging library - TNMStagingCSharp_v14.zip](https://github.com/imsweb/staging-client-csharp/releases/download/v1.4-beta/TNMStagingCSharp_v14.zip).
 
 The download zip file contains the TNM Staging DLL and associated files. For more information, please reference the accompanying readme.txt file. Detailed documentation on how to use the DLL can be found in the [Wiki](https://github.com/imsweb/staging-client-csharp/wiki/).
 
