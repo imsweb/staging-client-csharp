@@ -267,16 +267,16 @@ namespace TNMStaging_UnitTestApp.Src
         [TestMethod]
         public void testMatch()
         {
-            List<StringRange> range = new List<StringRange>();
-            range.Add(new BasicStringRange("1", "1"));
-            range.Add(new BasicStringRange("4", "4"));
-            range.Add(new BasicStringRange("9", "9"));
+            List<Range> range = new List<Range>();
+            range.Add(new BasicRange("1", "1"));
+            range.Add(new BasicRange("4", "4"));
+            range.Add(new BasicRange("9", "9"));
             Assert.IsTrue(DecisionEngineFuncs.testMatch(range, "9", new Dictionary<String, String>()));
             Assert.IsFalse(DecisionEngineFuncs.testMatch(range, "7", new Dictionary<String, String>()));
 
-            range = new List<StringRange>();
-            range.Add(new BasicStringRange("11", "54"));
-            range.Add(new BasicStringRange("99", "99"));
+            range = new List<Range>();
+            range.Add(new BasicRange("11", "54"));
+            range.Add(new BasicRange("99", "99"));
             Assert.IsTrue(DecisionEngineFuncs.testMatch(range, "23", new Dictionary<String, String>()));
         }
 

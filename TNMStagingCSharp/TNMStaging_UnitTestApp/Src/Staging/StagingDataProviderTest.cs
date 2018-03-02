@@ -73,7 +73,7 @@ namespace TNMStaging_UnitTestApp.Src
 
             Assert.AreEqual(10, StagingDataProvider.splitValues("A,B,C,D,E,F,G,H,I,J").Count);
 
-            List<StringRange> ranges = StagingDataProvider.splitValues(",1,2,3,4");
+            List<Range> ranges = StagingDataProvider.splitValues(",1,2,3,4");
             Assert.AreEqual(5, ranges.Count);
             Assert.AreEqual("", ranges[0].getLow());
             Assert.AreEqual("", ranges[0].getHigh());

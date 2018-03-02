@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace TNMStagingCSharp.Src.Staging.Entities
 {
-    public class StagingStringRange : DecisionEngine.StringRange
+    public class StagingRange : DecisionEngine.Range
     {
         private String _low;
         private String _high;
@@ -14,14 +14,15 @@ namespace TNMStagingCSharp.Src.Staging.Entities
         private bool bHighIsRefContextValue;
 
         // Construct a string range that matches any string
-        public StagingStringRange()
+        public StagingRange()
         {
+
         }
 
         // Construct a string range with a low and high bound
         // @param low low value
         // @param high high value
-        public StagingStringRange(String low, String high)
+        public StagingRange(String low, String high)
         {
             if (low == null || high == null)
                 throw new System.InvalidOperationException("Invalid range");
@@ -31,6 +32,14 @@ namespace TNMStagingCSharp.Src.Staging.Entities
 
             bLowIsRefContextValue = DecisionEngine.DecisionEngineFuncs.isReferenceVariable(low);
             bHighIsRefContextValue = DecisionEngine.DecisionEngineFuncs.isReferenceVariable(high);
+        }
+
+        // Return true if the string can converted into a number
+        public static bool isNumeric(String value)
+        {
+            //return NumberUtils.isParsable(value);
+            float number;
+            return (float.TryParse(value, out number));
         }
 
         public override String getLow()
@@ -50,9 +59,14 @@ namespace TNMStagingCSharp.Src.Staging.Entities
             return _low == null && _high == null;
         }
 
+
+        // Returns true if the value is contained in the range.  Note that the low and high values will be replaced with context if
+        // they are specified that way.  There are two ways in which the values are compared.
+        // 1. If the low and high values are different and are both "numeric", then the value will be compared using floats.
+        // 2. Otherwise it will be compared using String but the strings must be the same length othersize the method will always return false.
         public override bool contains(String value, Dictionary<String, String> context)
         {
-            if (_low == null && _high == null)
+            if (matchesAll())
                 return true;
 
             // make null values match the same as if they were blank
@@ -66,6 +80,42 @@ namespace TNMStagingCSharp.Src.Staging.Entities
             String high = _high;
             if (bHighIsRefContextValue)
                 high = DecisionEngine.DecisionEngineFuncs.translateValue(_high, context);
+
+            // if input, low and high values represent decimal numbers then do a float comparison
+
+            if (!low.Equals(high))
+            {
+                float fConverted, fLow, fHigh;
+                bool bValueConv = float.TryParse(value, out fConverted);
+                bool bLowConv = float.TryParse(low, out fLow);
+                bool bHighConv = float.TryParse(high, out fHigh);
+
+                if ((bLowConv) && (bHighConv))
+                {
+                    if (!bValueConv) return false;
+
+                    return (fConverted >= fLow) && (fConverted <= fHigh);
+                }
+
+            }
+
+
+            /*
+            if (!low.Equals(high) && isNumeric(low) && isNumeric(high))
+            {
+                if (!isNumeric(value)) return false;
+
+                float fConverted, fLow, fHigh;
+                float.TryParse(value, out fConverted);
+                float.TryParse(low, out fLow);
+                float.TryParse(high, out fHigh);
+
+                return (fConverted >= fLow) && (fConverted <= fHigh);
+
+                //float converted = NumberUtils.createFloat(value);
+                //return (converted >= NumberUtils.createFloat(low)) && (converted <= NumberUtils.createFloat(high));
+            }
+            */
 
             // if the context value(s) failed or the low and high values are different length, return false
             if (low.Length != high.Length || low.Length != value.Length)

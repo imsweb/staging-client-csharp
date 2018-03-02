@@ -13,7 +13,7 @@ namespace TNMStaging_UnitTestApp.Src.DecisionEngine.Basic
     {
 
         private static String _MATCH_ALL_STRING = "*";
-        private static BasicStringRange _MATCH_ALL_ENDPOINT = new BasicStringRange();
+        private static BasicRange _MATCH_ALL_ENDPOINT = new BasicRange();
         private Dictionary<String, BasicTable> _tables = new Dictionary<String, BasicTable>();
         private Dictionary<String, BasicDefinition> _definitions = new Dictionary<String, BasicDefinition>();
 
@@ -93,13 +93,13 @@ namespace TNMStaging_UnitTestApp.Src.DecisionEngine.Basic
                         {
                             case ColumnType.INPUT:
                                 // if there are no ranges in the list, that means the cell was "blank" and is not needed in the table row
-                                List<BasicStringRange> ranges = splitValues(cellValue);
+                                List<BasicRange> ranges = splitValues(cellValue);
                                 if (!(ranges.Count == 0))
                                 {
                                     tableRowEntity.addInput(col.getKey(), ranges);
 
                                     // if there are key references used (values that reference other inputs) like {{key}}, then add them to the extra inputs list
-                                    foreach (BasicStringRange range in ranges)
+                                    foreach (BasicRange range in ranges)
                                     {
                                         if (DecisionEngineFuncs.isReferenceVariable(range.getLow()))
                                             extraInputs.Add(DecisionEngineFuncs.trimBraces(range.getLow()));
@@ -181,7 +181,7 @@ namespace TNMStaging_UnitTestApp.Src.DecisionEngine.Basic
         }
 
         /**
-         * Parses a string of values into a List of StringRange entities.  The values can contain ranges and multiple values.  Some examples might be:
+         * Parses a string of values into a List of Range entities.  The values can contain ranges and multiple values.  Some examples might be:
          * <p>
          * 10
          * 10-14
@@ -192,9 +192,9 @@ namespace TNMStaging_UnitTestApp.Src.DecisionEngine.Basic
          * @param values a string of values
          * @return a List of BasicStringRange objects
          */
-        protected List<BasicStringRange> splitValues(String values)
+        protected List<BasicRange> splitValues(String values)
         {
-            List<BasicStringRange> convertedRanges = new List<BasicStringRange>();
+            List<BasicRange> convertedRanges = new List<BasicRange>();
 
             if (values != null)
             {
@@ -214,16 +214,16 @@ namespace TNMStaging_UnitTestApp.Src.DecisionEngine.Basic
                         // may need to revisit this issue later.
                         String[] parts = range.Split("-".ToCharArray());
                         if (parts.Length == 1)
-                            convertedRanges.Add(new BasicStringRange(parts[0].Trim(), parts[0].Trim()));
+                            convertedRanges.Add(new BasicRange(parts[0].Trim(), parts[0].Trim()));
                         else if (parts.Length == 2)
                         {
                             if (parts[0].Trim().Length != parts[1].Trim().Length)
-                                convertedRanges.Add(new BasicStringRange(range.Trim(), range.Trim()));
+                                convertedRanges.Add(new BasicRange(range.Trim(), range.Trim()));
                             else
-                                convertedRanges.Add(new BasicStringRange(parts[0].Trim(), parts[1].Trim()));
+                                convertedRanges.Add(new BasicRange(parts[0].Trim(), parts[1].Trim()));
                         }
                         else
-                            convertedRanges.Add(new BasicStringRange(range.Trim(), range.Trim()));
+                            convertedRanges.Add(new BasicRange(range.Trim(), range.Trim()));
                     }
                 }
             }

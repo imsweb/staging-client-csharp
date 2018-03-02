@@ -83,7 +83,7 @@
     <Compile Include="Src\DecisionEngine\Mapping.cs" />
     <Compile Include="Src\DecisionEngine\Output.cs" />
     <Compile Include="Src\DecisionEngine\Result.cs" />
-    <Compile Include="Src\DecisionEngine\StringRange.cs" />
+    <Compile Include="Src\DecisionEngine\Range.cs" />
     <Compile Include="Src\DecisionEngine\Table.cs" />
     <Compile Include="Src\DecisionEngine\TablePath.cs" />
     <Compile Include="Src\DecisionEngine\TableRow.cs" />
@@ -101,7 +101,7 @@
     <Compile Include="Src\Staging\Entities\StagingSchema.cs" />
     <Compile Include="Src\Staging\Entities\StagingSchemaInput.cs" />
     <Compile Include="Src\Staging\Entities\StagingSchemaOutput.cs" />
-    <Compile Include="Src\Staging\Entities\StagingStringRange.cs" />
+    <Compile Include="Src\Staging\Entities\StagingRange.cs" />
     <Compile Include="Src\Staging\Entities\StagingTable.cs" />
     <Compile Include="Src\Staging\Entities\StagingTablePath.cs" />
     <Compile Include="Src\Staging\Entities\StagingTableRow.cs" />

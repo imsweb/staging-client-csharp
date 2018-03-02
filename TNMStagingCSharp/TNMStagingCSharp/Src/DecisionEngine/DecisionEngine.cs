@@ -139,12 +139,12 @@ namespace TNMStagingCSharp.Src.DecisionEngine
 
         //========================================================================================================================
         // Tests that a value is contained in a list of ranges; if the list of ranges is missing or empty, then all values will match to it
-        // @param values a List of StringRange objects
+        // @param values a List of Range objects
         // @param value a value to look for
         // @param context the context will be used to do key lookups when values are in the format of {{var}}
-        // @return return true if the value is contained in the List of StringRange objects
+        // @return return true if the value is contained in the List of Range objects
         //========================================================================================================================
-        public static bool testMatch(List<StringRange> values, String value, Dictionary<String, String> context)
+        public static bool testMatch(List<Range> values, String value, Dictionary<String, String> context)
         {
             if (values == null)
             {

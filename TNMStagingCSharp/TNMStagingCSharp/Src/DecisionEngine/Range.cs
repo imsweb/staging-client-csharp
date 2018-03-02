@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace TNMStagingCSharp.Src.DecisionEngine
 {
-    public abstract class StringRange
+    public abstract class Range
     {
         //========================================================================================================================
         // Returns true of the passed value is contained in the range

@@ -13,9 +13,9 @@ namespace TNMStagingCSharp.Src.DecisionEngine
         //========================================================================================================================
         // A list of values from the input column represented by the passed key
         // @param key the field name of the column
-        // @return a List of StringRange objects
+        // @return a List of Range objects
         //========================================================================================================================
-        List<StringRange> getColumnInput(String key);
+        List<Range> getColumnInput(String key);
 
         //========================================================================================================================
         // A list of endpoints on the row

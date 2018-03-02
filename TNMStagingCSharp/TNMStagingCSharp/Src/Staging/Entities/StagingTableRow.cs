@@ -14,17 +14,17 @@ namespace TNMStagingCSharp.Src.Staging.Entities
     {
 
         [JsonProperty("inputs")]
-        [JsonConverter(typeof(CustomDictionaryConverter<String, List<StagingStringRange>>))]
-        private Dictionary<String, List<StringRange>> _inputs = new Dictionary<String, List<StringRange>>(20);
+        [JsonConverter(typeof(CustomDictionaryConverter<String, List<StagingRange>>))]
+        private Dictionary<String, List<Range>> _inputs = new Dictionary<String, List<Range>>(20);
         [JsonProperty("endpoint")]
         [JsonConverter(typeof(CustomListConverter<StagingEndpoint>))]
         private List<IEndpoint> _endpoints = new List<IEndpoint>(20);
 
         private int iNumInputs = 0;
         private String[] arrKeys;
-        private List<StringRange>[] arrValues;
+        private List<Range>[] arrValues;
 
-        public List<StringRange> getColumnInput(String key)
+        public List<Range> getColumnInput(String key)
         {
             for (int i = 0; i < iNumInputs; i++)
             {
@@ -37,10 +37,10 @@ namespace TNMStagingCSharp.Src.Staging.Entities
         {
             iNumInputs = _inputs.Count;
             arrKeys = new String[iNumInputs];
-            arrValues = new List<StringRange>[iNumInputs];
+            arrValues = new List<Range>[iNumInputs];
 
             int iIndex = 0;
-            foreach (KeyValuePair<String, List<StringRange>> entry in _inputs)
+            foreach (KeyValuePair<String, List<Range>> entry in _inputs)
             {
                 arrKeys[iIndex] = entry.Key;
                 arrValues[iIndex] = entry.Value;
@@ -48,12 +48,12 @@ namespace TNMStagingCSharp.Src.Staging.Entities
             }
         }
 
-        public Dictionary<String, List<StringRange>> getInputs()
+        public Dictionary<String, List<Range>> getInputs()
         {
             return _inputs;
         }
 
-        public void setInputs(Dictionary<String, List<StringRange>> inputs)
+        public void setInputs(Dictionary<String, List<Range>> inputs)
         {
             _inputs = inputs;
         }
@@ -61,7 +61,7 @@ namespace TNMStagingCSharp.Src.Staging.Entities
         // Add a single columns input list
         // @param key key
         // @param range range
-        public void addInput(String key, List<StringRange> range)
+        public void addInput(String key, List<Range> range)
         {
             _inputs[key] = range;
         }

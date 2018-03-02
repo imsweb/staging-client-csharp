@@ -269,9 +269,9 @@ namespace TNMStaging_UnitTestApp.Src
             // loop over each row
             foreach (StagingTableRow row in table.getTableRows())
             {
-                List<StringRange> ranges = row.getInputs()[key];
+                List<Range> ranges = row.getInputs()[key];
 
-                foreach (StagingStringRange range in ranges)
+                foreach (StagingRange range in ranges)
                 {
                     String low = range.getLow();
                     String high = range.getHigh();

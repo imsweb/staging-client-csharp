@@ -859,7 +859,7 @@ namespace TNMStaging_UnitTestApp.Src
                     foreach (StagingTableRow row in table.getTableRows())
                     {
                         // loop over all input cells
-                        foreach (KeyValuePair<String, List<StringRange>> entry in row.getInputs())
+                        foreach (KeyValuePair<String, List<Range>> entry in row.getInputs())
                         {
                             String key = entry.Key;
 
@@ -875,7 +875,7 @@ namespace TNMStaging_UnitTestApp.Src
                             int expectedFieldLength = inputTableLengths[validationTableId];
 
                             // loop over list of ranges
-                            foreach (StagingStringRange range in entry.Value)
+                            foreach (StagingRange range in entry.Value)
                             {
                                 String low = range.getLow();
                                 String high = range.getHigh();

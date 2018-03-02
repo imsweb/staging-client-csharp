@@ -6,7 +6,7 @@ using TNMStagingCSharp.Src.DecisionEngine;
 
 namespace TNMStaging_UnitTestApp.Src.DecisionEngine.Basic
 {
-    public class BasicStringRange : StringRange
+    public class BasicRange : Range
     {
 
         private String _low;
@@ -16,7 +16,7 @@ namespace TNMStaging_UnitTestApp.Src.DecisionEngine.Basic
         /**
          * Construct a BasicString range that matches any string
          */
-        public BasicStringRange()
+        public BasicRange()
         {
             _usesContext = false;
         }
@@ -26,7 +26,7 @@ namespace TNMStaging_UnitTestApp.Src.DecisionEngine.Basic
          * @param low low value
          * @param high high value
          */
-        public BasicStringRange(String low, String high)
+        public BasicRange(String low, String high)
         {
             if (low == null || high == null)
                 throw new InvalidOperationException("Invalid range");

@@ -19,7 +19,7 @@ namespace TNMStagingCSharp.Src.Staging
         public static readonly String PRIMARY_SITE_TABLE = "primary_site";
         public static readonly String HISTOLOGY_TABLE = "histology";
 
-        private static Entities.StagingStringRange _MATCH_ALL_ENDPOINT = new Entities.StagingStringRange();
+        private static Entities.StagingRange _MATCH_ALL_ENDPOINT = new Entities.StagingRange();
 
         private ConcurrentDictionary<String, List<StagingSchema>> mLookupMemoryDict;
         private int miLookupMemoryDictCount;
@@ -148,13 +148,13 @@ namespace TNMStagingCSharp.Src.Staging
                         {
                             case ColumnType.INPUT:
                                 // if there are no ranges in the list, that means the cell was "blank" and is not needed in the table row
-                                List<StringRange> ranges = splitValues(cellValue);
+                                List<Range> ranges = splitValues(cellValue);
                                 if (!(ranges.Count == 0))
                                 {
                                     tableRowEntity.addInput(col.getKey(), ranges);
 
                                     // if there are key references used (values that reference other inputs) like {{key}}, then add them to the extra inputs list
-                                    foreach (StagingStringRange range in ranges)
+                                    foreach (StagingRange range in ranges)
                                     {
                                         if (DecisionEngineFuncs.isReferenceVariable(range.getLow()))
                                             extraInputs.Add(DecisionEngineFuncs.trimBraces(range.getLow()));
@@ -267,12 +267,12 @@ namespace TNMStagingCSharp.Src.Staging
             return new StagingEndpoint(type, value);
         }
 
-        // Parses a string in having lists of ranges into a List of StringRange objects
+        // Parses a string in having lists of ranges into a List of Range objects
         // @param values String representing sets value ranges
         // @return a parsed list of string Range objects
-        public static List<StringRange> splitValues(String values)
+        public static List<Range> splitValues(String values)
         {
-            List<StringRange> convertedRanges = new List<StringRange>();
+            List<Range> convertedRanges = new List<Range>();
 
             if (values != null)
             {
@@ -296,12 +296,12 @@ namespace TNMStagingCSharp.Src.Staging
                         {
                             // don't worry about length differences if one of the parts is a context variable
                             if (parts[0].Trim().Length != parts[1].Trim().Length && !DecisionEngineFuncs.isReferenceVariable(parts[0].Trim()) && !DecisionEngineFuncs.isReferenceVariable(parts[1].Trim()))
-                                convertedRanges.Add(new StagingStringRange(range.Trim(), range.Trim()));
+                                convertedRanges.Add(new StagingRange(range.Trim(), range.Trim()));
                             else
-                                convertedRanges.Add(new StagingStringRange(parts[0].Trim(), parts[1].Trim()));
+                                convertedRanges.Add(new StagingRange(parts[0].Trim(), parts[1].Trim()));
                         }
                         else
-                            convertedRanges.Add(new StagingStringRange(range.Trim(), range.Trim()));
+                            convertedRanges.Add(new StagingRange(range.Trim(), range.Trim()));
                     }
                 }
             }
@@ -484,7 +484,7 @@ namespace TNMStagingCSharp.Src.Staging
 
             foreach (StagingTableRow row in table.getTableRows())
             {
-                foreach (StagingStringRange range in row.getColumnInput(inputKey))
+                foreach (StagingRange range in row.getColumnInput(inputKey))
                 {
                     if (range.getLow() != null)
                     {

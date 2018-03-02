@@ -80,7 +80,7 @@
     <Compile Include="Src\DecisionEngine\Basic\BasicKeyValue.cs" />
     <Compile Include="Src\DecisionEngine\Basic\BasicMapping.cs" />
     <Compile Include="Src\DecisionEngine\Basic\BasicOutput.cs" />
-    <Compile Include="Src\DecisionEngine\Basic\BasicStringRange.cs" />
+    <Compile Include="Src\DecisionEngine\Basic\BasicRange.cs" />
     <Compile Include="Src\DecisionEngine\Basic\BasicTable.cs" />
     <Compile Include="Src\DecisionEngine\Basic\BasicTablePath.cs" />
     <Compile Include="Src\DecisionEngine\Basic\BasicTableRow.cs" />
@@ -100,7 +100,7 @@
     <Compile Include="Src\Staging\SchemaLookupTest.cs" />
     <Compile Include="Src\Staging\StagingDataProviderTest.cs" />
     <Compile Include="Src\Staging\Entities\StagingSchemaInputTest.cs" />
-    <Compile Include="Src\Staging\StagingStringRangeTest.cs" />
+    <Compile Include="Src\Staging\StagingRangeTest.cs" />
     <Compile Include="Src\Staging\StagingTest.cs" />
     <Compile Include="Src\Staging\TNM\TnmBigIntegrationTest.cs" />
     <Compile Include="Src\Staging\TNM\TnmIntegrationSchemaSelection.cs" />
