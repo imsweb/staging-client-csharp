@@ -16,10 +16,9 @@ namespace TNMStaging_UnitTestApp.Src.Staging
     [TestClass]
     public class BasicStagingTest
     {
-        protected static TNMStagingCSharp.Src.Staging.Staging _STAGING;
 
-        [ClassInitialize()]
-        public static void ClassInit(TestContext context)
+        [TestMethod]
+        public void testBlankInputs()
         {
             InMemoryDataProvider provider = new InMemoryDataProvider("test", "1.0");
 
@@ -113,14 +112,10 @@ namespace TNMStaging_UnitTestApp.Src.Staging
 
             provider.addSchema(schema);
 
-            _STAGING = TNMStagingCSharp.Src.Staging.Staging.getInstance(provider);
-        }
+            TNMStagingCSharp.Src.Staging.Staging staging = TNMStagingCSharp.Src.Staging.Staging.getInstance(provider);
 
 
-        [TestMethod]
-        public void testBlankInputs()
-        {
-            Assert.AreEqual("schema_test", _STAGING.getSchema("schema_test").getId());
+            Assert.AreEqual("schema_test", staging.getSchema("schema_test").getId());
 
             // check case where required input field not supplied (i.e. no default); since there are is no workflow defined, this should
             // not cause an error
@@ -129,7 +124,7 @@ namespace TNMStaging_UnitTestApp.Src.Staging
             data.setInput("year_dx", "2018");
             data.setInput("input1", "1");
 
-            _STAGING.stage(data);
+            staging.stage(data);
             Assert.AreEqual(StagingData.Result.STAGED, data.getResult());
 
             // pass in blank for "input2"
@@ -138,7 +133,7 @@ namespace TNMStaging_UnitTestApp.Src.Staging
             data.setInput("input1", "1");
             data.setInput("input2", "");
 
-            _STAGING.stage(data);
+            staging.stage(data);
             Assert.AreEqual(StagingData.Result.STAGED, data.getResult());
 
             // pass in null for "input2"
@@ -148,8 +143,42 @@ namespace TNMStaging_UnitTestApp.Src.Staging
             data.setInput("input1", "1");
             data.setInput("input2", null);
 
-            _STAGING.stage(data);
+            staging.stage(data);
             Assert.AreEqual(StagingData.Result.STAGED, data.getResult());
+        }
+
+        [TestMethod]
+        public void testNumericRangeTableMatch()
+        {
+            InMemoryDataProvider provider = new InMemoryDataProvider("test", "1.0");
+
+            StagingTable table = new StagingTable();
+            table.setId("psa");
+            StagingColumnDefinition def1 = new StagingColumnDefinition();
+            def1.setKey("psa");
+            def1.setName("PSA Value");
+            def1.setType(ColumnType.INPUT);
+            StagingColumnDefinition def2 = new StagingColumnDefinition();
+            def2.setKey("description");
+            def2.setName("PSA Description");
+            def2.setType(ColumnType.DESCRIPTION);
+            table.setColumnDefinitions(new List<IColumnDefinition>() { def1, def2 });
+            table.setRawRows(new List<List<String>>());
+            table.getRawRows().Add(new List<String>() { "0.1", "0.1 or less nanograms/milliliter (ng/ml)" });
+            table.getRawRows().Add(new List<String>() { "0.2-999.9", "0.2 – 999.9 ng/ml" });
+            provider.addTable(table);
+
+            TNMStagingCSharp.Src.Staging.Staging staging = TNMStagingCSharp.Src.Staging.Staging.getInstance(provider);
+
+            Assert.AreEqual(0, staging.findMatchingTableRow("psa", "psa", "0.1"));
+            Assert.AreEqual(1, staging.findMatchingTableRow("psa", "psa", "0.2"));
+            Assert.AreEqual(1, staging.findMatchingTableRow("psa", "psa", "500"));
+            Assert.AreEqual(1, staging.findMatchingTableRow("psa", "psa", "500.99"));
+            Assert.AreEqual(1, staging.findMatchingTableRow("psa", "psa", "500.0001"));
+            Assert.AreEqual(1, staging.findMatchingTableRow("psa", "psa", "999.9"));
+            Assert.AreEqual(-1, staging.findMatchingTableRow("psa", "psa", "1000"));
+            Assert.AreEqual(-1, staging.findMatchingTableRow("psa", "psa", "-1"));
+            Assert.AreEqual(-1, staging.findMatchingTableRow("psa", "psa", "0.01"));
         }
 
     }

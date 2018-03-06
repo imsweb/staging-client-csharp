@@ -281,7 +281,7 @@ namespace TNMStagingCSharp.Src.Staging
                     convertedRanges.Add(_MATCH_ALL_ENDPOINT);
                 else
                 {
-                    // split the string; the "-1" makes sure to not discard empty strings
+                    // split the string; the "9999" makes sure to not discard empty strings
                     String[] ranges = values.Split(",".ToCharArray(), 9999);
 
                     foreach (String range in ranges)
@@ -294,11 +294,20 @@ namespace TNMStagingCSharp.Src.Staging
                         String[] parts = range.Split("-".ToCharArray());
                         if (parts.Length == 2)
                         {
-                            // don't worry about length differences if one of the parts is a context variable
-                            if (parts[0].Trim().Length != parts[1].Trim().Length && !DecisionEngineFuncs.isReferenceVariable(parts[0].Trim()) && !DecisionEngineFuncs.isReferenceVariable(parts[1].Trim()))
-                                convertedRanges.Add(new StagingRange(range.Trim(), range.Trim()));
+                            String low = parts[0].Trim();
+                            String high = parts[1].Trim();
+
+                            // check if both sides of the range are numeric values; if so the length does not have to match
+                            bool isNumericRange = StagingRange.isNumeric(low) && StagingRange.isNumeric(high);
+
+                            // if same length, a numeric range, or one of the parts is a context variable, use the low and high as range.  Otherwise consier
+                            // a single value (i.e. low = high)
+                            if (low.Length == high.Length || isNumericRange || DecisionEngineFuncs.isReferenceVariable(low) || DecisionEngineFuncs.isReferenceVariable(high))
+                                convertedRanges.Add(new StagingRange(low, high));
                             else
-                                convertedRanges.Add(new StagingRange(parts[0].Trim(), parts[1].Trim()));
+                                convertedRanges.Add(new StagingRange(range.Trim(), range.Trim()));
+
+
                         }
                         else
                             convertedRanges.Add(new StagingRange(range.Trim(), range.Trim()));

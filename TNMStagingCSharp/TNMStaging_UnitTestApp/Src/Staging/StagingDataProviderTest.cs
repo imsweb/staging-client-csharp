@@ -121,15 +121,16 @@ namespace TNMStaging_UnitTestApp.Src
             Assert.AreEqual("N0(mol-)", ranges[0].getLow());
             Assert.AreEqual("N0(mol-)", ranges[0].getHigh());
 
+            // test numeric ranges
             ranges = StagingDataProvider.splitValues("1-21");
             Assert.AreEqual(1, ranges.Count);
-            Assert.AreEqual("1-21", ranges[0].getLow());
-            Assert.AreEqual("1-21", ranges[0].getHigh());
+            Assert.AreEqual("1", ranges[0].getLow());
+            Assert.AreEqual("21", ranges[0].getHigh());
 
             ranges = StagingDataProvider.splitValues("21-111");
             Assert.AreEqual(1, ranges.Count);
-            Assert.AreEqual("21-111", ranges[0].getLow());
-            Assert.AreEqual("21-111", ranges[0].getHigh());
+            Assert.AreEqual("21", ranges[0].getLow());
+            Assert.AreEqual("111", ranges[0].getHigh());
         }
 
         [TestMethod]
