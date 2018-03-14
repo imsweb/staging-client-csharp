@@ -77,6 +77,9 @@
     <Compile Include="Src\DecisionEngine\Endpoint.cs" />
     <Compile Include="Src\DecisionEngine\Error.cs" />
     <Compile Include="Src\DecisionEngine\Input.cs" />
+    <Compile Include="Src\Staging\EOD\EodDataProvider.cs" />
+    <Compile Include="Src\Staging\EOD\EodSchemaLookup.cs" />
+    <Compile Include="Src\Staging\EOD\EodStagingData.cs" />
     <Compile Include="Src\Tools\TestingTools.cs" />
     <Compile Include="Src\DecisionEngine\KeyMapping.cs" />
     <Compile Include="Src\DecisionEngine\KeyValue.cs" />

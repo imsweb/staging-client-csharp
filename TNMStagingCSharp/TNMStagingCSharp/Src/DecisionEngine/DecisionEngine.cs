@@ -12,10 +12,10 @@ namespace TNMStagingCSharp.Src.DecisionEngine
 {
     public class DecisionEngineFuncs
     {
+        private static Regex _TEMPLATE_REFERENCE = new Regex("\\{\\{(.*?)\\}\\}", RegexOptions.CultureInvariant | RegexOptions.Compiled);
+
         // string to use for blank or null in error strings
         public static readonly String _BLANK_OUTPUT = "<blank>";
-
-        private static Regex _TEMPLATE_REFERENCE = new Regex("\\{\\{(.*?)\\}\\}", RegexOptions.CultureInvariant | RegexOptions.Compiled);
 
         //========================================================================================================================
         // Checked whether the value is a reference to another variable or context
@@ -590,6 +590,11 @@ namespace TNMStagingCSharp.Src.DecisionEngine
         public HashSet<String> getInputs(IMapping mapping, HashSet<String> excludedInputs)
         {
             HashSet<String> inputs = new HashSet<String>();
+
+            // if any fields are added in the initial context, they should not be considered inputs since their value is set
+            if (mapping.getInitialContext() != null)
+                foreach (IKeyValue kv in mapping.getInitialContext())
+                    excludedInputs.Add(kv.getKey());
 
             // handle inclusion tables if any
             if (mapping.getInclusionTables() != null)
