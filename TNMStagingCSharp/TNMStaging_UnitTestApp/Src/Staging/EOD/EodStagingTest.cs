@@ -118,7 +118,7 @@ namespace TNMStaging_UnitTestApp.Src.Staging.EOD
             {
                 hash1 = new HashSet<String>() { "discriminator_1", "discriminator_2" };
                 hash2 = schema.getSchemaDiscriminators();
-                Assert.IsTrue(hash1.SetEquals(hash2));
+                Assert.IsTrue(hash1.IsSupersetOf(hash2));
             }
 
             // test valid combination that requires discriminator and a good discriminator is supplied
@@ -130,7 +130,7 @@ namespace TNMStaging_UnitTestApp.Src.Staging.EOD
             {
                 hash1 = new HashSet<String>() { "discriminator_1", "discriminator_2" };
                 hash2 = schema.getSchemaDiscriminators();
-                Assert.IsTrue(hash1.SetEquals(hash2));
+                Assert.IsTrue(hash1.IsSupersetOf(hash2));
             }
 
             Assert.AreEqual("nasopharynx", lookup[0].getId());
@@ -142,7 +142,7 @@ namespace TNMStaging_UnitTestApp.Src.Staging.EOD
             {
                 hash1 = new HashSet<String>() { "discriminator_1", "discriminator_2" };
                 hash2 = schema.getSchemaDiscriminators();
-                Assert.IsTrue(hash1.SetEquals(hash2));
+                Assert.IsTrue(hash1.IsSupersetOf(hash2));
             }
             Assert.AreEqual("oropharynx_p16_neg", lookup[0].getId());
 
@@ -188,21 +188,30 @@ namespace TNMStaging_UnitTestApp.Src.Staging.EOD
         [TestMethod]
         public void testDiscriminatorInputs()
         {
-            HashSet<String> discriminators = new HashSet<String>();
-            /*
-            _STAGING.getSchemaIds().stream()
-                            .map(schemaId->_STAGING.getSchema(schemaId))
-                            .filter(schema->schema.getSchemaDiscriminators() != null)
-                            .map(StagingSchema::getSchemaDiscriminators)
-                            .forEach(discriminators::addAll);
-            */
+            HashSet<String> allDiscriminators = new HashSet<String>();
+            HashSet<String> theseDiscriminators;
+            StagingSchema ss;
+
+            HashSet<String> algorithms = _STAGING.getSchemaIds();
+            foreach (String schemaId in algorithms)
+            {
+                ss = _STAGING.getSchema(schemaId);
+                if (ss != null)
+                {
+                    theseDiscriminators = ss.getSchemaDiscriminators();
+                    if (theseDiscriminators != null)
+                    {
+                        allDiscriminators.UnionWith(theseDiscriminators);
+                    }
+                }
+            }
 
             HashSet<String> test1 = new HashSet<String>();
             test1.Add("sex");
             test1.Add("discriminator_1");
             test1.Add("discriminator_2");
 
-            Assert.IsTrue(test1.SetEquals(discriminators));
+            Assert.IsTrue(test1.SetEquals(allDiscriminators));
         }
 
 
@@ -230,7 +239,7 @@ namespace TNMStaging_UnitTestApp.Src.Staging.EOD
         [TestMethod]
         public void testFindTableRow()
         {
-            Assert.IsNull(_STAGING.findMatchingTableRow("tumor_size_clinical_60979", "size_clin", "00X"));
+            Assert.AreEqual(-1, _STAGING.findMatchingTableRow("tumor_size_clinical_60979", "size_clin", "00X"));
 
             // null maps to blank
             Assert.AreEqual(0, _STAGING.findMatchingTableRow("tumor_size_clinical_60979", "size_clin", "000"));
@@ -239,6 +248,7 @@ namespace TNMStaging_UnitTestApp.Src.Staging.EOD
             Assert.AreEqual(2, _STAGING.findMatchingTableRow("tumor_size_clinical_60979", "size_clin", "988"));
             Assert.AreEqual(6, _STAGING.findMatchingTableRow("tumor_size_clinical_60979", "size_clin", "999"));
         }
+
 
         [TestMethod]
         public void testStageUrethra()
@@ -323,13 +333,14 @@ namespace TNMStaging_UnitTestApp.Src.Staging.EOD
         public void testGetInputs()
         {
             HashSet<String> test1 = new HashSet<String>() { "eod_mets", "site", "hist", "eod_primary_tumor", "eod_regional_nodes" };
-            HashSet<String> test2 = new HashSet<String>() { "adnexa_uterine_other" };
+            HashSet<String> test2 = _STAGING.getInputs(_STAGING.getSchema("adnexa_uterine_other"));
             Assert.IsTrue(test1.SetEquals(test2));
 
             test1 = new HashSet<String>() { "eod_mets", "site", "hist", "nodes_pos", "s_category_path", "eod_primary_tumor", "s_category_clin", "eod_regional_nodes" };
             test2 = _STAGING.getInputs(_STAGING.getSchema("testis"));
             Assert.IsTrue(test1.SetEquals(test2));
         }
+
 
         [TestMethod]
         public void testIsCodeValid()

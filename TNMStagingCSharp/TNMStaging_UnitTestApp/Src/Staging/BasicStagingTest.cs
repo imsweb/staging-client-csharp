@@ -286,7 +286,7 @@ namespace TNMStaging_UnitTestApp.Src.Staging
 
             TNMStagingCSharp.Src.Staging.Staging staging = TNMStagingCSharp.Src.Staging.Staging.getInstance(provider);
 
-            HashSet<String> testSet1 = staging.getInputs(staging.getSchema("schema_test")));
+            HashSet<String> testSet1 = staging.getInputs(staging.getSchema("schema_test"));
 
             HashSet<String> testSet2 = new HashSet<String>();
             testSet2.Add("input1");

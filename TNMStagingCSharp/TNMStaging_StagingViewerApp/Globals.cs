@@ -8,6 +8,6 @@ namespace TNMStaging_StagingViewerApp
 {
     public class Globals
     {
-        public static string PROGRAM_VERSION = "1.0";
+        public static string PROGRAM_VERSION = "1.1";
     }
 }
