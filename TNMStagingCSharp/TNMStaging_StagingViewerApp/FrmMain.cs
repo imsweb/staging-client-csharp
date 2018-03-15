@@ -1,10 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
@@ -15,6 +11,7 @@ using TNMStagingCSharp.Src.DecisionEngine;
 using TNMStagingCSharp.Src.Staging.Entities;
 using TNMStagingCSharp.Src.Staging.CS;
 using TNMStagingCSharp.Src.Staging.TNM;
+using TNMStagingCSharp.Src.Staging.EOD;
 
 
 namespace TNMStaging_StagingViewerApp
@@ -1476,10 +1473,12 @@ namespace TNMStaging_StagingViewerApp
             StagingData data = null;
             bool bCSStage = (mProvider.getAlgorithm().IndexOf("cs") >= 0);
             bool bTNMStage = (mProvider.getAlgorithm().IndexOf("tnm") >= 0);
+            bool bEODStage = (mProvider.getAlgorithm().IndexOf("eod") >= 0);
 
             if (bCSStage)           data = new CsStagingData();
             else if (bTNMStage)     data = new TnmStagingData();
-            
+            else if (bEODStage)     data = new EodStagingData();
+
 
             String sSite = cmbxSite.Text;
             if (sSite.IndexOf("-") > 0)

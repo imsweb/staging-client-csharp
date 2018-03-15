@@ -85,6 +85,7 @@
     <Compile Include="Src\DecisionEngine\Basic\BasicTablePath.cs" />
     <Compile Include="Src\DecisionEngine\Basic\BasicTableRow.cs" />
     <Compile Include="Src\Staging\BasicStagingTest.cs" />
+    <Compile Include="Src\Staging\EOD\EodStagingTest.cs" />
     <Compile Include="Src\Staging\InMemoryDataProvider.cs" />
     <Compile Include="Src\Staging\MultiTasksExecutor.cs" />
     <Compile Include="Src\Staging\ComparisonUtils.cs" />

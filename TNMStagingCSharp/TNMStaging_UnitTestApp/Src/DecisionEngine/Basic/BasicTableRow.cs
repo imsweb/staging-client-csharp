@@ -34,7 +34,7 @@ namespace TNMStaging_UnitTestApp.Src.DecisionEngine.Basic
         /**
          * Add a single columns input list
          * @param key an input key
-         * @param range a List of BasicStringRange objects
+         * @param range a List of BasicRange objects
          */
         public void addInput(String key, List<BasicRange> range)
         {

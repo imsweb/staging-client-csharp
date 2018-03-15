@@ -108,6 +108,15 @@ namespace TNMStagingCSharp.Src.Staging
                 schema.setOutputMap(parsedOutputMap);
             }
 
+            // make sure that the mapping initial context does not set a value for an input field
+            if (schema.getMappings() != null)
+                foreach (StagingMapping mapping in schema.getMappings())
+                    if (mapping.getInitialContext() != null)
+                        foreach (StagingKeyValue kv in mapping.getInitialContext())
+                            if (schema.getInputMap().ContainsKey(kv.getKey()))
+                                throw new System.InvalidOperationException("The key '" + kv.getKey() + "' is defined in an initial context, but that is not allowed since it is also defined as an input.");
+
+
             return schema;
         }
 

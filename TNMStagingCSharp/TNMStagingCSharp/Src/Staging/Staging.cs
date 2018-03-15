@@ -432,7 +432,6 @@ namespace TNMStagingCSharp.Src.Staging
             }
 
             // if outputs were not defined, then the tables involved in the mappings will be used to determine the possible outputs
-
             if (schema.getMappings() != null)
                 foreach (StagingMapping mapping in schema.getMappings())
                     outputs.UnionWith(getOutputs(mapping, context));
