@@ -63,9 +63,9 @@ namespace TNMStaging_UnitTestApp.Src.Staging.TNM
         }
 
         [TestMethod]
-        public void testVersionInitiaizationTypes()
+        public void testVersionInitializationTypes()
         {
-            TNMStagingCSharp.Src.Staging.Staging staging10 = TNMStagingCSharp.Src.Staging.Staging.getInstance(TnmDataProvider.getInstance(TnmVersion.v1_6));
+            TNMStagingCSharp.Src.Staging.Staging staging10 = TNMStagingCSharp.Src.Staging.Staging.getInstance(TnmDataProvider.getInstance(TnmVersion.LATEST));
             Assert.AreEqual(TnmVersion.LATEST.getVersion(), staging10.getVersion());
 
             TNMStagingCSharp.Src.Staging.Staging stagingLatest = TNMStagingCSharp.Src.Staging.Staging.getInstance(TnmDataProvider.getInstance());
@@ -184,7 +184,7 @@ namespace TNMStaging_UnitTestApp.Src.Staging.TNM
             Assert.AreEqual("testis", lookup[0].getId());
 
             // now invalidate the cache
-            TnmDataProvider.getInstance(TnmVersion.v1_6).invalidateCache();
+            TnmDataProvider.getInstance(TnmVersion.LATEST).invalidateCache();
 
             // try the lookup again
             lookup = _STAGING.lookupSchema(new TnmSchemaLookup("C629", "9231"));

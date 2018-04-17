@@ -38,7 +38,7 @@ namespace TNMStaging_UnitTestApp.Src.Staging.TNM
                 }
                 else
                 {
-                    staging = TNMStagingCSharp.Src.Staging.Staging.getInstance(TnmDataProvider.getInstance(TnmVersion.v1_6));
+                    staging = TNMStagingCSharp.Src.Staging.Staging.getInstance(TnmDataProvider.getInstance(TnmVersion.LATEST));
                 }
 
                 // hard-code data directory based on Windows vs Linux
@@ -70,7 +70,7 @@ namespace TNMStaging_UnitTestApp.Src.Staging.TNM
 
                 IntegrationUtils.WritelineToLog("Starting TNMBigIntegrationTest::testBigIntegrationTestBad...");
 
-                TNMStagingCSharp.Src.Staging.Staging staging = TNMStagingCSharp.Src.Staging.Staging.getInstance(TnmDataProvider.getInstance(TnmVersion.v1_6));
+                TNMStagingCSharp.Src.Staging.Staging staging = TNMStagingCSharp.Src.Staging.Staging.getInstance(TnmDataProvider.getInstance(TnmVersion.LATEST));
 
                 // hard-code data directory based on Windows vs Linux
                 String dataDirectory;

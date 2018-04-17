@@ -119,7 +119,7 @@ namespace TNMStaging_UnitTestApp.Src
         [TestMethod]
         public void testCachedSiteAndHistology()
         {
-            TnmDataProvider provider = TnmDataProvider.getInstance(TnmVersion.v1_6);
+            TnmDataProvider provider = TnmDataProvider.getInstance(TnmVersion.LATEST);
             Assert.IsTrue(provider.getValidSites().Count > 0);
             Assert.IsTrue(provider.getValidHistologies().Count > 0);
 
