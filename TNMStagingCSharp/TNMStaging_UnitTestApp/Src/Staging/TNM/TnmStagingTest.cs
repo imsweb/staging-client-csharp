@@ -19,7 +19,7 @@ namespace TNMStaging_UnitTestApp.Src.Staging.TNM
     [TestClass]
     public class TnmStagingTest : StagingTest
     {
-        private String sCurrentVersion = "1.6";
+        private String sCurrentVersion = "1.7";
 
         public override String getAlgorithm()
         {
