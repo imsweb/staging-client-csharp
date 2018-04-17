@@ -181,7 +181,210 @@ namespace TNMStaging_UnitTestApp.Src.Staging
             Assert.AreEqual(-1, staging.findMatchingTableRow("psa", "psa", "0.01"));
         }
 
+        [TestMethod]
+        public void testGetInputsWithContext()
+        {
+            InMemoryDataProvider provider = new InMemoryDataProvider("test", "1.0");
+
+            StagingTable table = new StagingTable();
+            table.setId("table_input1");
+            StagingColumnDefinition def1 = new StagingColumnDefinition();
+            def1.setKey("input1");
+            def1.setName("Input 1");
+            def1.setType(ColumnType.INPUT);
+            table.setColumnDefinitions(new List<IColumnDefinition>() { def1 });
+            table.setRawRows(new List<List<String>>());
+            table.getRawRows().Add(new List<String>() { "1" });
+            table.getRawRows().Add(new List<String>() { "2" });
+            provider.addTable(table);
+
+            table = new StagingTable();
+            table.setId("table_input2");
+            def1 = new StagingColumnDefinition();
+            def1.setKey("input1");
+            def1.setName("Input 2");
+            def1.setType(ColumnType.INPUT);
+            table.setColumnDefinitions(new List<IColumnDefinition>() { def1 });
+            table.setRawRows(new List<List<String>>());
+            table.getRawRows().Add(new List<String>() { "" });
+            table.getRawRows().Add(new List<String>() { "A" });
+            table.getRawRows().Add(new List<String>() { "B" });
+            provider.addTable(table);
+
+            table = new StagingTable();
+            table.setId("table_selection");
+            def1 = new StagingColumnDefinition();
+            def1.setKey("input1");
+            def1.setName("Input 1");
+            def1.setType(ColumnType.INPUT);
+            table.setColumnDefinitions(new List<IColumnDefinition>() { def1 });
+            table.setRawRows(new List<List<String>>());
+            table.getRawRows().Add(new List<String>() { "*" });
+            provider.addTable(table);
+
+            table = new StagingTable();
+            table.setId("table_mapping");
+
+            def1 = new StagingColumnDefinition();
+            def1.setKey("input1");
+            def1.setName("Input 1");
+            def1.setType(ColumnType.INPUT);
+            StagingColumnDefinition def2 = new StagingColumnDefinition();
+            def2.setKey("input2");
+            def2.setName("Input 2");
+            def2.setType(ColumnType.INPUT);
+            StagingColumnDefinition def3 = new StagingColumnDefinition();
+            def3.setKey("mapped_field");
+            def3.setName("Temp value");
+            def3.setType(ColumnType.INPUT);
+            StagingColumnDefinition def4 = new StagingColumnDefinition();
+            def4.setKey("final_output");
+            def4.setName("Output");
+            def4.setType(ColumnType.ENDPOINT);
+            table.setColumnDefinitions(new List<IColumnDefinition>() { def1, def2, def3, def4 });
+            table.setRawRows(new List<List<String>>());
+            table.getRawRows().Add(new List<String>() { "*", "*", "*", "VALUE:ABC" });
+            provider.addTable(table);
+
+            StagingSchema schema = new StagingSchema();
+            schema.setId("schema_test");
+            schema.setSchemaSelectionTable("table_selection");
+            List<StagingSchemaInput> inputs = new List<StagingSchemaInput>();
+            inputs.Add(new StagingSchemaInput("input1", "Input 1", "table_input1"));
+            inputs.Add(new StagingSchemaInput("input2", "Input 2", "table_input2"));
+            schema.setInputs(inputs);
+            List<StagingSchemaOutput> outputs = new List<StagingSchemaOutput>();
+            outputs.Add(new StagingSchemaOutput("final_output", "Final Output"));
+            schema.setOutputs(outputs);
+
+            StagingMapping mapping = new StagingMapping();
+            mapping.setId("m1");
+            List<IKeyValue> mapInitialContext = new List<IKeyValue>();
+            mapInitialContext.Add(new StagingKeyValue("tmp_field", null));
+            mapping.setInitialContext(mapInitialContext);
+            StagingTablePath path = new StagingTablePath();
+            path.setId("table_mapping");
+            HashSet<IKeyMapping> pathInputMap = new HashSet<IKeyMapping>();
+            pathInputMap.Add(new StagingKeyMapping("tmp_field", "mapped_field"));
+            path.setInputMapping(pathInputMap);
+            HashSet<String> pathInputs = new HashSet<String>();
+            pathInputs.Add("input1");
+            pathInputs.Add("input2");
+            pathInputs.Add("tmp_field");
+            path.setInputs(pathInputs);
+            HashSet<String> pathOutputs = new HashSet<String>();
+            pathOutputs.Add("final_output");
+            path.setOutputs(pathOutputs);
+            List<ITablePath> mapTablePaths = new List<ITablePath>();
+            mapTablePaths.Add(path);
+            mapping.setTablePaths(mapTablePaths);
+            List<IMapping> schemaMappings = new List<IMapping>();
+            schemaMappings.Add(mapping);
+            schema.setMappings(schemaMappings);
+
+            provider.addSchema(schema);
+
+            TNMStagingCSharp.Src.Staging.Staging staging = TNMStagingCSharp.Src.Staging.Staging.getInstance(provider);
+
+            HashSet<String> testSet1 = staging.getInputs(staging.getSchema("schema_test"));
+
+            HashSet<String> testSet2 = new HashSet<String>();
+            testSet2.Add("input1");
+            testSet2.Add("input2");
+
+            // should only return the "real" inputs and not the temp field set in initial context
+            Assert.IsTrue(testSet1.SetEquals(testSet2));
+
+        }
+
+        [TestMethod]
+        public void testInvalidContext()
+        {
+            InMemoryDataProvider provider = new InMemoryDataProvider("test", "1.0");
+
+            StagingTable table = new StagingTable();
+            table.setId("table_input1");
+            StagingColumnDefinition def1 = new StagingColumnDefinition();
+            def1.setKey("input1");
+            def1.setName("Input 1");
+            def1.setType(ColumnType.INPUT);
+            table.setColumnDefinitions(new List<IColumnDefinition>() { def1 });
+            table.setRawRows(new List<List<String>>());
+            table.getRawRows().Add(new List<String>() { "1" });
+            table.getRawRows().Add(new List<String>() { "2" });
+            provider.addTable(table);
+
+            table = new StagingTable();
+            table.setId("table_selection");
+            def1 = new StagingColumnDefinition();
+            def1.setKey("input1");
+            def1.setName("Input 1");
+            def1.setType(ColumnType.INPUT);
+            table.setColumnDefinitions(new List<IColumnDefinition>() { def1 });
+            table.setRawRows(new List<List<String>>());
+            table.getRawRows().Add(new List<String>() { "*" });
+            provider.addTable(table);
+
+            table = new StagingTable();
+            table.setId("table_mapping");
+            def1 = new StagingColumnDefinition();
+            def1.setKey("input1");
+            def1.setName("Input 1");
+            def1.setType(ColumnType.INPUT);
+            StagingColumnDefinition def2 = new StagingColumnDefinition();
+            def2.setKey("final_output");
+            def2.setName("Output");
+            def2.setType(ColumnType.ENDPOINT);
+            table.setColumnDefinitions(new List<IColumnDefinition>() { def1, def2 });
+            table.setRawRows(new List<List<String>>());
+            table.getRawRows().Add(new List<String>() { "*", "VALUE:ABC" });
+            provider.addTable(table);
+
+            StagingSchema schema = new StagingSchema();
+            schema.setId("schema_test");
+            schema.setSchemaSelectionTable("table_selection");
+            List<StagingSchemaInput> inputs = new List<StagingSchemaInput>();
+            inputs.Add(new StagingSchemaInput("input1", "Input 1", "table_input1"));
+            schema.setInputs(inputs);
+            List<StagingSchemaOutput> outputs = new List<StagingSchemaOutput>();
+            outputs.Add(new StagingSchemaOutput("final_output", "Final Output"));
+            schema.setOutputs(outputs);
+
+            StagingMapping mapping = new StagingMapping();
+            mapping.setId("m1");
+            List<IKeyValue> mapInitialContext = new List<IKeyValue>();
+            mapInitialContext.Add(new StagingKeyValue("input1", "XXX"));
+            mapping.setInitialContext(mapInitialContext);
+            StagingTablePath path = new StagingTablePath();
+            path.setId("table_mapping");
+            HashSet<String> pathInputs = new HashSet<String>();
+            pathInputs.Add("input1");
+            path.setInputs(pathInputs);
+            HashSet<String> pathOutputs = new HashSet<String>();
+            pathOutputs.Add("final_output");
+            path.setOutputs(pathOutputs);
+
+            List<ITablePath> mapTablePaths = new List<ITablePath>();
+            mapTablePaths.Add(path);
+            mapping.setTablePaths(mapTablePaths);
+            List<IMapping> schemaMappings = new List<IMapping>();
+            schemaMappings.Add(mapping);
+            schema.setMappings(schemaMappings);
+
+            try
+            {
+                provider.addSchema(schema);
+                Assert.Fail("Add Schema should have thrown an exception.");
+            } catch (System.InvalidOperationException e)
+            {
+                Assert.IsTrue(e.Message.Contains("not allowed since it is also defined as an input"));
+            }
+
     }
+
+
+
+}
 }
 
 

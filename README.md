@@ -4,6 +4,26 @@ A cancer staging client library for Java applications.
 
 ## Supported staging algorithms
 
+### EOD
+
+Extent of Disease (EOD) is a set of three data items that describe how far a cancer has spread at the time of diagnosis. EOD 2018 is effective for cases diagnosed in 2018 and later.
+ 
+In each EOD schema, valid values, definitions, and registrar notes are provided for
+ 
+- EOD Primary Tumor
+- EOD Lymph Nodes
+- EOD Mets
+- Summary Stage 2018
+- Site-Specific Data Items (SSDIs), including grade, pertinent to the schema
+
+For cancer cases diagnosed January 1, 2018 and later, the NCI SEER program will collect Extent of Disease (EOD) revised for 2018 and Summary Stage 2018. The schemas have been developed to be compatible with the AJCC 8th Edition chapter definitions. 
+
+All of the standard setting organizations will collect the predictive and prognostic factors through Site Specific Data Items (SSDIs). Unlike the SSFs, these data items have formats and code structures specific to the data item.
+ 
+Versions supported:
+
+- 1.0 (released March 2018)
+
 ### TNM
 
 TNM is a widely accepted system of cancer staging. TNM stands for Tumor, Nodes, and Metastasis. T is assigned based on the extent of involvement at the primary tumor site, N for the extent of involvement in regional lymph nodes, and M for distant spread. Clinical TNM is assigned prior to treatment and pathologic TNM is assigned based on clinical information plus information from surgery. The clinical TNM and the pathologic TNM values are summarized as clinical stage group or pathologic stage group.
@@ -12,11 +32,7 @@ For each cancer site, or schema, valid values, definitions, and registrar notes 
 
 TNM categories, stage groups, and definitions are based on the Union for International Cancer Control ([UICC](http://www.uicc.org/)) TNM 7th edition classification.  UICC 7th edition and AJCC 7th edition TNM categories and stage groups are very similar; however, there are some differences.
 
-**WARNING**: SEER Primary Tumor, SEER Regional Nodes, and SEER Mets not used in 2016!!
-
-In 2016, SEER Summary Stage 2000 will continue to be used. For those schemas and site/histology combinations that are not defined in TNM, SEER Summary Stage 2000 should be collected manually.
-
-NCI will be developing SEER Summary Stage 2017, which will be effective for diagnosis year 2017. In preparation for SEER Summary Stage 2017, three data fields have been defined, SEER Primary Tumor, SEER Regional Nodes and SEER Mets. Some work has been done to define these fields, but they do NOT apply in 2016 and should be ignored. Do not utilize these fields for data collection in 2016. Only use the SEER Summary Stage 2000 directly coded field.
+For diagnosis years 2016-2017, SEER Summary Stage 2000 is required. SEER Summary Stage 2000 should be collected manually unless the registry is collecting Collaborative Stage, which would derive Summary Stage 2000.
 
 Versions supported:
 
@@ -30,12 +46,11 @@ assessments, and compatibility across all of the systems for all cancer sites.
 
 Versions supported:
 
-
 - 02.05.50 (released October 2013)
 
 ## Download
 
-To download [the beta version of staging library - TNMStagingCSharp_v15.zip](https://github.com/imsweb/staging-client-csharp/releases/download/v1.5-beta/TNMStagingCSharp_v15.zip).
+To download [the beta version of staging library - TNMStagingCSharp_v16.zip](https://github.com/imsweb/staging-client-csharp/releases/download/v1.6-beta/TNMStagingCSharp_v16.zip).
 
 The download zip file contains the TNM Staging DLL and associated files. For more information, please reference the accompanying readme.txt file. Detailed documentation on how to use the DLL can be found in the [Wiki](https://github.com/imsweb/staging-client-csharp/wiki/).
 
@@ -43,7 +58,7 @@ The download zip file contains the TNM Staging DLL and associated files. For mor
 
 Functional Requirements: You will need the .NET Framework 4.5.2 or higher installed to use this library. 
 
-Data Requirements: You will need the algorithm data files for the TNM Staging Library to work properly. At present there are CS 02.05.50 and TNM 1.5 algorithms. You can find a copy of these data files within the TNM Staging source code in the Resources\Algorithms directory. The algorithm data files can be either in separate JSON files, or can be collected together in a compressed file such as .ZIP or .GZ. You can download the zip versions of [CS 02.05.50](https://github.com/imsweb/staging-client-csharp/releases/download/v1.5-beta/CS_02_05_50.zip) and [TNM 1.6](https://github.com/imsweb/staging-client-csharp/releases/download/v1.5-beta/TNM_16.zip) here. 
+Data Requirements: You will need the algorithm data files for the TNM Staging Library to work properly. At present there are CS 02.05.50, TNM 1.5, and EOD 1.0 algorithms. You can find a copy of these data files within the TNM Staging source code in the Resources\Algorithms directory. The algorithm data files can be either in separate JSON files, or can be collected together in a compressed file such as .ZIP or .GZ. You can download the zip versions of [CS 02.05.50](https://github.com/imsweb/staging-client-csharp/releases/download/v1.6-beta/CS_02_05_50.zip), [TNM 1.6](https://github.com/imsweb/staging-client-csharp/releases/download/v1.6-beta/TNM_16.zip), and [EOD Public 1.0](https://github.com/imsweb/staging-client-csharp/releases/download/v1.6-beta/EOD_Public_10.zip) here. 
 
 ## Usage
 
