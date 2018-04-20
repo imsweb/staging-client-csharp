@@ -31,7 +31,7 @@ namespace TNMStaging_UnitTestApp.Src.Staging.EOD
 
         public override String getVersion()
         {
-            return "1.0";
+            return "1.1";
         }
 
 
@@ -68,7 +68,7 @@ namespace TNMStaging_UnitTestApp.Src.Staging.EOD
         [TestMethod]
         public void testVersionInitializationTypes()
         {
-            TNMStagingCSharp.Src.Staging.Staging staging10 = TNMStagingCSharp.Src.Staging.Staging.getInstance(EodDataProvider.getInstance(EodVersion.v1_0));
+            TNMStagingCSharp.Src.Staging.Staging staging10 = TNMStagingCSharp.Src.Staging.Staging.getInstance(EodDataProvider.getInstance(EodVersion.LATEST));
             Assert.AreEqual(EodVersion.LATEST.getVersion(), staging10.getVersion());
 
             TNMStagingCSharp.Src.Staging.Staging stagingLatest = TNMStagingCSharp.Src.Staging.Staging.getInstance(EodDataProvider.getInstance());
@@ -228,7 +228,7 @@ namespace TNMStaging_UnitTestApp.Src.Staging.EOD
             Assert.AreEqual("soft_tissue_other", lookup[0].getId());
 
             // now invalidate the cache
-            EodDataProvider.getInstance(EodVersion.v1_0).invalidateCache();
+            EodDataProvider.getInstance(EodVersion.LATEST).invalidateCache();
 
             // try the lookup again
             lookup = _STAGING.lookupSchema(new EodSchemaLookup("C629", "9231"));
