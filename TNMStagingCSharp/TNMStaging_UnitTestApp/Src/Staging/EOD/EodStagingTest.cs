@@ -31,7 +31,7 @@ namespace TNMStaging_UnitTestApp.Src.Staging.EOD
 
         public override String getVersion()
         {
-            return "1.1";
+            return EodVersion.v1_2.getVersion();
         }
 
 
@@ -458,6 +458,53 @@ namespace TNMStaging_UnitTestApp.Src.Staging.EOD
             string asciiString = new string(asciiChars);
             Assert.AreNotEqual(table.getNotes(), asciiString);
         }
+
+        [TestMethod]
+        public void testContentReturnedForInvalidInput()
+        {
+            EodStagingData data = new EodStagingData.EodStagingInputBuilder()
+                    .withInput(EodInput.PRIMARY_SITE, "C713")
+                    .withInput(EodInput.HISTOLOGY, "8020")
+                    .withInput(EodInput.BEHAVIOR, "3")
+                    .withInput(EodInput.DX_YEAR, "2018")
+                    .withInput(EodInput.EOD_PRIMARY_TUMOR, "200")
+                    .withInput(EodInput.EOD_REGIONAL_NODES, "300")
+                    .withInput(EodInput.EOD_METS, "00").build();
+
+            // perform the staging
+            _STAGING.stage(data);
+
+            Assert.AreEqual(StagingData.Result.STAGED, data.getResult());
+            Assert.AreEqual("brain", data.getSchemaId());
+            Assert.AreEqual(5, data.getErrors().Count);
+            Assert.AreEqual(5, data.getPath().Count);
+            Assert.AreEqual(8, data.getOutput().Count);
+            Assert.AreEqual("1.2", data.getOutput(EodOutput.DERIVED_VERSION.toString()));
+        }
+
+        [TestMethod]
+        public void testContentNotReturnedForInvalidYear()
+        {
+            EodStagingData data = new EodStagingData.EodStagingInputBuilder()
+                    .withInput(EodInput.PRIMARY_SITE, "C713")
+                    .withInput(EodInput.HISTOLOGY, "8020")
+                    .withInput(EodInput.BEHAVIOR, "3")
+                    .withInput(EodInput.DX_YEAR, "2010")
+                    .withInput(EodInput.EOD_PRIMARY_TUMOR, "200")
+                    .withInput(EodInput.EOD_REGIONAL_NODES, "300")
+                    .withInput(EodInput.EOD_METS, "00").build();
+
+            // perform the staging
+            _STAGING.stage(data);
+
+            Assert.AreEqual(StagingData.Result.FAILED_INVALID_YEAR_DX, data.getResult());
+            Assert.AreEqual("brain", data.getSchemaId());
+            Assert.AreEqual(0, data.getErrors().Count);
+            Assert.AreEqual(0, data.getPath().Count);
+            Assert.AreEqual(0, data.getOutput().Count);
+        }
+
+
 
     }
 
