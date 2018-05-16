@@ -1,6 +1,6 @@
 # staging-client-csharp
 
-A cancer staging client library for Java applications.
+A cancer staging client library for C# applications.
 
 ## Supported staging algorithms
 
@@ -62,7 +62,7 @@ Data Requirements: You will need the algorithm data files for the TNM Staging Li
 
 ## Usage
 
-More detailed documentation can be found in the [Wiki](https://github.com/imsweb/staging-client-csharp/wiki/)
+More detailed documentation can be found in the [Wiki](https://github.com/imsweb/staging-client-csharp/wiki/).
 
 ### Get a `Staging` instance
 
