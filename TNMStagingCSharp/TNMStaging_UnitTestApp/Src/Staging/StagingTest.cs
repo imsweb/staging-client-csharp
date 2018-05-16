@@ -7,8 +7,6 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 using TNMStagingCSharp.Src.DecisionEngine;
 using TNMStagingCSharp.Src.Staging;
-using TNMStagingCSharp.Src.Staging.TNM;
-using TNMStagingCSharp.Src.Staging.CS;
 using TNMStagingCSharp.Src.Staging.Entities;
 
 
@@ -119,7 +117,7 @@ namespace TNMStaging_UnitTestApp.Src
         [TestMethod]
         public void testCachedSiteAndHistology()
         {
-            TnmDataProvider provider = TnmDataProvider.getInstance(TnmVersion.LATEST);
+            StagingDataProvider provider = getProvider();
             Assert.IsTrue(provider.getValidSites().Count > 0);
             Assert.IsTrue(provider.getValidHistologies().Count > 0);
 

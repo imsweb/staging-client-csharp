@@ -3,7 +3,6 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using TNMStagingCSharp.Src.DecisionEngine;
 using TNMStagingCSharp.Src.Staging;
 using TNMStagingCSharp.Src.Staging.Entities;
-using TNMStagingCSharp.Src.Staging.CS;
 using System.IO;
 using System.Reflection;
 using System.Collections.Generic;
@@ -54,7 +53,7 @@ namespace TNMStaging_UnitTestApp.Src
             Assert.AreEqual(62, involved.Count);
             Assert.IsTrue(involved.Contains("mets_eval_ipa"));
 
-            CsStagingData data = new CsStagingData();
+            StagingData data = new StagingData();
             data.setInput("site", "C680");
             data.setInput("hist", "8000");
             data.setInput("behavior", "3");

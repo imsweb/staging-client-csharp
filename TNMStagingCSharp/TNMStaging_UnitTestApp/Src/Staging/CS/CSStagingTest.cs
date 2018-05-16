@@ -19,6 +19,21 @@ namespace TNMStaging_UnitTestApp.Src
 
         private TestContext testContextInstance;
 
+        [ClassInitialize()]
+        public static void ClassInit(TestContext context)
+        {
+            _STAGING = TNMStagingCSharp.Src.Staging.Staging.getInstance(CsDataProvider.getInstance(CsVersion.v020550));
+
+            /*
+            String filename = "CS_02_05_50.zip";
+            FileStream SourceStream = File.Open(filename, FileMode.Open);
+
+            ExternalStagingFileDataProvider provider = new ExternalStagingFileDataProvider(SourceStream);
+
+            _STAGING = TNMStagingCSharp.Src.Staging.Staging.getInstance(provider);
+            */
+        }
+
         /// <summary>
         ///  Gets or sets the test context which provides
         ///  information about and functionality for the current test run.
@@ -36,28 +51,13 @@ namespace TNMStaging_UnitTestApp.Src
 
         public override String getVersion()
         {
-            return "02.05.50";
+            return CsVersion.v020550.getVersion();
         }
 
 
         public override StagingFileDataProvider getProvider()
         {
             return CsDataProvider.getInstance(CsVersion.v020550);
-        }
-
-        [ClassInitialize()]
-        public static void ClassInit(TestContext context)
-        {
-            _STAGING = TNMStagingCSharp.Src.Staging.Staging.getInstance(CsDataProvider.getInstance(CsVersion.v020550));
-
-            /*
-            String filename = "CS_02_05_50.zip";
-            FileStream SourceStream = File.Open(filename, FileMode.Open);
-
-            ExternalStagingFileDataProvider provider = new ExternalStagingFileDataProvider(SourceStream);
-
-            _STAGING = TNMStagingCSharp.Src.Staging.Staging.getInstance(provider);
-            */
         }
 
         [TestMethod]
