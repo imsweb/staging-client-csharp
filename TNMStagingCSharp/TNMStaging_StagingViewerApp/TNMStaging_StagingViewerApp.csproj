@@ -49,10 +49,6 @@
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
-    <Reference Include="TNMStagingCSharp">
-      <HintPath>..\TNMStagingCSharp\bin\Release\TNMStagingCSharp.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Globals.cs" />
@@ -133,6 +129,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\TNMStagingCSharp\TNMStagingCSharp.csproj">
+      <Project>{15a927c7-9920-4fad-9dae-b1088a7021a3}</Project>
+      <Name>TNMStagingCSharp</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
