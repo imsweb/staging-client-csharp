@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Diagnostics;
 using System.Threading;
-using System.Threading.Tasks;
-using System.Collections.Concurrent;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 using TNMStagingCSharp.Src.Staging;
