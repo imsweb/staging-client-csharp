@@ -31,7 +31,7 @@ namespace TNMStaging_UnitTestApp.Src.Staging.EOD
 
         public override String getVersion()
         {
-            return EodVersion.v1_2.getVersion();
+            return EodVersion.v1_3.getVersion();
         }
 
 
@@ -208,6 +208,7 @@ namespace TNMStaging_UnitTestApp.Src.Staging.EOD
 
             HashSet<String> test1 = new HashSet<String>();
             test1.Add("sex");
+            test1.Add("behavior");
             test1.Add("discriminator_1");
             test1.Add("discriminator_2");
 
@@ -479,7 +480,7 @@ namespace TNMStaging_UnitTestApp.Src.Staging.EOD
             Assert.AreEqual(5, data.getErrors().Count);
             Assert.AreEqual(5, data.getPath().Count);
             Assert.AreEqual(8, data.getOutput().Count);
-            Assert.AreEqual("1.2", data.getOutput(EodOutput.DERIVED_VERSION.toString()));
+            Assert.AreEqual("1.3", data.getOutput(EodOutput.DERIVED_VERSION.toString()));
         }
 
         [TestMethod]
