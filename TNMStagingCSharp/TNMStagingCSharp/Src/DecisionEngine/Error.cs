@@ -1,7 +1,9 @@
 ﻿// Copyright (C) 2017 Information Management Services, Inc.
 
 using System;
+using System.Collections.Generic;
 using Newtonsoft.Json;
+
 
 namespace TNMStagingCSharp.Src.DecisionEngine
 {
@@ -12,41 +14,13 @@ namespace TNMStagingCSharp.Src.DecisionEngine
         private Type _type;
         [JsonProperty("table", Order = 2)]
         private String _table;
-        [JsonProperty("key", Order = 3)]
+        [JsonProperty("columns", Order = 3)]
+        private List<String> _columns;
+        [JsonProperty("key", Order = 4)]
         private String _key;
-        [JsonProperty("message", Order = 4)]
+        [JsonProperty("message", Order = 5)]
         private String _message;
 
-
-        public enum Type
-        {
-            // an input key was supplied that is not defined in the input definition
-            UNKNOWN_INPUT,
-
-            // a required input value was not contained in the input definition table
-            INVALID_REQUIRED_INPUT,
-
-            // a non-required input value was not contained in the input definition table
-            INVALID_NON_REQUIRED_INPUT,
-
-            // an input mapping from value did not exist
-            UNKNOWN_INPUT_MAPPING,
-
-            // an ERROR endpoint was hit during staging processing
-            STAGING_ERROR,
-
-            // a table was processed during staging and no match was found
-            MATCH_NOT_FOUND,
-
-            // a specified table does not exist
-            UNKNOWN_TABLE,
-
-            // processing a table ended up in an infinite loop due to JUMPs
-            INFINITE_LOOP,
-
-            // an output value was produced which was not contained in the output definition table
-            INVALID_OUTPUT
-        }
 
         //========================================================================================================================
         // Default constructor
@@ -99,6 +73,21 @@ namespace TNMStagingCSharp.Src.DecisionEngine
         //========================================================================================================================
         //
         //========================================================================================================================
+        public List<String> getColumns()
+        {
+            return _columns;
+        }
+
+        //========================================================================================================================
+        //
+        //========================================================================================================================
+        public void setColumns(List<String> columns)
+        {
+            _columns = columns;
+        }
+        //========================================================================================================================
+        //
+        //========================================================================================================================
         public String getKey()
         {
             return _key;
@@ -126,6 +115,39 @@ namespace TNMStagingCSharp.Src.DecisionEngine
         public void setMessage(String message)
         {
             _message = message;
+        }
+
+        //========================================================================================================================
+        //
+        //========================================================================================================================
+        public enum Type
+        {
+            // an input key was supplied that is not defined in the input definition
+            UNKNOWN_INPUT,
+
+            // a required input value was not contained in the input definition table
+            INVALID_REQUIRED_INPUT,
+
+            // a non-required input value was not contained in the input definition table
+            INVALID_NON_REQUIRED_INPUT,
+
+            // an input mapping from value did not exist
+            UNKNOWN_INPUT_MAPPING,
+
+            // an ERROR endpoint was hit during staging processing
+            STAGING_ERROR,
+
+            // a table was processed during staging and no match was found
+            MATCH_NOT_FOUND,
+
+            // a specified table does not exist
+            UNKNOWN_TABLE,
+
+            // processing a table ended up in an infinite loop due to JUMPs
+            INFINITE_LOOP,
+
+            // an output value was produced which was not contained in the output definition table
+            INVALID_OUTPUT
         }
 
         //========================================================================================================================
@@ -159,6 +181,15 @@ namespace TNMStagingCSharp.Src.DecisionEngine
             public ErrorBuilder table(String table)
             {
                 _error.setTable(table);
+                return this;
+            }
+
+            //========================================================================================================================
+            // 
+            //========================================================================================================================
+            public ErrorBuilder columns(List<String> columns)
+            {
+                _error.setColumns(columns);
                 return this;
             }
 

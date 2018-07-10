@@ -987,10 +987,22 @@ namespace TNMStagingCSharp.Src.DecisionEngine
             // look for the match in the mapping table; if no match is found, used the table-specific no_match value
             IEnumerable<IEndpoint> endpoints = DecisionEngineFuncs.matchTable(table, result.getContext());
 
-
             if (endpoints == null)
-                result.addError(new Error.ErrorBuilder(Error.Type.MATCH_NOT_FOUND).message("Match not found in table '" + tableId + "' (" + DecisionEngineFuncs.getTableInputsAsString(table, result.getContext()) + ")").table(tableId)
+            {
+                List<String> colList = new List<String>();
+                foreach (IColumnDefinition c in table.getColumnDefinitions())
+                {
+                    if (c.getType() == ColumnType.ENDPOINT)
+                        colList.Add(c.getKey());
+                }
+
+                // if a match is not found, include all the endpoints as columns in the error
+                result.addError(new Error.ErrorBuilder(Error.Type.MATCH_NOT_FOUND)
+                        .message("Match not found in table '" + tableId + "' (" + DecisionEngineFuncs.getTableInputsAsString(table, result.getContext()) + ")")
+                        .table(tableId)
+                        .columns(colList)
                         .build());
+            }
             else
             {
                 EndpointType endpType = 0;
@@ -1014,9 +1026,9 @@ namespace TNMStagingCSharp.Src.DecisionEngine
                     {
                         String message = endpValue;
                         if (message == null || message.Length == 0)
-                            message = "Matching resulted in an error in table '" + tableId + "' (" + DecisionEngineFuncs.getTableInputsAsString(table, result.getContext()) + ")";
+                            message = "Matching resulted in an error in table '" + tableId + "' for column '" + endpoint.getResultKey() + "' (" + DecisionEngineFuncs.getTableInputsAsString(table, result.getContext()) + ")";
 
-                        result.addError(new Error.ErrorBuilder(Error.Type.STAGING_ERROR).message(message).table(tableId).build());
+                        result.addError(new Error.ErrorBuilder(Error.Type.STAGING_ERROR).message(message).table(tableId).columns(new List<String>{endpoint.getResultKey()}).build());
                     }
                     else if (EndpointType.VALUE == endpType)
                     {

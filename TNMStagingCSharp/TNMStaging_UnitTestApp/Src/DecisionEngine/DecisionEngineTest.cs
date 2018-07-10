@@ -53,6 +53,7 @@ namespace TNMStaging_UnitTestApp.Src
             table.addRawRow(new List<String>() {"0", "23-30", "Line3", "VALUE:LINE3" });
             table.addRawRow(new List<String>() {"5", "20", "Line4", "JUMP:table_jump_sample" });
             table.addRawRow(new List<String>() {"*", "55", "Line5", "VALUE:LINE5" });
+            table.addRawRow(new List<String>() {"8", "99", "Line6", "ERROR:" });
             table.addRawRow(new List<String>() {"9", "99", "Line6", "ERROR:999" });
             provider.addTable(table);
 
@@ -319,8 +320,7 @@ namespace TNMStaging_UnitTestApp.Src
             Assert.IsNull(DecisionEngineFuncs.matchTable(matchTable, input));
 
             input["size"] = "003";
-
-            List<IEndpoint> lst1 = new List<IEndpoint>() { new BasicEndpoint(EndpointType.JUMP, "some_crazy_table") };
+            List<IEndpoint> lst1 = new List<IEndpoint>() { new BasicEndpoint(EndpointType.JUMP, "some_crazy_table", "size_result") };
             List<IEndpoint> lst2 = DecisionEngineFuncs.matchTable(matchTable, input);
             Assert.IsTrue(CompareListsOfBasicEndpoint(lst1, lst2));
 
@@ -332,7 +332,7 @@ namespace TNMStaging_UnitTestApp.Src
             Assert.AreEqual("size_result", results[0].getResultKey());
 
             input["size"] = "086";
-            lst1 = new List<IEndpoint>() { new BasicEndpoint(EndpointType.ERROR, "Get that huge stuff out of here!") };
+            lst1 = new List<IEndpoint>() { new BasicEndpoint(EndpointType.ERROR, "Get that huge stuff out of here!", "size_result") };
             lst2 = DecisionEngineFuncs.matchTable(matchTable, input);
             Assert.IsTrue(CompareListsOfBasicEndpoint(lst1, lst2));
 
@@ -415,29 +415,29 @@ namespace TNMStaging_UnitTestApp.Src
             Assert.IsNull(DecisionEngineFuncs.matchTable(matchTable, input));
 
             // specify to only match on key1, there should be a match to the first line
-            List<IEndpoint> lst1 = new List<IEndpoint>() { new BasicEndpoint(EndpointType.MATCH, "LINE1") };
+            List<IEndpoint> lst1 = new List<IEndpoint>() { new BasicEndpoint(EndpointType.MATCH, "LINE1", "result") };
             List<IEndpoint> lst2 = DecisionEngineFuncs.matchTable(matchTable, input, new HashSet<String>() { "key1" });
             Assert.IsTrue(CompareListsOfBasicEndpoint(lst1, lst2));
 
             // add key2 to the input map and there should be a match
             input["key2"] = "7";
-            lst1 = new List<IEndpoint>() { new BasicEndpoint(EndpointType.MATCH, "LINE2") };
+            lst1 = new List<IEndpoint>() { new BasicEndpoint(EndpointType.MATCH, "LINE2", "result") };
             lst2 = DecisionEngineFuncs.matchTable(matchTable, input);
             Assert.IsTrue(CompareListsOfBasicEndpoint(lst1, lst2));
 
             // if searching on key1 only, even though key2 was supplied should still match to first line
-            lst1 = new List<IEndpoint>() { new BasicEndpoint(EndpointType.MATCH, "LINE1") };
+            lst1 = new List<IEndpoint>() { new BasicEndpoint(EndpointType.MATCH, "LINE1", "result") };
             lst2 = DecisionEngineFuncs.matchTable(matchTable, input, new HashSet<String>() { "key1" });
             Assert.IsTrue(CompareListsOfBasicEndpoint(lst1, lst2));
 
             // supply an empty set of keys (the same meaning as not passing any keys
-            lst1 = new List<IEndpoint>() { new BasicEndpoint(EndpointType.MATCH, "LINE1") };
+            lst1 = new List<IEndpoint>() { new BasicEndpoint(EndpointType.MATCH, "LINE1", "result") };
             lst2 = DecisionEngineFuncs.matchTable(matchTable, input, new HashSet<String>());
             Assert.IsTrue(CompareListsOfBasicEndpoint(lst1, lst2));
 
             // supply an invalid key.  I think this should find nothing, but for the moment finds a match to the first row since none of the cells were compared to.  It
             // is the same as matching to a table with no INPUTS which would currently find a match to the first row.
-            lst1 = new List<IEndpoint>() { new BasicEndpoint(EndpointType.MATCH, "LINE1") };
+            lst1 = new List<IEndpoint>() { new BasicEndpoint(EndpointType.MATCH, "LINE1", "result") };
             lst2 = DecisionEngineFuncs.matchTable(matchTable, input, new HashSet<String>() { "bad_key" });
             Assert.IsTrue(CompareListsOfBasicEndpoint(lst1, lst2));
         }
@@ -471,8 +471,6 @@ namespace TNMStaging_UnitTestApp.Src
 
             return bRetval;
         }
-
-
 
         [TestMethod]
         public void testMatchMissingVsAll()
@@ -855,6 +853,19 @@ namespace TNMStaging_UnitTestApp.Src
             Assert.AreEqual("999", result.getErrors()[0].getMessage());
             Assert.IsNull(result.getErrors()[0].getKey());
             Assert.AreEqual("table_sample_first", result.getErrors()[0].getTable());
+            CollectionAssert.AreEqual(new List<String> { "result" }, result.getErrors()[0].getColumns());
+
+            // test case with generated error message (i.e. the column is "ERROR:" without a message
+            input["a"] = "8";
+            input["b"] = "99";
+            input["e"] = "X";
+            result = _ENGINE.process("starting_sample", input);
+            Assert.AreEqual(1, result.getErrors().Count);
+            Assert.AreEqual(2, result.getPath().Count);
+            Assert.AreEqual("Matching resulted in an error in table 'table_sample_first' for column 'result' (8,99)", result.getErrors()[0].getMessage());
+            Assert.IsNull(result.getErrors()[0].getKey());
+            Assert.AreEqual("table_sample_first", result.getErrors()[0].getTable());
+            CollectionAssert.AreEqual(new List<String> { "result" }, result.getErrors()[0].getColumns());
         }
 
         [TestMethod]
@@ -1097,6 +1108,7 @@ namespace TNMStaging_UnitTestApp.Src
             Assert.AreEqual(1, result.getErrors().Count);
             Assert.AreEqual(1, result.getPath().Count);
             Assert.AreEqual("table_recursion", result.getErrors()[0].getTable());
+            Assert.IsNull(result.getErrors()[0].getColumns());
         }
 
         [TestMethod]
@@ -1124,6 +1136,8 @@ namespace TNMStaging_UnitTestApp.Src
             Assert.AreEqual(Result.Type.STAGED, result.getType());
             Assert.IsTrue(result.hasErrors());
             Assert.AreEqual(1, result.getErrors().Count);
+            Assert.AreEqual("table_multiple_inputs", result.getErrors()[0].getTable());
+            CollectionAssert.AreEqual(new List<String> { "r2" }, result.getErrors()[0].getColumns());
             Assert.AreEqual("2_LINE2", result.getErrors()[0].getMessage());
             Assert.AreEqual(1, result.getPath().Count);
 
@@ -1142,6 +1156,7 @@ namespace TNMStaging_UnitTestApp.Src
             Assert.IsTrue(result.getErrors()[0].getMessage().StartsWith("Match not found"));
             Assert.IsNull(result.getErrors()[0].getKey());
             Assert.AreEqual("table_jump_sample", result.getErrors()[0].getTable());
+            CollectionAssert.AreEqual(new List<String> { "result" }, result.getErrors()[0].getColumns());
 
             // test 1 JUMP and 2 VALUEs
             input.Clear();
@@ -1175,6 +1190,43 @@ namespace TNMStaging_UnitTestApp.Src
             Assert.IsFalse(input.ContainsKey("r1"));
             Assert.IsFalse(input.ContainsKey("r2"));
             Assert.IsFalse(input.ContainsKey("r3"));
+        }
+
+        [TestMethod]
+        public void testRowNotFoundWithMultipleOutputs()
+        {
+            BasicDataProvider provider = new BasicDataProvider();
+
+            // test a situation where a a row with mulitple inputs is not found
+            BasicTable table = new BasicTable("table_input");
+            table.addColumnDefinition("input1", ColumnType.INPUT);
+            table.addColumnDefinition("output1", ColumnType.ENDPOINT);
+            table.addColumnDefinition("output2", ColumnType.ENDPOINT);
+            table.addRawRow(new List<String>() { "000", "VALUE:000", "VALUE:000" });
+            table.addRawRow(new List<String>() { "001", "VALUE:001", "VALUE:001" });
+            provider.addTable(table);
+
+            BasicDefinition def = new BasicDefinition("sample_outputs");
+            def.setOnInvalidInput(StagingInputErrorHandler.FAIL);
+            def.addInput(new BasicInput("input1", "table_input"));
+
+            BasicMapping mapping = new BasicMapping("mapping1");
+            BasicTablePath path = new BasicTablePath("table_input");
+            mapping.addTablePath(path);
+            def.addMapping(mapping);
+            provider.addDefinition(def);
+
+            DecisionEngineClass engine = new DecisionEngineClass(provider);
+
+            // test match not found
+            Dictionary<String, String> input = new Dictionary<String, String>();
+            input["a"] = "4";
+            input["b"] = "55";
+            Result result = engine.process("sample_outputs", input);
+            Assert.IsTrue(result.hasErrors());
+            Assert.AreEqual(1, result.getErrors().Count);
+            Assert.AreEqual("table_input", result.getErrors()[0].getTable());
+            CollectionAssert.AreEqual(new List<String> { "output1", "output2" }, result.getErrors()[0].getColumns());
         }
 
         [TestMethod]

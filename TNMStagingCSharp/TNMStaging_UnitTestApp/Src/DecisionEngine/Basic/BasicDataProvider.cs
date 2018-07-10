@@ -110,8 +110,7 @@ namespace TNMStaging_UnitTestApp.Src.DecisionEngine.Basic
                                 break;
                             case ColumnType.ENDPOINT:
                                 BasicEndpoint endpoint = parseEndpoint(cellValue);
-                                if (EndpointType.VALUE == endpoint.getType())
-                                    endpoint.setResultKey(col.getKey());
+                                endpoint.setResultKey(col.getKey());
                                 tableRowEntity.addEndpoint(endpoint);
 
                                 // if there are key references used (values that reference other inputs) like {{key}}, then add them to the extra inputs list
