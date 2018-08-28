@@ -479,35 +479,27 @@
     "id" : "mapping_t",
     "name" : "T",
     "initial_context" : [ {
-      "key" : "stor_ajcc6_tdescriptor",
-      "value" : ""
+      "key" : "stor_ajcc6_tdescriptor"
     }, {
-      "key" : "stor_ajcc7_tdescriptor",
-      "value" : ""
+      "key" : "stor_ajcc7_tdescriptor"
     }, {
       "key" : "ajcc6_tdescriptor",
       "value" : "ERROR"
     }, {
-      "key" : "t2000",
-      "value" : ""
+      "key" : "t2000"
     }, {
-      "key" : "stor_ajcc7_t",
-      "value" : ""
+      "key" : "stor_ajcc7_t"
     }, {
-      "key" : "t77",
-      "value" : ""
+      "key" : "t77"
     }, {
       "key" : "ajcc7_tdescriptor",
       "value" : "ERROR"
     }, {
-      "key" : "stor_ajcc6_t",
-      "value" : ""
+      "key" : "stor_ajcc6_t"
     }, {
-      "key" : "ajcc6_t",
-      "value" : ""
+      "key" : "ajcc6_t"
     }, {
-      "key" : "ajcc7_t",
-      "value" : ""
+      "key" : "ajcc7_t"
     } ],
     "tables" : [ {
       "id" : "extension_bbx",
@@ -602,32 +594,24 @@
     "id" : "mapping_n",
     "name" : "N",
     "initial_context" : [ {
-      "key" : "stor_ajcc6_n",
-      "value" : ""
+      "key" : "stor_ajcc6_n"
     }, {
-      "key" : "stor_ajcc6_ndescriptor",
-      "value" : ""
+      "key" : "stor_ajcc6_ndescriptor"
     }, {
-      "key" : "n77",
-      "value" : ""
+      "key" : "n77"
     }, {
-      "key" : "ajcc6_n",
-      "value" : ""
+      "key" : "ajcc6_n"
     }, {
-      "key" : "ajcc7_n",
-      "value" : ""
+      "key" : "ajcc7_n"
     }, {
-      "key" : "n2000",
-      "value" : ""
+      "key" : "n2000"
     }, {
       "key" : "ajcc6_ndescriptor",
       "value" : "ERROR"
     }, {
-      "key" : "stor_ajcc7_n",
-      "value" : ""
+      "key" : "stor_ajcc7_n"
     }, {
-      "key" : "stor_ajcc7_ndescriptor",
-      "value" : ""
+      "key" : "stor_ajcc7_ndescriptor"
     }, {
       "key" : "ajcc7_ndescriptor",
       "value" : "ERROR"
@@ -725,32 +709,24 @@
     "id" : "mapping_m",
     "name" : "M",
     "initial_context" : [ {
-      "key" : "stor_ajcc6_m",
-      "value" : ""
+      "key" : "stor_ajcc6_m"
     }, {
-      "key" : "stor_ajcc7_m",
-      "value" : ""
+      "key" : "stor_ajcc7_m"
     }, {
-      "key" : "m2000",
-      "value" : ""
+      "key" : "m2000"
     }, {
-      "key" : "ajcc6_m",
-      "value" : ""
+      "key" : "ajcc6_m"
     }, {
-      "key" : "ajcc7_m",
-      "value" : ""
+      "key" : "ajcc7_m"
     }, {
-      "key" : "m77",
-      "value" : ""
+      "key" : "m77"
     }, {
       "key" : "ajcc6_mdescriptor",
       "value" : "ERROR"
     }, {
-      "key" : "stor_ajcc7_mdescriptor",
-      "value" : ""
+      "key" : "stor_ajcc7_mdescriptor"
     }, {
-      "key" : "stor_ajcc6_mdescriptor",
-      "value" : ""
+      "key" : "stor_ajcc6_mdescriptor"
     }, {
       "key" : "ajcc7_mdescriptor",
       "value" : "ERROR"
@@ -852,11 +828,9 @@
       "inputs" : [ "hist" ]
     } ],
     "initial_context" : [ {
-      "key" : "stor_ajcc7_stage",
-      "value" : ""
+      "key" : "stor_ajcc7_stage"
     }, {
-      "key" : "ajcc7_stage",
-      "value" : ""
+      "key" : "ajcc7_stage"
     } ],
     "tables" : [ {
       "id" : "ajcc7_stage_uaq",
@@ -895,8 +869,7 @@
       "key" : "stor_ajcc7_mdescriptor",
       "value" : "N"
     }, {
-      "key" : "ajcc7_mdescriptor",
-      "value" : ""
+      "key" : "ajcc7_mdescriptor"
     }, {
       "key" : "stor_ajcc7_stage",
       "value" : "888"
@@ -916,11 +889,9 @@
       "key" : "stor_ajcc7_n",
       "value" : "888"
     }, {
-      "key" : "ajcc7_tdescriptor",
-      "value" : ""
+      "key" : "ajcc7_tdescriptor"
     }, {
-      "key" : "ajcc7_ndescriptor",
-      "value" : ""
+      "key" : "ajcc7_ndescriptor"
     }, {
       "key" : "stor_ajcc7_m",
       "value" : "888"
@@ -939,11 +910,9 @@
       "inputs" : [ "hist" ]
     } ],
     "initial_context" : [ {
-      "key" : "ajcc6_stage",
-      "value" : ""
+      "key" : "ajcc6_stage"
     }, {
-      "key" : "stor_ajcc6_stage",
-      "value" : ""
+      "key" : "stor_ajcc6_stage"
     } ],
     "tables" : [ {
       "id" : "ajcc6_stage_qam",
@@ -985,11 +954,9 @@
       "key" : "stor_ajcc6_tdescriptor",
       "value" : "N"
     }, {
-      "key" : "ajcc6_ndescriptor",
-      "value" : ""
+      "key" : "ajcc6_ndescriptor"
     }, {
-      "key" : "ajcc6_tdescriptor",
-      "value" : ""
+      "key" : "ajcc6_tdescriptor"
     }, {
       "key" : "stor_ajcc6_ndescriptor",
       "value" : "N"
@@ -1000,8 +967,7 @@
       "key" : "ajcc6_stage",
       "value" : "NA"
     }, {
-      "key" : "ajcc6_mdescriptor",
-      "value" : ""
+      "key" : "ajcc6_mdescriptor"
     }, {
       "key" : "stor_ajcc6_stage",
       "value" : "88"
@@ -1090,47 +1056,33 @@
       "inputs" : [ "year_dx", "cs_input_version_original" ]
     } ],
     "initial_context" : [ {
-      "key" : "stor_ajcc7_m",
-      "value" : ""
+      "key" : "stor_ajcc7_m"
     }, {
-      "key" : "stor_ajcc7_stage",
-      "value" : ""
+      "key" : "stor_ajcc7_stage"
     }, {
-      "key" : "ajcc7_m",
-      "value" : ""
+      "key" : "ajcc7_m"
     }, {
-      "key" : "ajcc7_n",
-      "value" : ""
+      "key" : "ajcc7_n"
     }, {
-      "key" : "ajcc7_mdescriptor",
-      "value" : ""
+      "key" : "ajcc7_mdescriptor"
     }, {
-      "key" : "ajcc7_stage",
-      "value" : ""
+      "key" : "ajcc7_stage"
     }, {
-      "key" : "stor_ajcc7_mdescriptor",
-      "value" : ""
+      "key" : "stor_ajcc7_mdescriptor"
     }, {
-      "key" : "stor_ajcc7_tdescriptor",
-      "value" : ""
+      "key" : "stor_ajcc7_tdescriptor"
     }, {
-      "key" : "ajcc7_tdescriptor",
-      "value" : ""
+      "key" : "ajcc7_tdescriptor"
     }, {
-      "key" : "stor_ajcc7_t",
-      "value" : ""
+      "key" : "stor_ajcc7_t"
     }, {
-      "key" : "ajcc7_ndescriptor",
-      "value" : ""
+      "key" : "ajcc7_ndescriptor"
     }, {
-      "key" : "ajcc7_t",
-      "value" : ""
+      "key" : "ajcc7_t"
     }, {
-      "key" : "stor_ajcc7_n",
-      "value" : ""
+      "key" : "stor_ajcc7_n"
     }, {
-      "key" : "stor_ajcc7_ndescriptor",
-      "value" : ""
+      "key" : "stor_ajcc7_ndescriptor"
     } ]
   }, {
     "id" : "mapping_ajcc6_invalid_year",
@@ -1140,80 +1092,55 @@
       "inputs" : [ "year_dx", "cs_input_version_original" ]
     } ],
     "initial_context" : [ {
-      "key" : "stor_ajcc6_m",
-      "value" : ""
+      "key" : "stor_ajcc6_m"
     }, {
-      "key" : "stor_ajcc6_ndescriptor",
-      "value" : ""
+      "key" : "stor_ajcc6_ndescriptor"
     }, {
-      "key" : "n77",
-      "value" : ""
+      "key" : "n77"
     }, {
-      "key" : "stor_ajcc7_stage",
-      "value" : ""
+      "key" : "stor_ajcc7_stage"
     }, {
-      "key" : "ajcc6_m",
-      "value" : ""
+      "key" : "ajcc6_m"
     }, {
-      "key" : "t2000",
-      "value" : ""
+      "key" : "t2000"
     }, {
-      "key" : "ss77",
-      "value" : ""
+      "key" : "ss77"
     }, {
-      "key" : "stor_ss77",
-      "value" : ""
+      "key" : "stor_ss77"
     }, {
-      "key" : "ajcc6_tdescriptor",
-      "value" : ""
+      "key" : "ajcc6_tdescriptor"
     }, {
-      "key" : "t77",
-      "value" : ""
+      "key" : "t77"
     }, {
-      "key" : "stor_ajcc6_stage",
-      "value" : ""
+      "key" : "stor_ajcc6_stage"
     }, {
-      "key" : "n2000",
-      "value" : ""
+      "key" : "n2000"
     }, {
-      "key" : "stor_ajcc6_t",
-      "value" : ""
+      "key" : "stor_ajcc6_t"
     }, {
-      "key" : "ajcc6_t",
-      "value" : ""
+      "key" : "ajcc6_t"
     }, {
-      "key" : "stor_ajcc6_n",
-      "value" : ""
+      "key" : "stor_ajcc6_n"
     }, {
-      "key" : "m2000",
-      "value" : ""
+      "key" : "m2000"
     }, {
-      "key" : "ss2000",
-      "value" : ""
+      "key" : "ss2000"
     }, {
-      "key" : "ajcc6_ndescriptor",
-      "value" : ""
+      "key" : "ajcc6_ndescriptor"
     }, {
-      "key" : "ajcc6_n",
-      "value" : ""
+      "key" : "ajcc6_n"
     }, {
-      "key" : "m77",
-      "value" : ""
+      "key" : "m77"
     }, {
-      "key" : "ajcc6_stage",
-      "value" : ""
+      "key" : "ajcc6_stage"
     }, {
-      "key" : "stor_ajcc6_mdescriptor",
-      "value" : ""
+      "key" : "stor_ajcc6_mdescriptor"
     }, {
-      "key" : "stor_ajcc6_tdescriptor",
-      "value" : ""
+      "key" : "stor_ajcc6_tdescriptor"
     }, {
-      "key" : "ajcc6_mdescriptor",
-      "value" : ""
+      "key" : "ajcc6_mdescriptor"
     }, {
-      "key" : "stor_ss2000",
-      "value" : ""
+      "key" : "stor_ss2000"
     } ]
   } ],
   "involved_tables" : [ "ssf25_snt", "extension_bbx", "ssf15_snj", "ajcc7_t_codes", "ajcc7_stage_uaq", "schema_selection_pleura", "ssf23_snr", "ssf2_kbf", "histology", "cs_input_version_original", "ssf22_snq", "lvi", "ssf14_sni", "ajcc_tdescriptor_cleanup", "ajcc7_year_validation", "ssf21_snp", "ssf17_snl", "ajcc_descriptor_codes", "pleural_effusion_extension_xbz", "lymph_nodes_metsat_dxajcc6_xki", "grade", "ajcc7_inclusions_tpf", "summary_stage_rpa", "ajcc7_m_codes", "ssf20_sno", "ajcc6_stage_qam", "ssf4_maz", "ajcc_ndescriptor_cleanup", "ssf16_snk", "ssf1_jam", "ajcc6_t_codes", "nodes_pos_fpa", "ajcc_mdescriptor_cleanup", "ajcc6_exclusions_pam", "ssf7_snb", "ssf11_snf", "ssf3_lat", "ss_codes", "ssf6_ona", "size_apa", "nodes_exam_gpa", "ajcc6_n_codes", "mets_hat", "behavior", "ssf10_sne", "ssf18_snm", "mets_eval_ipa", "extension_eval_cpa", "ajcc7_n_codes", "ajcc6_stage_codes", "ssf19_snn", "ajcc7_stage_codes", "ssf5_naw", "ssf9_snd", "ssf13_snh", "primary_site", "nodes_dbq", "ajcc6_year_validation", "ajcc6_m_codes", "nodes_eval_epa", "cs_year_validation", "ssf24_sns", "ssf8_snc", "ssf12_sng" ],
