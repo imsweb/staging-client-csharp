@@ -1,0 +1,18 @@
+{
+  "id" : "tumor_size_pathological_dna_6742",
+  "algorithm" : "eod_public",
+  "version" : "1.4",
+  "name" : "Tumor Size Pathological DNA",
+  "title" : "Tumor Size Pathological",
+  "last_modified" : "2018-09-05T20:24:13.218Z",
+  "definition" : [ {
+    "key" : "size_path",
+    "name" : "Code",
+    "type" : "INPUT"
+  }, {
+    "key" : "description",
+    "name" : "Tumor Size Description",
+    "type" : "DESCRIPTION"
+  } ],
+  "rows" : [ [ "999", "Not applicable" ] ]
+}

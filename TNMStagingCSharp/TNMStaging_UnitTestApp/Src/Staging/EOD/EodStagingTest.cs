@@ -31,7 +31,7 @@ namespace TNMStaging_UnitTestApp.Src.Staging.EOD
 
         public override String getVersion()
         {
-            return EodVersion.v1_3.getVersion();
+            return EodVersion.v1_4.getVersion();
         }
 
 
@@ -247,7 +247,7 @@ namespace TNMStaging_UnitTestApp.Src.Staging.EOD
             Assert.AreEqual(2, _STAGING.findMatchingTableRow("tumor_size_clinical_60979", "size_clin", "002"));
             Assert.AreEqual(2, _STAGING.findMatchingTableRow("tumor_size_clinical_60979", "size_clin", "100"));
             Assert.AreEqual(2, _STAGING.findMatchingTableRow("tumor_size_clinical_60979", "size_clin", "988"));
-            Assert.AreEqual(6, _STAGING.findMatchingTableRow("tumor_size_clinical_60979", "size_clin", "999"));
+            Assert.AreEqual(5, _STAGING.findMatchingTableRow("tumor_size_clinical_60979", "size_clin", "999"));
         }
 
 
@@ -318,7 +318,7 @@ namespace TNMStaging_UnitTestApp.Src.Staging.EOD
                 "seer_mets_48348", "nodes_dcc", "grade_clinical_standard_non_ajcc_32473", "grade_pathological_standard_non_ajcc_5627",
                 "adnexa_uterine_other_97891", "nodes_pos_fpa", "tumor_size_pathological_25597", "tumor_size_clinical_60979", "primary_site",
                 "histology", "nodes_exam_76029", "grade_post_therapy_standard_non_ajcc_43091", "schema_selection_adnexa_uterine_other",
-                "year_dx_validation", "summary_stage_rpa", "tumor_size_summary_63115", "extension_bcn"};
+                "year_dx_validation", "summary_stage_rpa", "lvi_dna_56663", "tumor_size_summary_63115", "extension_bcn"};
             Assert.IsTrue(tables.SetEquals(hash1));
         }
 
@@ -437,7 +437,7 @@ namespace TNMStaging_UnitTestApp.Src.Staging.EOD
         [TestMethod]
         public void testEncoding()
         {
-            StagingTable table = _STAGING.getTable("psa_46258");
+            StagingTable table = _STAGING.getTable("serum_alb_pretx_level_58159");
 
             Assert.IsNotNull(table);
 
@@ -480,7 +480,7 @@ namespace TNMStaging_UnitTestApp.Src.Staging.EOD
             Assert.AreEqual(5, data.getErrors().Count);
             Assert.AreEqual(5, data.getPath().Count);
             Assert.AreEqual(8, data.getOutput().Count);
-            Assert.AreEqual("1.3", data.getOutput(EodOutput.DERIVED_VERSION.toString()));
+            Assert.AreEqual("1.4", data.getOutput(EodOutput.DERIVED_VERSION.toString()));
         }
 
         [TestMethod]

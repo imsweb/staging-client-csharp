@@ -1,0 +1,22 @@
+{
+  "id" : "schema_selection_bone_spine",
+  "algorithm" : "eod_public",
+  "version" : "1.4",
+  "name" : "Schema Selection Bone Spine",
+  "title" : "Schema selection for Bone Spine",
+  "last_modified" : "2018-09-05T20:24:08.157Z",
+  "definition" : [ {
+    "key" : "site",
+    "name" : "Primary Site",
+    "type" : "INPUT"
+  }, {
+    "key" : "hist",
+    "name" : "Histology",
+    "type" : "INPUT"
+  }, {
+    "key" : "result",
+    "name" : "Result",
+    "type" : "ENDPOINT"
+  } ],
+  "rows" : [ [ "C412", "8000-8934, 8940-9137,9141-9582,9700-9701", "MATCH" ] ]
+}
