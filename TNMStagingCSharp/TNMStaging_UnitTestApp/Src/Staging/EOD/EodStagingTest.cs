@@ -31,7 +31,7 @@ namespace TNMStaging_UnitTestApp.Src.Staging.EOD
 
         public override String getVersion()
         {
-            return EodVersion.v1_4.getVersion();
+            return EodVersion.v1_5.getVersion();
         }
 
 
@@ -131,6 +131,25 @@ namespace TNMStaging_UnitTestApp.Src.Staging.EOD
                 hash1 = new HashSet<String>() { "discriminator_1", "discriminator_2" };
                 hash2 = schema.getSchemaDiscriminators();
                 Assert.IsTrue(hash1.IsSupersetOf(hash2));
+
+                /*
+                System.Diagnostics.Trace.WriteLine("==========================================================================");
+                String s = schema.GetDebugString("Test Schema ");
+                System.Diagnostics.Trace.WriteLine(s);
+
+                HashSet<String> tables = schema.getInvolvedTables();
+                StagingTable thisTable;
+                foreach (String tableName in tables)
+                {
+                    System.Diagnostics.Trace.WriteLine("---------------------------------------------------------------------------------");
+                    thisTable = _STAGING.getTable(tableName);
+                    s = thisTable.GetDebugString("Table " + tableName + " ");
+                    System.Diagnostics.Trace.WriteLine(s);
+
+                    List<DecisionEngine.IColumnDefinition> defList = thisTable.getColumnDefinitions();
+
+                }
+                */
             }
 
             Assert.AreEqual("nasopharynx", lookup[0].getId());
@@ -480,7 +499,7 @@ namespace TNMStaging_UnitTestApp.Src.Staging.EOD
             Assert.AreEqual(5, data.getErrors().Count);
             Assert.AreEqual(5, data.getPath().Count);
             Assert.AreEqual(8, data.getOutput().Count);
-            Assert.AreEqual("1.4", data.getOutput(EodOutput.DERIVED_VERSION.toString()));
+            Assert.AreEqual("1.5", data.getOutput(EodOutput.DERIVED_VERSION.toString()));
         }
 
         [TestMethod]
