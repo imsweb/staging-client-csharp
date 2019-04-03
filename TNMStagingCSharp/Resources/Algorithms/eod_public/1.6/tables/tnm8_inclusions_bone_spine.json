@@ -1,0 +1,14 @@
+{
+  "id" : "tnm8_inclusions_bone_spine",
+  "algorithm" : "eod_public",
+  "version" : "1.6",
+  "name" : "TNM8 Inclusions (Bone Spine)",
+  "title" : "Inclusion Table TNM 8th ed. (Bone Spine)",
+  "last_modified" : "2019-04-02T17:26:11.024Z",
+  "definition" : [ {
+    "key" : "ajcc_id",
+    "name" : "AJCC ID",
+    "type" : "INPUT"
+  } ],
+  "rows" : [ [ "38.2" ] ]
+}

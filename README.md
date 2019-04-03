@@ -22,7 +22,7 @@ All of the standard setting organizations will collect the predictive and progno
  
 Versions supported:
 
-- 1.5 (released February 2019)
+- 1.6 (released April 2019)
 
 ### TNM
 
@@ -58,7 +58,7 @@ The download zip file contains the TNM Staging DLL and associated files. For mor
 
 Functional Requirements: You will need the .NET Framework 4.5.2 or higher installed to use this library. 
 
-Data Requirements: You will need the algorithm data files for the TNM Staging Library to work properly. At present there are CS 02.05.50, TNM 1.9, and EOD 1.5 algorithms. You can find a copy of these data files within the TNM Staging source code in the Resources\Algorithms directory. The algorithm data files can be either in separate JSON files, or can be collected together in a compressed file such as .ZIP or .GZ. You can download the zip versions of [CS 02.05.50](https://github.com/imsweb/staging-client-csharp/releases/download/v2.4-beta/CS_02_05_50.zip), [TNM 1.9](https://github.com/imsweb/staging-client-csharp/releases/download/v2.3-beta/TNM_19.zip), and [EOD Public 1.5](https://github.com/imsweb/staging-client-csharp/releases/download/v2.6-beta/EOD_Public_15.zip) here. 
+Data Requirements: You will need the algorithm data files for the TNM Staging Library to work properly. At present there are CS 02.05.50, TNM 1.9, and EOD 1.6 algorithms. You can find a copy of these data files within the TNM Staging source code in the Resources\Algorithms directory. The algorithm data files can be either in separate JSON files, or can be collected together in a compressed file such as .ZIP or .GZ. You can download the zip versions of [CS 02.05.50](https://github.com/imsweb/staging-client-csharp/releases/download/v2.4-beta/CS_02_05_50.zip), [TNM 1.9](https://github.com/imsweb/staging-client-csharp/releases/download/v2.3-beta/TNM_19.zip), and [EOD Public 1.6](https://github.com/imsweb/staging-client-csharp/releases/download/v2.7-beta/EOD_Public_16.zip) here. 
 
 ## Usage
 
