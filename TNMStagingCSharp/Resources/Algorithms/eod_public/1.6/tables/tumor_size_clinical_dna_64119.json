@@ -1,0 +1,18 @@
+{
+  "id" : "tumor_size_clinical_dna_64119",
+  "algorithm" : "eod_public",
+  "version" : "1.6",
+  "name" : "Tumor Size Clinical DNA",
+  "title" : "Tumor Size Clinical",
+  "last_modified" : "2019-04-02T17:26:13.420Z",
+  "definition" : [ {
+    "key" : "size_clin",
+    "name" : "Code",
+    "type" : "INPUT"
+  }, {
+    "key" : "description",
+    "name" : "Tumor Size Description",
+    "type" : "DESCRIPTION"
+  } ],
+  "rows" : [ [ "999", "Not applicable" ] ]
+}

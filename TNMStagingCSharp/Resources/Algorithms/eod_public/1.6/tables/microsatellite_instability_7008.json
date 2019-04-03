@@ -1,0 +1,19 @@
+{
+  "id" : "microsatellite_instability_7008",
+  "algorithm" : "eod_public",
+  "version" : "1.6",
+  "name" : "Microsatellite Instability",
+  "title" : "Microsatellite Instability (MSI)",
+  "notes" : "**Note 1:** Physician statement of MSI can be used to code this data item when no other information is available.\n\n**Note 2:** The microsatellite instability (MSI) test is a genetic test performed on tumor tissue to look for differences in length of certain non-functioning sections of DNA. The differences are caused by problems with the genes that encode proteins that normally repair certain types of DNA damage. A high proportion of colon cancers arising in  patients with hereditary nonpolyposis colorectal cancer (HNPCC) (also known as Lynch syndrome) have high MSI and a smaller percentage of colon cancers not associated with Lynch syndrome have high MSI.   Patients with colon cancers with high MSI may be further tested to determine if they have HNPCC.  In addition, MSI is a useful prognostic marker in that patients with high MSI colon cancers have better response to surgery and survival.  \n\n**Note 3:** Testing for MSI may be done by immunology or genetic testing. Only genetic testing results will specify whether the MSI is low or high.\n* Some laboratories only test for MSI via an immunologic test for Mismatch Repair (MMR) Protein. Results from immunology will only provide you with positive or negative results and will not specify whether the MSI is low or high\n* Results of Mismatch Repair (MMR) may be recorded in this data item - see codes 0 and 2\n* MMR proficient (pMMR or MMR-P) should be coded as a 0\n\n**Note 4:** If both tests are done and one or both are positive, code 2.\n\n**Note 5:** If all tests done are negative, code 0.",
+  "last_modified" : "2019-04-02T17:26:13.283Z",
+  "definition" : [ {
+    "key" : "msi",
+    "name" : "Code",
+    "type" : "INPUT"
+  }, {
+    "key" : "description",
+    "name" : "Description",
+    "type" : "DESCRIPTION"
+  } ],
+  "rows" : [ [ "0", "Microsatellite instability (MSI) stable; microsatellite stable (MSS); negative, NOS\nAND/OR\nMismatch repair (MMR) intact, no loss of nuclear expression of MMR proteins" ], [ "1", "MSI unstable low (MSI-L)" ], [ "2", "MSI unstable high (MSI-H)\nAND/OR\nMMR-D (loss of nuclear expression of one or more MMR proteins, MMR protein deficient)" ], [ "8", "Not applicable: Information not collected for this case\n(If this information is required by your standard setter, use of code 8 may result in an edit error.)" ], [ "9", "Not documented in medical record\nMSI-indeterminate \nMicrosatellite instability not assessed or unknown if assessed" ] ]
+}
