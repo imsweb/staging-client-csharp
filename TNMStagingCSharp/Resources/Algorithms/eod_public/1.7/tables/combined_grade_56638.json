@@ -1,0 +1,24 @@
+{
+  "id" : "combined_grade_56638",
+  "algorithm" : "eod_public",
+  "version" : "1.7",
+  "name" : "Combined Grade",
+  "title" : "Combined Grade",
+  "notes" : "If a combined Grade is need for a calculation, this determines the best grade to use.",
+  "last_modified" : "2019-08-02T17:07:03.460Z",
+  "definition" : [ {
+    "key" : "grade_clin",
+    "name" : "Grade Clin",
+    "type" : "INPUT"
+  }, {
+    "key" : "grade_path",
+    "name" : "Grade Path",
+    "type" : "INPUT"
+  }, {
+    "key" : "grade_combined",
+    "name" : "Grade Combined",
+    "type" : "ENDPOINT"
+  } ],
+  "extra_input" : [ "grade_path", "grade_clin" ],
+  "rows" : [ [ "1,2,3,4,5,L,M,H,A,B,C,D,E,9", "1,2,3,4,5,L,M,H", "VALUE:{{grade_path}}" ], [ "1,2,3,4,5,L,M,H", "A,B,C,D,E,9", "VALUE:{{grade_clin}}" ], [ "A,B,C,D,E,9", "A,B,C,D,E,9", "VALUE:{{grade_path}}" ] ]
+}

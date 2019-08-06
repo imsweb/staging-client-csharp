@@ -31,7 +31,7 @@ namespace TNMStaging_UnitTestApp.Src.Staging.EOD
 
         public override String getVersion()
         {
-            return EodVersion.v1_6.getVersion();
+            return EodVersion.v1_7.getVersion();
         }
 
 
@@ -499,7 +499,7 @@ namespace TNMStaging_UnitTestApp.Src.Staging.EOD
             Assert.AreEqual(5, data.getErrors().Count);
             Assert.AreEqual(5, data.getPath().Count);
             Assert.AreEqual(8, data.getOutput().Count);
-            Assert.AreEqual("1.6", data.getOutput(EodOutput.DERIVED_VERSION.toString()));
+            Assert.AreEqual("1.7", data.getOutput(EodOutput.DERIVED_VERSION.toString()));
         }
 
         [TestMethod]
