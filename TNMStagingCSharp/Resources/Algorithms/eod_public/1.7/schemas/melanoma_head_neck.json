@@ -348,5 +348,5 @@
   } ],
   "involved_tables" : [ "eod_mets_mucosal_head_and_neck_45697", "radiation_surg_seq", "lymph_nodes_head_and_neck_levels_i_iii_19222", "ss2018_melanoma_head_and_neck_8720_8790_46168", "extranodal_extension_head_and_neck_clinical_51375", "nodes_pos_fpa", "parse_t_2177", "parse_n_67182", "extranodal_extension_head_and_neck_pathological_93423", "histology", "nodes_exam_76029", "seer_regional_nodes_91716", "lymph_nodes_size_of_metastasis_87329", "tumor_size_summary_63115", "schema_selection_melanoma_buccal_mucosa", "behavior", "ajcc_chapter_calculation_24926", "grade_post_therapy_standard_88293", "grade_clinical_standard_94331", "lymph_nodes_head_and_neck_other_31141", "tnm8_inclusions_tpa", "lymph_nodes_head_and_neck_levels_vi_vii_32325", "tumor_size_pathological_25597", "tumor_size_clinical_60979", "systemic_surg_seq", "seer_primary_tumor_head_neck_melanoma_38698", "parse_m_47057", "primary_site", "eod_tnm_component_cleanup_58170", "grade_pathological_standard_94268", "year_dx_validation", "lymph_nodes_head_and_neck_levels_iv_v_55093", "summary_stage_rpa", "lvi_dna_56663", "tnm8_stage_for_sites_with_no_stage_groupings_unb" ],
   "on_invalid_input" : "CONTINUE",
-  "last_modified" : "2019-08-02T17:10:28.912Z"
+  "last_modified" : "2019-08-09T20:26:24.410Z"
 }

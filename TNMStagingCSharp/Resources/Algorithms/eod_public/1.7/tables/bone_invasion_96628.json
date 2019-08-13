@@ -5,7 +5,7 @@
   "name" : "Bone Invasion",
   "title" : "Bone Invasion",
   "notes" : "**Note 1:** Physician statement of Bone Invasion can be used to code this data item when no other information is available.\n\n**Note 2:** Record bone invasion as determined by relevant imaging only for the primary tumor. Imaging methodologies include computed tomography (CT) scans and magnetic resonance imaging (MRI).\n\n**Note 3:** Code 0 if relevant imaging is performed and there is no mention of bone invasion.\n\n**Note 4:** Code 9 if there is no relevant imaging of the primary site.",
-  "last_modified" : "2019-08-02T17:07:03.969Z",
+  "last_modified" : "2019-08-09T20:24:47.488Z",
   "definition" : [ {
     "key" : "bone_invasion",
     "name" : "Code",

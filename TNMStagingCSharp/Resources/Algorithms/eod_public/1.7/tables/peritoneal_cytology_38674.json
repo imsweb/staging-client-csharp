@@ -5,7 +5,7 @@
   "name" : "Peritoneal Cytology",
   "title" : "Peritoneal Cytology",
   "notes" : "**Note 1:** Physician statement of Peritoneal Cytology can be used to code this data item when no other information is available.\n\n**Note 2:** Peritoneal cytology may also be called peritoneal ascitic fluid instead of peritoneal washing or pelvic washing.\n\n**Note 3:** Cytologic examination for malignant cells may be performed on ascites (fluid that has accumulated in the peritoneal cavity in excess amount) or the fluid (saline) that is introduced into the peritoneal cavity or pelvis, and then removed by suction. The introduction of fluid may be termed peritoneal or pelvic washing or peritoneal lavage.",
-  "last_modified" : "2019-08-02T17:07:03.623Z",
+  "last_modified" : "2019-08-09T20:24:47.181Z",
   "definition" : [ {
     "key" : "peritoneal_cytology",
     "name" : "Code",

@@ -4,7 +4,7 @@
   "version" : "1.7",
   "name" : "Schema Selection MerkelCellSkin",
   "title" : "Schema selection for MerkelCellSkin",
-  "last_modified" : "2019-08-02T17:07:03.871Z",
+  "last_modified" : "2019-08-09T20:24:47.394Z",
   "definition" : [ {
     "key" : "site",
     "name" : "Primary Site",

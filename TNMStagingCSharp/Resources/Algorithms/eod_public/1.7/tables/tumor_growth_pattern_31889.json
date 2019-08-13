@@ -5,7 +5,7 @@
   "name" : "Tumor Growth Pattern",
   "title" : "Tumor Growth Pattern",
   "notes" : "**Note 1:** Physician statement of tumor growth pattern can be used to code this data item when no other information is available.\n\n**Note 2:** Cholangiocarcinoma may be classified by growth pattern. The tumor growth patterns of intrahepatic cholangiocarcinoma include the mass forming type, the periductal infiltrating type, and a mixed type. The periductal infiltrating type of cholangiocarcinoma demonstrates a diffuse longitudinal growth pattern along the bile duct. Limited analyses suggest that the diffuse periductal infiltrating type is associated with a poor prognosis.\n\n**Note 3:** Record the presence or absence of an infiltrating periductal component. This information may be obtained from radiology, surgery, or pathology reports.",
-  "last_modified" : "2019-08-02T17:07:03.547Z",
+  "last_modified" : "2019-08-09T20:24:47.126Z",
   "definition" : [ {
     "key" : "tumor_growth_pattern",
     "name" : "Code",

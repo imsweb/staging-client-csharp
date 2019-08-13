@@ -5,7 +5,7 @@
   "name" : "Schema Discriminator 2",
   "title" : "Schema Discriminator 2: Histology Discriminator for 8020/3",
   "notes" : "**Note:** A schema discriminator is used to discriminate for histology 8020/3: Undifferentiated carcinoma to determine which Stage Group table to use.\n* **8020/3: Undifferentiated carcinoma with squamous component (see code 1)**\nUse the Squamous Cell Carcinoma Stage Group Table\n* **8020/3: Undifferentiated carcinoma with glandular component (see code 2)**\nUse the Adenocarcinoma Stage Group Table\n* **8020/3: Undifferentiated carcinoma, NOS (no mention of squamous or glandular component) (see code 3)**\nUse the Squamous Cell Carcinoma Stage Group Table",
-  "last_modified" : "2019-08-02T17:07:03.991Z",
+  "last_modified" : "2019-08-09T20:24:47.509Z",
   "definition" : [ {
     "key" : "discriminator_2",
     "name" : "Code",

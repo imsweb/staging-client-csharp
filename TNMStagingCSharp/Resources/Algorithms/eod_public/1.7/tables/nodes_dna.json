@@ -4,7 +4,7 @@
   "version" : "1.7",
   "name" : "EOD Regional Nodes",
   "title" : "EOD Regional Nodes",
-  "last_modified" : "2019-08-02T17:07:01.764Z",
+  "last_modified" : "2019-08-09T20:24:45.422Z",
   "definition" : [ {
     "key" : "eod_regional_nodes",
     "name" : "Code",

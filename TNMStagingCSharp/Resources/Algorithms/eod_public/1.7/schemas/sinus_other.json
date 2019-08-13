@@ -178,5 +178,5 @@
   } ],
   "involved_tables" : [ "grade_clinical_standard_non_ajcc_32473", "ss2018_sinus_other_excluding_melanoma_8720_8790_91859", "grade_pathological_standard_non_ajcc_5627", "nodes_pos_fpa", "tumor_size_pathological_25597", "tumor_size_clinical_60979", "seer_mets_sinus_othervs2_15755", "primary_site", "nodes_daq", "histology", "nodes_exam_76029", "grade_post_therapy_standard_non_ajcc_43091", "schema_selection_sinus_other", "year_dx_validation", "summary_stage_rpa", "extension_bdk", "lvi_dna_56663", "tumor_size_summary_63115" ],
   "on_invalid_input" : "CONTINUE",
-  "last_modified" : "2019-08-02T17:10:26.453Z"
+  "last_modified" : "2019-08-09T20:26:22.660Z"
 }

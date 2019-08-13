@@ -298,5 +298,5 @@
   } ],
   "involved_tables" : [ "grade_post_therapy_72642", "radiation_surg_seq", "peripheral_blood_involv_92357", "nodes_pos_fpa", "parse_t_2177", "parse_n_67182", "mets_haz", "histology", "nodes_exam_76029", "ajcc_chapter_calculation_57603", "tumor_size_summary_63115", "tnm8_inclusions_tpw", "ss2018_mycosis_fungoides_94448", "tumor_size_pathological_25597", "nodes_dce", "systemic_surg_seq", "tumor_size_clinical_60979", "tnm_8_path_stage_group_for_eod_50745", "parse_m_47057", "primary_site", "eod_tnm_component_cleanup_58170", "year_dx_validation", "summary_stage_rpa", "lvi_dna_56663", "grade_clinical_18316", "extension_bcp", "grade_pathological_73388", "schema_selection_mycosis_fungoides" ],
   "on_invalid_input" : "CONTINUE",
-  "last_modified" : "2019-08-02T17:10:38.036Z"
+  "last_modified" : "2019-08-09T20:26:34.308Z"
 }

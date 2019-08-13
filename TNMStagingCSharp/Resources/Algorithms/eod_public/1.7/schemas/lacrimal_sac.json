@@ -187,5 +187,5 @@
   } ],
   "involved_tables" : [ "seer_mets_48348", "extension_btb", "grade_clinical_standard_non_ajcc_32473", "grade_pathological_standard_non_ajcc_5627", "nodes_pos_fpa", "tumor_size_pathological_25597", "tumor_size_clinical_60979", "primary_site", "histology", "nodes_exam_76029", "grade_post_therapy_standard_non_ajcc_43091", "lacrimal_gland_lacrimal_sac_63106", "year_dx_validation", "seer_regional_nodes_lacrimal_sac_33881", "summary_stage_rpa", "lvi_dna_56663", "tumor_size_summary_63115", "ss2018_lacrimal_gland_82062", "schema_selection_lacrimal_sac" ],
   "on_invalid_input" : "CONTINUE",
-  "last_modified" : "2019-08-02T17:10:37.446Z"
+  "last_modified" : "2019-08-09T20:26:33.689Z"
 }

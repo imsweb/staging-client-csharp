@@ -5,7 +5,7 @@
   "name" : "Adenoid Cystic Basaloid Pattern",
   "title" : "Adenoid Cystic Basaloid Pattern",
   "notes" : "**Note 1:** Physician statement of basaloid pattern can be used to code this data item when no other information is available.\n\n**Note 2:** This is most commonly found in Adenoid Cystic Carcinoma (8200/3), but can be present in other histologies.",
-  "last_modified" : "2019-08-02T17:07:03.991Z",
+  "last_modified" : "2019-08-09T20:24:47.508Z",
   "definition" : [ {
     "key" : "adenoid_cystic_basaloid_pattern",
     "name" : "Code",

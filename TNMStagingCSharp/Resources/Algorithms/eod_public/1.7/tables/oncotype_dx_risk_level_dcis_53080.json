@@ -5,7 +5,7 @@
   "name" : "Oncotype Dx Risk Level - DCIS",
   "title" : "Oncotype Dx Risk Level-DCIS",
   "notes" : "**Note 1:** Physician statement of Oncotype Dx Risk Level-DCIS can be used to code this data item.\n\n**Note 2:** The Oncotype Dx Risk Level-DCIS test stratifies scores into low, intermediate, and high risk of distant recurrence.  If only the score is stated, assign the risk level based on the score. \n\n**Note 3:** Code 9 for LCIS tumors. \n\n**Note 4:** Record only the results of an Oncotype Dx Risk Level-DCIS in this data item. If some other test is used for scoring, assign code 9.",
-  "last_modified" : "2019-08-02T17:07:03.863Z",
+  "last_modified" : "2019-08-09T20:24:47.384Z",
   "definition" : [ {
     "key" : "oncotype_dx_risk_level_dcis",
     "name" : "Code",

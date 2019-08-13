@@ -348,5 +348,5 @@
   } ],
   "involved_tables" : [ "tumor_size_with_primary_tumor_for_ajcc_t_52324", "mets_haj", "nodes_dba", "lymph_nodes_distant_assessment_method_24499", "tnm_8_path_stage_group_for_eod_74446", "radiation_surg_seq", "grade_clinical_6485", "nodes_pos_fpa", "parse_t_2177", "parse_n_67182", "lymph_node_status_24997", "ajcc_chapter_calculation_21096", "histology", "nodes_exam_76029", "schema_selection_vagina", "lymph_nodes_assessment_method_femoral_46948", "lvi_full_56663", "tumor_size_summary_63115", "behavior", "figo_stage_vagina_61098", "tumor_size_pathological_25597", "tumor_size_clinical_60979", "systemic_surg_seq", "tnm8_inclusions_tph", "ss2018_vagina_94653", "lymph_nodes_assessment_method_pelvic_33476", "parse_m_47057", "primary_site", "lymph_nodes_distant_mediastinal_scalene_90567", "eod_tnm_component_cleanup_58170", "grade_pathological_84704", "extension_bad", "grade_post_therapy_45742", "year_dx_validation", "lymph_nodes_assessment_method_para_aortic_56026", "summary_stage_rpa" ],
   "on_invalid_input" : "CONTINUE",
-  "last_modified" : "2019-08-02T17:10:33.910Z"
+  "last_modified" : "2019-08-09T20:26:30.013Z"
 }

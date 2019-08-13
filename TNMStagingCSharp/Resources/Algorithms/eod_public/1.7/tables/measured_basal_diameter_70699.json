@@ -5,7 +5,7 @@
   "name" : "Measured Basal Diameter",
   "title" : "Measured Basal Diameter",
   "notes" : "**Note 1:** Physician statement of measured basal diameter (not the same as tumor size) can be used to code this data item when no other information is available. \n\n**Note 2:** Code Measured Basal Diameter of tumor not size. Record actual measurement in millimeters (mm) to nearest tenth from clinical documentation, or from a pathology report if surgery performed.",
-  "last_modified" : "2019-08-02T17:07:03.778Z",
+  "last_modified" : "2019-08-09T20:24:47.303Z",
   "definition" : [ {
     "key" : "measured_basal_diameter",
     "name" : "Code",

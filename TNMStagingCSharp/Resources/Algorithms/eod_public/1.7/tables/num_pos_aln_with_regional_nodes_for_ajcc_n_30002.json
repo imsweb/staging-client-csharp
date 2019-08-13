@@ -5,7 +5,7 @@
   "name" : "Num Pos ALN with Regional Nodes for N",
   "title" : "Number of Positive Ipsilateral Level I-II Axillary Lymph Nodes with EOD Regional Nodes for N",
   "notes" : "If the EOD Regional Nodes =200 or 300, Number of Positive Ipsilateral Level I-II Axillary Lymph Nodes is necessary to determine the N value.",
-  "last_modified" : "2019-08-02T17:07:03.316Z",
+  "last_modified" : "2019-08-09T20:24:46.955Z",
   "definition" : [ {
     "key" : "eod_regional_nodes",
     "name" : "EOD Regional Nodes",

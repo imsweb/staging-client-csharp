@@ -5,7 +5,7 @@
   "name" : "LDH Pre-Orchiectomy Range",
   "title" : "LDH (Lactate Dehydrogenase) Pre-Orchiectomy Range",
   "notes" : "**Note 1:** Physician statement of the LDH (Lactate Dehydrogenase) Pre-Orchiectomy Range can be used to code this data item when no other information is available. \n\n**Note 2:** Record the range of the highest LDH test result documented in the medical record **prior to orchiectomy** or prior to any systemic treatment. The lab value may be documented in a lab report, history and physical, or clinical statement in the pathology report.\n\n**Note 3:** Of the three tumor markers, lactate dehydrogenase (LDH) is the least specific for testicular cancer. The magnitude of LDH elevation directly correlates with Testis tumor burden.",
-  "last_modified" : "2019-08-02T17:07:03.848Z",
+  "last_modified" : "2019-08-09T20:24:47.372Z",
   "definition" : [ {
     "key" : "ldh_pre_orch_range",
     "name" : "Code",

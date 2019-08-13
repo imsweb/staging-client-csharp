@@ -5,7 +5,7 @@
   "name" : "Invasion Beyond Capsule",
   "title" : "Invasion Beyond Capsule",
   "notes" : "**Note 1:** Physician statement of pathologically confirmed invasion of the tumor beyond the fibrous capsule (invasion beyond capsule) can be used to code this data item.\n\n**Note 2:** Information about invasion beyond the capsule is collected in primary tumor as an element in anatomic staging. It is also collected in this field as it may have an independent effect on prognosis.\n* If tumor is “confined to kidney” and staging is based on size, then there has been no invasion through the capsule (no invasion into perinephric fat)\n\n**Note 3:** Perinephric/sinus fat invasion should be confirmed microscopically and is invasion into fat by tumor cells, with or without desmoplastic reaction, and vascular invasion into perinephric/sinus soft tissue. \n* Synonyms include: renal hilum, renal sinus fat, medial invasion\n\n**Note 4:** Record invasion beyond capsule as documented in the pathology report.\n\n**Note 5:** Do not use imaging findings to code this data item.\n\n**Note 6:** Code 9 if surgical resection of the primary site is performed and there is no mention of invasion beyond capsule.",
-  "last_modified" : "2019-08-02T17:07:02.884Z",
+  "last_modified" : "2019-08-09T20:24:46.604Z",
   "definition" : [ {
     "key" : "invasion_beyond_capsule",
     "name" : "Code",

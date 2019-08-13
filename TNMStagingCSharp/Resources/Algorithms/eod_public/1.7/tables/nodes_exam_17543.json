@@ -5,7 +5,7 @@
   "name" : "Nodes Exam",
   "title" : "Regional Nodes Examined",
   "notes" : "**Note 1:** Extraosseous plasmacytomas (9734), especially those in the respiratory tract, may metastasize to regional lymph nodes. Record the number of examined nodes.\n\n**Note 2:** Code 99, not applicable, for the histology plasmacytoma, NOS (9731).",
-  "last_modified" : "2019-08-02T17:07:02.607Z",
+  "last_modified" : "2019-08-09T20:24:46.315Z",
   "definition" : [ {
     "key" : "nodes_exam",
     "name" : "Code",

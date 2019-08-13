@@ -5,7 +5,7 @@
   "name" : "Tumor Size with Primary Tumor for AJCC T",
   "title" : "Tumor Size Summary with EOD Primary Tumor for AJCC T",
   "notes" : "If EOD Primary Tumor = 100 or 999, Tumor Size Summary is necessary to determine the T value.",
-  "last_modified" : "2019-08-02T17:07:03.931Z",
+  "last_modified" : "2019-08-09T20:24:47.450Z",
   "definition" : [ {
     "key" : "eod_primary_tumor",
     "name" : "EOD Primary Tumor",

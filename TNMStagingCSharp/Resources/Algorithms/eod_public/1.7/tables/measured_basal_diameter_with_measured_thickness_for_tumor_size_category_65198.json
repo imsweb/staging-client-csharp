@@ -5,7 +5,7 @@
   "name" : "Measured Basal Diameter with Measured Thickness for Tumor Size Category",
   "title" : "Measured Basal Diameter with Measured Thickness for Tumor Size Category",
   "notes" : "If the EOD Primary Tumor = 100-500, Measured Basal Diameter and Measured Thickness (Depth) are used to calculate Tumor Size Category.  This will be used to determine the T value.",
-  "last_modified" : "2019-08-02T17:07:02.121Z",
+  "last_modified" : "2019-08-09T20:24:45.790Z",
   "definition" : [ {
     "key" : "measured_basal_diameter",
     "name" : "Basal Diameter",

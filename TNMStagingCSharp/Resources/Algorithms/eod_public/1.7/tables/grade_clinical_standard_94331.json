@@ -5,7 +5,7 @@
   "name" : "Grade Clinical - Standard",
   "title" : "Grade Clinical - Standard",
   "notes" : "**Note 1:** Clinical grade must not be blank.\n\n**Note 2:** Assign the highest grade from the primary tumor assessed during the clinical time frame. \n\n**Note 3:** Code 9 when\n* Grade from primary site is not documented\n* Clinical workup is not done (for example, cancer is an incidental finding during surgery for another condition)\n\n**Note 4:** If there is only one grade available and it cannot be determined if it is clinical or pathological, assume it is a clinical grade and code appropriately per clinical grade categories for that site, and then code unknown (9) for pathological grade, and blank for post therapy grade.",
-  "last_modified" : "2019-08-02T17:07:03.959Z",
+  "last_modified" : "2019-08-09T20:24:47.476Z",
   "definition" : [ {
     "key" : "grade_clin",
     "name" : "Code",

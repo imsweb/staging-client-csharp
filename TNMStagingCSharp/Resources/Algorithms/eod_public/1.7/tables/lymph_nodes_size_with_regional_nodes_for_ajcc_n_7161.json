@@ -5,7 +5,7 @@
   "name" : "Lymph Nodes Size with Regional Nodes for N",
   "title" : "Lymph Nodes Size with Regional Nodes for N",
   "notes" : "If EOD Regional Nodes = 300 or 400, Lymph Nodes Size at Mets is necessary to determine the N value.",
-  "last_modified" : "2019-08-02T17:07:03.737Z",
+  "last_modified" : "2019-08-09T20:24:47.267Z",
   "definition" : [ {
     "key" : "eod_regional_nodes",
     "name" : "EOD Nodes",

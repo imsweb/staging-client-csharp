@@ -5,7 +5,7 @@
   "name" : "Extravascular Matrix Patterns",
   "title" : "Extravascular Matrix Patterns",
   "notes" : "**Note 1:** Physician statement of extravascular matrix patterns can be used to code this data item when no other information is available.\n\n**Note 2:** The presence of certain types of extravascular matrix patterns is independently associated with the risk of metastasis. This is documented conclusively for individual loops and for loops forming networks consisting of at least three back-to-back loops. Absence of both loops and networks is associated with the longer survival and presence of loops forming networks is associated with the shortest survival time.",
-  "last_modified" : "2019-08-02T17:07:03.979Z",
+  "last_modified" : "2019-08-09T20:24:47.498Z",
   "definition" : [ {
     "key" : "extravascular_matrix_patterns",
     "name" : "Code",

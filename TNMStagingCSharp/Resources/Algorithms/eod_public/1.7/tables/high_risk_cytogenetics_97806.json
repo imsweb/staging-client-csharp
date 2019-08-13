@@ -5,7 +5,7 @@
   "name" : "High Risk Cytogenetics",
   "title" : "High Risk Cytogenetics",
   "notes" : "**Note 1:** Physician statement of presence or absence of high-risk cytogenetics can be used to code this data item.\n\n**Note 2:** Record this data item based on physician statement or FISH test interpretation performed at diagnosis (pre-treatment).\n\n**Note 3:** If the presence/absence of high-risk cytogenetics determined by available test results differs from the physician statement of presence/absence, the physician's statement takes precedence.\n\n**Note 4:** If there is no mention of high risk cytogenetics, code 9.\n\n**Note 5:** If Schema Discriminator 1: Plasma Cell Myeloma Terminology is coded to 1 or 9, leave this SSDI blank.",
-  "last_modified" : "2019-08-02T17:07:03.900Z",
+  "last_modified" : "2019-08-09T20:24:47.419Z",
   "definition" : [ {
     "key" : "high_risk_cytogenetics",
     "name" : "Code",

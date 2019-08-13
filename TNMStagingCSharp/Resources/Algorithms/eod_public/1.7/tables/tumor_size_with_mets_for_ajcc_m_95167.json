@@ -5,7 +5,7 @@
   "name" : "Tumor Size with Mets for M",
   "title" : "Tumor Size with EOD Mets for M",
   "notes" : "If EOD Mets = 00, Tumor Size Summary is necessary to determine the M value.",
-  "last_modified" : "2019-08-02T17:07:03.995Z",
+  "last_modified" : "2019-08-09T20:24:47.514Z",
   "definition" : [ {
     "key" : "eod_mets",
     "name" : "EOD Mets",

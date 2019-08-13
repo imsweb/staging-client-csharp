@@ -5,7 +5,7 @@
   "name" : "Parse M",
   "title" : "Parse M",
   "description" : "With the addition of the c and p prefixes to the existing codes, the prefix must be parsed from the main value during calculations.  It will be retained for the combined value.  This will have no impact on the stored value and is solely a temporary state.",
-  "last_modified" : "2019-08-02T17:07:03.374Z",
+  "last_modified" : "2019-08-09T20:24:46.999Z",
   "definition" : [ {
     "key" : "m",
     "name" : "M",

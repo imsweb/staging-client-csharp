@@ -5,7 +5,7 @@
   "name" : "KIT Gene Immunohistochemistry",
   "title" : "KIT Gene Immunohistochemistry (IHC)",
   "notes" : "**Note 1:** Physician statement of KIT IHC can be used to code this data item when no other information is available.\n\n**Note 2:** KIT Gene Immunohistochemistry (IHC) is the expression of the KIT gene in tumor tissue specimens based on immunohistochemical (IHC) stains.  A positive test is a diagnostic and predictive marker for GIST tumors. Do not record secondary or acquired mutations that may have developed because of long-term imatinib treatment. \n\n**Note 3:** Other names for KIT are CD117 or c-kit.",
-  "last_modified" : "2019-08-02T17:07:03.910Z",
+  "last_modified" : "2019-08-09T20:24:47.429Z",
   "definition" : [ {
     "key" : "kit",
     "name" : "Code",

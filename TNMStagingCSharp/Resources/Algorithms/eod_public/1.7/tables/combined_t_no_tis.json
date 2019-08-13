@@ -5,7 +5,7 @@
   "name" : "Combined T No Tis",
   "title" : "Combined T (no Tis)",
   "notes" : "Using clinical and pathologic T, calculate Combined T and Summary Stage T for schemas that do NOT have Tis.",
-  "last_modified" : "2019-08-02T17:07:02.379Z",
+  "last_modified" : "2019-08-09T20:24:45.984Z",
   "definition" : [ {
     "key" : "radiation_surg_seq",
     "name" : "RX Summ Surgery/Radiation Sequence",

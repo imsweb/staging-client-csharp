@@ -356,5 +356,5 @@
   } ],
   "involved_tables" : [ "radiation_surg_seq", "ss2018_liver_84469", "grade_pathological_31963", "nodes_pos_fpa", "parse_t_2177", "mets_haf", "grade_post_therapy_6526", "parse_n_67182", "extension_bbc", "afp_pretx_lab_value_25871", "fibrosis_score_38658", "histology", "nodes_exam_76029", "tnm_8_path_stage_group_for_eod_87685", "bilirubin_pretx_unit_98627", "tnm8_inclusions_tpn", "inr_prothrombin_time_6158", "lvi_full_56663", "tumor_size_summary_63115", "behavior", "nodes_dau", "bilirubin_pretx_lab_value_68660", "schema_selection_liver", "creatinine_pretx_lab_value_56869", "tumor_size_pathological_25597", "tumor_size_clinical_60979", "systemic_surg_seq", "ajcc_chapter_calculation_68564", "afp_pretx_interpretation_66147", "parse_m_47057", "primary_site", "eod_tnm_component_cleanup_58170", "year_dx_validation", "grade_clinical_73056", "summary_stage_rpa", "creatinine_pretx_unit_26973", "tumor_size_with_primary_tumor_for_ajcc_t_82729" ],
   "on_invalid_input" : "CONTINUE",
-  "last_modified" : "2019-08-02T17:10:29.070Z"
+  "last_modified" : "2019-08-09T20:26:24.525Z"
 }

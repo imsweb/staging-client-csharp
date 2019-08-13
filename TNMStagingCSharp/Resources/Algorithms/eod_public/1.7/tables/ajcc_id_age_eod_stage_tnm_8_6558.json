@@ -5,7 +5,7 @@
   "name" : "AJCC ID, Age, EOD Stage - TNM 8",
   "title" : "AJCC ID, Age, EOD Stage - TNM 8",
   "notes" : "**Note:** Age at DX is described as both a three character value and a numeric value, so both 55 and 055 will work. While the NAACCR field definition includes the leading zeros, this avoids problems with different methods of storing the information.",
-  "last_modified" : "2019-08-02T17:07:02.620Z",
+  "last_modified" : "2019-08-09T20:24:46.326Z",
   "definition" : [ {
     "key" : "ajcc_id",
     "name" : "AJCC ID",

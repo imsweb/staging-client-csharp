@@ -5,7 +5,7 @@
   "name" : "Extranodal Extension Head and Neck Pathological",
   "title" : "Extranodal Extension Head and Neck Pathological",
   "notes" : "**Note 1:** Physician statement of extranodal extension (ENE) pathologically during a lymph node dissection or physician pathological stage indicating the absence or presence of ENE can be used to code this data item when no other information is available.\n\n**Note 2:** Code the status of ENE assessed on histopathologic examination of surgically resected involved regional lymph node(s). Do not code ENE from a lymph node biopsy (FNA, core, incisional, excisional, sentinel). Do not code ENE for any distant lymph nodes. \n\n**Note 3:** Be aware that the rules for coding ENE for head and neck sites compared to non-head and neck sites are different.\n\n**Note 4:** Definitions of ENE subtypes and rules:\n* Microscopic ENE [ENE (mi)] is defined as less than or equal to 2 mm.\n* Major ENE [ENE (ma)] is defined as greater than 2 mm.\n* Both ENE (mi) and ENE (ma) qualify as ENE (+) for definition of pN.\n\n**Note 5:** The measurement of ENE is the distance from the lymph node capsule in millimeters (mm).",
-  "last_modified" : "2019-08-02T17:07:03.176Z",
+  "last_modified" : "2019-08-09T20:24:46.855Z",
   "definition" : [ {
     "key" : "extranodal_ext_hn_path",
     "name" : "Code",

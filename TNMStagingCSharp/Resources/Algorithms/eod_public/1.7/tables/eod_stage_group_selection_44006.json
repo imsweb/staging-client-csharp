@@ -5,7 +5,7 @@
   "name" : "EOD Stage Group Selection",
   "title" : "EOD Stage Group Selection",
   "notes" : "**Note:** AJCC 8th Chapter is split by Gastric/Omental vs other sites. This table uses AJCC ID to determine which Stage Group calculation table will be used.",
-  "last_modified" : "2019-08-02T17:07:03.961Z",
+  "last_modified" : "2019-08-09T20:24:47.480Z",
   "definition" : [ {
     "key" : "ajcc_id",
     "name" : "AJCC ID",

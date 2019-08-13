@@ -5,7 +5,7 @@
   "name" : "Schema Discriminator 1",
   "title" : "Schema Discriminator 1: Primary Peritoneum Tumor",
   "notes" : "**Note:**  Since both omental and peritoneal gastrointestinal stromal tumors (GIST) are coded with the same ICD-O-3 topography code (C481), this data item must be used to identify the appropriate AJCC stage table.",
-  "last_modified" : "2019-08-02T17:07:03.860Z",
+  "last_modified" : "2019-08-09T20:24:47.382Z",
   "definition" : [ {
     "key" : "discriminator_1",
     "name" : "Code",

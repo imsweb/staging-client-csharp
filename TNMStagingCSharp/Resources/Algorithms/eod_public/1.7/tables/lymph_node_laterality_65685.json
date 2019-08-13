@@ -5,7 +5,7 @@
   "name" : "LN Laterality",
   "title" : "Lymph Nodes Laterality",
   "notes" : "**Note:** Physician statement of lymph node laterality can be used to code this data item when no other information is available.",
-  "last_modified" : "2019-08-02T17:07:03.907Z",
+  "last_modified" : "2019-08-09T20:24:47.427Z",
   "definition" : [ {
     "key" : "ln_laterality",
     "name" : "Code",

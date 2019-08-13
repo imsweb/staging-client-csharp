@@ -5,7 +5,7 @@
   "name" : "Major Vein Involvement",
   "title" : "Major Vein Involvement",
   "notes" : "**Note 1:** Physician statement of Major Vein Involvement can be used to code this data item. The major veins include the renal vein or its segmental branches, and the inferior vena cava.\n\n**Note 2:** Information about major vein involvement beyond the kidney is collected in primary tumor as an element in anatomic staging. It is also collected in this field as it may have an independent effect on prognosis. \n* If tumor is “confined to kidney” and staging is based on size, then there is no involvement of major veins\n\n**Note 3:** Record the involvement of specific named veins as documented in the pathology report. Do not code invasion of small unnamed vein(s) of the type collected as lymph-vascular invasion. Lymph-vascular invasion is usually only seen microscopically. \n\n**Note 4:** Do not use imaging findings to code this data item. \n\n**Note 5:** Code 9 if surgical resection of the primary site is performed and there is no mention of major vein involvement.",
-  "last_modified" : "2019-08-02T17:07:03.534Z",
+  "last_modified" : "2019-08-09T20:24:47.114Z",
   "definition" : [ {
     "key" : "major_vein_involv",
     "name" : "Code",

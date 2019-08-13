@@ -262,5 +262,5 @@
   } ],
   "involved_tables" : [ "grade_post_therapy_72642", "tumor_size_clinical_dna_64119", "ss2018_lymphoma_27031", "hiv_status_12569", "nodes_exam_dna_95635", "tumor_size_summary_dna_13275", "histology", "schema_discriminator_1_63995", "intern_prognostic_index_90310", "mets_hna", "tnm8_inclusions_tpr", "behavior", "nodes_dna", "schema_selection_lymphoma", "tumor_size_pathological_dna_6742", "ajcc_chapter_calculation_70824", "summary_stage_lymphoma_25139", "lymphoma_stage_group_18599", "primary_site", "eod_primary_tumor_70205", "eod_tnm_component_cleanup_58170", "year_dx_validation", "systemic_symptoms_at_dx_60639", "lvi_dna_56663", "grade_clinical_18316", "grade_pathological_73388", "nodes_pos_dna_91511" ],
   "on_invalid_input" : "CONTINUE",
-  "last_modified" : "2019-08-02T17:10:27.607Z"
+  "last_modified" : "2019-08-09T20:26:23.802Z"
 }

@@ -5,7 +5,7 @@
   "name" : "AJCC Chapter Calculation",
   "title" : "AJCC Chapter Calculation",
   "notes" : "This table determines the AJCC Chapter ID using histology",
-  "last_modified" : "2019-08-02T17:07:02.844Z",
+  "last_modified" : "2019-08-09T20:24:46.567Z",
   "definition" : [ {
     "key" : "site",
     "name" : "Primary Site",

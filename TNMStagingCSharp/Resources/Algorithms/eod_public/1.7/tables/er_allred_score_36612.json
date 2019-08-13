@@ -5,7 +5,7 @@
   "name" : "Estrogen Receptor Total Allred Score",
   "title" : "ER (Estrogen Receptor) Total Allred Score",
   "notes" : "**Note 1:** Physician statement of ER (Estrogen Receptor) Total Allred Score  can be used to code this data item.\n\n**Note 2:** Code this data item using the same report used to record Estrogen Receptor Summary [NAACCR Data Item #3827]. \n\n**Note 3:**  The Allred system looks at what percentage of cells test positive for hormone receptors, along with how well the receptors show up after staining (this is called \"intensity\"). This information is then combined to score the sample on a scale from 0 to 8. The higher the score, the more receptors were found and the easier they were to see in the sample.\n* The registrar should not calculate the Allred Score unless both components are available (proportion score and intensity)\n* See the ***Allred Score for Estrogen and Progesterone Receptor Evaluation*** section in the SSDI manual for assistance in determining the Allred Score\n\n**Note 4:** If ER test is performed, but Allred score is not documented, or cannot be calculated, code X9.",
-  "last_modified" : "2019-08-02T17:07:03.999Z",
+  "last_modified" : "2019-08-09T20:24:47.519Z",
   "definition" : [ {
     "key" : "er_allred_score",
     "name" : "Code",

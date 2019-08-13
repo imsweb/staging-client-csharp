@@ -5,7 +5,7 @@
   "name" : "AJCC ID Path Stage",
   "title" : "AJCC ID Path Stage Table",
   "notes" : "**Note:**  The determination of the TNM 8 stage group from T, N, M, and grade for esophagus depends further on histologic type.   Squamous cell carcinoma is captured in Esophagus (including GE junction) Squamous schema.  This table chooses the Stage Group calculation table based on AJCC ID.",
-  "last_modified" : "2019-08-02T17:07:04.049Z",
+  "last_modified" : "2019-08-09T20:24:47.563Z",
   "definition" : [ {
     "key" : "ajcc_id",
     "name" : "AJCC ID",
