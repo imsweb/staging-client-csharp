@@ -5,7 +5,7 @@
   "name" : "High Risk Features",
   "title" : "High Risk Histologic Features",
   "notes" : "**Note 1:** Physician statement of high risk histologic features can be used to code this data item when no other information is available.\n\n**Note 2:** High risk histologic features include\n* Desmoplasia\n* Poor differentiation (grade 3)\n* Sarcomatoid differentiation (features)\n* Undifferentiated (grade 4)\n\n**Note 3:** Code the presence or absence of high risk histologic features as documented in the pathology report. \n\n**Note 4:** Code 5 if more than one high risk histologic feature is present.",
-  "last_modified" : "2019-08-09T20:24:46.325Z",
+  "last_modified" : "2019-08-26T19:08:06.495Z",
   "definition" : [ {
     "key" : "high_risk_features",
     "name" : "Code",

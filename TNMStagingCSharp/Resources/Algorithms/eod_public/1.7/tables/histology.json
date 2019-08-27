@@ -4,7 +4,7 @@
   "version" : "1.7",
   "name" : "Histology",
   "title" : "Valid ICD-O-3 Histology Codes",
-  "last_modified" : "2019-08-09T20:24:47.542Z",
+  "last_modified" : "2019-08-26T19:08:08.240Z",
   "definition" : [ {
     "key" : "hist",
     "name" : "Histology",

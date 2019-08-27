@@ -5,7 +5,7 @@
   "name" : "LDH Post-Orchiectomy Range",
   "title" : "LDH (Lactate Dehydrogenase) Post-Orchiectomy Range",
   "notes" : "**Note 1:** Physician statement of the LDH (Lactate Dehydrogenase) Post-Orchiectomy Range can be used to code this data item when there is no other information available.\n\n**Note 2:** Record the range of the LDH test as documented in the medical record **after orchiectomy** but prior to adjuvant therapy. The lab value may be documented in a lab report, history and physical, or clinical statement in the pathology report.\n\n**Note 3:** If the initial post-orchiectomy LDH remains elevated, review subsequent tests and record the lowest LDH value (normalization or plateau) prior to adjuvant therapy or before the value rises again.\n\n**Note 4:** Of the three tumor markers, lactate dehydrogenase (LDH) is the least specific for testicular cancer. The magnitude of LDH elevation directly correlates with Testis tumor burden.\n\n**Note 5:** If the pre-orchiectomy LDH was normal, a post-orchiectomy LDH may not be performed. In this case, code 9 should be recorded.",
-  "last_modified" : "2019-08-09T20:24:47.367Z",
+  "last_modified" : "2019-08-26T19:08:08.011Z",
   "definition" : [ {
     "key" : "ldh_post_orch_range",
     "name" : "Code",

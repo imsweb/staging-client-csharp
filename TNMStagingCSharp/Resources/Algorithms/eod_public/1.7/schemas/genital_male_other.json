@@ -178,5 +178,5 @@
   } ],
   "involved_tables" : [ "nodes_dca", "seer_mets_48348", "grade_clinical_standard_non_ajcc_32473", "grade_pathological_standard_non_ajcc_5627", "nodes_pos_fpa", "tumor_size_pathological_25597", "tumor_size_clinical_60979", "primary_site", "histology", "nodes_exam_76029", "grade_post_therapy_standard_non_ajcc_43091", "year_dx_validation", "extension_bcl", "summary_stage_rpa", "lvi_dna_56663", "tumor_size_summary_63115", "schema_selection_genital_male_other", "ss2018_genital_male_other_44390" ],
   "on_invalid_input" : "CONTINUE",
-  "last_modified" : "2019-08-09T20:26:32.732Z"
+  "last_modified" : "2019-08-26T19:11:46.641Z"
 }

@@ -6,7 +6,7 @@
   "title" : "Sentinel Lymph Nodes Positive",
   "description" : "Records the total number of lymph nodes sampled during the sentinel node biopsy and examined by the pathologist.",
   "notes" : "**Note:** Record this field even if there has been preoperative treatment.",
-  "last_modified" : "2019-08-09T20:24:47.616Z",
+  "last_modified" : "2019-08-26T19:08:08.331Z",
   "definition" : [ {
     "key" : "sentinel_nodes_positive",
     "name" : "Code",

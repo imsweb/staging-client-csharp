@@ -5,7 +5,7 @@
   "name" : "Progesterone Receptor Percent Positive or Range",
   "title" : "PR (Progesterone Receptor) Percent Positive or Range",
   "notes" : "**Note 1:** Physician statement of PR (Progesterone Receptor) Percent Positive or Range  can be used to code this data item.\n\n**Note 2:** Code this data item using the same report used to record Progesterone Receptor Summary [NAACCR Data Item #3915].\n\n**Note 3:** If PR is negative, or percentage is less than 1%, code 000.\n\n**Note 4:** The actual PR (1-100%) percent takes priority over the range codes.\n\n**Note 5:** If PR is positive but percentage is unknown, code XX9.",
-  "last_modified" : "2019-08-09T20:24:46.359Z",
+  "last_modified" : "2019-08-26T19:08:06.537Z",
   "definition" : [ {
     "key" : "pr_percent_positive",
     "name" : "Code",

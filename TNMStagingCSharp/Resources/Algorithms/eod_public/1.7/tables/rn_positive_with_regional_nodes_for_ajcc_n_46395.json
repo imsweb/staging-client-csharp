@@ -5,7 +5,7 @@
   "name" : "RN Positive with Regional Nodes for N",
   "title" : "Regional Nodes Positive with EOD Regional Nodes for N",
   "notes" : "If the EOD Regional Nodes = 300 or 800, Regional Nodes Positive is necessary to determine the N value.",
-  "last_modified" : "2019-08-09T20:24:47.158Z",
+  "last_modified" : "2019-08-26T19:08:07.752Z",
   "definition" : [ {
     "key" : "eod_regional_nodes",
     "name" : "EOD Regional Nodes",

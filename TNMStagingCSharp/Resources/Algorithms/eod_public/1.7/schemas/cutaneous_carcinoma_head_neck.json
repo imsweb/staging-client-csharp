@@ -316,5 +316,5 @@
   } ],
   "involved_tables" : [ "nodes_pos_fah", "radiation_surg_seq", "eod_regional_nodes_7080", "grade_pathological_31963", "summary_stage_rac", "parse_t_2177", "grade_post_therapy_6526", "parse_n_67182", "tnm_8_path_stage_group_90415", "histology", "nodes_exam_76029", "lymph_nodes_size_of_metastasis_87329", "tumor_size_summary_63115", "behavior", "ajcc_chapter_calculation_75770", "tnm8_inclusions_83218", "perineural_invasion_24604", "tumor_size_with_primary_tumor_for_ajcc_t_55569", "high_risk_features_73750", "tumor_size_pathological_25597", "schema_selection_cutaneous_squamous_cell_carcinoma_head_and_neck", "systemic_surg_seq", "tumor_size_clinical_60979", "eod_mets_3742", "parse_m_47057", "primary_site", "ss2018_skin_other_56341", "eod_tnm_component_cleanup_58170", "year_dx_validation", "grade_clinical_73056", "lvi_dna_56663", "seer_primary_tumor_9084" ],
   "on_invalid_input" : "CONTINUE",
-  "last_modified" : "2019-08-09T20:26:36.153Z"
+  "last_modified" : "2019-08-26T19:11:50.095Z"
 }

@@ -5,7 +5,7 @@
   "name" : "CA-125 PreTx Interpretation",
   "title" : "CA-125 (Carbohydrate Antigen 125) Pretreatment Interpretation",
   "notes" : "**Note 1:** Physician statement of CA-125 pretreatment interpretation can be used to code this data item when no other information is available.\n\n**Note 2:** Carbohydrate Antigen 125 (CA-125), also known as cancer antigen 125, mucin 16, or MUC16, is a protein which in humans is encoded by the MUC16 gene. CA-125 is a tumor marker or biomarker that may be elevated in the blood of some patients with ovarian cancer. \n\n**Note 3:** Record only the blood or serum CA-125 interpretation for this data item. Do not record CA-125 test results based on fluid from the chest or abdominal cavity. \n\n**Note 4:** Record the CA-125 status prior to treatment. \n\n**Note 5:** Normal values may vary with patient age and from lab to lab. The typical human reference ranges are 0 to less than or equal 35 units per milliliter (U/mL). This is equivalent to kU/L.\n\n**Note 6:** Code 9 if there is no statement that the CA-125 is positive/elevated, negative/normal, and the lab value with its normal range (from which you can determine interpretation) is not documented.",
-  "last_modified" : "2019-08-09T20:24:47.619Z",
+  "last_modified" : "2019-08-26T19:08:08.332Z",
   "definition" : [ {
     "key" : "ca125_pretx_interpretation",
     "name" : "Code",

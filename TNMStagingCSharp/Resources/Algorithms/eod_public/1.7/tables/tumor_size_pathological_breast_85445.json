@@ -6,7 +6,7 @@
   "title" : "Tumor Size Pathological",
   "subtitle" : "Breast",
   "notes" : "**Note:** Exception to rounding rules for **BREAST** primaries:  Round tumor sizes greater than 1.0 mm and up to 2.4 mm to 2 mm (002). The purpose of this exception is so that the size recorded in the Tumor Size field will derive the correct AJCC TNM Primary Tumor (T) category for breast primaries. Do **not** apply this instruction to any other site.",
-  "last_modified" : "2019-08-09T20:24:45.160Z",
+  "last_modified" : "2019-08-26T19:08:05.073Z",
   "definition" : [ {
     "key" : "size_path",
     "name" : "Code",

@@ -292,5 +292,5 @@
   } ],
   "involved_tables" : [ "mets_hck", "tumor_size_summary_full_15510", "tumor_size_with_primary_tumor_for_ajcc_t_99631", "nodes_dfg", "radiation_surg_seq", "ajcc_chapter_calculation_15401", "ss2018_stomach_including_net_stomach_35647", "nodes_pos_fpa", "parse_t_2177", "parse_n_67182", "extension_bfk", "histology", "nodes_exam_76029", "lvi_full_56663", "behavior", "tumor_size_pathological_full_93442", "tumor_size_clinical_full_19656", "schema_selection_net_stomach", "tnm_8_path_stage_group_for_eod_48287", "systemic_surg_seq", "grade_pathological_26086", "parse_m_47057", "primary_site", "eod_tnm_component_cleanup_58170", "grade_clinical_26768", "grade_post_therapy_65679", "year_dx_validation", "summary_stage_rpa", "tnm8_inclusions_net_stomach_37343" ],
   "on_invalid_input" : "CONTINUE",
-  "last_modified" : "2019-08-09T20:26:34.720Z"
+  "last_modified" : "2019-08-26T19:11:48.544Z"
 }

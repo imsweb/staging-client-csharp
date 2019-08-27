@@ -5,7 +5,7 @@
   "name" : "Breslow Thickness and Ulceration with Primary Tumor for T",
   "title" : "Breslow Thickness and Ulceration with Primary Tumor for T",
   "notes" : "If EOD Primary Tumor = 100-700, Breslow Thickness and Melanoma Ulceration are necessary to determine the T value.",
-  "last_modified" : "2019-08-09T20:24:47.552Z",
+  "last_modified" : "2019-08-26T19:08:08.251Z",
   "definition" : [ {
     "key" : "eod_primary_tumor",
     "name" : "EOD Primary Tumor",

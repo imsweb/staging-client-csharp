@@ -5,7 +5,7 @@
   "name" : "LN Distant: Mediastinal, Scalene",
   "title" : "Lymph Nodes Distant: Mediastinal, Scalene",
   "notes" : "**Note 1:** Physician statement of mediastinal and scalene nodal status can be used to code this data item when no other information is available.\n\n**Note 2:** Assign the highest applicable code (1-3) in the case of positive nodes.\n\n**Note 3:** If a nodal station is in the area being imaged, biopsied, or in the surgical field and there is no mention of involvement, then assume that specific nodal station is negative. \n\n**Note 4:** Code 9 is used when there is no relevant nodal information from diagnostic work up, biopsy or surgical resection documented.\n\n**Note 5:** The assessment method is recorded in Lymph Nodes Distant Assessment Method [NAACCR Data Item #3874].",
-  "last_modified" : "2019-08-09T20:24:47.460Z",
+  "last_modified" : "2019-08-26T19:08:08.144Z",
   "definition" : [ {
     "key" : "ln_distant_mediastinal_scalene",
     "name" : "Code",

@@ -5,7 +5,7 @@
   "name" : "CEA Pretreatment Lab Value",
   "title" : "CEA (Carcinoembryonic Antigen) Pretreatment Lab Value",
   "notes" : "**Note 1:** Physician statement of CEA (Carcinoembryonic Antigen) Pretreatment Lab Value can be used to code this data item when no other information is available. \n\n**Note 2:** Record the lab value of the highest CEA test result documented in the medical record **prior to treatment or polypectomy**. The lab value may be recorded in a lab report, history and physical, or clinical statement in the pathology report.\n\n**Note 3:** CEA is a tumor marker that has value in the management of certain malignancies.\n\n**Note 4:** Record to the nearest tenth in nanograms/milliliter (ng/ml) the highest CEA lab value documented in the medical record **prior to treatment or polypectomy.** \n* ***Example:*** Code a pretreatment CEA of 7 ng/ml as 7.0. \n\n**Note 5:** Record 0.1 when the lab results are stated as less than 0.1 ng/ml with no exact value.\n\n**Note 6:** The same laboratory test should be used to record information in CEA Pretreatment Interpretation [NAACCR Data Item #3819].",
-  "last_modified" : "2019-08-09T20:24:47.347Z",
+  "last_modified" : "2019-08-26T19:08:07.988Z",
   "definition" : [ {
     "key" : "cea_pretx_lab_value",
     "name" : "Code",

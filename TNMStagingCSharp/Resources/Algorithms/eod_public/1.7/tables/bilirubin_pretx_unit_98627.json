@@ -5,7 +5,7 @@
   "name" : "Bilirubin Pretreatment Unit of Measure",
   "title" : "Biliribun  Pretreatment Unit of Measure",
   "notes" : "**Note 1:** Physician statement of Bilirubin Pretreatment Unit of Measure can be used to code this data item when no other information is available.\n\n**Note 2:** There are two main methods of describing concentrations: by weight, and by molecular count. \n* Weights are recorded in grams, and molecular counts are recorded in moles. \n* Milligrams/deciliter (mg/dL) is the unit of measure commonly used in the United States. \n* Micromoles/liter (umol/L) is the designated Systeme International (SI) unit of measure commonly used in Canada and Europe. \n* 1 mg/dL of bilirubin is 17.1 umol/L.\n\n**Note 3:** The same laboratory test should be used to record information in Bilirubin Pretreatment Total Lab Value [NAACCR Data Item #3813].",
-  "last_modified" : "2019-08-09T20:24:47.500Z",
+  "last_modified" : "2019-08-26T19:08:08.188Z",
   "definition" : [ {
     "key" : "bilirubin_pretx_unit",
     "name" : "Code",

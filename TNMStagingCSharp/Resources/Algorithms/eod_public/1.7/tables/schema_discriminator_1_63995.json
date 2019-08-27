@@ -5,7 +5,7 @@
   "name" : "Schema Discriminator 1",
   "title" : "Schema Discriminator 1: Histology Discriminator for 9591/3",
   "notes" : "**Note:** A schema discriminator is used to discriminate for histology 9591/3: Non-Hodgkin lymphoma to determine which Stage Group table to use.\n\n* **9591/3: Splenic B-cell lymphoma/leukemia, unclassifiable (see code 1)**\nAbstracted and staged as a leukemia\n* **9591/3: Hairy cell leukemia variant (see code 2)**\nAbstracted and staged as a leukemia\n* **9591/3: Splenic diffuse red pulp small B-cell lymphoma (see code 3)**\nAbstracted and staged as a lymphoma\n* **9591/3: Non-Hodgkin lymphoma, NOS (see code 9)**\nAbstracted and staged as a lymphoma",
-  "last_modified" : "2019-08-09T20:24:46.392Z",
+  "last_modified" : "2019-08-26T19:08:06.577Z",
   "definition" : [ {
     "key" : "discriminator_1",
     "name" : "Code",

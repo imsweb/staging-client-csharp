@@ -5,7 +5,7 @@
   "name" : "Response to Neoadjuvant Therapy",
   "title" : "Response to Neoadjuvant Therapy",
   "notes" : "**Note 1:** Clinician statement of Response to Neoadjuvant Therapy (\"treatment effect\") must be used to code this data item.\n\n**Note 2:**  Review the medical record for a specific statement by a clinician about the response to neoadjuvant therapy. Response is based on pathology report, imaging and clinical findings.\n\n**Note 3:** Any description of less than \"total\" or \"complete\", should be coded as 2, partial response if there is residual tumor on the report.",
-  "last_modified" : "2019-08-09T20:24:46.865Z",
+  "last_modified" : "2019-08-26T19:08:07.202Z",
   "definition" : [ {
     "key" : "response_neoadjuv_therapy",
     "name" : "Code",

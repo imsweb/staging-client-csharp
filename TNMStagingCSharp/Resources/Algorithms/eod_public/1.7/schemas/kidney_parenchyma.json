@@ -324,5 +324,5 @@
   } ],
   "involved_tables" : [ "ss2018_kidney_renal_parenchyma_30980", "extension_bbp", "radiation_surg_seq", "tnm8_inclusions_51587", "nodes_pos_fpa", "parse_t_2177", "mets_hcg", "parse_n_67182", "nodes_dbg", "histology", "nodes_exam_76029", "lvi_full_56663", "grade_pathological_20722", "tumor_size_summary_63115", "behavior", "tumor_size_with_primary_tumor_for_ajcc_t_67751", "tumor_size_pathological_25597", "systemic_surg_seq", "tumor_size_clinical_60979", "invasion_beyond_capsule_4149", "grade_post_therapy_39204", "major_vein_involvement_87947", "parse_m_47057", "primary_site", "ajcc_chapter_calculation_8614", "eod_tnm_component_cleanup_58170", "ipsilateral_adrenal_gland_involvement_61538", "sarcomatoid_features_99558", "year_dx_validation", "tnm_8_path_stage_group_for_eod_81951", "summary_stage_rpa", "grade_clinical_18831", "schema_selection_kidney_parenchyma" ],
   "on_invalid_input" : "CONTINUE",
-  "last_modified" : "2019-08-09T20:26:32.397Z"
+  "last_modified" : "2019-08-26T19:11:46.277Z"
 }

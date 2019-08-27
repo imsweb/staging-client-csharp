@@ -5,7 +5,7 @@
   "name" : "Number of Positive Pelvic Nodes",
   "title" : "Number of Positive Pelvic Nodes",
   "notes" : "**Note 1:** Physician statement of positive pelvic nodes can be used to code this data item when no other information is available.\n\n**Note 2:** Record the number of positive pelvic lymph nodes documented in the medical record. \n\n**Note 3:** For this data item, do not include isolated tumor cells (ITCs). \n\n**Note 4:** Micrometastasis and macrometastasis may be listed separately on the pathology report. Add these two together to get the total number of positive nodes. \n\n**Note 5:** The number of examined pelvic nodes is recorded in Number of Examined Pelvic Nodes [NAACCR Data Item #3900].",
-  "last_modified" : "2019-08-09T20:24:46.602Z",
+  "last_modified" : "2019-08-26T19:08:06.791Z",
   "definition" : [ {
     "key" : "num_pos_pelvic_nodes",
     "name" : "Code",

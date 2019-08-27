@@ -5,7 +5,7 @@
   "name" : "KRAS",
   "title" : "KRAS",
   "notes" : "**Note 1:** Physician statement of KRAS can be used to code this data item when no other information is available. \n\n**Note 2:** KRAS is a gene which belongs to a class of genes known as oncogenes. When mutated, oncogenes have the potential to cause normal cells to become cancerous. Studies suggest that KRAS gene mutations are often present in colorectal cancer.\n\n**Note 3:** KRAS analysis is commonly done for patients with metastatic disease.\n\n**Note 4:** Results from nodal or metastatic tissue may be used for KRAS.\n\n**Note 5:** Record the results of the KRAS from the initial workup (clinical and pathological workup).\n\n**Note 6:** If KRAS is positive and there is no mention of the mutated codon, or the mutated codon is not specified, code 4.",
-  "last_modified" : "2019-08-09T20:24:46.304Z",
+  "last_modified" : "2019-08-26T19:08:06.459Z",
   "definition" : [ {
     "key" : "kras",
     "name" : "Code",

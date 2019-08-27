@@ -5,7 +5,7 @@
   "name" : "Extranodal Extension Pathological",
   "title" : "Extranodal Extension Pathological",
   "notes" : "**Note 1:** Physician statement of Extranodal Extension (ENE) Pathological or physician pathological staging can be used to code this data item when there is no other information available.\n\n**Note 2:** Extranodal extension is defined as \"the extension of a nodal metastasis through the lymph node capsule into adjacent tissue.\" ENE is the preferred terminology. Other names include: extranodal spread, extracapsular extension, or extracapsular spread.\"  \n* \"A regional node extending into a distant structure or organ is categorized as ENE and is not considered distant metastatic disease.\" \n\n**Note 3:** Be aware that the rules for coding ENE for head and neck sites compared to non-head and neck sites are different.\n\n**Note 4:** Code the status of extranodal extension assessed on the surgical resection specimen for the most involved regional lymph node(s). Do not code ENE for any distant nodes.",
-  "last_modified" : "2019-08-09T20:24:46.724Z",
+  "last_modified" : "2019-08-26T19:08:06.935Z",
   "definition" : [ {
     "key" : "extranodal_ext_path",
     "name" : "Code",

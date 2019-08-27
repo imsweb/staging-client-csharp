@@ -5,7 +5,7 @@
   "name" : "International Normalized Ratio Prothrombin Time",
   "title" : "INR (International Normalized Ratio for Prothrombin Time)",
   "notes" : "**Note 1:** Physician statement of the International Normalized Ratio for Prothrombin Time (INR) can be used to code this data item when no other information is available. \n\n**Note 2:** Record the value of the highest INR test results documented in the medical record **prior to treatment**. The value may be recorded in a lab report, history and physical, or clinical statement in the pathology report.\n\n**Note 3:** The Model for End-Stage Liver Disease (MELD) is a numerical scale used to determine how urgently a patient with liver disease needs a liver transplant. Results from three routine lab tests are used to calculate the MELD score. International normalized ratio for prothrombin time (INR), one of the tests, measures the liver's ability to make blood clotting factors.",
-  "last_modified" : "2019-08-09T20:24:47.342Z",
+  "last_modified" : "2019-08-26T19:08:07.980Z",
   "definition" : [ {
     "key" : "inr_prothrombin_time",
     "name" : "Code",

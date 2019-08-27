@@ -5,7 +5,7 @@
   "name" : "Tumor Size with Primary Tumor for T",
   "title" : "Tumor Size Summary with EOD Primary Tumor for T",
   "notes" : "If EOD Primary Tumor = 100-500, Tumor Size Summary is necessary to determine the T value.",
-  "last_modified" : "2019-08-09T20:24:46.550Z",
+  "last_modified" : "2019-08-26T19:08:06.729Z",
   "definition" : [ {
     "key" : "eod_primary_tumor",
     "name" : "EOD Primary Tumor",

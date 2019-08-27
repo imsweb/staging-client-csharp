@@ -6,7 +6,7 @@
   "title" : "Testis Serum Markers (S) Pathological (post-orchiectomy )",
   "description" : "S Category Pathological combines the results of post-orchiectomy Alpha Fetoprotein (AFP), Human Chorionic Gonadotropin (hCG) and Lactate Dehydrogenase (LDH) into a summary S value.",
   "notes" : "**Note 1:** Code the S category as described by the physician. If the S category determined by available lab values or calculated by vendor software differs from the physician statement of the S category, the physician's statement takes precedence. \n\n**Note 2:** Code the post-orchiectomy S category according to the table below. This table is also available in AJCC 8th edition, Chapter 59, Testis.\n* For AFP, a lab value expressed in micrograms per liter (ug/L) is equivalent to the same value expressed in nanograms per milliliter (ng/ml).\n\n**Note 3:** Pathological stage values are those based on physician statement or lab values after orchiectomy and prior to adjuvant therapy. \n\n**Note 4:** If the initial post-orchiectomy lab values remain elevated, review the subsequent tests and use the lowest lab values (normalization or plateau) prior to adjuvant therapy or before the value rises again.\n\n**Note 5:** All three lab values are needed for S0-S1. Only one elevated test is needed to assign S2-3. If any individual test is not available and none of the available tests results meets the S2-3 criterion for that test, assign code 9 (SX).",
-  "last_modified" : "2019-08-09T20:24:47.165Z",
+  "last_modified" : "2019-08-26T19:08:07.760Z",
   "definition" : [ {
     "key" : "s_category_path",
     "name" : "Code",

@@ -5,7 +5,7 @@
   "name" : "Number of Examined Pelvic Nodes",
   "title" : "Number of Examined Pelvic Nodes",
   "notes" : "**Note 1:** Physician statement of examined pelvic nodes can be used to code this data item when no other information is available.\n\n**Note 2:** Record the number of examined pelvic lymph nodes documented in the medical record. \n\n**Note 3:** For this data item, do not include isolated tumor cells (ITCs). \n\n**Note 4:** The number of positive pelvic nodes is recorded in Number of Positive Pelvic Nodes [NAACCR Data Item #3902]",
-  "last_modified" : "2019-08-09T20:24:46.598Z",
+  "last_modified" : "2019-08-26T19:08:06.786Z",
   "definition" : [ {
     "key" : "num_exam_pelvic_nodes",
     "name" : "Code",

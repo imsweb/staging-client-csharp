@@ -5,7 +5,7 @@
   "name" : "Number of Examined Para-Aortic Nodes",
   "title" : "Number of Examined Para-Aortic Nodes",
   "notes" : "**Note 1:** Physician statement of examined para-aortic nodes can be used to code this data item when no other information is available.\n\n**Note 2:** Record the number of examined para-aortic lymph nodes documented in the medical record. \n\n**Note 3:** For this data item, do not include isolated tumor cells (ITCs). \n\n**Note 4:** The number of para-aortic nodes positive is recorded in Number of Positive Para-aortic Nodes [NAACCR Data Item #3901].",
-  "last_modified" : "2019-08-09T20:24:46.812Z",
+  "last_modified" : "2019-08-26T19:08:07.046Z",
   "definition" : [ {
     "key" : "num_exam_para_aortic_nodes",
     "name" : "Code",

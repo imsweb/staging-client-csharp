@@ -5,7 +5,7 @@
   "name" : "RN Positive with Regional Nodes for AJCC N",
   "title" : "Regional Nodes Positive with EOD Regional Nodes for AJCC N",
   "notes" : "If the EOD Regional Nodes = 300, 800, Regional Nodes Positive is necessary to determine the N value.",
-  "last_modified" : "2019-08-09T20:24:47.150Z",
+  "last_modified" : "2019-08-26T19:08:07.741Z",
   "definition" : [ {
     "key" : "eod_regional_nodes",
     "name" : "EOD Regional Nodes",

@@ -4,7 +4,7 @@
   "version" : "1.7",
   "name" : "Schema Selection NETAmpulla",
   "title" : "Schema selection for NETAmpulla",
-  "last_modified" : "2019-08-09T20:24:46.541Z",
+  "last_modified" : "2019-08-26T19:08:06.720Z",
   "definition" : [ {
     "key" : "site",
     "name" : "Primary Site",

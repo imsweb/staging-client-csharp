@@ -5,7 +5,7 @@
   "name" : "LDH Pretreatment Level",
   "title" : "LDH (Lactate Dehydrogenase) Pretreatment Level",
   "notes" : "**Note 1:** Use the reference ranges from your lab to determine if LDH is normal.\n\n**Note 2:** Record this data item based on a blood test performed at diagnosis (pre-treatment). In the absence of the lab test, a physician's statement of the exact value or interpretation can be used. Use the highest value available.\n\n**Note 3:** If there is no mention of the LDH, code 9.\n\n**Note 4:** If Schema Discriminator 1: Plasma Cell Myeloma Terminology is coded to 1 or 9, leave this SSDI blank.",
-  "last_modified" : "2019-08-09T20:24:47.488Z",
+  "last_modified" : "2019-08-26T19:08:08.174Z",
   "definition" : [ {
     "key" : "ldh_pretx_level",
     "name" : "Code",

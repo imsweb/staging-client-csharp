@@ -5,7 +5,7 @@
   "name" : "Creatinine Pretreatment Lab Value",
   "title" : "Creatinine Pretreatment Lab Value",
   "notes" : "**Note 1:** Physician statement of Creatinine Pretreatment Lab Value can be used to code this data item when no other information is available. \n\n**Note 2:** Record the lab value of the highest Creatinine test result documented in the medical record **prior to treatment**. The lab value may be recorded in a lab report, history and physical, or clinical statement in the pathology report.\n\n**Note 3:** Record the blood or serum creatinine value for this data item. Do not use urine results to code this data item.\n\n**Note 4:** The Model for End-Stage Liver Disease (MELD) is a numerical scale used to determine how urgently a patient with liver disease needs a liver transplant within the next three months. Results from three routine lab tests are used to calculate the MELD score. Creatinine, one of the tests, measures kidney function; impaired kidney function is often associated with severe liver disease.\n\n**Note 5:** The same laboratory test should be used to record information in Creatinine Pretreatment Unit of Measure [NAACCR Data Item #3825].",
-  "last_modified" : "2019-08-09T20:24:47.345Z",
+  "last_modified" : "2019-08-26T19:08:07.984Z",
   "definition" : [ {
     "key" : "creatinine_pretx_lab_value",
     "name" : "Code",

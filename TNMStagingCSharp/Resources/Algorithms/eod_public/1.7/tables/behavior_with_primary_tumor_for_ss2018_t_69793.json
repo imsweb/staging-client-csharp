@@ -5,7 +5,7 @@
   "name" : "Behavior with Primary Tumor for SS2018 T",
   "title" : "Behavior with EOD Primary Tumor for SS2018 T",
   "notes" : "If EOD Primary Tumor = 050 or 070, Behavior is necessary to determine the Summary Stage T component.",
-  "last_modified" : "2019-08-09T20:24:47.573Z",
+  "last_modified" : "2019-08-26T19:08:08.278Z",
   "definition" : [ {
     "key" : "eod_primary_tumor",
     "name" : "EOD Primary Tumor",

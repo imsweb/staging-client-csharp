@@ -292,5 +292,5 @@
   } ],
   "involved_tables" : [ "ss2018_pancreas_95507", "radiation_surg_seq", "seer_primary_tumor_43302", "tnm_8_path_stage_group_for_eod_4996", "nodes_pos_fpa", "parse_t_2177", "parse_n_67182", "tnm8_inclusions_net_pancreas", "seer_mets_57075", "tumor_size_with_primary_tumor_for_ajcc_t_16596", "histology", "nodes_exam_76029", "lvi_full_56663", "tumor_size_summary_63115", "behavior", "schema_selection_net_pancreas", "ajcc_chapter_calculation_71219", "tumor_size_pathological_25597", "systemic_surg_seq", "tumor_size_clinical_60979", "grade_pathological_26086", "parse_m_47057", "primary_site", "eod_tnm_component_cleanup_58170", "eod_regional_nodes_3383", "grade_clinical_26768", "grade_post_therapy_65679", "year_dx_validation", "summary_stage_rpa" ],
   "on_invalid_input" : "CONTINUE",
-  "last_modified" : "2019-08-09T20:26:26.518Z"
+  "last_modified" : "2019-08-26T19:11:40.462Z"
 }

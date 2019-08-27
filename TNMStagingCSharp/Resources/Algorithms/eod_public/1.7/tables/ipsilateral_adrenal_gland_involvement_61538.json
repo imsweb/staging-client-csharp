@@ -5,7 +5,7 @@
   "name" : "Ipsilateral Adrenal Gland Involvement",
   "title" : "Ipsilateral Adrenal Gland Involvement",
   "notes" : "**Note 1:** Physician statement of Ipsilateral Adrenal Gland Involvement can be used to code this data item.\n\n**Note 2:** Information about contiguous ipsilateral adrenal gland involvement is collected in primary tumor, and noncontiguous ipsilateral adrenal gland involvement is collected in distant metastasis, as elements in anatomic staging. This information is also collected in this field as it may have an independent effect on prognosis. \n* If tumor is “confined to kidney” and staging is based on size, then there is no involvement of the adrenal gland\n\n**Note 3:** Record ipsilateral adrenal gland involvement as documented in the pathology report.\n\n**Note 4:** Do not use imaging findings to code this data item. \n\n**Note 5:** Code 9 if surgical resection of the primary site is performed and there is no mention of ipsilateral adrenal gland involvement.",
-  "last_modified" : "2019-08-09T20:24:47.113Z",
+  "last_modified" : "2019-08-26T19:08:07.656Z",
   "definition" : [ {
     "key" : "ipsilateral_adrenal_gland_involv",
     "name" : "Code",

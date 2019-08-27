@@ -4,7 +4,7 @@
   "version" : "1.7",
   "name" : "TNM8 Inclusions",
   "title" : "Inclusion Table TNM 8th ed.",
-  "last_modified" : "2019-08-09T20:24:46.988Z",
+  "last_modified" : "2019-08-26T19:08:07.405Z",
   "definition" : [ {
     "key" : "ajcc_id",
     "name" : "AJCC ID",
