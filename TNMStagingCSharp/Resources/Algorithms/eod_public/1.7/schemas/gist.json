@@ -315,5 +315,5 @@
   } ],
   "involved_tables" : [ "kit_gene_immunohistochemistry_33220", "tumor_size_summary_full_15510", "nodes_dfd", "radiation_surg_seq", "grade_clinical_21060", "primary_peritoneum_tumor_19475", "eod_stage_group_selection_44006", "nodes_pos_fpa", "parse_t_2177", "mets_hch", "parse_n_67182", "ss2018_gist_23534", "histology", "tnm_8_eod_stage_group_gist_stomach_28407", "nodes_exam_76029", "grade_pathological_68805", "tnm8_inclusions_tpo", "extension_bfh", "combined_grade_56638", "behavior", "tumor_size_pathological_full_93442", "tumor_size_clinical_full_19656", "tumor_size_with_primary_tumor_for_ajcc_t_48378", "ajcc_chapter_calculation_33543", "systemic_surg_seq", "schema_selection_gist_appendix", "grade_post_therapy_1561", "parse_m_47057", "primary_site", "tnm_8_eod_stage_group_gist_small_intestine_38523", "eod_tnm_component_cleanup_58170", "year_dx_validation", "summary_stage_rpa", "lvi_dna_56663" ],
   "on_invalid_input" : "CONTINUE",
-  "last_modified" : "2019-08-26T19:11:43.354Z"
+  "last_modified" : "2019-08-27T16:42:07.503Z"
 }

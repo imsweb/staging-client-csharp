@@ -5,7 +5,7 @@
   "name" : "Schema Discriminator 1",
   "title" : "Schema Discriminator 1: Melanoma Ciliary Body/Melanoma Iris",
   "notes" : "**Note:** A schema discriminator is used to discriminate between melanoma tumors with primary site code C694: Ciliary Body/Iris. Code the site in which the tumor arose. \n* **Melanoma Ciliary Body (see code 1)**\nSubsites include: Ciliary body, crystalline lens, sclera, uveal tract, intraocular, eyeball\n* **Melanoma Iris (see code 2)**\nSubsite includes: Iris",
-  "last_modified" : "2019-08-26T19:08:08.137Z",
+  "last_modified" : "2019-04-05T16:57:04.035Z",
   "definition" : [ {
     "key" : "discriminator_1",
     "name" : "Code",

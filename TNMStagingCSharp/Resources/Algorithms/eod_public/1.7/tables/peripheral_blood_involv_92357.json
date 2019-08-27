@@ -5,7 +5,7 @@
   "name" : "Peripheral Blood Involv",
   "title" : "Peripheral Blood Involvement",
   "notes" : "**Note 1:** The categories for peripheral blood involvement (B rating) are\n* B0: No significant blood involvement \n* B1: Low blood tumor burden \n* B2: High blood tumor burden\n\n**Note 2:** Physician statement of B rating can be used to code this data item.\n\n**Note 3:** If counts or percentages of neoplastic cells and clonality test results are available, but a B rating is not stated by the physician, the registrar can use the information and assign a B rating and code this data item accordingly. If this information is not available, code 9.",
-  "last_modified" : "2019-08-26T19:08:08.293Z",
+  "last_modified" : "2019-04-05T16:57:04.298Z",
   "definition" : [ {
     "key" : "peripheral_blood_involv",
     "name" : "Code",

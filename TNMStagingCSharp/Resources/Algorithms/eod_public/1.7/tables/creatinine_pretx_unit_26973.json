@@ -5,7 +5,7 @@
   "name" : "Creatinine Pretreatment Unit of Measure",
   "title" : "Creatinine Pretreatment Unit of Measure",
   "notes" : "**Note 1:** Physician statement of Creatinine Pretreatment Unit of Measure can be used to code this data item when no other information is available.\n\n**Note 2:** There are two main methods of describing concentrations: by weight, and by molecular count. \n* Weights are recorded in grams, and molecular counts are recorded in moles. \n* Milligrams/deciliter (mg/dL) is the unit of measure commonly used in the United States\n* Micromoles/liter (umol/L) is the designated Systeme International (SI) unit of measure commonly used in Canada and Europe. \n* 1 mg/dL of creatinine is 88.4 umol/L.\n\n**Note 3:** The same laboratory test should be used to record information in Creatinine Pretreatment Lab Value [NAACCR Data Item #3824].",
-  "last_modified" : "2019-08-26T19:08:08.159Z",
+  "last_modified" : "2019-07-29T15:27:13.168Z",
   "definition" : [ {
     "key" : "creatinine_pretx_unit",
     "name" : "Code",

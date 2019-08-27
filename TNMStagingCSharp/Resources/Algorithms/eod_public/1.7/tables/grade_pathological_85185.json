@@ -5,7 +5,7 @@
   "name" : "Grade Pathological",
   "title" : "Grade Pathological",
   "notes" : "**Note 1:** Pathological grade must not be blank.\n\n**Note 2:** Assign the highest grade from the primary tumor.  If the clinical grade is the highest grade identified, use the grade that was identified during the clinical time frame for both the clinical grade and the pathological grade.  (This follows the AJCC rule that pathological time frame includes all of the clinical time frame information plus information from the resected specimen.)\n* If a resection is done of a primary tumor and there is no grade documented from the surgical resection, use the grade from the clinical workup\n* If a resection is done of a primary tumor and there is no residual cancer, use the grade from the clinical workup\n\n**Note 3:** Codes 1-3 take priority over A-D. \n\n**Note 4:** Code 9 when\n* Grade from primary site is not documented\n* No resection of the primary site\n* Neo-adjuvant therapy is followed by a resection (see post therapy grade)\n* Clinical case only (see clinical grade)\n* There is only one grade available and it cannot be determined if it is clinical, pathological, or after neo-adjuvant therapy\n* Grade checked \"not applicable\" on CAP Protocol (if available) and no other grade information is available",
-  "last_modified" : "2019-08-26T19:08:06.408Z",
+  "last_modified" : "2019-04-05T16:57:01.290Z",
   "definition" : [ {
     "key" : "grade_path",
     "name" : "Code",

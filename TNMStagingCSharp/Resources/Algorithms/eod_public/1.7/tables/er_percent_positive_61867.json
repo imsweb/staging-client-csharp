@@ -5,7 +5,7 @@
   "name" : "Estrogen Receptor Percent Positive or Range",
   "title" : "ER (Estrogen Receptor) Percent Positive or Range",
   "notes" : "**Note 1:** Physician statement of ER (Estrogen Receptor) Percent Positive or Range can be used to code this data item.\n\n**Note 2:** Code this data item using the same report used to record Estrogen Receptor Summary [NAACCR Data Item #3827]. \n\n**Note 3:** If ER is negative, or percentage is less than 1%, code 000.\n\n**Note 4:** The actual ER (1-100%) percent takes priority over the range codes.\n\n**Note 5:** If ER is positive but percentage is unknown, code XX9.",
-  "last_modified" : "2019-08-26T19:08:06.518Z",
+  "last_modified" : "2019-07-29T19:47:20.177Z",
   "definition" : [ {
     "key" : "er_percent_positive",
     "name" : "Code",

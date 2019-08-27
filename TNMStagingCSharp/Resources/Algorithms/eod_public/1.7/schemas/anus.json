@@ -292,5 +292,5 @@
   } ],
   "involved_tables" : [ "grade_pathological_93273", "radiation_surg_seq", "eod_mets_41985", "nodes_pos_fpa", "parse_t_2177", "tumor_size_with_primary_tumor_for_ajcc_t_87130", "parse_n_67182", "ss2018_anus_55561", "histology", "nodes_exam_76029", "ajcc_chapter_calculation_19982", "lvi_full_56663", "tumor_size_summary_63115", "behavior", "nodes_dab", "tumor_size_pathological_25597", "systemic_surg_seq", "tumor_size_clinical_60979", "grade_clinical_88426", "grade_post_therapy_67956", "parse_m_47057", "schema_selection_anus", "extension_baa", "primary_site", "tnm8_inclusions_23758", "tnm8_path_stage_uab", "eod_tnm_component_cleanup_58170", "year_dx_validation", "summary_stage_rpa" ],
   "on_invalid_input" : "CONTINUE",
-  "last_modified" : "2019-08-26T19:11:45.015Z"
+  "last_modified" : "2019-08-27T16:42:09.097Z"
 }

@@ -5,7 +5,7 @@
   "name" : "Tumor Size Category with Primary Tumor for T",
   "title" : "Tumor Size Category with Primary Tumor for T",
   "notes" : "If EOD Primary Tumor = 100-500, Tumor Size Category is necessary to determine the T value.  This is based on Measured Basal Diameter and Measured Thickness (Depth).",
-  "last_modified" : "2019-08-26T19:08:07.865Z",
+  "last_modified" : "2019-04-05T16:57:03.587Z",
   "definition" : [ {
     "key" : "eod_primary_tumor",
     "name" : "EOD Primary Tumor",

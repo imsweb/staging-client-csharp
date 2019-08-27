@@ -5,7 +5,7 @@
   "name" : "HIV Status",
   "title" : "HIV Status",
   "notes" : "**Note 1:** Physician statement of HIV status can be used to code this data item when no other information is available.\n\n**Note 2:** Acquired Immune Deficiency Syndrome (AIDS) lymphomas are a late manifestation of Human Immunodeficiency Virus (HIV) infection and have unique clinical and pathological features that differ from lymphomas in the general population. They have a preponderance for extranodal involvement, with central nervous system being the most common site.\n\n**Note 3:** HIV includes types I and II. Older terminology includes Human T Lymphotropic Virus -3 (HTLV-3) and Lymphadenopathy Associated Virus (LAV).\n\n**Note 4:** Code 9 if there is no mention of HIV/AIDS in the medical record. Do not assume that the patient is HIV negative.",
-  "last_modified" : "2019-08-26T19:08:08.173Z",
+  "last_modified" : "2019-04-05T16:57:04.098Z",
   "definition" : [ {
     "key" : "hiv",
     "name" : "Code",

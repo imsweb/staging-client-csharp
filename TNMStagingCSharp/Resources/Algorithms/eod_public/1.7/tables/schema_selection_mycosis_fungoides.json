@@ -4,7 +4,7 @@
   "version" : "1.7",
   "name" : "Schema Selection MycosisFungoides",
   "title" : "Schema selection for MycosisFungoides",
-  "last_modified" : "2019-08-26T19:08:06.629Z",
+  "last_modified" : "2019-04-05T16:57:01.745Z",
   "definition" : [ {
     "key" : "site",
     "name" : "Primary Site",

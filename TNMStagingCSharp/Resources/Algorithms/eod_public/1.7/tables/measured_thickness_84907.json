@@ -5,7 +5,7 @@
   "name" : "Measured Thickness",
   "title" : "Measured Thickness",
   "notes" : "**Note 1:** Physician statement of measured thickness, or height, can be used to code this data item when no other information is available. \n\n**Note 2:** Code Measured Thickness, or height, of tumor, not size. Record actual measurement in millimeters (mm) from clinical documentation, or from a pathology report if surgery performed.",
-  "last_modified" : "2019-08-26T19:08:07.805Z",
+  "last_modified" : "2019-04-05T16:57:03.361Z",
   "definition" : [ {
     "key" : "measured_thickness",
     "name" : "Code",

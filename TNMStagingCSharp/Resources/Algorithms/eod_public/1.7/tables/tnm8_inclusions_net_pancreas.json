@@ -4,7 +4,7 @@
   "version" : "1.7",
   "name" : "TNM8 Inclusions (NET Pancreas)",
   "title" : "Inclusion Table TNM 8th ed. (NET Pancreas)",
-  "last_modified" : "2019-08-26T19:08:05.641Z",
+  "last_modified" : "2019-04-05T16:57:00.221Z",
   "definition" : [ {
     "key" : "ajcc_id",
     "name" : "AJCC ID",

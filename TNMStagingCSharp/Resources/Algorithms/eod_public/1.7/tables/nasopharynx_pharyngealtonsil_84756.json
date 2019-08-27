@@ -5,7 +5,7 @@
   "name" : "Schema Discriminator 1",
   "title" : "Schema Discriminator 1: Nasopharynx/PharyngealTonsil",
   "notes" : "**Note:** A schema discriminator is used to discriminate for primary site C111: Posterior wall of nasopharynx. Code the specific site in which the tumor arose.\n\n* **Chapter 9: Nasopharynx (see code 1)**\n     Used to stage for the following primary site descriptions: posterior wall of nasopharynx (NOS)\n* **Chapter 10 or 11: HPV-Mediated (p16+) Oropharyngeal Cancer or Oropharynx (p16-) (see code 2)**\nOropharynx chapters are used for the following primary site descriptions. \n\n  An additional schema discriminator will be used to distinguish between Chapter 10 and 11. \n\n      Adenoid\n      Pharyngeal tonsil",
-  "last_modified" : "2019-08-26T19:08:08.192Z",
+  "last_modified" : "2019-04-05T16:57:04.129Z",
   "definition" : [ {
     "key" : "discriminator_1",
     "name" : "Code",

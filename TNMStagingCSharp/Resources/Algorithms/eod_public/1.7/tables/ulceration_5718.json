@@ -5,7 +5,7 @@
   "name" : "Ulceration",
   "title" : "Ulceration",
   "notes" : "**Note 1:** Physician statement of microscopically confirmed ulceration (e.g., based on biopsy or surgical resection) can be used to code this data item. \n\n**Note 2:** Ulceration can only be confirmed by microscopic examination. Do not use findings from physical exam. \n\n**Note 3:** Melanoma ulceration is the absence of an intact epidermis overlying the primary melanoma based upon histopathological examination.\n\n**Note 4:** Code 9 if there is microscopic examination and there is no mention of ulceration.\n* This instruction **does** apply to in situ tumors",
-  "last_modified" : "2019-08-26T19:08:08.204Z",
+  "last_modified" : "2019-07-10T21:17:54.920Z",
   "definition" : [ {
     "key" : "ulceration",
     "name" : "Code",

@@ -5,7 +5,7 @@
   "name" : "AFP Pretreatment Lab Value",
   "title" : "AFP (Alpha Fetoprotein) Pretreatment Lab Value",
   "notes" : "**Note 1:** Physician statement of AFP (Alpha Fetoprotein) Pretreatment Lab Value can be used to code this data item when no other information is available. \n\n**Note 2:** Record the lab value of the highest AFP test result documented in the medical record prior to treatment. The lab value may be recorded in a lab report, history and physical, or clinical statement in the pathology report.\n\n**Note 3:** A lab value expressed in micrograms per liter (ug/L) is equivalent to the same value expressed in ng/ml.\n\n**Note 4:** The same laboratory test should be used to record information in AFP Pretreatment Interpretation [NAACCR Data Item #3809].",
-  "last_modified" : "2019-08-26T19:08:07.986Z",
+  "last_modified" : "2019-07-29T15:25:27.828Z",
   "definition" : [ {
     "key" : "afp_pretx_lab_value",
     "name" : "Code",

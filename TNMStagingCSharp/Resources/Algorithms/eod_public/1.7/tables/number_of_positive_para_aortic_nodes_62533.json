@@ -5,7 +5,7 @@
   "name" : "Number of Positive Para-Aortic Nodes",
   "title" : "Number of Positive Para-Aortic Nodes",
   "notes" : "**Note 1:** Physician statement of positive para-aortic nodes can be used to code this data item when no other information is available.\n\n**Note 2:** Record the number of positive para-aortic lymph nodes documented in the medical record. \n\n**Note 3:** For this data item, do not include isolated tumor cells (ITCs). \n\n**Note 4:** Micrometastasis and macrometastasis may be listed separately on the pathology report. Add these two together to get the total number of positive nodes. \n\n**Note 5:** The number of examined para-aortic nodes is recorded in Number of Examined Para-aortic Nodes [NAACCR Data Item #3899].",
-  "last_modified" : "2019-08-26T19:08:06.790Z",
+  "last_modified" : "2019-07-29T15:48:23.084Z",
   "definition" : [ {
     "key" : "num_pos_para_aortic_nodes",
     "name" : "Code",

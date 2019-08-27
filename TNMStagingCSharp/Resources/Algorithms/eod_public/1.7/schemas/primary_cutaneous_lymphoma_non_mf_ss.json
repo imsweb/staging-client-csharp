@@ -286,5 +286,5 @@
   } ],
   "involved_tables" : [ "grade_post_therapy_72642", "radiation_surg_seq", "tnm8_inclusions_14639", "nodes_pos_fpa", "parse_t_2177", "parse_n_67182", "histology", "nodes_exam_76029", "seer_regional_nodes_36710", "tumor_size_summary_63115", "seer_mets_79245", "ajcc_chapter_calculation_89548", "seer_primary_tumor_60433", "tumor_size_pathological_25597", "systemic_surg_seq", "tumor_size_clinical_60979", "tumor_size_with_primary_tumor_for_t_82402", "parse_m_47057", "primary_site", "eod_tnm_component_cleanup_58170", "year_dx_validation", "ss2018_primary_cutaneous_lymphomas_4605", "summary_stage_rpa", "lvi_dna_56663", "grade_clinical_18316", "grade_pathological_73388", "tnm8_stage_for_sites_with_no_stage_groupings_unb", "schema_selection_primary_cutaneous_lymphoma_non_mf_ss" ],
   "on_invalid_input" : "CONTINUE",
-  "last_modified" : "2019-08-26T19:11:39.161Z"
+  "last_modified" : "2019-08-27T16:42:03.463Z"
 }

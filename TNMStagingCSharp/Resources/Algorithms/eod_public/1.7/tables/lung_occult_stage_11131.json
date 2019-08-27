@@ -5,7 +5,7 @@
   "name" : "Lung Occult Stage",
   "title" : "Determine Lung Occult or Unknown Stage",
   "notes" : "Since TX, N0, M0 can be both Occult or Unknown, this looks at the directly assigned stage group when this combination is found.  Only this combination is sent to this table.",
-  "last_modified" : "2019-08-26T19:08:08.184Z",
+  "last_modified" : "2019-04-05T16:57:04.117Z",
   "definition" : [ {
     "key" : "stage_group_in",
     "name" : "Directly Assigned Stage Group",

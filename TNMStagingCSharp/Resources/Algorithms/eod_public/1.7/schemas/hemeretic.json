@@ -216,5 +216,5 @@
   } ],
   "involved_tables" : [ "grade_post_therapy_72642", "tumor_size_clinical_dna_64119", "jak2_80148", "tumor_size_pathological_dna_6742", "schema_selection_heme_retic", "ss2018_hemeretic_3793", "summary_stage_lymphoma_25139", "nodes_exam_dna_95635", "tumor_size_summary_dna_13275", "ajcc_chapter_calculation_46197", "primary_site", "histology", "schema_discriminator_1_63995", "year_dx_validation", "age_at_diagnosis_validation_65093", "lvi_dna_56663", "mets_hna", "extension_bci", "grade_clinical_18316", "behavior", "grade_pathological_73388", "nodes_dna", "nodes_pos_dna_91511" ],
   "on_invalid_input" : "CONTINUE",
-  "last_modified" : "2019-08-26T19:11:36.942Z"
+  "last_modified" : "2019-08-27T16:42:01.234Z"
 }

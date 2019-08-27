@@ -5,7 +5,7 @@
   "name" : "hCG Pre-Orchiectomy Range",
   "title" : "hCG (Human Chorionic Gonadotropin) Pre-Orchiectomy Range",
   "notes" : "**Note 1:** Physician statement of the hCG (Human Chorionic Gonadotropin) Pre-Orchiectomy Range can be used to code this data item when no other information is available. \n\n**Note 2:** Record the range of the highest hCG test result documented in the medical record **prior to orchiectomy** or prior to any systemic treatment. The lab value may be documented in a lab report, history and physical, or clinical statement in the pathology report.\n\n**Note 3:** A lab value expressed in International Units/liter (IU/L) is equivalent to the same value expressed in milli-International Units/milliliter (mIU/mL).\n\n**Note 4:** The same laboratory test should be used to record information in hCG Pre-orchiectomy Lab Value [NAACCR Data Item #3848].",
-  "last_modified" : "2019-08-26T19:08:08.020Z",
+  "last_modified" : "2019-04-05T16:57:03.871Z",
   "definition" : [ {
     "key" : "hcg_pre_orch_range",
     "name" : "Code",

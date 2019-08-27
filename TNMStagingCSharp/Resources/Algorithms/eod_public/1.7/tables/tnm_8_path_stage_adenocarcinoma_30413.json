@@ -4,7 +4,7 @@
   "version" : "1.7",
   "name" : "TNM 8 Path Stage Adenocarcinoma",
   "title" : "TNM 8 Path Stage Adenocarcinoma",
-  "last_modified" : "2019-08-26T19:08:07.534Z",
+  "last_modified" : "2019-04-05T16:57:02.846Z",
   "definition" : [ {
     "key" : "t",
     "name" : "T",

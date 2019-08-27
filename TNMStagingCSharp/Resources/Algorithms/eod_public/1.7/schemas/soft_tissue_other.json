@@ -214,5 +214,5 @@
   } ],
   "involved_tables" : [ "tumor_size_clinical_full_19656", "tumor_size_summary_full_15510", "extension_bbr", "occult_head_and_neck_lymph_nodes_10277", "schema_selection_peritoneum", "grade_pathological_40399", "nodes_dbi", "nodes_pos_fpa", "grade_clinical_41135", "primary_site", "histology", "nodes_exam_76029", "bone_invasion_96628", "eod_mets_20229", "year_dx_validation", "sex_19563", "lvi_full_56663", "summary_stage_rpa", "ajcc_chapter_calculation_14693", "behavior", "ss2018_soft_tissue_31311", "tumor_size_pathological_full_93442", "grade_post_therapy_88136" ],
   "on_invalid_input" : "CONTINUE",
-  "last_modified" : "2019-08-26T19:11:36.602Z"
+  "last_modified" : "2019-08-27T16:42:00.916Z"
 }

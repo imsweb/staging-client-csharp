@@ -5,7 +5,7 @@
   "name" : "Occult from EOD Primary Tumor",
   "title" : "Occult from EOD Primary Tumor",
   "notes" : "Since TXN0M0 can indicate Occult or Unknown, this table looks to see if EOD Primary Tumor is 980, or if EOD Primary Tumor is 999 or EOD Primary Tumor = 300 with Tumor Size = 999.",
-  "last_modified" : "2019-08-26T19:08:08.055Z",
+  "last_modified" : "2019-04-05T16:57:03.910Z",
   "definition" : [ {
     "key" : "eod_primary_tumor",
     "name" : "EOD Primary Tumor",

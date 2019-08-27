@@ -5,7 +5,7 @@
   "name" : "Schema Discriminator 1",
   "title" : "Schema Discriminator 1: BileDuctsDistal/BileDuctsPerihilar/CysticDuct",
   "notes" : "**Note:** A schema discriminator is used to discriminate for primary site C240 (extrahepatic bile ducts) for the subsite in which the tumor arose.\n\n* **Chapter 24: Gallbladder (see code 3)**\nPer AJCC 8th edition, the gallbladder tapers into the cystic duct\n\n* **Chapter 25: Perihilar Bile Ducts (see codes 1, 5, 6, 9)**\nPer AJCC 8th edition, perihilar (or proximal) cholangiocarcinomas involve the main biliary confluence of the right and left hepatic ducts and comprise 50-70% of all cases of bile ducts carcinomas\n\n* **Chapter 26: Distal Bile Ducts ( see codes 4, 7)**\nPer AJCC 8th edition, these tumors have their center located between the confluence of the cystic duct and common hepatic duct and the Ampulla of Vater (excluding ampullary carcinomas.)",
-  "last_modified" : "2019-08-26T19:08:07.669Z",
+  "last_modified" : "2019-04-05T16:57:03.020Z",
   "definition" : [ {
     "key" : "discriminator_1",
     "name" : "Code",

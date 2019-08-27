@@ -5,7 +5,7 @@
   "name" : "Grade Post Therapy",
   "title" : "Grade Post Therapy",
   "notes" : "**Note 1:** Leave post therapy grade blank when\n* No neoadjuvant therapy\n* Clinical or pathological case only\n\n**Note 2:** Grade (cell indicator) is no longer applicable for this hematopoietic neoplasm.",
-  "last_modified" : "2019-08-26T19:08:05.194Z",
+  "last_modified" : "2019-04-05T16:56:59.644Z",
   "definition" : [ {
     "key" : "grade_post_therapy",
     "name" : "Code",

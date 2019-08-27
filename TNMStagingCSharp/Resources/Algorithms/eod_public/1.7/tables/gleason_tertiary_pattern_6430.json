@@ -5,7 +5,7 @@
   "name" : "Gleason Tertiary Pattern",
   "title" : "Gleason Tertiary Pattern",
   "notes" : "**Note 1:** Physician statement of Gleason tertiary pattern can be used to code this data item when there is no other information available.\n\n**Note 2:** If present, a high Gleason Tertiary Pattern appears to be an indication for a worse outcome.\n\n**Note 3:** Record the tertiary pattern documented on prostatectomy or autopsy only. Record the tertiary pattern prior to neoadjuvant treatment. \n* If a tertiary pattern is documented on needle core biopsy or transurethral resection of prostate (TURP), it should be disregarded. \n* Do not code the tertiary pattern on prostatectomy or autopsy in Gleason Patterns Pathological.\n\n**Note 4:** The CAP Prostate Protocol does not include Patterns 1 and 2 for Tertiary Pattern.\n\n**Note 5:** If neoadjuvant therapy was given, code Gleason patterns as X9.",
-  "last_modified" : "2019-08-26T19:08:06.947Z",
+  "last_modified" : "2019-04-05T16:57:02.261Z",
   "definition" : [ {
     "key" : "gleason_tertiary_pattern",
     "name" : "Code",

@@ -5,7 +5,7 @@
   "name" : "Combined Grade",
   "title" : "Combined Grade",
   "notes" : "If a combined Grade is need for a calculation, this determines the best grade to use.",
-  "last_modified" : "2019-08-26T19:08:07.559Z",
+  "last_modified" : "2019-05-16T16:53:02.859Z",
   "definition" : [ {
     "key" : "grade_clin",
     "name" : "Grade Clin",

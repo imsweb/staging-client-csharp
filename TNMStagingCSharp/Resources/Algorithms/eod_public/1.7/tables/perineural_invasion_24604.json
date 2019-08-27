@@ -5,7 +5,7 @@
   "name" : "Perineural Invasion",
   "title" : "Perineural Invasion",
   "notes" : "**Note 1:** Physician statement of microscopically confirmed perineural invasion can be used to code this data item when no other information is available.\n\n**Note 2:** Code the presence or absence of perineural invasion by the primary tumor as documented in the pathology report.\n\n**Note 3:** Information on **presence** of perineural invasion can be taken from either a biopsy or resection.  Absence of perineural invasion can only be taken from a surgical resection pathology report.\n\n**Note 4:** Code 9 if surgical resection of the primary site is performed and there is no mention of perineural invasion.",
-  "last_modified" : "2019-08-26T19:08:08.099Z",
+  "last_modified" : "2019-04-05T16:57:03.975Z",
   "definition" : [ {
     "key" : "perineural_invasion",
     "name" : "Code",
