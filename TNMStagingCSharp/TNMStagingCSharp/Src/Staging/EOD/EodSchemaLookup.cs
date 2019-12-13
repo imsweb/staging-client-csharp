@@ -15,6 +15,7 @@ namespace TNMStagingCSharp.Src.Staging.EOD
                 { EodStagingData.PRIMARY_SITE_KEY,
                   EodStagingData.HISTOLOGY_KEY,
                   EodInput.SEX.toString(),
+                  EodInput.BEHAVIOR.toString(),
                   EodInput.DISCRIMINATOR_1.toString(),
                   EodInput.DISCRIMINATOR_2.toString() });
 
