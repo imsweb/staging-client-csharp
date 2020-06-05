@@ -9,7 +9,6 @@ using TNMStagingCSharp.Src.DecisionEngine;
 using TNMStagingCSharp.Src.Staging;
 using TNMStagingCSharp.Src.Staging.Entities;
 
-
 namespace TNMStaging_UnitTestApp.Src
 {
     /**
@@ -115,7 +114,7 @@ namespace TNMStaging_UnitTestApp.Src
         }
 
         [TestMethod]
-        public void testCachedSiteAndHistology()
+        public virtual void testCachedSiteAndHistology()
         {
             StagingDataProvider provider = getProvider();
             Assert.IsTrue(provider.getValidSites().Count > 0);
@@ -133,9 +132,9 @@ namespace TNMStaging_UnitTestApp.Src
             List<String> validHist = new List<String>() { "8000", "8002", "8005", "8290", "9992" };
             List<String> invalidHist = new List<String>() { "8006", "9993" };
             foreach (String hist in validHist)
-                Assert.IsTrue(provider.getValidHistologies().Contains(hist));
+                Assert.IsTrue(provider.getValidHistologies().Contains(hist), "The histology '" + hist + "' is not in the valid histology list");
             foreach (String hist in invalidHist)
-                Assert.IsFalse(provider.getValidHistologies().Contains(hist));
+                Assert.IsFalse(provider.getValidHistologies().Contains(hist), "The histology '" + hist + "' is not supposed to be in the valid histology list");
         }
 
         [TestMethod]

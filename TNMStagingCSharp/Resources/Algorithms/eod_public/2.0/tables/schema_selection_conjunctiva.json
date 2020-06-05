@@ -1,0 +1,22 @@
+{
+  "id" : "schema_selection_conjunctiva",
+  "algorithm" : "eod_public",
+  "version" : "2.0",
+  "name" : "Schema Selection Conjunctiva",
+  "title" : "Schema selection for Conjunctiva",
+  "last_modified" : "2020-05-19T21:32:31.207Z",
+  "definition" : [ {
+    "key" : "site",
+    "name" : "Primary Site",
+    "type" : "INPUT"
+  }, {
+    "key" : "hist",
+    "name" : "Histology",
+    "type" : "INPUT"
+  }, {
+    "key" : "result",
+    "name" : "Result",
+    "type" : "ENDPOINT"
+  } ],
+  "rows" : [ [ "C690", "8000-8700, 9700-9701", "MATCH" ] ]
+}
