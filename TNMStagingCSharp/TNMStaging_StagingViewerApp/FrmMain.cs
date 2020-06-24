@@ -224,7 +224,7 @@ namespace TNMStaging_StagingViewerApp
                     await Task.Delay(WAIT_AMT);
                     mStaging = Staging.getInstance(mProvider);
                 }
-                catch (Exception e)
+                catch (Exception)
                 {
                     bFailure = true;
                     MessageBox.Show("Unable to load the algorithm " + sFilename + ".", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -278,7 +278,7 @@ namespace TNMStaging_StagingViewerApp
 
                 //System.Threading.Thread.Sleep(100);
             }
-            catch (Exception e)
+            catch (Exception)
             {
 
             }

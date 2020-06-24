@@ -22,17 +22,19 @@ namespace TNMStagingCSharp.Src.Staging.Entities
         private String _description;
         [JsonProperty("naaccr_item", Order = 4)]
         private int _naaccrItem;
-        [JsonProperty("default", Order = 6)]
+        [JsonProperty("naaccr_xml_id", Order = 5)]
+        private String _naaccrXmlId;
+        [JsonProperty("default", Order = 7)]
         private String _default;
-        [JsonProperty("table", Order = 7)]
+        [JsonProperty("table", Order = 8)]
         private String _table;
-        [JsonProperty("used_for_staging", Order = 8)]
+        [JsonProperty("used_for_staging", Order = 9)]
         private bool _usedForStaging;
-        [JsonProperty("unit", Order = 10)]
+        [JsonProperty("unit", Order = 11)]
         private String _unit;
-        [JsonProperty("decimal_places", Order = 11)]
+        [JsonProperty("decimal_places", Order = 12)]
         private int _decimalPlaces;
-        [JsonProperty("metadata", Order = 12)]
+        [JsonProperty("metadata", Order = 13)]
         [JsonConverter(typeof(CustomHashSetConverter<String>))]
         private HashSet<String> _metadata;
 
@@ -67,6 +69,7 @@ namespace TNMStagingCSharp.Src.Staging.Entities
             setName(other.getName());
             setDescription(other.getDescription());
             setNaaccrItem(other.getNaaccrItem());
+            setNaaccrXmlId(other.getNaaccrXmlId());
             setDefault(other.getDefault());
             setTable(other.getTable());
             if (other.getMetadata() != null)
@@ -118,6 +121,17 @@ namespace TNMStagingCSharp.Src.Staging.Entities
         public void setNaaccrItem(int naaccrItem)
         {
             _naaccrItem = naaccrItem;
+            ComputeHashCode();
+        }
+
+        public String getNaaccrXmlId()
+        {
+            return _naaccrXmlId;
+        }
+
+        public void setNaaccrXmlId(String naaccrXmlId)
+        {
+            _naaccrXmlId = naaccrXmlId;
             ComputeHashCode();
         }
 
@@ -203,6 +217,7 @@ namespace TNMStagingCSharp.Src.Staging.Entities
                       (_name == that._name) &&
                       (_description == that._description) &&
                       (_naaccrItem == that._naaccrItem) &&
+                      (_naaccrXmlId == that._naaccrXmlId) &&
                       (_default == that._default) &&
                       (_table == that._table) &&
                       (_usedForStaging == that._usedForStaging) &&
@@ -247,6 +262,7 @@ namespace TNMStagingCSharp.Src.Staging.Entities
             MyStringBuilder.Append(_name);
             MyStringBuilder.Append(_description);
             MyStringBuilder.Append(_naaccrItem);
+            MyStringBuilder.Append(_naaccrXmlId);
             MyStringBuilder.Append(_default);
             MyStringBuilder.Append(_table);
             MyStringBuilder.Append(_usedForStaging);

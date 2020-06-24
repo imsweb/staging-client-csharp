@@ -18,7 +18,9 @@ namespace TNMStagingCSharp.Src.Staging.Entities
         private String _description;
         [JsonProperty("naaccr_item", Order = 4)]
         private int _naaccrItem;
-        [JsonProperty("table", Order = 5)]
+        [JsonProperty("naaccr_xml_id", Order = 5)]
+        private String _naaccrXmlId;
+        [JsonProperty("table", Order = 6)]
         private String _table;
         [JsonProperty("default")]
         private String _default;
@@ -101,6 +103,17 @@ namespace TNMStagingCSharp.Src.Staging.Entities
             ComputeHashCode();
         }
 
+        public String getNaaccrXmlId()
+        {
+            return _naaccrXmlId;
+        }
+
+        public void setNaaccrXmlId(String naaccrXmlId)
+        {
+            _naaccrXmlId = naaccrXmlId;
+            ComputeHashCode();
+        }
+
         public String getTable()
         {
             return _table;
@@ -137,6 +150,7 @@ namespace TNMStagingCSharp.Src.Staging.Entities
                    Equals(_name, that._name) &&
                    Equals(_description, that._description) &&
                    Equals(_naaccrItem, that._naaccrItem) &&
+                   Equals(_naaccrXmlId, that._naaccrXmlId) &&
                    Equals(_table, that._table) &&
                    Equals(_default, that._default);
         }
@@ -159,6 +173,7 @@ namespace TNMStagingCSharp.Src.Staging.Entities
             MyStringBuilder.Append(_name);
             MyStringBuilder.Append(_description);
             MyStringBuilder.Append(_naaccrItem);
+            MyStringBuilder.Append(_naaccrXmlId);
             MyStringBuilder.Append(_table);
             MyStringBuilder.Append(_default);
 
