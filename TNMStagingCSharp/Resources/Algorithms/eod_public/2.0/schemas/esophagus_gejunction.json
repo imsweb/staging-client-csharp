@@ -11,30 +11,35 @@
     "key" : "year_dx",
     "name" : "Year of Diagnosis",
     "naaccr_item" : 390,
+    "naaccr_xml_id" : "dateOfDiagnosis",
     "table" : "year_dx_validation",
     "used_for_staging" : false
   }, {
     "key" : "site",
     "name" : "Primary Site",
     "naaccr_item" : 400,
+    "naaccr_xml_id" : "primarySite",
     "table" : "primary_site",
     "used_for_staging" : true
   }, {
     "key" : "hist",
     "name" : "Histology",
     "naaccr_item" : 522,
+    "naaccr_xml_id" : "histologicTypeIcdO3",
     "table" : "histology",
     "used_for_staging" : true
   }, {
     "key" : "behavior",
     "name" : "Behavior",
     "naaccr_item" : 523,
+    "naaccr_xml_id" : "behaviorCodeIcdO3",
     "table" : "behavior",
     "used_for_staging" : false
   }, {
     "key" : "discriminator_1",
     "name" : "Schema Discriminator 1",
     "naaccr_item" : 3926,
+    "naaccr_xml_id" : "schemaDiscriminator1",
     "table" : "esophagusgejunction_egj_stomach_57130",
     "used_for_staging" : true,
     "metadata" : [ "COC_REQUIRED", "NPCR_REQUIRED", "SSDI", "CCCR_REQUIRED", "SEER_REQUIRED" ]
@@ -42,6 +47,7 @@
     "key" : "discriminator_2",
     "name" : "Schema Discriminator 2",
     "naaccr_item" : 3927,
+    "naaccr_xml_id" : "schemaDiscriminator2",
     "table" : "histology_discriminator_for_8020_3_93311",
     "used_for_staging" : true,
     "metadata" : [ "COC_REQUIRED", "NPCR_REQUIRED", "SSDI", "CCCR_REQUIRED", "SEER_REQUIRED" ]
@@ -49,18 +55,21 @@
     "key" : "size_clin",
     "name" : "Tumor Size Clinical",
     "naaccr_item" : 752,
+    "naaccr_xml_id" : "tumorSizeClinical",
     "table" : "tumor_size_clinical_full_19656",
     "used_for_staging" : false
   }, {
     "key" : "size_path",
     "name" : "Tumor Size Pathological",
     "naaccr_item" : 754,
+    "naaccr_xml_id" : "tumorSizePathologic",
     "table" : "tumor_size_pathological_full_93442",
     "used_for_staging" : false
   }, {
     "key" : "size_summary",
     "name" : "Tumor Size Summary",
     "naaccr_item" : 756,
+    "naaccr_xml_id" : "tumorSizeSummary",
     "default" : "999",
     "table" : "tumor_size_summary_full_15510",
     "used_for_staging" : false
@@ -68,6 +77,7 @@
     "key" : "nodes_pos",
     "name" : "Regional Nodes Positive",
     "naaccr_item" : 820,
+    "naaccr_xml_id" : "regionalNodesPositive",
     "default" : "99",
     "table" : "nodes_pos_fpa",
     "used_for_staging" : true
@@ -75,6 +85,7 @@
     "key" : "nodes_exam",
     "name" : "Regional Nodes Examined",
     "naaccr_item" : 830,
+    "naaccr_xml_id" : "regionalNodesExamined",
     "default" : "99",
     "table" : "nodes_exam_76029",
     "used_for_staging" : false
@@ -82,6 +93,7 @@
     "key" : "lvi",
     "name" : "LVI",
     "naaccr_item" : 1182,
+    "naaccr_xml_id" : "lymphVascularInvasion",
     "default" : "9",
     "table" : "lvi_full_56663",
     "used_for_staging" : false
@@ -89,18 +101,21 @@
     "key" : "radiation_surg_seq",
     "name" : "RX Summ Surgery/Radiation Sequence",
     "naaccr_item" : 1380,
+    "naaccr_xml_id" : "rxSummSurgRadSeq",
     "table" : "radiation_surg_seq",
     "used_for_staging" : false
   }, {
     "key" : "systemic_surg_seq",
     "name" : "RX Summ Systemic/Surgery Sequence",
     "naaccr_item" : 1639,
+    "naaccr_xml_id" : "rxSummSystemicSurSeq",
     "table" : "systemic_surg_seq",
     "used_for_staging" : false
   }, {
     "key" : "eod_primary_tumor",
     "name" : "EOD Primary Tumor",
     "naaccr_item" : 772,
+    "naaccr_xml_id" : "eodPrimaryTumor",
     "default" : "999",
     "table" : "extension_bbb",
     "used_for_staging" : true
@@ -108,6 +123,7 @@
     "key" : "eod_regional_nodes",
     "name" : "EOD Regional Nodes",
     "naaccr_item" : 774,
+    "naaccr_xml_id" : "eodRegionalNodes",
     "default" : "999",
     "table" : "nodes_dat",
     "used_for_staging" : true
@@ -115,6 +131,7 @@
     "key" : "eod_mets",
     "name" : "EOD Mets",
     "naaccr_item" : 776,
+    "naaccr_xml_id" : "eodMets",
     "default" : "00",
     "table" : "mets_hbg",
     "used_for_staging" : true
@@ -122,12 +139,14 @@
     "key" : "ss2018",
     "name" : "SS2018",
     "naaccr_item" : 764,
+    "naaccr_xml_id" : "summaryStage2018",
     "table" : "ss2018_esophagus_excluding_gist_57104",
     "used_for_staging" : false
   }, {
     "key" : "grade_clin",
     "name" : "Grade Clinical",
     "naaccr_item" : 3843,
+    "naaccr_xml_id" : "gradeClinical",
     "default" : "9",
     "table" : "grade_clinical_8742",
     "used_for_staging" : false,
@@ -136,6 +155,7 @@
     "key" : "grade_path",
     "name" : "Grade Pathological",
     "naaccr_item" : 3844,
+    "naaccr_xml_id" : "gradePathological",
     "default" : "9",
     "table" : "grade_pathological_19694",
     "used_for_staging" : true,
@@ -151,6 +171,7 @@
     "key" : "grade_post_therapy_path",
     "name" : "Grade Post Therapy Path (yp)",
     "naaccr_item" : 3845,
+    "naaccr_xml_id" : "gradePostTherapy",
     "table" : "grade_post_therapy_path_92197",
     "used_for_staging" : false,
     "metadata" : [ "NPCR_REQUIRED", "COC_REQUIRED", "SSDI", "CCCR_REQUIRED", "SEER_REQUIRED" ]
@@ -158,6 +179,7 @@
     "key" : "her2_summary",
     "name" : "HER2 Overall Summary",
     "naaccr_item" : 3855,
+    "naaccr_xml_id" : "her2OverallSummary",
     "default" : "9",
     "table" : "her2_overall_summary_5685",
     "used_for_staging" : false,
@@ -167,16 +189,19 @@
     "key" : "naaccr_schema_id",
     "name" : "Schema ID",
     "naaccr_item" : 3800,
+    "naaccr_xml_id" : "schemaId",
     "default" : "00169"
   }, {
     "key" : "ajcc_id",
     "name" : "AJCC ID",
     "naaccr_item" : 995,
+    "naaccr_xml_id" : "ajccId",
     "default" : "XX"
   }, {
     "key" : "ajcc_version_number",
     "name" : "AJCC Version Number",
-    "naaccr_item" : 1060
+    "naaccr_item" : 1060,
+    "naaccr_xml_id" : "tnmEditionNumber"
   }, {
     "key" : "derived_version",
     "name" : "Derived Version",
@@ -185,26 +210,31 @@
     "key" : "eod_2018_t",
     "name" : "Derived EOD 2018 T",
     "naaccr_item" : 785,
+    "naaccr_xml_id" : "derivedEod2018T",
     "default" : "88"
   }, {
     "key" : "eod_2018_n",
     "name" : "Derived EOD 2018 N",
     "naaccr_item" : 815,
+    "naaccr_xml_id" : "derivedEod2018N",
     "default" : "88"
   }, {
     "key" : "eod_2018_m",
     "name" : "Derived EOD 2018 M",
     "naaccr_item" : 795,
+    "naaccr_xml_id" : "derivedEod2018M",
     "default" : "88"
   }, {
     "key" : "eod_2018_stage_group",
     "name" : "Derived EOD 2018 Stage Group",
     "naaccr_item" : 818,
+    "naaccr_xml_id" : "derivedEod2018StageGroup",
     "default" : "88"
   }, {
     "key" : "ss2018_derived",
     "name" : "Derived Summary Stage 2018",
     "naaccr_item" : 762,
+    "naaccr_xml_id" : "derivedSummaryStage2018",
     "default" : "9"
   } ],
   "mappings" : [ {
@@ -329,5 +359,5 @@
   } ],
   "involved_tables" : [ "tumor_size_summary_full_15510", "radiation_surg_seq", "esophagusgejunction_egj_stomach_57130", "ajcc_chapter_calculation_15124", "nodes_pos_fpa", "parse_t_2177", "parse_n_67182", "her2_overall_summary_5685", "extension_bbb", "rn_positive_with_regional_nodes_for_ajcc_n_76932", "histology", "nodes_exam_76029", "lvi_full_56663", "behavior", "grade_post_therapy_path_92197", "tumor_size_pathological_full_93442", "nodes_dat", "ss2018_esophagus_excluding_gist_57104", "tumor_size_clinical_full_19656", "schema_selection_esophagus_gejunction", "grade_pathological_19694", "histology_discriminator_for_8020_3_93311", "ajcc_id_path_stage_83239", "tnm8_inclusions_77204", "mets_hbg", "systemic_surg_seq", "parse_m_47057", "primary_site", "eod_tnm_component_cleanup_58170", "grade_clinical_8742", "year_dx_validation", "summary_stage_rpa", "tnm8_stage_for_sites_with_no_stage_groupings_unb", "grade_post_therapy_clin_30400", "tnm_8_path_stage_adenocarcinoma_30413" ],
   "on_invalid_input" : "CONTINUE",
-  "last_modified" : "2020-06-04T17:09:07.822Z"
+  "last_modified" : "2020-06-30T19:49:22.953Z"
 }

@@ -10,90 +10,105 @@
     "key" : "year_dx",
     "name" : "Year of Diagnosis",
     "naaccr_item" : 390,
+    "naaccr_xml_id" : "dateOfDiagnosis",
     "table" : "year_dx_validation",
     "used_for_staging" : false
   }, {
     "key" : "site",
     "name" : "Primary Site",
     "naaccr_item" : 400,
+    "naaccr_xml_id" : "primarySite",
     "table" : "primary_site",
     "used_for_staging" : true
   }, {
     "key" : "hist",
     "name" : "Histology",
     "naaccr_item" : 522,
+    "naaccr_xml_id" : "histologicTypeIcdO3",
     "table" : "histology",
     "used_for_staging" : true
   }, {
     "key" : "behavior",
     "name" : "Behavior",
     "naaccr_item" : 523,
+    "naaccr_xml_id" : "behaviorCodeIcdO3",
     "table" : "behavior",
     "used_for_staging" : true
   }, {
     "key" : "grade",
     "name" : "Grade",
     "naaccr_item" : 440,
+    "naaccr_xml_id" : "grade",
     "table" : "grade",
     "used_for_staging" : true
   }, {
     "key" : "systemic_surg_seq",
     "name" : "RX Summ Systemic/Surgery Sequence",
     "naaccr_item" : 1639,
+    "naaccr_xml_id" : "rxSummSystemicSurSeq",
     "table" : "systemic_surg_seq",
     "used_for_staging" : true
   }, {
     "key" : "radiation_surg_seq",
     "name" : "RX Summ Surgery/Radiation Sequence",
     "naaccr_item" : 1380,
+    "naaccr_xml_id" : "rxSummSurgRadSeq",
     "table" : "radiation_surg_seq",
     "used_for_staging" : true
   }, {
     "key" : "nodes_pos",
     "name" : "Regional Nodes Positive",
     "naaccr_item" : 820,
+    "naaccr_xml_id" : "regionalNodesPositive",
     "table" : "nodes_pos_fpa",
     "used_for_staging" : true
   }, {
     "key" : "clin_t",
     "name" : "Clinical T",
     "naaccr_item" : 940,
+    "naaccr_xml_id" : "tnmClinT",
     "table" : "clin_t_esophagus_57970",
     "used_for_staging" : true
   }, {
     "key" : "clin_n",
     "name" : "Clinical N",
     "naaccr_item" : 950,
+    "naaccr_xml_id" : "tnmClinN",
     "table" : "clin_n_dat",
     "used_for_staging" : true
   }, {
     "key" : "clin_m",
     "name" : "Clinical M",
     "naaccr_item" : 960,
+    "naaccr_xml_id" : "tnmClinM",
     "table" : "clin_m_hbg",
     "used_for_staging" : true
   }, {
     "key" : "path_t",
     "name" : "Pathologic T",
     "naaccr_item" : 880,
+    "naaccr_xml_id" : "tnmPathT",
     "table" : "esophagus_t_28679",
     "used_for_staging" : true
   }, {
     "key" : "path_n",
     "name" : "Pathologic N",
     "naaccr_item" : 890,
+    "naaccr_xml_id" : "tnmPathN",
     "table" : "path_n_dat",
     "used_for_staging" : true
   }, {
     "key" : "path_m",
     "name" : "Pathologic M",
     "naaccr_item" : 900,
+    "naaccr_xml_id" : "tnmPathM",
     "table" : "path_m_hbg",
     "used_for_staging" : true
   }, {
     "key" : "ssf2",
     "name" : "Specific Location of Tumor",
     "naaccr_item" : 2890,
+    "naaccr_xml_id" : "csSiteSpecificFactor2",
     "default" : "988",
     "table" : "ssf2_kas",
     "used_for_staging" : false
@@ -101,6 +116,7 @@
     "key" : "ssf3",
     "name" : "Number of Regional Lymph Nodes with Extracapsular Tumor",
     "naaccr_item" : 2900,
+    "naaccr_xml_id" : "csSiteSpecificFactor3",
     "default" : "988",
     "table" : "ssf3_lpl",
     "used_for_staging" : false
@@ -108,6 +124,7 @@
     "key" : "ssf4",
     "name" : "Distance to Proximal Edge of Tumor from Incisors",
     "naaccr_item" : 2910,
+    "naaccr_xml_id" : "csSiteSpecificFactor4",
     "default" : "988",
     "table" : "ssf4_mpg",
     "used_for_staging" : false
@@ -115,6 +132,7 @@
     "key" : "ssf5",
     "name" : "Distance to Distal Edge of Tumor from Incisors",
     "naaccr_item" : 2920,
+    "naaccr_xml_id" : "csSiteSpecificFactor5",
     "default" : "988",
     "table" : "ssf5_npg",
     "used_for_staging" : false
@@ -122,6 +140,7 @@
     "key" : "clin_stage_group_direct",
     "name" : "TNM Clin Stage Group",
     "naaccr_item" : 970,
+    "naaccr_xml_id" : "tnmClinStageGroup",
     "default" : "99",
     "table" : "stage_group_c_64282",
     "used_for_staging" : true,
@@ -130,6 +149,7 @@
     "key" : "path_stage_group_direct",
     "name" : "TNM Path Stage Group",
     "naaccr_item" : 910,
+    "naaccr_xml_id" : "tnmPathStageGroup",
     "default" : "99",
     "table" : "stage_group_p_3409",
     "used_for_staging" : true,
@@ -143,44 +163,53 @@
     "key" : "clin_stage_group",
     "name" : "Derived SEER Clin Stage Group",
     "naaccr_item" : 3610,
+    "naaccr_xml_id" : "derivedSeerClinStgGrp",
     "default" : "88"
   }, {
     "key" : "path_stage_group",
     "name" : "Derived SEER Path Stage Group",
     "naaccr_item" : 3605,
+    "naaccr_xml_id" : "derivedSeerPathStgGrp",
     "default" : "88"
   }, {
     "key" : "combined_stage_group",
     "name" : "Derived SEER Combined Stage Group",
     "naaccr_item" : 3614,
+    "naaccr_xml_id" : "derivedSeerCmbStgGrp",
     "default" : "88"
   }, {
     "key" : "combined_t",
     "name" : "Derived SEER Combined T",
     "naaccr_item" : 3616,
+    "naaccr_xml_id" : "derivedSeerCombinedT",
     "default" : "88"
   }, {
     "key" : "combined_n",
     "name" : "Derived SEER Combined N",
     "naaccr_item" : 3618,
+    "naaccr_xml_id" : "derivedSeerCombinedN",
     "default" : "88"
   }, {
     "key" : "combined_m",
     "name" : "Derived SEER Combined M",
     "naaccr_item" : 3620,
+    "naaccr_xml_id" : "derivedSeerCombinedM",
     "default" : "88"
   }, {
     "key" : "source_t",
     "name" : "Derived SEER Combined T Source",
-    "naaccr_item" : 3622
+    "naaccr_item" : 3622,
+    "naaccr_xml_id" : "derivedSeerCmbTSrc"
   }, {
     "key" : "source_n",
     "name" : "Derived SEER Combined N Source",
-    "naaccr_item" : 3624
+    "naaccr_item" : 3624,
+    "naaccr_xml_id" : "derivedSeerCmbNSrc"
   }, {
     "key" : "source_m",
     "name" : "Derived SEER Combined M Source",
-    "naaccr_item" : 3626
+    "naaccr_item" : 3626,
+    "naaccr_xml_id" : "derivedSeerCmbMSrc"
   } ],
   "mappings" : [ {
     "id" : "tnm7_stage",
@@ -626,5 +655,5 @@
   } ],
   "involved_tables" : [ "determine_default_t", "schema_selection_esophagus", "radiation_surg_seq", "stage_group_c_64282", "ssf2_kas", "determine_default_m", "tnm_7_stage_squamous_34274", "nodes_pos_fpa", "ssf3_lpl", "parse_t_2177", "esophagus_histologies_stage", "concatenate_n_43246", "parse_n_67182", "determine_default_n", "histologies_path_stage_99978", "histology", "tnm_7_path_stage_adenocarcinoma_30413", "concatenate_m_40642", "tnm7_inclusions_tpb", "path_n_dat", "behavior", "concatenate_t_51262", "tnm_7_stage_adenocarcinoma_44054", "adjustments_for_no_clin_or_no_path_26261", "tnm_7_path_stage_squamous_15592", "esophagus_t_28679", "path_m_hbg", "determine_combined_prefix_91402", "ssf5_npg", "stop_if_no_clin_and_no_path_24035", "systemic_surg_seq", "combined_n_for_tis_cancers_4947", "clin_n_dat", "parse_m_47057", "primary_site", "combined_m", "grade", "year_dx_validation", "ssf4_mpg", "stage_group_p_3409", "combined_t", "clin_t_esophagus_57970", "clin_m_hbg" ],
   "on_invalid_input" : "FAIL_WHEN_USED_FOR_STAGING",
-  "last_modified" : "2018-05-14T21:29:08.350Z"
+  "last_modified" : "2020-06-30T19:47:59.169Z"
 }

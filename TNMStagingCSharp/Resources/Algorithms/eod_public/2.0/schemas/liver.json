@@ -10,42 +10,49 @@
     "key" : "year_dx",
     "name" : "Year of Diagnosis",
     "naaccr_item" : 390,
+    "naaccr_xml_id" : "dateOfDiagnosis",
     "table" : "year_dx_validation",
     "used_for_staging" : false
   }, {
     "key" : "site",
     "name" : "Primary Site",
     "naaccr_item" : 400,
+    "naaccr_xml_id" : "primarySite",
     "table" : "primary_site",
     "used_for_staging" : true
   }, {
     "key" : "hist",
     "name" : "Histology",
     "naaccr_item" : 522,
+    "naaccr_xml_id" : "histologicTypeIcdO3",
     "table" : "histology",
     "used_for_staging" : true
   }, {
     "key" : "behavior",
     "name" : "Behavior",
     "naaccr_item" : 523,
+    "naaccr_xml_id" : "behaviorCodeIcdO3",
     "table" : "behavior",
     "used_for_staging" : true
   }, {
     "key" : "size_clin",
     "name" : "Tumor Size Clinical",
     "naaccr_item" : 752,
+    "naaccr_xml_id" : "tumorSizeClinical",
     "table" : "tumor_size_clinical_48894",
     "used_for_staging" : false
   }, {
     "key" : "size_path",
     "name" : "Tumor Size Pathological",
     "naaccr_item" : 754,
+    "naaccr_xml_id" : "tumorSizePathologic",
     "table" : "tumor_size_pathological_43328",
     "used_for_staging" : false
   }, {
     "key" : "size_summary",
     "name" : "Tumor Size Summary",
     "naaccr_item" : 756,
+    "naaccr_xml_id" : "tumorSizeSummary",
     "default" : "999",
     "table" : "tumor_size_summary_47973",
     "used_for_staging" : true
@@ -53,6 +60,7 @@
     "key" : "nodes_pos",
     "name" : "Regional Nodes Positive",
     "naaccr_item" : 820,
+    "naaccr_xml_id" : "regionalNodesPositive",
     "default" : "99",
     "table" : "nodes_pos_fpa",
     "used_for_staging" : false
@@ -60,6 +68,7 @@
     "key" : "nodes_exam",
     "name" : "Regional Nodes Examined",
     "naaccr_item" : 830,
+    "naaccr_xml_id" : "regionalNodesExamined",
     "default" : "99",
     "table" : "nodes_exam_76029",
     "used_for_staging" : false
@@ -67,6 +76,7 @@
     "key" : "lvi",
     "name" : "LVI",
     "naaccr_item" : 1182,
+    "naaccr_xml_id" : "lymphVascularInvasion",
     "default" : "9",
     "table" : "lvi_full_56663",
     "used_for_staging" : false
@@ -74,18 +84,21 @@
     "key" : "radiation_surg_seq",
     "name" : "RX Summ Surgery/Radiation Sequence",
     "naaccr_item" : 1380,
+    "naaccr_xml_id" : "rxSummSurgRadSeq",
     "table" : "radiation_surg_seq",
     "used_for_staging" : false
   }, {
     "key" : "systemic_surg_seq",
     "name" : "RX Summ Systemic/Surgery Sequence",
     "naaccr_item" : 1639,
+    "naaccr_xml_id" : "rxSummSystemicSurSeq",
     "table" : "systemic_surg_seq",
     "used_for_staging" : false
   }, {
     "key" : "eod_primary_tumor",
     "name" : "EOD Primary Tumor",
     "naaccr_item" : 772,
+    "naaccr_xml_id" : "eodPrimaryTumor",
     "default" : "999",
     "table" : "extension_bbc",
     "used_for_staging" : true
@@ -93,6 +106,7 @@
     "key" : "eod_regional_nodes",
     "name" : "EOD Regional Nodes",
     "naaccr_item" : 774,
+    "naaccr_xml_id" : "eodRegionalNodes",
     "default" : "999",
     "table" : "nodes_dau",
     "used_for_staging" : true
@@ -100,6 +114,7 @@
     "key" : "eod_mets",
     "name" : "EOD Mets",
     "naaccr_item" : 776,
+    "naaccr_xml_id" : "eodMets",
     "default" : "00",
     "table" : "mets_haf",
     "used_for_staging" : true
@@ -107,12 +122,14 @@
     "key" : "ss2018",
     "name" : "SS2018",
     "naaccr_item" : 764,
+    "naaccr_xml_id" : "summaryStage2018",
     "table" : "ss2018_liver_84469",
     "used_for_staging" : false
   }, {
     "key" : "grade_clin",
     "name" : "Grade Clinical",
     "naaccr_item" : 3843,
+    "naaccr_xml_id" : "gradeClinical",
     "default" : "9",
     "table" : "grade_clinical_73056",
     "used_for_staging" : false,
@@ -121,6 +138,7 @@
     "key" : "grade_path",
     "name" : "Grade Pathological",
     "naaccr_item" : 3844,
+    "naaccr_xml_id" : "gradePathological",
     "default" : "9",
     "table" : "grade_pathological_31963",
     "used_for_staging" : false,
@@ -136,6 +154,7 @@
     "key" : "grade_post_therapy_path",
     "name" : "Grade Post Therapy Path (yp)",
     "naaccr_item" : 3845,
+    "naaccr_xml_id" : "gradePostTherapy",
     "table" : "grade_post_therapy_path_41285",
     "used_for_staging" : false,
     "metadata" : [ "NPCR_REQUIRED", "COC_REQUIRED", "SSDI", "CCCR_REQUIRED", "SEER_REQUIRED" ]
@@ -143,6 +162,7 @@
     "key" : "afp_pretx_lab_value",
     "name" : "AFP PreTX Lab Value",
     "naaccr_item" : 3810,
+    "naaccr_xml_id" : "afpPretreatmentLabValue",
     "default" : "XXXX.8",
     "table" : "afp_pretx_lab_value_25871",
     "used_for_staging" : false,
@@ -151,6 +171,7 @@
     "key" : "afp_pretx_interpretation",
     "name" : "AFP PreTX Interpretation",
     "naaccr_item" : 3809,
+    "naaccr_xml_id" : "afpPretreatmentInterpretation",
     "default" : "8",
     "table" : "afp_pretx_interpretation_66147",
     "used_for_staging" : false,
@@ -159,6 +180,7 @@
     "key" : "bilirubin_pretx_lab_value",
     "name" : "Bilirubin PreTX Lab Value",
     "naaccr_item" : 3813,
+    "naaccr_xml_id" : "bilirubinPretxTotalLabValue",
     "default" : "XXX.8",
     "table" : "bilirubin_pretx_lab_value_68660",
     "used_for_staging" : false,
@@ -167,6 +189,7 @@
     "key" : "bilirubin_pretx_unit",
     "name" : "Bilirubin PreTX Unit",
     "naaccr_item" : 3814,
+    "naaccr_xml_id" : "bilirubinPretxUnitOfMeasure",
     "default" : "8",
     "table" : "bilirubin_pretx_unit_98627",
     "used_for_staging" : false,
@@ -175,6 +198,7 @@
     "key" : "creatinine_pretx_lab_value",
     "name" : "Creatinine PreTX Lab Value",
     "naaccr_item" : 3824,
+    "naaccr_xml_id" : "creatininePretreatmentLabValue",
     "default" : "XX.8",
     "table" : "creatinine_pretx_lab_value_56869",
     "used_for_staging" : false,
@@ -183,6 +207,7 @@
     "key" : "creatinine_pretx_unit",
     "name" : "Creatinine PreTX Unit",
     "naaccr_item" : 3825,
+    "naaccr_xml_id" : "creatininePretxUnitOfMeasure",
     "default" : "8",
     "table" : "creatinine_pretx_unit_26973",
     "used_for_staging" : false,
@@ -191,6 +216,7 @@
     "key" : "inr_prothrombin_time",
     "name" : "INR Prothrombin Time",
     "naaccr_item" : 3860,
+    "naaccr_xml_id" : "iNRProthrombinTime",
     "default" : "X.8",
     "table" : "inr_prothrombin_time_6158",
     "used_for_staging" : false,
@@ -199,6 +225,7 @@
     "key" : "fibrosis_score",
     "name" : "Fibrosis Score",
     "naaccr_item" : 3835,
+    "naaccr_xml_id" : "fibrosisScore",
     "default" : "8",
     "table" : "fibrosis_score_38658",
     "used_for_staging" : false,
@@ -208,16 +235,19 @@
     "key" : "naaccr_schema_id",
     "name" : "Schema ID",
     "naaccr_item" : 3800,
+    "naaccr_xml_id" : "schemaId",
     "default" : "00220"
   }, {
     "key" : "ajcc_id",
     "name" : "AJCC ID",
     "naaccr_item" : 995,
+    "naaccr_xml_id" : "ajccId",
     "default" : "XX"
   }, {
     "key" : "ajcc_version_number",
     "name" : "AJCC Version Number",
-    "naaccr_item" : 1060
+    "naaccr_item" : 1060,
+    "naaccr_xml_id" : "tnmEditionNumber"
   }, {
     "key" : "derived_version",
     "name" : "Derived Version",
@@ -226,26 +256,31 @@
     "key" : "eod_2018_t",
     "name" : "Derived EOD 2018 T",
     "naaccr_item" : 785,
+    "naaccr_xml_id" : "derivedEod2018T",
     "default" : "88"
   }, {
     "key" : "eod_2018_n",
     "name" : "Derived EOD 2018 N",
     "naaccr_item" : 815,
+    "naaccr_xml_id" : "derivedEod2018N",
     "default" : "88"
   }, {
     "key" : "eod_2018_m",
     "name" : "Derived EOD 2018 M",
     "naaccr_item" : 795,
+    "naaccr_xml_id" : "derivedEod2018M",
     "default" : "88"
   }, {
     "key" : "eod_2018_stage_group",
     "name" : "Derived EOD 2018 Stage Group",
     "naaccr_item" : 818,
+    "naaccr_xml_id" : "derivedEod2018StageGroup",
     "default" : "88"
   }, {
     "key" : "ss2018_derived",
     "name" : "Derived Summary Stage 2018",
     "naaccr_item" : 762,
+    "naaccr_xml_id" : "derivedSummaryStage2018",
     "default" : "9"
   } ],
   "mappings" : [ {
@@ -367,5 +402,5 @@
   } ],
   "involved_tables" : [ "radiation_surg_seq", "tumor_size_pathological_43328", "ss2018_liver_84469", "grade_post_therapy_path_41285", "grade_pathological_31963", "grade_post_therapy_clin_41222", "nodes_pos_fpa", "parse_t_2177", "mets_haf", "parse_n_67182", "extension_bbc", "afp_pretx_lab_value_25871", "fibrosis_score_38658", "histology", "nodes_exam_76029", "tnm_8_path_stage_group_for_eod_87685", "bilirubin_pretx_unit_98627", "tnm8_inclusions_tpn", "inr_prothrombin_time_6158", "lvi_full_56663", "behavior", "nodes_dau", "bilirubin_pretx_lab_value_68660", "schema_selection_liver", "tumor_size_clinical_48894", "creatinine_pretx_lab_value_56869", "systemic_surg_seq", "ajcc_chapter_calculation_68564", "afp_pretx_interpretation_66147", "parse_m_47057", "primary_site", "eod_tnm_component_cleanup_58170", "year_dx_validation", "grade_clinical_73056", "summary_stage_rpa", "tumor_size_summary_47973", "creatinine_pretx_unit_26973", "tumor_size_with_primary_tumor_for_ajcc_t_82729" ],
   "on_invalid_input" : "CONTINUE",
-  "last_modified" : "2020-06-04T17:09:03.685Z"
+  "last_modified" : "2020-06-30T19:49:18.696Z"
 }

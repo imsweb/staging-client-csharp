@@ -10,84 +10,98 @@
     "key" : "year_dx",
     "name" : "Year of Diagnosis",
     "naaccr_item" : 390,
+    "naaccr_xml_id" : "dateOfDiagnosis",
     "table" : "year_dx_validation",
     "used_for_staging" : false
   }, {
     "key" : "site",
     "name" : "Primary Site",
     "naaccr_item" : 400,
+    "naaccr_xml_id" : "primarySite",
     "table" : "primary_site",
     "used_for_staging" : true
   }, {
     "key" : "hist",
     "name" : "Histology",
     "naaccr_item" : 522,
+    "naaccr_xml_id" : "histologicTypeIcdO3",
     "table" : "histology",
     "used_for_staging" : true
   }, {
     "key" : "behavior",
     "name" : "Behavior",
     "naaccr_item" : 523,
+    "naaccr_xml_id" : "behaviorCodeIcdO3",
     "table" : "behavior",
     "used_for_staging" : true
   }, {
     "key" : "systemic_surg_seq",
     "name" : "RX Summ Systemic/Surgery Sequence",
     "naaccr_item" : 1639,
+    "naaccr_xml_id" : "rxSummSystemicSurSeq",
     "table" : "systemic_surg_seq",
     "used_for_staging" : true
   }, {
     "key" : "radiation_surg_seq",
     "name" : "RX Summ Surgery/Radiation Sequence",
     "naaccr_item" : 1380,
+    "naaccr_xml_id" : "rxSummSurgRadSeq",
     "table" : "radiation_surg_seq",
     "used_for_staging" : true
   }, {
     "key" : "nodes_pos",
     "name" : "Regional Nodes Positive",
     "naaccr_item" : 820,
+    "naaccr_xml_id" : "regionalNodesPositive",
     "table" : "nodes_pos_fpa",
     "used_for_staging" : true
   }, {
     "key" : "clin_t",
     "name" : "Clinical T",
     "naaccr_item" : 940,
+    "naaccr_xml_id" : "tnmClinT",
     "table" : "clin_t_bdh",
     "used_for_staging" : true
   }, {
     "key" : "clin_n",
     "name" : "Clinical N",
     "naaccr_item" : 950,
+    "naaccr_xml_id" : "tnmClinN",
     "table" : "clin_n_testis_17993",
     "used_for_staging" : true
   }, {
     "key" : "clin_m",
     "name" : "Clinical M",
     "naaccr_item" : 960,
+    "naaccr_xml_id" : "tnmClinM",
     "table" : "clin_m_hbb",
     "used_for_staging" : true
   }, {
     "key" : "path_t",
     "name" : "Pathologic T",
     "naaccr_item" : 880,
+    "naaccr_xml_id" : "tnmPathT",
     "table" : "testis_path_t_76829",
     "used_for_staging" : true
   }, {
     "key" : "path_n",
     "name" : "Pathologic N",
     "naaccr_item" : 890,
+    "naaccr_xml_id" : "tnmPathN",
     "table" : "testis_n_51427",
     "used_for_staging" : true
   }, {
     "key" : "path_m",
     "name" : "Pathologic M",
     "naaccr_item" : 900,
+    "naaccr_xml_id" : "tnmPathM",
     "table" : "path_m_hbb",
     "used_for_staging" : true
   }, {
     "key" : "ssf4",
     "name" : "Radical Orchiectomy Performed",
     "naaccr_item" : 2910,
+    "naaccr_xml_id" : "csSiteSpecificFactor4",
     "default" : "999",
     "table" : "ssf4_mac",
     "used_for_staging" : false,
@@ -96,6 +110,7 @@
     "key" : "ssf5",
     "name" : "Size of Metastasis in Lymph Nodes",
     "naaccr_item" : 2920,
+    "naaccr_xml_id" : "csSiteSpecificFactor5",
     "default" : "999",
     "table" : "ssf5_nab",
     "used_for_staging" : false,
@@ -104,6 +119,7 @@
     "key" : "ssf6",
     "name" : "Pre-Orchiectomy Alpha Fetoprotein (AFP) Lab Value",
     "naaccr_item" : 2930,
+    "naaccr_xml_id" : "csSiteSpecificFactor6",
     "default" : "988",
     "table" : "ssf6_oay",
     "used_for_staging" : false,
@@ -112,6 +128,7 @@
     "key" : "ssf7",
     "name" : "Pre-Orchiectomy Alpha Fetoprotein (AFP) Range",
     "naaccr_item" : 2861,
+    "naaccr_xml_id" : "csSiteSpecificFactor7",
     "default" : "999",
     "table" : "ssf7_seh",
     "used_for_staging" : false,
@@ -120,6 +137,7 @@
     "key" : "ssf8",
     "name" : "Pre-Orchiectomy Human Chorionic Gonadotropin (hCG) Lab Value",
     "naaccr_item" : 2862,
+    "naaccr_xml_id" : "csSiteSpecificFactor8",
     "default" : "988",
     "table" : "ssf8_sei",
     "used_for_staging" : false,
@@ -128,6 +146,7 @@
     "key" : "ssf9",
     "name" : "Pre-Orchiectomy Human Chorionic Gonadotropin (hCG) Range",
     "naaccr_item" : 2863,
+    "naaccr_xml_id" : "csSiteSpecificFactor9",
     "default" : "999",
     "table" : "ssf9_sej",
     "used_for_staging" : false,
@@ -136,6 +155,7 @@
     "key" : "ssf10",
     "name" : "Pre-Orchiectomy Lactate Dehydrogenase (LDH) Range",
     "naaccr_item" : 2864,
+    "naaccr_xml_id" : "csSiteSpecificFactor10",
     "default" : "999",
     "table" : "ssf10_sek",
     "used_for_staging" : false,
@@ -144,6 +164,7 @@
     "key" : "ssf12",
     "name" : "Post-Orchiectomy Alpha Fetoprotein (AFP) Lab Value",
     "naaccr_item" : 2866,
+    "naaccr_xml_id" : "csSiteSpecificFactor12",
     "default" : "988",
     "table" : "ssf12_sfd",
     "used_for_staging" : false
@@ -151,6 +172,7 @@
     "key" : "ssf13",
     "name" : "Post-Orchiectomy Alpha Fetoprotein (AFP) Range",
     "naaccr_item" : 2867,
+    "naaccr_xml_id" : "csSiteSpecificFactor13",
     "default" : "999",
     "table" : "ssf13_sfe",
     "used_for_staging" : true
@@ -158,6 +180,7 @@
     "key" : "ssf14",
     "name" : "Post-Orchiectomy Human Chorionic Gonadotropin (hCG) Lab Value",
     "naaccr_item" : 2868,
+    "naaccr_xml_id" : "csSiteSpecificFactor14",
     "default" : "988",
     "table" : "ssf14_sff",
     "used_for_staging" : false
@@ -165,6 +188,7 @@
     "key" : "ssf15",
     "name" : "Post-Orchiectomy Human Chorionic Gonadotropin (hCG) Range",
     "naaccr_item" : 2869,
+    "naaccr_xml_id" : "csSiteSpecificFactor15",
     "default" : "999",
     "table" : "ssf15_sfg",
     "used_for_staging" : true
@@ -172,6 +196,7 @@
     "key" : "ssf16",
     "name" : "Post-Orchiectomy Lactate Dehydrogenase (LDH) Range",
     "naaccr_item" : 2870,
+    "naaccr_xml_id" : "csSiteSpecificFactor16",
     "default" : "999",
     "table" : "ssf16_sfh",
     "used_for_staging" : true
@@ -179,6 +204,7 @@
     "key" : "clin_stage_group_direct",
     "name" : "TNM Clin Stage Group",
     "naaccr_item" : 970,
+    "naaccr_xml_id" : "tnmClinStageGroup",
     "default" : "99",
     "table" : "stage_group_c_83264",
     "used_for_staging" : true,
@@ -187,6 +213,7 @@
     "key" : "path_stage_group_direct",
     "name" : "TNM Path Stage Group",
     "naaccr_item" : 910,
+    "naaccr_xml_id" : "tnmPathStageGroup",
     "default" : "99",
     "table" : "stage_group_p_53847",
     "used_for_staging" : true,
@@ -200,44 +227,53 @@
     "key" : "clin_stage_group",
     "name" : "Derived SEER Clin Stage Group",
     "naaccr_item" : 3610,
+    "naaccr_xml_id" : "derivedSeerClinStgGrp",
     "default" : "88"
   }, {
     "key" : "path_stage_group",
     "name" : "Derived SEER Path Stage Group",
     "naaccr_item" : 3605,
+    "naaccr_xml_id" : "derivedSeerPathStgGrp",
     "default" : "88"
   }, {
     "key" : "combined_stage_group",
     "name" : "Derived SEER Combined Stage Group",
     "naaccr_item" : 3614,
+    "naaccr_xml_id" : "derivedSeerCmbStgGrp",
     "default" : "88"
   }, {
     "key" : "combined_t",
     "name" : "Derived SEER Combined T",
     "naaccr_item" : 3616,
+    "naaccr_xml_id" : "derivedSeerCombinedT",
     "default" : "88"
   }, {
     "key" : "combined_n",
     "name" : "Derived SEER Combined N",
     "naaccr_item" : 3618,
+    "naaccr_xml_id" : "derivedSeerCombinedN",
     "default" : "88"
   }, {
     "key" : "combined_m",
     "name" : "Derived SEER Combined M",
     "naaccr_item" : 3620,
+    "naaccr_xml_id" : "derivedSeerCombinedM",
     "default" : "88"
   }, {
     "key" : "source_t",
     "name" : "Derived SEER Combined T Source",
-    "naaccr_item" : 3622
+    "naaccr_item" : 3622,
+    "naaccr_xml_id" : "derivedSeerCmbTSrc"
   }, {
     "key" : "source_n",
     "name" : "Derived SEER Combined N Source",
-    "naaccr_item" : 3624
+    "naaccr_item" : 3624,
+    "naaccr_xml_id" : "derivedSeerCmbNSrc"
   }, {
     "key" : "source_m",
     "name" : "Derived SEER Combined M Source",
-    "naaccr_item" : 3626
+    "naaccr_item" : 3626,
+    "naaccr_xml_id" : "derivedSeerCmbMSrc"
   } ],
   "mappings" : [ {
     "id" : "tnm7_stage",
@@ -687,5 +723,5 @@
   } ],
   "involved_tables" : [ "determine_default_t", "ssf16_sfh", "testis_path_t_76829", "radiation_surg_seq", "ssf5_nab", "stage_group_c_83264", "determine_default_m", "ssf15_sfg", "nodes_pos_fpa", "parse_t_2177", "concatenate_n_43246", "parse_n_67182", "determine_default_n", "clin_t_bdh", "histology", "ssf4_mac", "path_m_hbb", "concatenate_m_40642", "schema_selection_testis", "ssf14_sff", "behavior", "ssf7_seh", "testis_n_51427", "concatenate_t_51262", "ssf6_oay", "tnm7_inclusions_tpj", "ssf13_sfe", "adjustments_for_no_clin_or_no_path_26261", "clin_n_testis_17993", "determine_combined_prefix_91402", "testis_postorchiectomy_serum_tumor_marker_svalue_table_basedon_ssf131516", "stop_if_no_clin_and_no_path_24035", "systemic_surg_seq", "combined_n_for_tis_cancers_4947", "ssf8_sei", "ssf10_sek", "parse_m_47057", "primary_site", "ssf12_sfd", "clin_m_hbb", "combined_m", "year_dx_validation", "tnm7_stage_uqd", "stage_group_p_53847", "tnm7_path_stage_uqd", "combined_t", "ssf9_sej" ],
   "on_invalid_input" : "FAIL_WHEN_USED_FOR_STAGING",
-  "last_modified" : "2018-05-14T21:29:08.363Z"
+  "last_modified" : "2020-06-30T19:47:59.441Z"
 }

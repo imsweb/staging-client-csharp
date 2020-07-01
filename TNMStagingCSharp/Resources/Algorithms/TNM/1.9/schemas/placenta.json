@@ -10,60 +10,70 @@
     "key" : "year_dx",
     "name" : "Year of Diagnosis",
     "naaccr_item" : 390,
+    "naaccr_xml_id" : "dateOfDiagnosis",
     "table" : "year_dx_validation",
     "used_for_staging" : false
   }, {
     "key" : "site",
     "name" : "Primary Site",
     "naaccr_item" : 400,
+    "naaccr_xml_id" : "primarySite",
     "table" : "primary_site",
     "used_for_staging" : true
   }, {
     "key" : "hist",
     "name" : "Histology",
     "naaccr_item" : 522,
+    "naaccr_xml_id" : "histologicTypeIcdO3",
     "table" : "histology",
     "used_for_staging" : true
   }, {
     "key" : "systemic_surg_seq",
     "name" : "RX Summ Systemic/Surgery Sequence",
     "naaccr_item" : 1639,
+    "naaccr_xml_id" : "rxSummSystemicSurSeq",
     "table" : "systemic_surg_seq",
     "used_for_staging" : true
   }, {
     "key" : "radiation_surg_seq",
     "name" : "RX Summ Surgery/Radiation Sequence",
     "naaccr_item" : 1380,
+    "naaccr_xml_id" : "rxSummSurgRadSeq",
     "table" : "radiation_surg_seq",
     "used_for_staging" : true
   }, {
     "key" : "clin_t",
     "name" : "Clinical T",
     "naaccr_item" : 940,
+    "naaccr_xml_id" : "tnmClinT",
     "table" : "clin_t_placenta_62001",
     "used_for_staging" : true
   }, {
     "key" : "clin_m",
     "name" : "Clinical M",
     "naaccr_item" : 960,
+    "naaccr_xml_id" : "tnmClinM",
     "table" : "clin_m_hak",
     "used_for_staging" : true
   }, {
     "key" : "path_t",
     "name" : "Pathologic T",
     "naaccr_item" : 880,
+    "naaccr_xml_id" : "tnmPathT",
     "table" : "placenta_t_12749",
     "used_for_staging" : true
   }, {
     "key" : "path_m",
     "name" : "Pathologic M",
     "naaccr_item" : 900,
+    "naaccr_xml_id" : "tnmPathM",
     "table" : "path_m_hak",
     "used_for_staging" : true
   }, {
     "key" : "ssf1",
     "name" : "Prognostic Scoring Index",
     "naaccr_item" : 2880,
+    "naaccr_xml_id" : "csSiteSpecificFactor1",
     "default" : "999",
     "table" : "ssf1_jaq",
     "used_for_staging" : true
@@ -71,6 +81,7 @@
     "key" : "ssf2",
     "name" : "FIGO Stage",
     "naaccr_item" : 2890,
+    "naaccr_xml_id" : "csSiteSpecificFactor2",
     "default" : "988",
     "table" : "ssf2_kaw",
     "used_for_staging" : false,
@@ -79,6 +90,7 @@
     "key" : "clin_stage_group_direct",
     "name" : "TNM Clin Stage Group",
     "naaccr_item" : 970,
+    "naaccr_xml_id" : "tnmClinStageGroup",
     "default" : "99",
     "table" : "stage_group_c_20505",
     "used_for_staging" : true,
@@ -87,6 +99,7 @@
     "key" : "path_stage_group_direct",
     "name" : "TNM Path Stage Group",
     "naaccr_item" : 910,
+    "naaccr_xml_id" : "tnmPathStageGroup",
     "default" : "99",
     "table" : "stage_group_p_5079",
     "used_for_staging" : true,
@@ -100,44 +113,53 @@
     "key" : "clin_stage_group",
     "name" : "Derived SEER Clin Stage Group",
     "naaccr_item" : 3610,
+    "naaccr_xml_id" : "derivedSeerClinStgGrp",
     "default" : "88"
   }, {
     "key" : "path_stage_group",
     "name" : "Derived SEER Path Stage Group",
     "naaccr_item" : 3605,
+    "naaccr_xml_id" : "derivedSeerPathStgGrp",
     "default" : "88"
   }, {
     "key" : "combined_stage_group",
     "name" : "Derived SEER Combined Stage Group",
     "naaccr_item" : 3614,
+    "naaccr_xml_id" : "derivedSeerCmbStgGrp",
     "default" : "88"
   }, {
     "key" : "combined_t",
     "name" : "Derived SEER Combined T",
     "naaccr_item" : 3616,
+    "naaccr_xml_id" : "derivedSeerCombinedT",
     "default" : "88"
   }, {
     "key" : "combined_n",
     "name" : "Derived SEER Combined N",
     "naaccr_item" : 3618,
+    "naaccr_xml_id" : "derivedSeerCombinedN",
     "default" : "88"
   }, {
     "key" : "combined_m",
     "name" : "Derived SEER Combined M",
     "naaccr_item" : 3620,
+    "naaccr_xml_id" : "derivedSeerCombinedM",
     "default" : "88"
   }, {
     "key" : "source_t",
     "name" : "Derived SEER Combined T Source",
-    "naaccr_item" : 3622
+    "naaccr_item" : 3622,
+    "naaccr_xml_id" : "derivedSeerCmbTSrc"
   }, {
     "key" : "source_n",
     "name" : "Derived SEER Combined N Source",
-    "naaccr_item" : 3624
+    "naaccr_item" : 3624,
+    "naaccr_xml_id" : "derivedSeerCmbNSrc"
   }, {
     "key" : "source_m",
     "name" : "Derived SEER Combined M Source",
-    "naaccr_item" : 3626
+    "naaccr_item" : 3626,
+    "naaccr_xml_id" : "derivedSeerCmbMSrc"
   } ],
   "mappings" : [ {
     "id" : "tnm7_stage",
@@ -463,5 +485,5 @@
   } ],
   "involved_tables" : [ "ssf2_kaw", "determine_default_t", "tnm7_stage_uax", "radiation_surg_seq", "stage_group_c_20505", "ssf1_jaq", "determine_default_m", "clin_t_placenta_62001", "parse_t_2177", "stage_group_p_5079", "path_m_hak", "schema_selection_placenta", "histology", "placenta_t_12749", "concatenate_m_40642", "clin_m_hak", "combined_t_no_tis", "tnm7_path_stage_uax", "concatenate_t_51262", "stop_if_no_clin_and_no_path_placenta_53933", "tnm7_inclusions_tpi", "adjust_path_defaults_for_no_path_placenta_37763", "determine_combined_prefix_91402", "systemic_surg_seq", "parse_m_47057", "primary_site", "combined_m", "year_dx_validation" ],
   "on_invalid_input" : "FAIL_WHEN_USED_FOR_STAGING",
-  "last_modified" : "2018-05-14T21:29:07.191Z"
+  "last_modified" : "2020-06-30T19:47:42.365Z"
 }

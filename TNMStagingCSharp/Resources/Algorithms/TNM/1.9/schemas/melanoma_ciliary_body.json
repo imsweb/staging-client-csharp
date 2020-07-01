@@ -11,78 +11,91 @@
     "key" : "year_dx",
     "name" : "Year of Diagnosis",
     "naaccr_item" : 390,
+    "naaccr_xml_id" : "dateOfDiagnosis",
     "table" : "year_dx_validation",
     "used_for_staging" : false
   }, {
     "key" : "site",
     "name" : "Primary Site",
     "naaccr_item" : 400,
+    "naaccr_xml_id" : "primarySite",
     "table" : "primary_site",
     "used_for_staging" : true
   }, {
     "key" : "hist",
     "name" : "Histology",
     "naaccr_item" : 522,
+    "naaccr_xml_id" : "histologicTypeIcdO3",
     "table" : "histology",
     "used_for_staging" : true
   }, {
     "key" : "systemic_surg_seq",
     "name" : "RX Summ Systemic/Surgery Sequence",
     "naaccr_item" : 1639,
+    "naaccr_xml_id" : "rxSummSystemicSurSeq",
     "table" : "systemic_surg_seq",
     "used_for_staging" : true
   }, {
     "key" : "radiation_surg_seq",
     "name" : "RX Summ Surgery/Radiation Sequence",
     "naaccr_item" : 1380,
+    "naaccr_xml_id" : "rxSummSurgRadSeq",
     "table" : "radiation_surg_seq",
     "used_for_staging" : true
   }, {
     "key" : "nodes_pos",
     "name" : "Regional Nodes Positive",
     "naaccr_item" : 820,
+    "naaccr_xml_id" : "regionalNodesPositive",
     "table" : "nodes_pos_fpa",
     "used_for_staging" : true
   }, {
     "key" : "clin_t",
     "name" : "Clinical T",
     "naaccr_item" : 940,
+    "naaccr_xml_id" : "tnmClinT",
     "table" : "clin_t_melanoma_ciliary_body_68734",
     "used_for_staging" : true
   }, {
     "key" : "clin_n",
     "name" : "Clinical N",
     "naaccr_item" : 950,
+    "naaccr_xml_id" : "tnmClinN",
     "table" : "clin_n_ophthalmic_n_94312",
     "used_for_staging" : true
   }, {
     "key" : "clin_m",
     "name" : "Clinical M",
     "naaccr_item" : 960,
+    "naaccr_xml_id" : "tnmClinM",
     "table" : "clin_m_hpg",
     "used_for_staging" : true
   }, {
     "key" : "path_t",
     "name" : "Pathologic T",
     "naaccr_item" : 880,
+    "naaccr_xml_id" : "tnmPathT",
     "table" : "melanoma_ciliary_body_t_34399",
     "used_for_staging" : true
   }, {
     "key" : "path_n",
     "name" : "Pathologic N",
     "naaccr_item" : 890,
+    "naaccr_xml_id" : "tnmPathN",
     "table" : "ophthalmic_n_36875",
     "used_for_staging" : true
   }, {
     "key" : "path_m",
     "name" : "Pathologic M",
     "naaccr_item" : 900,
+    "naaccr_xml_id" : "tnmPathM",
     "table" : "path_m_hpg",
     "used_for_staging" : true
   }, {
     "key" : "ssf2",
     "name" : "Measured Basal Diameter",
     "naaccr_item" : 2890,
+    "naaccr_xml_id" : "csSiteSpecificFactor2",
     "default" : "999",
     "table" : "ssf2_kpj",
     "used_for_staging" : false,
@@ -91,6 +104,7 @@
     "key" : "ssf3",
     "name" : "Measured Thickness (Depth)",
     "naaccr_item" : 2900,
+    "naaccr_xml_id" : "csSiteSpecificFactor3",
     "default" : "999",
     "table" : "ssf3_lpj",
     "used_for_staging" : false,
@@ -99,6 +113,7 @@
     "key" : "ssf4",
     "name" : "Size of Largest Metastasis",
     "naaccr_item" : 2910,
+    "naaccr_xml_id" : "csSiteSpecificFactor4",
     "default" : "999",
     "table" : "ssf4_mpe",
     "used_for_staging" : false,
@@ -107,6 +122,7 @@
     "key" : "ssf5",
     "name" : "Chromosome 3 Status",
     "naaccr_item" : 2920,
+    "naaccr_xml_id" : "csSiteSpecificFactor5",
     "default" : "988",
     "table" : "ssf5_npf",
     "used_for_staging" : false,
@@ -115,6 +131,7 @@
     "key" : "ssf6",
     "name" : "Chromosome 6p Status",
     "naaccr_item" : 2930,
+    "naaccr_xml_id" : "csSiteSpecificFactor6",
     "default" : "988",
     "table" : "ssf6_opd",
     "used_for_staging" : false,
@@ -123,6 +140,7 @@
     "key" : "ssf7",
     "name" : "Chromosome 8q Status",
     "naaccr_item" : 2861,
+    "naaccr_xml_id" : "csSiteSpecificFactor7",
     "default" : "988",
     "table" : "ssf7_spw",
     "used_for_staging" : false,
@@ -131,6 +149,7 @@
     "key" : "ssf8",
     "name" : "Gene Expression Profile",
     "naaccr_item" : 2862,
+    "naaccr_xml_id" : "csSiteSpecificFactor8",
     "default" : "988",
     "table" : "ssf8_spx",
     "used_for_staging" : false
@@ -138,6 +157,7 @@
     "key" : "ssf9",
     "name" : "Mitotic Count",
     "naaccr_item" : 2863,
+    "naaccr_xml_id" : "csSiteSpecificFactor9",
     "default" : "988",
     "table" : "ssf9_sqm",
     "used_for_staging" : false,
@@ -146,6 +166,7 @@
     "key" : "ssf10",
     "name" : "Mean Diameter Nucleoli (MLN)",
     "naaccr_item" : 2864,
+    "naaccr_xml_id" : "csSiteSpecificFactor10",
     "default" : "988",
     "table" : "ssf10_spz",
     "used_for_staging" : false,
@@ -154,6 +175,7 @@
     "key" : "ssf11",
     "name" : "Extravascular Matrix Patterns, Loops",
     "naaccr_item" : 2865,
+    "naaccr_xml_id" : "csSiteSpecificFactor11",
     "default" : "988",
     "table" : "ssf11_sqa",
     "used_for_staging" : false,
@@ -162,6 +184,7 @@
     "key" : "ssf12",
     "name" : "Extravascular Matrix Patterns, Networks",
     "naaccr_item" : 2866,
+    "naaccr_xml_id" : "csSiteSpecificFactor12",
     "default" : "988",
     "table" : "ssf12_sqb",
     "used_for_staging" : false,
@@ -170,6 +193,7 @@
     "key" : "ssf13",
     "name" : "Microvascular density (MVD)",
     "naaccr_item" : 2867,
+    "naaccr_xml_id" : "csSiteSpecificFactor13",
     "default" : "988",
     "table" : "ssf13_sdg",
     "used_for_staging" : false,
@@ -178,6 +202,7 @@
     "key" : "ssf14",
     "name" : "PET Standardized Uptake Values (SUV)",
     "naaccr_item" : 2868,
+    "naaccr_xml_id" : "csSiteSpecificFactor14",
     "default" : "988",
     "table" : "ssf14_sdh",
     "used_for_staging" : false
@@ -185,6 +210,7 @@
     "key" : "ssf25",
     "name" : "Schema Discriminator: Melanoma Ciliary Body/Melanoma Iris",
     "naaccr_item" : 2879,
+    "naaccr_xml_id" : "csSiteSpecificFactor25",
     "default" : "010",
     "table" : "discriminator_melanoma",
     "used_for_staging" : true,
@@ -193,6 +219,7 @@
     "key" : "clin_stage_group_direct",
     "name" : "TNM Clin Stage Group",
     "naaccr_item" : 970,
+    "naaccr_xml_id" : "tnmClinStageGroup",
     "default" : "99",
     "table" : "stage_group_c_93818",
     "used_for_staging" : true,
@@ -201,6 +228,7 @@
     "key" : "path_stage_group_direct",
     "name" : "TNM Path Stage Group",
     "naaccr_item" : 910,
+    "naaccr_xml_id" : "tnmPathStageGroup",
     "default" : "99",
     "table" : "stage_group_p_8501",
     "used_for_staging" : true,
@@ -214,44 +242,53 @@
     "key" : "clin_stage_group",
     "name" : "Derived SEER Clin Stage Group",
     "naaccr_item" : 3610,
+    "naaccr_xml_id" : "derivedSeerClinStgGrp",
     "default" : "88"
   }, {
     "key" : "path_stage_group",
     "name" : "Derived SEER Path Stage Group",
     "naaccr_item" : 3605,
+    "naaccr_xml_id" : "derivedSeerPathStgGrp",
     "default" : "88"
   }, {
     "key" : "combined_stage_group",
     "name" : "Derived SEER Combined Stage Group",
     "naaccr_item" : 3614,
+    "naaccr_xml_id" : "derivedSeerCmbStgGrp",
     "default" : "88"
   }, {
     "key" : "combined_t",
     "name" : "Derived SEER Combined T",
     "naaccr_item" : 3616,
+    "naaccr_xml_id" : "derivedSeerCombinedT",
     "default" : "88"
   }, {
     "key" : "combined_n",
     "name" : "Derived SEER Combined N",
     "naaccr_item" : 3618,
+    "naaccr_xml_id" : "derivedSeerCombinedN",
     "default" : "88"
   }, {
     "key" : "combined_m",
     "name" : "Derived SEER Combined M",
     "naaccr_item" : 3620,
+    "naaccr_xml_id" : "derivedSeerCombinedM",
     "default" : "88"
   }, {
     "key" : "source_t",
     "name" : "Derived SEER Combined T Source",
-    "naaccr_item" : 3622
+    "naaccr_item" : 3622,
+    "naaccr_xml_id" : "derivedSeerCmbTSrc"
   }, {
     "key" : "source_n",
     "name" : "Derived SEER Combined N Source",
-    "naaccr_item" : 3624
+    "naaccr_item" : 3624,
+    "naaccr_xml_id" : "derivedSeerCmbNSrc"
   }, {
     "key" : "source_m",
     "name" : "Derived SEER Combined M Source",
-    "naaccr_item" : 3626
+    "naaccr_item" : 3626,
+    "naaccr_xml_id" : "derivedSeerCmbMSrc"
   } ],
   "mappings" : [ {
     "id" : "tnm7_stage",
@@ -697,5 +734,5 @@
   } ],
   "involved_tables" : [ "determine_default_t", "radiation_surg_seq", "ssf12_sqb", "determine_default_m", "ssf3_lpj", "tnm7_path_stage_upv", "ssf8_spx", "nodes_pos_fpa", "clin_m_hpg", "stage_group_p_8501", "parse_t_2177", "tnm7_stage_upv", "concatenate_n_43246", "parse_n_67182", "determine_default_n", "ssf6_opd", "histology", "schema_selection_melanoma_ciliary_body", "concatenate_m_40642", "stage_group_c_93818", "tnm7_inclusions_tpa", "combined_t_no_tis", "path_m_hpg", "combined_n_no_tis_path_n_cn0_allowed_73884", "ssf2_kpj", "concatenate_t_51262", "adjustments_for_no_clin_or_no_path_26261", "clin_n_ophthalmic_n_94312", "ssf13_sdg", "ssf14_sdh", "discriminator_melanoma", "determine_combined_prefix_91402", "clin_t_melanoma_ciliary_body_68734", "ssf10_spz", "stop_if_no_clin_and_no_path_24035", "ssf5_npf", "systemic_surg_seq", "ophthalmic_n_36875", "parse_m_47057", "ssf9_sqm", "primary_site", "combined_m", "ssf11_sqa", "year_dx_validation", "melanoma_ciliary_body_t_34399", "ssf7_spw", "ssf4_mpe" ],
   "on_invalid_input" : "FAIL_WHEN_USED_FOR_STAGING",
-  "last_modified" : "2018-05-14T21:29:08.310Z"
+  "last_modified" : "2020-06-30T19:47:58.517Z"
 }

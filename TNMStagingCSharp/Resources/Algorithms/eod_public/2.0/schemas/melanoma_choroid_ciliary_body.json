@@ -11,30 +11,35 @@
     "key" : "year_dx",
     "name" : "Year of Diagnosis",
     "naaccr_item" : 390,
+    "naaccr_xml_id" : "dateOfDiagnosis",
     "table" : "year_dx_validation",
     "used_for_staging" : false
   }, {
     "key" : "site",
     "name" : "Primary Site",
     "naaccr_item" : 400,
+    "naaccr_xml_id" : "primarySite",
     "table" : "primary_site",
     "used_for_staging" : true
   }, {
     "key" : "hist",
     "name" : "Histology",
     "naaccr_item" : 522,
+    "naaccr_xml_id" : "histologicTypeIcdO3",
     "table" : "histology",
     "used_for_staging" : true
   }, {
     "key" : "behavior",
     "name" : "Behavior",
     "naaccr_item" : 523,
+    "naaccr_xml_id" : "behaviorCodeIcdO3",
     "table" : "behavior",
     "used_for_staging" : true
   }, {
     "key" : "discriminator_1",
     "name" : "Schema Discriminator 1",
     "naaccr_item" : 3926,
+    "naaccr_xml_id" : "schemaDiscriminator1",
     "table" : "melanoma_ciliary_body_melanoma_iris_79773",
     "used_for_staging" : true,
     "metadata" : [ "COC_REQUIRED", "NPCR_REQUIRED", "SSDI", "CCCR_REQUIRED", "SEER_REQUIRED" ]
@@ -42,6 +47,7 @@
     "key" : "size_clin",
     "name" : "Tumor Size Clinical",
     "naaccr_item" : 752,
+    "naaccr_xml_id" : "tumorSizeClinical",
     "default" : "999",
     "table" : "tumor_size_clinical_dna_64119",
     "used_for_staging" : false
@@ -49,6 +55,7 @@
     "key" : "size_path",
     "name" : "Tumor Size Pathological",
     "naaccr_item" : 754,
+    "naaccr_xml_id" : "tumorSizePathologic",
     "default" : "999",
     "table" : "tumor_size_pathological_dna_6742",
     "used_for_staging" : false
@@ -56,6 +63,7 @@
     "key" : "size_summary",
     "name" : "Tumor Size Summary",
     "naaccr_item" : 756,
+    "naaccr_xml_id" : "tumorSizeSummary",
     "default" : "999",
     "table" : "tumor_size_summary_dna_13275",
     "used_for_staging" : false
@@ -63,6 +71,7 @@
     "key" : "nodes_pos",
     "name" : "Regional Nodes Positive",
     "naaccr_item" : 820,
+    "naaccr_xml_id" : "regionalNodesPositive",
     "default" : "99",
     "table" : "nodes_pos_fpa",
     "used_for_staging" : false
@@ -70,6 +79,7 @@
     "key" : "nodes_exam",
     "name" : "Regional Nodes Examined",
     "naaccr_item" : 830,
+    "naaccr_xml_id" : "regionalNodesExamined",
     "default" : "99",
     "table" : "nodes_exam_76029",
     "used_for_staging" : false
@@ -77,6 +87,7 @@
     "key" : "lvi",
     "name" : "LVI",
     "naaccr_item" : 1182,
+    "naaccr_xml_id" : "lymphVascularInvasion",
     "default" : "9",
     "table" : "lvi_full_56663",
     "used_for_staging" : false
@@ -84,18 +95,21 @@
     "key" : "radiation_surg_seq",
     "name" : "RX Summ Surgery/Radiation Sequence",
     "naaccr_item" : 1380,
+    "naaccr_xml_id" : "rxSummSurgRadSeq",
     "table" : "radiation_surg_seq",
     "used_for_staging" : false
   }, {
     "key" : "systemic_surg_seq",
     "name" : "RX Summ Systemic/Surgery Sequence",
     "naaccr_item" : 1639,
+    "naaccr_xml_id" : "rxSummSystemicSurSeq",
     "table" : "systemic_surg_seq",
     "used_for_staging" : false
   }, {
     "key" : "eod_primary_tumor",
     "name" : "EOD Primary Tumor",
     "naaccr_item" : 772,
+    "naaccr_xml_id" : "eodPrimaryTumor",
     "default" : "999",
     "table" : "extension_bfq",
     "used_for_staging" : true
@@ -103,6 +117,7 @@
     "key" : "eod_regional_nodes",
     "name" : "EOD Regional Nodes",
     "naaccr_item" : 774,
+    "naaccr_xml_id" : "eodRegionalNodes",
     "default" : "999",
     "table" : "eod_regional_nodes_76612",
     "used_for_staging" : true
@@ -110,6 +125,7 @@
     "key" : "eod_mets",
     "name" : "EOD Mets",
     "naaccr_item" : 776,
+    "naaccr_xml_id" : "eodMets",
     "default" : "00",
     "table" : "seer_mets_melanomachoroid_55264",
     "used_for_staging" : true
@@ -117,12 +133,14 @@
     "key" : "ss2018",
     "name" : "SS2018",
     "naaccr_item" : 764,
+    "naaccr_xml_id" : "summaryStage2018",
     "table" : "ss2018_melanoma_choroid_ciliary_body_iris_21929",
     "used_for_staging" : false
   }, {
     "key" : "grade_clin",
     "name" : "Grade Clinical",
     "naaccr_item" : 3843,
+    "naaccr_xml_id" : "gradeClinical",
     "default" : "9",
     "table" : "grade_clinical_54911",
     "used_for_staging" : false,
@@ -131,6 +149,7 @@
     "key" : "grade_path",
     "name" : "Grade Pathological",
     "naaccr_item" : 3844,
+    "naaccr_xml_id" : "gradePathological",
     "default" : "9",
     "table" : "grade_pathological_46618",
     "used_for_staging" : false,
@@ -146,6 +165,7 @@
     "key" : "grade_post_therapy_path",
     "name" : "Grade Post Therapy Path (yp)",
     "naaccr_item" : 3845,
+    "naaccr_xml_id" : "gradePostTherapy",
     "table" : "grade_post_therapy_path_58350",
     "used_for_staging" : false,
     "metadata" : [ "NPCR_REQUIRED", "COC_REQUIRED", "SSDI", "CCCR_REQUIRED", "SEER_REQUIRED" ]
@@ -153,6 +173,7 @@
     "key" : "measured_thickness",
     "name" : "Measured Thickness",
     "naaccr_item" : 3888,
+    "naaccr_xml_id" : "measuredThickness",
     "default" : "XX.8",
     "table" : "measured_thickness_84907",
     "used_for_staging" : true,
@@ -161,6 +182,7 @@
     "key" : "measured_basal_diameter",
     "name" : "Measured Basal Diameter",
     "naaccr_item" : 3887,
+    "naaccr_xml_id" : "measuredBasalDiameter",
     "default" : "XX.8",
     "table" : "measured_basal_diameter_70699",
     "used_for_staging" : true,
@@ -169,6 +191,7 @@
     "key" : "extravascular_matrix_patterns",
     "name" : "Extravascular Matrix Patterns",
     "naaccr_item" : 3834,
+    "naaccr_xml_id" : "extravascularMatrixPatterns",
     "default" : "8",
     "table" : "extravascular_matrix_patterns_1397",
     "used_for_staging" : false,
@@ -177,6 +200,7 @@
     "key" : "mvd",
     "name" : "Microvascular Density (MVD)",
     "naaccr_item" : 3891,
+    "naaccr_xml_id" : "microvascularDensity",
     "default" : "X8",
     "table" : "microvascular_density_70589",
     "used_for_staging" : false,
@@ -185,6 +209,7 @@
     "key" : "mitotic_count_uveal_mel",
     "name" : "Mitotic Count Uveal Mel",
     "naaccr_item" : 3892,
+    "naaccr_xml_id" : "mitoticCountUvealMelanoma",
     "default" : "XX.8",
     "table" : "mitotic_count_uveal_melanoma_26990",
     "used_for_staging" : false,
@@ -193,6 +218,7 @@
     "key" : "chrom_3_status",
     "name" : "Chromosome 3 Status",
     "naaccr_item" : 3821,
+    "naaccr_xml_id" : "chromosome3Status",
     "default" : "8",
     "table" : "chromosome_3_status_93464",
     "used_for_staging" : false,
@@ -201,6 +227,7 @@
     "key" : "chrom_8q_status",
     "name" : "Chromosome 8q Status",
     "naaccr_item" : 3822,
+    "naaccr_xml_id" : "chromosome8qStatus",
     "default" : "8",
     "table" : "chromosome_8q_status_83582",
     "used_for_staging" : false,
@@ -210,16 +237,19 @@
     "key" : "naaccr_schema_id",
     "name" : "Schema ID",
     "naaccr_item" : 3800,
+    "naaccr_xml_id" : "schemaId",
     "default" : "00672"
   }, {
     "key" : "ajcc_id",
     "name" : "AJCC ID",
     "naaccr_item" : 995,
+    "naaccr_xml_id" : "ajccId",
     "default" : "XX"
   }, {
     "key" : "ajcc_version_number",
     "name" : "AJCC Version Number",
-    "naaccr_item" : 1060
+    "naaccr_item" : 1060,
+    "naaccr_xml_id" : "tnmEditionNumber"
   }, {
     "key" : "derived_version",
     "name" : "Derived Version",
@@ -228,26 +258,31 @@
     "key" : "eod_2018_t",
     "name" : "Derived EOD 2018 T",
     "naaccr_item" : 785,
+    "naaccr_xml_id" : "derivedEod2018T",
     "default" : "88"
   }, {
     "key" : "eod_2018_n",
     "name" : "Derived EOD 2018 N",
     "naaccr_item" : 815,
+    "naaccr_xml_id" : "derivedEod2018N",
     "default" : "88"
   }, {
     "key" : "eod_2018_m",
     "name" : "Derived EOD 2018 M",
     "naaccr_item" : 795,
+    "naaccr_xml_id" : "derivedEod2018M",
     "default" : "88"
   }, {
     "key" : "eod_2018_stage_group",
     "name" : "Derived EOD 2018 Stage Group",
     "naaccr_item" : 818,
+    "naaccr_xml_id" : "derivedEod2018StageGroup",
     "default" : "88"
   }, {
     "key" : "ss2018_derived",
     "name" : "Derived Summary Stage 2018",
     "naaccr_item" : 762,
+    "naaccr_xml_id" : "derivedSummaryStage2018",
     "default" : "9"
   } ],
   "mappings" : [ {
@@ -373,5 +408,5 @@
   } ],
   "involved_tables" : [ "tumor_size_category_with_primary_tumor_for_t_63342", "tumor_size_clinical_dna_64119", "radiation_surg_seq", "grade_post_therapy_clin_2503", "nodes_pos_fpa", "tnm8_inclusions_15426", "parse_t_2177", "tumor_size_summary_dna_13275", "parse_n_67182", "tnm_8_path_stage_group_for_eod_56790", "histology", "schema_selection_melanoma_ciliary_body", "nodes_exam_76029", "lvi_full_56663", "grade_pathological_46618", "behavior", "extension_bfq", "grade_post_therapy_path_58350", "extravascular_matrix_patterns_1397", "chromosome_8q_status_83582", "measured_basal_diameter_70699", "melanoma_ciliary_body_melanoma_iris_79773", "tumor_size_pathological_dna_6742", "microvascular_density_70589", "eod_regional_nodes_76612", "systemic_surg_seq", "parse_m_47057", "primary_site", "eod_tnm_component_cleanup_58170", "mitotic_count_uveal_melanoma_26990", "ss2018_melanoma_choroid_ciliary_body_iris_21929", "measured_thickness_84907", "year_dx_validation", "chromosome_3_status_93464", "ajcc_chapter_calculation_38053", "measured_basal_diameter_with_measured_thickness_for_tumor_size_category_65198", "summary_stage_rpa", "grade_clinical_54911", "seer_mets_melanomachoroid_55264" ],
   "on_invalid_input" : "CONTINUE",
-  "last_modified" : "2020-06-04T17:09:13.455Z"
+  "last_modified" : "2020-06-30T19:49:30.436Z"
 }

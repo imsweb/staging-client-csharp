@@ -10,78 +10,91 @@
     "key" : "year_dx",
     "name" : "Year of Diagnosis",
     "naaccr_item" : 390,
+    "naaccr_xml_id" : "dateOfDiagnosis",
     "table" : "year_dx_validation",
     "used_for_staging" : false
   }, {
     "key" : "site",
     "name" : "Primary Site",
     "naaccr_item" : 400,
+    "naaccr_xml_id" : "primarySite",
     "table" : "primary_site",
     "used_for_staging" : true
   }, {
     "key" : "hist",
     "name" : "Histology",
     "naaccr_item" : 522,
+    "naaccr_xml_id" : "histologicTypeIcdO3",
     "table" : "histology",
     "used_for_staging" : true
   }, {
     "key" : "systemic_surg_seq",
     "name" : "RX Summ Systemic/Surgery Sequence",
     "naaccr_item" : 1639,
+    "naaccr_xml_id" : "rxSummSystemicSurSeq",
     "table" : "systemic_surg_seq",
     "used_for_staging" : true
   }, {
     "key" : "radiation_surg_seq",
     "name" : "RX Summ Surgery/Radiation Sequence",
     "naaccr_item" : 1380,
+    "naaccr_xml_id" : "rxSummSurgRadSeq",
     "table" : "radiation_surg_seq",
     "used_for_staging" : true
   }, {
     "key" : "nodes_pos",
     "name" : "Regional Nodes Positive",
     "naaccr_item" : 820,
+    "naaccr_xml_id" : "regionalNodesPositive",
     "table" : "nodes_pos_fpa",
     "used_for_staging" : true
   }, {
     "key" : "clin_t",
     "name" : "Clinical T",
     "naaccr_item" : 940,
+    "naaccr_xml_id" : "tnmClinT",
     "table" : "adrenal_gland_t_18187",
     "used_for_staging" : true
   }, {
     "key" : "clin_n",
     "name" : "Clinical N",
     "naaccr_item" : 950,
+    "naaccr_xml_id" : "tnmClinN",
     "table" : "adrenal_gland_n_44698",
     "used_for_staging" : true
   }, {
     "key" : "clin_m",
     "name" : "Clinical M",
     "naaccr_item" : 960,
+    "naaccr_xml_id" : "tnmClinM",
     "table" : "adrenal_m_7434",
     "used_for_staging" : true
   }, {
     "key" : "path_t",
     "name" : "Pathologic T",
     "naaccr_item" : 880,
+    "naaccr_xml_id" : "tnmPathT",
     "table" : "path_t_adrenal_gland_28077",
     "used_for_staging" : true
   }, {
     "key" : "path_n",
     "name" : "Pathologic N",
     "naaccr_item" : 890,
+    "naaccr_xml_id" : "tnmPathN",
     "table" : "path_n_adrenal_gland_53740",
     "used_for_staging" : true
   }, {
     "key" : "path_m",
     "name" : "Pathologic M",
     "naaccr_item" : 900,
+    "naaccr_xml_id" : "tnmPathM",
     "table" : "path_m_hbv",
     "used_for_staging" : true
   }, {
     "key" : "ssf2",
     "name" : "Tumor Weight",
     "naaccr_item" : 2890,
+    "naaccr_xml_id" : "csSiteSpecificFactor2",
     "default" : "988",
     "table" : "ssf2_kak",
     "used_for_staging" : false
@@ -89,6 +102,7 @@
     "key" : "ssf3",
     "name" : "Vascular Invasion",
     "naaccr_item" : 2900,
+    "naaccr_xml_id" : "csSiteSpecificFactor3",
     "default" : "988",
     "table" : "ssf3_laf",
     "used_for_staging" : false
@@ -96,6 +110,7 @@
     "key" : "clin_stage_group_direct",
     "name" : "TNM Clin Stage Group",
     "naaccr_item" : 970,
+    "naaccr_xml_id" : "tnmClinStageGroup",
     "default" : "99",
     "table" : "stage_group_94596",
     "used_for_staging" : true,
@@ -104,6 +119,7 @@
     "key" : "path_stage_group_direct",
     "name" : "TNM Path Stage Group",
     "naaccr_item" : 910,
+    "naaccr_xml_id" : "tnmPathStageGroup",
     "default" : "99",
     "table" : "stage_group_p_44348",
     "used_for_staging" : true,
@@ -117,44 +133,53 @@
     "key" : "clin_stage_group",
     "name" : "Derived SEER Clin Stage Group",
     "naaccr_item" : 3610,
+    "naaccr_xml_id" : "derivedSeerClinStgGrp",
     "default" : "88"
   }, {
     "key" : "path_stage_group",
     "name" : "Derived SEER Path Stage Group",
     "naaccr_item" : 3605,
+    "naaccr_xml_id" : "derivedSeerPathStgGrp",
     "default" : "88"
   }, {
     "key" : "combined_stage_group",
     "name" : "Derived SEER Combined Stage Group",
     "naaccr_item" : 3614,
+    "naaccr_xml_id" : "derivedSeerCmbStgGrp",
     "default" : "88"
   }, {
     "key" : "combined_t",
     "name" : "Derived SEER Combined T",
     "naaccr_item" : 3616,
+    "naaccr_xml_id" : "derivedSeerCombinedT",
     "default" : "88"
   }, {
     "key" : "combined_n",
     "name" : "Derived SEER Combined N",
     "naaccr_item" : 3618,
+    "naaccr_xml_id" : "derivedSeerCombinedN",
     "default" : "88"
   }, {
     "key" : "combined_m",
     "name" : "Derived SEER Combined M",
     "naaccr_item" : 3620,
+    "naaccr_xml_id" : "derivedSeerCombinedM",
     "default" : "88"
   }, {
     "key" : "source_t",
     "name" : "Derived SEER Combined T Source",
-    "naaccr_item" : 3622
+    "naaccr_item" : 3622,
+    "naaccr_xml_id" : "derivedSeerCmbTSrc"
   }, {
     "key" : "source_n",
     "name" : "Derived SEER Combined N Source",
-    "naaccr_item" : 3624
+    "naaccr_item" : 3624,
+    "naaccr_xml_id" : "derivedSeerCmbNSrc"
   }, {
     "key" : "source_m",
     "name" : "Derived SEER Combined M Source",
-    "naaccr_item" : 3626
+    "naaccr_item" : 3626,
+    "naaccr_xml_id" : "derivedSeerCmbMSrc"
   } ],
   "mappings" : [ {
     "id" : "tnm7_stage",
@@ -600,5 +625,5 @@
   } ],
   "involved_tables" : [ "determine_default_t", "adrenal_m_7434", "radiation_surg_seq", "tnm7_path_stage_uba", "determine_default_m", "nodes_pos_fpa", "parse_t_2177", "concatenate_n_43246", "tnm7_stage_uba", "ssf2_kak", "stage_group_p_44348", "parse_n_67182", "determine_default_n", "stage_group_94596", "histology", "concatenate_m_40642", "adrenal_gland_t_18187", "combined_t_no_tis", "concatenate_t_51262", "ssf3_laf", "path_n_adrenal_gland_53740", "adjustments_for_no_clin_or_no_path_26261", "schema_selection_adrenal_gland", "determine_combined_prefix_91402", "path_t_adrenal_gland_28077", "stop_if_no_clin_and_no_path_24035", "systemic_surg_seq", "parse_m_47057", "primary_site", "combined_m", "combined_n", "year_dx_validation", "tnm7_inclusions_tqc", "path_m_hbv", "adrenal_gland_n_44698" ],
   "on_invalid_input" : "FAIL_WHEN_USED_FOR_STAGING",
-  "last_modified" : "2018-05-14T21:29:07.714Z"
+  "last_modified" : "2020-06-30T19:47:51.307Z"
 }

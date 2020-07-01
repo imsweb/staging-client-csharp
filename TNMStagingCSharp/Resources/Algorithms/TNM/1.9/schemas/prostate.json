@@ -10,78 +10,91 @@
     "key" : "year_dx",
     "name" : "Year of Diagnosis",
     "naaccr_item" : 390,
+    "naaccr_xml_id" : "dateOfDiagnosis",
     "table" : "year_dx_validation",
     "used_for_staging" : false
   }, {
     "key" : "site",
     "name" : "Primary Site",
     "naaccr_item" : 400,
+    "naaccr_xml_id" : "primarySite",
     "table" : "primary_site",
     "used_for_staging" : true
   }, {
     "key" : "hist",
     "name" : "Histology",
     "naaccr_item" : 522,
+    "naaccr_xml_id" : "histologicTypeIcdO3",
     "table" : "histology",
     "used_for_staging" : true
   }, {
     "key" : "systemic_surg_seq",
     "name" : "RX Summ Systemic/Surgery Sequence",
     "naaccr_item" : 1639,
+    "naaccr_xml_id" : "rxSummSystemicSurSeq",
     "table" : "systemic_surg_seq",
     "used_for_staging" : true
   }, {
     "key" : "radiation_surg_seq",
     "name" : "RX Summ Surgery/Radiation Sequence",
     "naaccr_item" : 1380,
+    "naaccr_xml_id" : "rxSummSurgRadSeq",
     "table" : "radiation_surg_seq",
     "used_for_staging" : true
   }, {
     "key" : "nodes_pos",
     "name" : "Regional Nodes Positive",
     "naaccr_item" : 820,
+    "naaccr_xml_id" : "regionalNodesPositive",
     "table" : "nodes_pos_fpa",
     "used_for_staging" : true
   }, {
     "key" : "clin_t",
     "name" : "Clinical T",
     "naaccr_item" : 940,
+    "naaccr_xml_id" : "tnmClinT",
     "table" : "clin_t_bbo",
     "used_for_staging" : true
   }, {
     "key" : "clin_n",
     "name" : "Clinical N",
     "naaccr_item" : 950,
+    "naaccr_xml_id" : "tnmClinN",
     "table" : "prostate_n_76551",
     "used_for_staging" : true
   }, {
     "key" : "clin_m",
     "name" : "Clinical M",
     "naaccr_item" : 960,
+    "naaccr_xml_id" : "tnmClinM",
     "table" : "clin_m_hal",
     "used_for_staging" : true
   }, {
     "key" : "path_t",
     "name" : "Pathologic T",
     "naaccr_item" : 880,
+    "naaccr_xml_id" : "tnmPathT",
     "table" : "path_t_bbo",
     "used_for_staging" : true
   }, {
     "key" : "path_n",
     "name" : "Pathologic N",
     "naaccr_item" : 890,
+    "naaccr_xml_id" : "tnmPathN",
     "table" : "prostate_pathologic_n_4662",
     "used_for_staging" : true
   }, {
     "key" : "path_m",
     "name" : "Pathologic M",
     "naaccr_item" : 900,
+    "naaccr_xml_id" : "tnmPathM",
     "table" : "path_m_hal",
     "used_for_staging" : true
   }, {
     "key" : "ssf1",
     "name" : "Prostatic Specific Antigen (PSA) Lab Value",
     "naaccr_item" : 2880,
+    "naaccr_xml_id" : "csSiteSpecificFactor1",
     "default" : "999",
     "table" : "ssf1_jav",
     "used_for_staging" : true,
@@ -90,6 +103,7 @@
     "key" : "ssf2",
     "name" : "Prostatic Specific Antigen (PSA) Interpretation",
     "naaccr_item" : 2890,
+    "naaccr_xml_id" : "csSiteSpecificFactor2",
     "default" : "999",
     "table" : "ssf2_kab",
     "used_for_staging" : false,
@@ -98,6 +112,7 @@
     "key" : "ssf7",
     "name" : "Gleason's Primary Pattern and Secondary Pattern Values on Needle Core Biopsy/Transurethral Resection of Prostate (TURP)",
     "naaccr_item" : 2861,
+    "naaccr_xml_id" : "csSiteSpecificFactor7",
     "default" : "999",
     "table" : "ssf7_saw",
     "used_for_staging" : false,
@@ -106,6 +121,7 @@
     "key" : "ssf8",
     "name" : "Gleason's Score on Needle Core Biopsy/Transurethral Resection of Prostate (TURP)",
     "naaccr_item" : 2862,
+    "naaccr_xml_id" : "csSiteSpecificFactor8",
     "default" : "999",
     "table" : "ssf8_sax",
     "used_for_staging" : true,
@@ -114,6 +130,7 @@
     "key" : "ssf9",
     "name" : "Gleason's Primary Pattern and Secondary Pattern Values on Prostatectomy/Autopsy",
     "naaccr_item" : 2863,
+    "naaccr_xml_id" : "csSiteSpecificFactor9",
     "default" : "999",
     "table" : "ssf9_say",
     "used_for_staging" : false,
@@ -122,6 +139,7 @@
     "key" : "ssf10",
     "name" : "Gleason's Score on Prostatectomy/Autopsy",
     "naaccr_item" : 2864,
+    "naaccr_xml_id" : "csSiteSpecificFactor10",
     "default" : "999",
     "table" : "ssf10_saz",
     "used_for_staging" : true,
@@ -130,6 +148,7 @@
     "key" : "ssf11",
     "name" : "Gleason's Tertiary Pattern Value on Prostatectomy/Autopsy",
     "naaccr_item" : 2865,
+    "naaccr_xml_id" : "csSiteSpecificFactor11",
     "default" : "988",
     "table" : "ssf11_sba",
     "used_for_staging" : false,
@@ -138,6 +157,7 @@
     "key" : "ssf12",
     "name" : "Number of Cores Positive",
     "naaccr_item" : 2866,
+    "naaccr_xml_id" : "csSiteSpecificFactor12",
     "default" : "999",
     "table" : "ssf12_sbb",
     "used_for_staging" : false,
@@ -146,6 +166,7 @@
     "key" : "ssf13",
     "name" : "Number of Cores Examined",
     "naaccr_item" : 2867,
+    "naaccr_xml_id" : "csSiteSpecificFactor13",
     "default" : "999",
     "table" : "ssf13_sbc",
     "used_for_staging" : false,
@@ -154,6 +175,7 @@
     "key" : "ssf14",
     "name" : "Needle Core Biopsy Findings",
     "naaccr_item" : 2868,
+    "naaccr_xml_id" : "csSiteSpecificFactor14",
     "default" : "988",
     "table" : "ssf14_sbd",
     "used_for_staging" : false
@@ -161,6 +183,7 @@
     "key" : "ssf15",
     "name" : "Clinical Staging Procedures Performed",
     "naaccr_item" : 2869,
+    "naaccr_xml_id" : "csSiteSpecificFactor15",
     "default" : "988",
     "table" : "ssf15_sbe",
     "used_for_staging" : false
@@ -168,6 +191,7 @@
     "key" : "clin_stage_group_direct",
     "name" : "TNM Clin Stage Group",
     "naaccr_item" : 970,
+    "naaccr_xml_id" : "tnmClinStageGroup",
     "default" : "99",
     "table" : "stage_group_c_59832",
     "used_for_staging" : true,
@@ -176,6 +200,7 @@
     "key" : "path_stage_group_direct",
     "name" : "TNM Path Stage Group",
     "naaccr_item" : 910,
+    "naaccr_xml_id" : "tnmPathStageGroup",
     "default" : "99",
     "table" : "stage_group_p_48545",
     "used_for_staging" : true,
@@ -189,44 +214,53 @@
     "key" : "clin_stage_group",
     "name" : "Derived SEER Clin Stage Group",
     "naaccr_item" : 3610,
+    "naaccr_xml_id" : "derivedSeerClinStgGrp",
     "default" : "88"
   }, {
     "key" : "path_stage_group",
     "name" : "Derived SEER Path Stage Group",
     "naaccr_item" : 3605,
+    "naaccr_xml_id" : "derivedSeerPathStgGrp",
     "default" : "88"
   }, {
     "key" : "combined_stage_group",
     "name" : "Derived SEER Combined Stage Group",
     "naaccr_item" : 3614,
+    "naaccr_xml_id" : "derivedSeerCmbStgGrp",
     "default" : "88"
   }, {
     "key" : "combined_t",
     "name" : "Derived SEER Combined T",
     "naaccr_item" : 3616,
+    "naaccr_xml_id" : "derivedSeerCombinedT",
     "default" : "88"
   }, {
     "key" : "combined_n",
     "name" : "Derived SEER Combined N",
     "naaccr_item" : 3618,
+    "naaccr_xml_id" : "derivedSeerCombinedN",
     "default" : "88"
   }, {
     "key" : "combined_m",
     "name" : "Derived SEER Combined M",
     "naaccr_item" : 3620,
+    "naaccr_xml_id" : "derivedSeerCombinedM",
     "default" : "88"
   }, {
     "key" : "source_t",
     "name" : "Derived SEER Combined T Source",
-    "naaccr_item" : 3622
+    "naaccr_item" : 3622,
+    "naaccr_xml_id" : "derivedSeerCmbTSrc"
   }, {
     "key" : "source_n",
     "name" : "Derived SEER Combined N Source",
-    "naaccr_item" : 3624
+    "naaccr_item" : 3624,
+    "naaccr_xml_id" : "derivedSeerCmbNSrc"
   }, {
     "key" : "source_m",
     "name" : "Derived SEER Combined M Source",
-    "naaccr_item" : 3626
+    "naaccr_item" : 3626,
+    "naaccr_xml_id" : "derivedSeerCmbMSrc"
   } ],
   "mappings" : [ {
     "id" : "tnm7_stage",
@@ -694,5 +728,5 @@
   } ],
   "involved_tables" : [ "path_t_bbo", "determine_default_t", "ssf11_sba", "radiation_surg_seq", "clin_m_hal", "determine_default_m", "clin_t_bbo", "stage_group_p_48545", "ssf1_jav", "nodes_pos_fpa", "parse_t_2177", "concatenate_n_43246", "ssf7_saw", "path_m_hal", "parse_n_67182", "determine_default_n", "schema_selection_prostate", "histology", "concatenate_m_40642", "ssf14_sbd", "combined_t_no_tis", "ssf10_saz", "concatenate_t_51262", "stage_group_c_59832", "adjustments_for_no_clin_or_no_path_26261", "ssf13_sbc", "prostate_pathologic_n_4662", "determine_combined_prefix_91402", "tnm7_inclusions_tpv", "stop_if_no_clin_and_no_path_24035", "ssf9_say", "systemic_surg_seq", "tnm_7_combined_stage_group_12118", "ssf12_sbb", "parse_m_47057", "primary_site", "tnm7_path_stage_ubp", "prostate_n_76551", "tnm7_stage_ubp", "combined_m", "ssf15_sbe", "combined_n", "ssf2_kab", "year_dx_validation", "ssf8_sax", "combined_gleason_93464" ],
   "on_invalid_input" : "FAIL_WHEN_USED_FOR_STAGING",
-  "last_modified" : "2018-05-14T21:29:08.379Z"
+  "last_modified" : "2020-06-30T19:48:00.522Z"
 }

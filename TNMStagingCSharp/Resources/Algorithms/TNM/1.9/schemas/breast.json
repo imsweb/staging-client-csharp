@@ -10,84 +10,98 @@
     "key" : "year_dx",
     "name" : "Year of Diagnosis",
     "naaccr_item" : 390,
+    "naaccr_xml_id" : "dateOfDiagnosis",
     "table" : "year_dx_validation",
     "used_for_staging" : false
   }, {
     "key" : "site",
     "name" : "Primary Site",
     "naaccr_item" : 400,
+    "naaccr_xml_id" : "primarySite",
     "table" : "primary_site",
     "used_for_staging" : true
   }, {
     "key" : "hist",
     "name" : "Histology",
     "naaccr_item" : 522,
+    "naaccr_xml_id" : "histologicTypeIcdO3",
     "table" : "histology",
     "used_for_staging" : true
   }, {
     "key" : "behavior",
     "name" : "Behavior",
     "naaccr_item" : 523,
+    "naaccr_xml_id" : "behaviorCodeIcdO3",
     "table" : "behavior",
     "used_for_staging" : false
   }, {
     "key" : "systemic_surg_seq",
     "name" : "RX Summ Systemic/Surgery Sequence",
     "naaccr_item" : 1639,
+    "naaccr_xml_id" : "rxSummSystemicSurSeq",
     "table" : "systemic_surg_seq",
     "used_for_staging" : true
   }, {
     "key" : "radiation_surg_seq",
     "name" : "RX Summ Surgery/Radiation Sequence",
     "naaccr_item" : 1380,
+    "naaccr_xml_id" : "rxSummSurgRadSeq",
     "table" : "radiation_surg_seq",
     "used_for_staging" : true
   }, {
     "key" : "nodes_pos",
     "name" : "Regional Nodes Positive",
     "naaccr_item" : 820,
+    "naaccr_xml_id" : "regionalNodesPositive",
     "table" : "nodes_pos_fab",
     "used_for_staging" : true
   }, {
     "key" : "clin_t",
     "name" : "Clinical T",
     "naaccr_item" : 940,
+    "naaccr_xml_id" : "tnmClinT",
     "table" : "breast_t_70656",
     "used_for_staging" : true
   }, {
     "key" : "clin_n",
     "name" : "Clinical N",
     "naaccr_item" : 950,
+    "naaccr_xml_id" : "tnmClinN",
     "table" : "clin_n_daj",
     "used_for_staging" : true
   }, {
     "key" : "clin_m",
     "name" : "Clinical M",
     "naaccr_item" : 960,
+    "naaccr_xml_id" : "tnmClinM",
     "table" : "clin_m_hau",
     "used_for_staging" : true
   }, {
     "key" : "path_t",
     "name" : "Pathologic T",
     "naaccr_item" : 880,
+    "naaccr_xml_id" : "tnmPathT",
     "table" : "breast_pathologic_t_84149",
     "used_for_staging" : true
   }, {
     "key" : "path_n",
     "name" : "Pathologic N",
     "naaccr_item" : 890,
+    "naaccr_xml_id" : "tnmPathN",
     "table" : "path_n_daj",
     "used_for_staging" : true
   }, {
     "key" : "path_m",
     "name" : "Pathologic M",
     "naaccr_item" : 900,
+    "naaccr_xml_id" : "tnmPathM",
     "table" : "path_m_hau",
     "used_for_staging" : true
   }, {
     "key" : "ssf1",
     "name" : "Estrogen Receptor (ER) Assay",
     "naaccr_item" : 2880,
+    "naaccr_xml_id" : "csSiteSpecificFactor1",
     "default" : "999",
     "table" : "ssf1_jag",
     "used_for_staging" : false,
@@ -96,6 +110,7 @@
     "key" : "ssf2",
     "name" : "Progesterone Receptor (PR) Assay",
     "naaccr_item" : 2890,
+    "naaccr_xml_id" : "csSiteSpecificFactor2",
     "default" : "999",
     "table" : "ssf2_kac",
     "used_for_staging" : false,
@@ -104,6 +119,7 @@
     "key" : "ssf3",
     "name" : "Number of Positive Ipsilateral Level I-II Axillary Lymph Nodes",
     "naaccr_item" : 2900,
+    "naaccr_xml_id" : "csSiteSpecificFactor3",
     "default" : "099",
     "table" : "ssf3_lac",
     "used_for_staging" : false,
@@ -112,6 +128,7 @@
     "key" : "ssf4",
     "name" : "Immunohistochemistry (IHC) of Regional Lymph Nodes",
     "naaccr_item" : 2910,
+    "naaccr_xml_id" : "csSiteSpecificFactor4",
     "default" : "987",
     "table" : "ssf4_mab",
     "used_for_staging" : false,
@@ -120,6 +137,7 @@
     "key" : "ssf5",
     "name" : "Molecular (MOL) Studies of Regional Lymph Nodes",
     "naaccr_item" : 2920,
+    "naaccr_xml_id" : "csSiteSpecificFactor5",
     "default" : "987",
     "table" : "ssf5_naa",
     "used_for_staging" : false,
@@ -128,6 +146,7 @@
     "key" : "ssf6",
     "name" : "Size of Tumor-Invasive Component",
     "naaccr_item" : 2930,
+    "naaccr_xml_id" : "csSiteSpecificFactor6",
     "default" : "987",
     "table" : "ssf6_oaa",
     "used_for_staging" : false,
@@ -136,6 +155,7 @@
     "key" : "ssf7",
     "name" : "Nottingham or Bloom-Richardson (BR) Score/Grade",
     "naaccr_item" : 2861,
+    "naaccr_xml_id" : "csSiteSpecificFactor7",
     "default" : "999",
     "table" : "ssf7_saa",
     "used_for_staging" : false,
@@ -144,6 +164,7 @@
     "key" : "ssf8",
     "name" : "HER2: Immunohistochemistry (IHC) Lab Value",
     "naaccr_item" : 2862,
+    "naaccr_xml_id" : "csSiteSpecificFactor8",
     "default" : "999",
     "table" : "ssf8_sab",
     "used_for_staging" : false,
@@ -152,6 +173,7 @@
     "key" : "ssf9",
     "name" : "HER2: Immunohistochemistry (IHC) Test Interpretation",
     "naaccr_item" : 2863,
+    "naaccr_xml_id" : "csSiteSpecificFactor9",
     "default" : "999",
     "table" : "ssf9_sac",
     "used_for_staging" : false,
@@ -160,6 +182,7 @@
     "key" : "ssf10",
     "name" : "HER2: Fluorescence In Situ Hybridization (FISH) Lab Value",
     "naaccr_item" : 2864,
+    "naaccr_xml_id" : "csSiteSpecificFactor10",
     "default" : "988",
     "table" : "ssf10_sad",
     "used_for_staging" : false,
@@ -168,6 +191,7 @@
     "key" : "ssf11",
     "name" : "HER2: Fluorescence In Situ Hybridization (FISH) Test Interpretation",
     "naaccr_item" : 2865,
+    "naaccr_xml_id" : "csSiteSpecificFactor11",
     "default" : "999",
     "table" : "ssf11_sae",
     "used_for_staging" : false,
@@ -176,6 +200,7 @@
     "key" : "ssf12",
     "name" : "HER2: Chromogenic In Situ Hybridization (CISH) Lab Value",
     "naaccr_item" : 2866,
+    "naaccr_xml_id" : "csSiteSpecificFactor12",
     "default" : "988",
     "table" : "ssf12_saf",
     "used_for_staging" : false,
@@ -184,6 +209,7 @@
     "key" : "ssf13",
     "name" : "HER2: Chromogenic In Situ Hybridization (CISH) Test Interpretation",
     "naaccr_item" : 2867,
+    "naaccr_xml_id" : "csSiteSpecificFactor13",
     "default" : "999",
     "table" : "ssf13_sag",
     "used_for_staging" : false,
@@ -192,6 +218,7 @@
     "key" : "ssf14",
     "name" : "HER2: Result of Other or Unknown Test",
     "naaccr_item" : 2868,
+    "naaccr_xml_id" : "csSiteSpecificFactor14",
     "default" : "999",
     "table" : "ssf14_sbf",
     "used_for_staging" : false,
@@ -200,6 +227,7 @@
     "key" : "ssf15",
     "name" : "HER2: Summary Result of Testing",
     "naaccr_item" : 2869,
+    "naaccr_xml_id" : "csSiteSpecificFactor15",
     "default" : "999",
     "table" : "ssf15_sbg",
     "used_for_staging" : false,
@@ -208,6 +236,7 @@
     "key" : "ssf16",
     "name" : "Combinations of ER, PR, and HER2 Results",
     "naaccr_item" : 2870,
+    "naaccr_xml_id" : "csSiteSpecificFactor16",
     "default" : "988",
     "table" : "ssf16_sah",
     "used_for_staging" : false,
@@ -216,6 +245,7 @@
     "key" : "ssf17",
     "name" : "Circulating Tumor Cells (CTC) and Method of Detection",
     "naaccr_item" : 2871,
+    "naaccr_xml_id" : "csSiteSpecificFactor17",
     "default" : "988",
     "table" : "ssf17_sai",
     "used_for_staging" : false
@@ -223,6 +253,7 @@
     "key" : "ssf18",
     "name" : "Disseminated Tumor Cells (DTC) and Method of Detection",
     "naaccr_item" : 2872,
+    "naaccr_xml_id" : "csSiteSpecificFactor18",
     "default" : "988",
     "table" : "ssf18_saj",
     "used_for_staging" : false
@@ -230,6 +261,7 @@
     "key" : "ssf19",
     "name" : "Assessment of Positive Ipsilateral Axillary Lymph Nodes",
     "naaccr_item" : 2873,
+    "naaccr_xml_id" : "csSiteSpecificFactor19",
     "default" : "988",
     "table" : "ssf19_sak",
     "used_for_staging" : false
@@ -237,6 +269,7 @@
     "key" : "ssf20",
     "name" : "Assessment of Positive Distant Metastases",
     "naaccr_item" : 2874,
+    "naaccr_xml_id" : "csSiteSpecificFactor20",
     "default" : "988",
     "table" : "ssf20_sal",
     "used_for_staging" : false
@@ -244,6 +277,7 @@
     "key" : "ssf21",
     "name" : "Response to Neoadjuvant Therapy",
     "naaccr_item" : 2875,
+    "naaccr_xml_id" : "csSiteSpecificFactor21",
     "default" : "988",
     "table" : "ssf21_sam",
     "used_for_staging" : false,
@@ -252,6 +286,7 @@
     "key" : "ssf22",
     "name" : "Multigene Signature Method",
     "naaccr_item" : 2876,
+    "naaccr_xml_id" : "csSiteSpecificFactor22",
     "default" : "999",
     "table" : "ssf22_san",
     "used_for_staging" : false,
@@ -260,6 +295,7 @@
     "key" : "ssf23",
     "name" : "Multigene Signature Results",
     "naaccr_item" : 2877,
+    "naaccr_xml_id" : "csSiteSpecificFactor23",
     "default" : "999",
     "table" : "ssf23_sao",
     "used_for_staging" : false,
@@ -268,6 +304,7 @@
     "key" : "ssf24",
     "name" : "Paget Disease",
     "naaccr_item" : 2878,
+    "naaccr_xml_id" : "csSiteSpecificFactor24",
     "default" : "988",
     "table" : "ssf24_sap",
     "used_for_staging" : false
@@ -275,6 +312,7 @@
     "key" : "clin_stage_group_direct",
     "name" : "TNM Clin Stage Group",
     "naaccr_item" : 970,
+    "naaccr_xml_id" : "tnmClinStageGroup",
     "default" : "99",
     "table" : "stage_group_c_34977",
     "used_for_staging" : true,
@@ -283,6 +321,7 @@
     "key" : "path_stage_group_direct",
     "name" : "TNM Path Stage Group",
     "naaccr_item" : 910,
+    "naaccr_xml_id" : "tnmPathStageGroup",
     "default" : "99",
     "table" : "stage_group_p_31599",
     "used_for_staging" : true,
@@ -296,44 +335,53 @@
     "key" : "clin_stage_group",
     "name" : "Derived SEER Clin Stage Group",
     "naaccr_item" : 3610,
+    "naaccr_xml_id" : "derivedSeerClinStgGrp",
     "default" : "88"
   }, {
     "key" : "path_stage_group",
     "name" : "Derived SEER Path Stage Group",
     "naaccr_item" : 3605,
+    "naaccr_xml_id" : "derivedSeerPathStgGrp",
     "default" : "88"
   }, {
     "key" : "combined_stage_group",
     "name" : "Derived SEER Combined Stage Group",
     "naaccr_item" : 3614,
+    "naaccr_xml_id" : "derivedSeerCmbStgGrp",
     "default" : "88"
   }, {
     "key" : "combined_t",
     "name" : "Derived SEER Combined T",
     "naaccr_item" : 3616,
+    "naaccr_xml_id" : "derivedSeerCombinedT",
     "default" : "88"
   }, {
     "key" : "combined_n",
     "name" : "Derived SEER Combined N",
     "naaccr_item" : 3618,
+    "naaccr_xml_id" : "derivedSeerCombinedN",
     "default" : "88"
   }, {
     "key" : "combined_m",
     "name" : "Derived SEER Combined M",
     "naaccr_item" : 3620,
+    "naaccr_xml_id" : "derivedSeerCombinedM",
     "default" : "88"
   }, {
     "key" : "source_t",
     "name" : "Derived SEER Combined T Source",
-    "naaccr_item" : 3622
+    "naaccr_item" : 3622,
+    "naaccr_xml_id" : "derivedSeerCmbTSrc"
   }, {
     "key" : "source_n",
     "name" : "Derived SEER Combined N Source",
-    "naaccr_item" : 3624
+    "naaccr_item" : 3624,
+    "naaccr_xml_id" : "derivedSeerCmbNSrc"
   }, {
     "key" : "source_m",
     "name" : "Derived SEER Combined M Source",
-    "naaccr_item" : 3626
+    "naaccr_item" : 3626,
+    "naaccr_xml_id" : "derivedSeerCmbMSrc"
   } ],
   "mappings" : [ {
     "id" : "tnm7_stage",
@@ -779,5 +827,5 @@
   } ],
   "involved_tables" : [ "ssf22_san", "ssf23_sao", "ssf5_naa", "parse_t_2177", "concatenate_n_43246", "schema_selection_breast", "stage_group_c_34977", "histology", "concatenate_m_40642", "ssf24_sap", "nodes_pos_fab", "concatenate_t_51262", "tnm7_inclusions_tpg", "ssf3_lac", "adjustments_for_no_clin_or_no_path_26261", "ssf11_sae", "ssf16_sah", "ssf14_sbf", "ssf20_sal", "systemic_surg_seq", "combined_n_for_tis_cancers_4947", "tnm7_stage_uac", "parse_m_47057", "ssf10_sad", "combined_m", "ssf15_sbg", "ssf21_sam", "ssf17_sai", "ssf1_jag", "combined_t_breast", "determine_default_t", "ssf19_sak", "radiation_surg_seq", "ssf6_oaa", "determine_default_m", "ssf18_saj", "breast_pathologic_t_84149", "clin_m_hau", "parse_n_67182", "determine_default_n", "ssf7_saa", "path_n_daj", "ssf4_mab", "path_m_hau", "behavior", "ssf8_sab", "tnm7_path_stage_uac", "determine_combined_prefix_91402", "ssf12_saf", "stop_if_no_clin_and_no_path_24035", "clin_n_daj", "primary_site", "ssf2_kac", "year_dx_validation", "ssf9_sac", "breast_t_70656", "ssf13_sag", "stage_group_p_31599" ],
   "on_invalid_input" : "FAIL_WHEN_USED_FOR_STAGING",
-  "last_modified" : "2018-05-14T21:29:08.370Z"
+  "last_modified" : "2020-06-30T19:47:59.645Z"
 }

@@ -12,6 +12,7 @@
     "name" : "Primary Site",
     "description" : "Code for the primary site of the tumor being reported using either ICD-O-2 or ICD-O-3.",
     "naaccr_item" : 400,
+    "naaccr_xml_id" : "primarySite",
     "table" : "primary_site",
     "used_for_staging" : true
   }, {
@@ -19,6 +20,7 @@
     "name" : "Histology",
     "description" : "Codes for the histologic type of the tumor being reported using ICD-O-3.",
     "naaccr_item" : 522,
+    "naaccr_xml_id" : "histologicTypeIcdO3",
     "table" : "histology",
     "used_for_staging" : true
   }, {
@@ -26,6 +28,7 @@
     "name" : "Year of Diagnosis",
     "description" : "Date of initial diagnosis by a recognized medical practitioner for the tumor being reported whether clinically or microscopically confirmed.",
     "naaccr_item" : 390,
+    "naaccr_xml_id" : "dateOfDiagnosis",
     "table" : "cs_year_validation",
     "used_for_staging" : true
   }, {
@@ -33,6 +36,7 @@
     "name" : "CS Version Input Original",
     "description" : "Collaborative Staging (CS) version number initially used to code CS fields.",
     "naaccr_item" : 2935,
+    "naaccr_xml_id" : "csVersionInputOriginal",
     "table" : "cs_input_version_original",
     "used_for_staging" : true
   }, {
@@ -40,6 +44,7 @@
     "name" : "Behavior ICD-O-3",
     "description" : "Code for the behavior of the tumor being reported using ICD-O-3.",
     "naaccr_item" : 523,
+    "naaccr_xml_id" : "behaviorCodeIcdO3",
     "table" : "behavior",
     "used_for_staging" : false
   }, {
@@ -47,6 +52,7 @@
     "name" : "Grade",
     "description" : "Code for the grade or degree of differentiation of the reportable tumor.",
     "naaccr_item" : 440,
+    "naaccr_xml_id" : "grade",
     "table" : "grade",
     "used_for_staging" : false
   }, {
@@ -54,12 +60,14 @@
     "name" : "Age at Diagnosis",
     "description" : "Age of the patient at diagnosis in complete years.",
     "naaccr_item" : 230,
+    "naaccr_xml_id" : "ageAtDiagnosis",
     "used_for_staging" : false
   }, {
     "key" : "lvi",
     "name" : "Lymph-vascular Invasion",
     "description" : "Indicates whether lymphatic duct or blood vessel (LVI) is identified in the pathology report.",
     "naaccr_item" : 1182,
+    "naaccr_xml_id" : "lymphVascularInvasion",
     "default" : "8",
     "table" : "lvi",
     "used_for_staging" : false
@@ -68,6 +76,7 @@
     "name" : "CS Tumor Size",
     "description" : "Records the largest dimension or diameter of the primary tumor in millimeters.",
     "naaccr_item" : 2800,
+    "naaccr_xml_id" : "csTumorSize",
     "default" : "999",
     "table" : "size_apf",
     "used_for_staging" : true
@@ -76,6 +85,7 @@
     "name" : "CS Extension",
     "description" : "Identifies contiguous growth (extension) of the primary tumor within the organ of origin or its direct extension into neighboring organs. For certain sites such as ovary, discontinuous metastasis is coded in CS Extension.",
     "naaccr_item" : 2810,
+    "naaccr_xml_id" : "csExtension",
     "default" : "999",
     "table" : "extension_baa",
     "used_for_staging" : true
@@ -84,6 +94,7 @@
     "name" : "CS Tumor Size/Ext Eval",
     "description" : "Records how the codes for the two items CS Tumor Size and CS Extension were determined, based on the diagnostic methods employed.",
     "naaccr_item" : 2820,
+    "naaccr_xml_id" : "csTumorSizeExtEval",
     "default" : "9",
     "table" : "extension_eval_cpa",
     "used_for_staging" : true
@@ -92,6 +103,7 @@
     "name" : "CS Lymph Nodes",
     "description" : "Identifies the regional lymph nodes involved with cancer at the time of diagnosis.",
     "naaccr_item" : 2830,
+    "naaccr_xml_id" : "csLymphNodes",
     "default" : "999",
     "table" : "nodes_dab",
     "used_for_staging" : true
@@ -100,6 +112,7 @@
     "name" : "CS Lymph Nodes Eval",
     "description" : "Records how the code for CS Lymph Nodes was determined, based on the diagnosticmethods employed.",
     "naaccr_item" : 2840,
+    "naaccr_xml_id" : "csLymphNodesEval",
     "default" : "9",
     "table" : "nodes_eval_epa",
     "used_for_staging" : true
@@ -108,6 +121,7 @@
     "name" : "Regional Nodes Positive",
     "description" : "Records the exact number of regional nodes examined by the pathologist and found to contain metastases. ",
     "naaccr_item" : 820,
+    "naaccr_xml_id" : "regionalNodesPositive",
     "default" : "99",
     "table" : "nodes_pos_fpa",
     "used_for_staging" : false
@@ -116,6 +130,7 @@
     "name" : "Regional Nodes Examined",
     "description" : "Records the total number of regional lymph nodes that were removed and examined by the pathologist. ",
     "naaccr_item" : 830,
+    "naaccr_xml_id" : "regionalNodesExamined",
     "default" : "99",
     "table" : "nodes_exam_gpa",
     "used_for_staging" : false
@@ -124,6 +139,7 @@
     "name" : "CS Mets at DX",
     "description" : "Identifies the distant site(s) of metastatic involvement at time of diagnosis.",
     "naaccr_item" : 2850,
+    "naaccr_xml_id" : "csMetsAtDx",
     "default" : "99",
     "table" : "mets_hpc",
     "used_for_staging" : true
@@ -132,6 +148,7 @@
     "name" : "CS Mets Eval",
     "description" : "Records how the code for CS Mets at Dx was determined based on the diagnostic methods employed.",
     "naaccr_item" : 2860,
+    "naaccr_xml_id" : "csMetsEval",
     "default" : "9",
     "table" : "mets_eval_ipa",
     "used_for_staging" : true
@@ -139,6 +156,7 @@
     "key" : "ssf1",
     "name" : "Human Papilloma Virus (HPV) Status",
     "naaccr_item" : 2880,
+    "naaccr_xml_id" : "csSiteSpecificFactor1",
     "default" : "988",
     "table" : "ssf1_jce",
     "used_for_staging" : false
@@ -146,6 +164,7 @@
     "key" : "ssf2",
     "name" : "CS Site-Specific Factor 2",
     "naaccr_item" : 2890,
+    "naaccr_xml_id" : "csSiteSpecificFactor2",
     "default" : "988",
     "table" : "ssf2_kna",
     "used_for_staging" : false,
@@ -154,6 +173,7 @@
     "key" : "ssf3",
     "name" : "CS Site-Specific Factor 3",
     "naaccr_item" : 2900,
+    "naaccr_xml_id" : "csSiteSpecificFactor3",
     "default" : "988",
     "table" : "ssf3_lna",
     "used_for_staging" : false,
@@ -162,6 +182,7 @@
     "key" : "ssf4",
     "name" : "CS Site-Specific Factor 4",
     "naaccr_item" : 2910,
+    "naaccr_xml_id" : "csSiteSpecificFactor4",
     "default" : "988",
     "table" : "ssf4_mna",
     "used_for_staging" : false,
@@ -170,6 +191,7 @@
     "key" : "ssf5",
     "name" : "CS Site-Specific Factor 5",
     "naaccr_item" : 2920,
+    "naaccr_xml_id" : "csSiteSpecificFactor5",
     "default" : "988",
     "table" : "ssf5_nna",
     "used_for_staging" : false,
@@ -178,6 +200,7 @@
     "key" : "ssf6",
     "name" : "CS Site-Specific Factor 6",
     "naaccr_item" : 2930,
+    "naaccr_xml_id" : "csSiteSpecificFactor6",
     "default" : "988",
     "table" : "ssf6_ona",
     "used_for_staging" : false,
@@ -186,6 +209,7 @@
     "key" : "ssf7",
     "name" : "CS Site-Specific Factor 7",
     "naaccr_item" : 2861,
+    "naaccr_xml_id" : "csSiteSpecificFactor7",
     "default" : "988",
     "table" : "ssf7_snb",
     "used_for_staging" : false,
@@ -194,6 +218,7 @@
     "key" : "ssf8",
     "name" : "CS Site-Specific Factor 8",
     "naaccr_item" : 2862,
+    "naaccr_xml_id" : "csSiteSpecificFactor8",
     "default" : "988",
     "table" : "ssf8_snc",
     "used_for_staging" : false,
@@ -202,6 +227,7 @@
     "key" : "ssf9",
     "name" : "CS Site-Specific Factor 9",
     "naaccr_item" : 2863,
+    "naaccr_xml_id" : "csSiteSpecificFactor9",
     "default" : "988",
     "table" : "ssf9_snd",
     "used_for_staging" : false,
@@ -210,6 +236,7 @@
     "key" : "ssf10",
     "name" : "CS Site-Specific Factor 10",
     "naaccr_item" : 2864,
+    "naaccr_xml_id" : "csSiteSpecificFactor10",
     "default" : "988",
     "table" : "ssf10_sne",
     "used_for_staging" : false,
@@ -218,6 +245,7 @@
     "key" : "ssf11",
     "name" : "CS Site-Specific Factor 11",
     "naaccr_item" : 2865,
+    "naaccr_xml_id" : "csSiteSpecificFactor11",
     "default" : "988",
     "table" : "ssf11_snf",
     "used_for_staging" : false,
@@ -226,6 +254,7 @@
     "key" : "ssf12",
     "name" : "CS Site-Specific Factor 12",
     "naaccr_item" : 2866,
+    "naaccr_xml_id" : "csSiteSpecificFactor12",
     "default" : "988",
     "table" : "ssf12_sng",
     "used_for_staging" : false,
@@ -234,6 +263,7 @@
     "key" : "ssf13",
     "name" : "CS Site-Specific Factor 13",
     "naaccr_item" : 2867,
+    "naaccr_xml_id" : "csSiteSpecificFactor13",
     "default" : "988",
     "table" : "ssf13_snh",
     "used_for_staging" : false,
@@ -242,6 +272,7 @@
     "key" : "ssf14",
     "name" : "CS Site-Specific Factor 14",
     "naaccr_item" : 2868,
+    "naaccr_xml_id" : "csSiteSpecificFactor14",
     "default" : "988",
     "table" : "ssf14_sni",
     "used_for_staging" : false,
@@ -250,6 +281,7 @@
     "key" : "ssf15",
     "name" : "CS Site-Specific Factor 15",
     "naaccr_item" : 2869,
+    "naaccr_xml_id" : "csSiteSpecificFactor15",
     "default" : "988",
     "table" : "ssf15_snj",
     "used_for_staging" : false,
@@ -258,6 +290,7 @@
     "key" : "ssf16",
     "name" : "CS Site-Specific Factor 16",
     "naaccr_item" : 2870,
+    "naaccr_xml_id" : "csSiteSpecificFactor16",
     "default" : "988",
     "table" : "ssf16_snk",
     "used_for_staging" : false,
@@ -266,6 +299,7 @@
     "key" : "ssf17",
     "name" : "CS Site-Specific Factor 17",
     "naaccr_item" : 2871,
+    "naaccr_xml_id" : "csSiteSpecificFactor17",
     "default" : "988",
     "table" : "ssf17_snl",
     "used_for_staging" : false,
@@ -274,6 +308,7 @@
     "key" : "ssf18",
     "name" : "CS Site-Specific Factor 18",
     "naaccr_item" : 2872,
+    "naaccr_xml_id" : "csSiteSpecificFactor18",
     "default" : "988",
     "table" : "ssf18_snm",
     "used_for_staging" : false,
@@ -282,6 +317,7 @@
     "key" : "ssf19",
     "name" : "CS Site-Specific Factor 19",
     "naaccr_item" : 2873,
+    "naaccr_xml_id" : "csSiteSpecificFactor19",
     "default" : "988",
     "table" : "ssf19_snn",
     "used_for_staging" : false,
@@ -290,6 +326,7 @@
     "key" : "ssf20",
     "name" : "CS Site-Specific Factor 20",
     "naaccr_item" : 2874,
+    "naaccr_xml_id" : "csSiteSpecificFactor20",
     "default" : "988",
     "table" : "ssf20_sno",
     "used_for_staging" : false,
@@ -298,6 +335,7 @@
     "key" : "ssf21",
     "name" : "CS Site-Specific Factor 21",
     "naaccr_item" : 2875,
+    "naaccr_xml_id" : "csSiteSpecificFactor21",
     "default" : "988",
     "table" : "ssf21_snp",
     "used_for_staging" : false,
@@ -306,6 +344,7 @@
     "key" : "ssf22",
     "name" : "CS Site-Specific Factor 22",
     "naaccr_item" : 2876,
+    "naaccr_xml_id" : "csSiteSpecificFactor22",
     "default" : "988",
     "table" : "ssf22_snq",
     "used_for_staging" : false,
@@ -314,6 +353,7 @@
     "key" : "ssf23",
     "name" : "CS Site-Specific Factor 23",
     "naaccr_item" : 2877,
+    "naaccr_xml_id" : "csSiteSpecificFactor23",
     "default" : "988",
     "table" : "ssf23_snr",
     "used_for_staging" : false,
@@ -322,6 +362,7 @@
     "key" : "ssf24",
     "name" : "CS Site-Specific Factor 24",
     "naaccr_item" : 2878,
+    "naaccr_xml_id" : "csSiteSpecificFactor24",
     "default" : "988",
     "table" : "ssf24_sns",
     "used_for_staging" : false,
@@ -330,6 +371,7 @@
     "key" : "ssf25",
     "name" : "CS Site-Specific Factor 25",
     "naaccr_item" : 2879,
+    "naaccr_xml_id" : "csSiteSpecificFactor25",
     "default" : "988",
     "table" : "ssf25_snt",
     "used_for_staging" : false,
@@ -345,6 +387,7 @@
     "name" : "CS Version Derived",
     "description" : "Collaborative Staging (CS) version used to derive the CS output fields.",
     "naaccr_item" : 2936,
+    "naaccr_xml_id" : "csVersionDerived",
     "default" : "020550"
   }, {
     "key" : "ajcc6_t",
@@ -415,67 +458,83 @@
   }, {
     "key" : "stor_ajcc6_t",
     "name" : "AJCC6 T (Storage)",
-    "naaccr_item" : 2940
+    "naaccr_item" : 2940,
+    "naaccr_xml_id" : "derivedAjcc6T"
   }, {
     "key" : "stor_ajcc6_tdescriptor",
     "name" : "AJCC6 T Descriptor (Storage)",
-    "naaccr_item" : 2950
+    "naaccr_item" : 2950,
+    "naaccr_xml_id" : "derivedAjcc6TDescript"
   }, {
     "key" : "stor_ajcc6_n",
     "name" : "AJCC6 N (Storage)",
-    "naaccr_item" : 2960
+    "naaccr_item" : 2960,
+    "naaccr_xml_id" : "derivedAjcc6N"
   }, {
     "key" : "stor_ajcc6_ndescriptor",
     "name" : "AJCC6 N Descriptor (Storage)",
-    "naaccr_item" : 2970
+    "naaccr_item" : 2970,
+    "naaccr_xml_id" : "derivedAjcc6NDescript"
   }, {
     "key" : "stor_ajcc6_m",
     "name" : "AJCC6 M (Storage)",
-    "naaccr_item" : 2980
+    "naaccr_item" : 2980,
+    "naaccr_xml_id" : "derivedAjcc6M"
   }, {
     "key" : "stor_ajcc6_mdescriptor",
     "name" : "AJCC6 M Descriptor (Storage)",
-    "naaccr_item" : 2990
+    "naaccr_item" : 2990,
+    "naaccr_xml_id" : "derivedAjcc6MDescript"
   }, {
     "key" : "stor_ajcc6_stage",
     "name" : "AJCC6 Stage Group (Storage)",
-    "naaccr_item" : 3000
+    "naaccr_item" : 3000,
+    "naaccr_xml_id" : "derivedAjcc6StageGrp"
   }, {
     "key" : "stor_ajcc7_t",
     "name" : "AJCC7 T (Storage)",
-    "naaccr_item" : 3400
+    "naaccr_item" : 3400,
+    "naaccr_xml_id" : "derivedAjcc7T"
   }, {
     "key" : "stor_ajcc7_tdescriptor",
     "name" : "AJCC7 T Descriptor (Storage)",
-    "naaccr_item" : 3402
+    "naaccr_item" : 3402,
+    "naaccr_xml_id" : "derivedAjcc7TDescript"
   }, {
     "key" : "stor_ajcc7_n",
     "name" : "AJCC7 N (Storage)",
-    "naaccr_item" : 3410
+    "naaccr_item" : 3410,
+    "naaccr_xml_id" : "derivedAjcc7N"
   }, {
     "key" : "stor_ajcc7_ndescriptor",
     "name" : "AJCC7 N Descriptor (Storage)",
-    "naaccr_item" : 3412
+    "naaccr_item" : 3412,
+    "naaccr_xml_id" : "derivedAjcc7NDescript"
   }, {
     "key" : "stor_ajcc7_m",
     "name" : "AJCC7 M (Storage)",
-    "naaccr_item" : 3420
+    "naaccr_item" : 3420,
+    "naaccr_xml_id" : "derivedAjcc7M"
   }, {
     "key" : "stor_ajcc7_mdescriptor",
     "name" : "AJCC7 M Descriptor (Storage)",
-    "naaccr_item" : 3422
+    "naaccr_item" : 3422,
+    "naaccr_xml_id" : "derivedAjcc7MDescript"
   }, {
     "key" : "stor_ajcc7_stage",
     "name" : "AJCC7 Stage Group (Storage)",
-    "naaccr_item" : 3430
+    "naaccr_item" : 3430,
+    "naaccr_xml_id" : "derivedAjcc7StageGrp"
   }, {
     "key" : "stor_ss77",
     "name" : "Summary Stage Group 1977 (Storage)",
-    "naaccr_item" : 3010
+    "naaccr_item" : 3010,
+    "naaccr_xml_id" : "derivedSs1977"
   }, {
     "key" : "stor_ss2000",
     "name" : "Summary Stage Group 2000 (Storage)",
-    "naaccr_item" : 3020
+    "naaccr_item" : 3020,
+    "naaccr_xml_id" : "derivedSs2000"
   } ],
   "mappings" : [ {
     "id" : "mapping_t",
@@ -1146,5 +1205,5 @@
     } ]
   } ],
   "involved_tables" : [ "ssf2_kna", "ajcc6_exclusions_ppd", "ssf25_snt", "ssf15_snj", "ajcc7_t_codes", "ssf23_snr", "histology", "ajcc7_stage_uab", "cs_input_version_original", "mets_hpc", "ssf22_snq", "lvi", "ssf14_sni", "extension_size_xaa", "ajcc_tdescriptor_cleanup", "nodes_dab", "ssf4_mna", "ajcc7_year_validation", "ssf21_snp", "ssf17_snl", "ajcc_descriptor_codes", "extension_baa", "ajcc7_inclusions_tpe", "grade", "summary_stage_rpa", "ajcc7_m_codes", "ssf20_sno", "ajcc_ndescriptor_cleanup", "ssf16_snk", "ajcc6_t_codes", "nodes_pos_fpa", "ajcc_mdescriptor_cleanup", "ssf7_snb", "ssf11_snf", "ssf3_lna", "ss_codes", "ajcc6_stage_qbj", "ssf6_ona", "nodes_exam_gpa", "ajcc6_n_codes", "size_apf", "behavior", "ssf10_sne", "ssf18_snm", "mets_eval_ipa", "extension_eval_cpa", "ajcc7_n_codes", "ajcc6_stage_codes", "ssf5_nna", "ssf19_snn", "ajcc7_stage_codes", "ssf9_snd", "ssf13_snh", "schema_selection_anus", "primary_site", "ajcc6_year_validation", "ajcc6_m_codes", "nodes_eval_epa", "ssf1_jce", "cs_year_validation", "ssf24_sns", "ssf8_snc", "ssf12_sng" ],
-  "last_modified" : "2015-08-25T18:31:03.727Z"
+  "last_modified" : "2020-06-30T19:47:09.667Z"
 }

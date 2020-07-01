@@ -12,6 +12,7 @@
     "name" : "Primary Site",
     "description" : "Code for the primary site of the tumor being reported using either ICD-O-2 or ICD-O-3.",
     "naaccr_item" : 400,
+    "naaccr_xml_id" : "primarySite",
     "table" : "primary_site",
     "used_for_staging" : true
   }, {
@@ -19,6 +20,7 @@
     "name" : "Histology",
     "description" : "Codes for the histologic type of the tumor being reported using ICD-O-3.",
     "naaccr_item" : 522,
+    "naaccr_xml_id" : "histologicTypeIcdO3",
     "table" : "histology",
     "used_for_staging" : true
   }, {
@@ -26,6 +28,7 @@
     "name" : "Year of Diagnosis",
     "description" : "Date of initial diagnosis by a recognized medical practitioner for the tumor being reported whether clinically or microscopically confirmed.",
     "naaccr_item" : 390,
+    "naaccr_xml_id" : "dateOfDiagnosis",
     "table" : "cs_year_validation",
     "used_for_staging" : true
   }, {
@@ -33,6 +36,7 @@
     "name" : "CS Version Input Original",
     "description" : "Collaborative Staging (CS) version number initially used to code CS fields.",
     "naaccr_item" : 2935,
+    "naaccr_xml_id" : "csVersionInputOriginal",
     "table" : "cs_input_version_original",
     "used_for_staging" : true
   }, {
@@ -40,6 +44,7 @@
     "name" : "Behavior ICD-O-3",
     "description" : "Code for the behavior of the tumor being reported using ICD-O-3.",
     "naaccr_item" : 523,
+    "naaccr_xml_id" : "behaviorCodeIcdO3",
     "table" : "behavior",
     "used_for_staging" : false
   }, {
@@ -47,6 +52,7 @@
     "name" : "Grade",
     "description" : "Code for the grade or degree of differentiation of the reportable tumor.",
     "naaccr_item" : 440,
+    "naaccr_xml_id" : "grade",
     "table" : "grade",
     "used_for_staging" : false
   }, {
@@ -54,12 +60,14 @@
     "name" : "Age at Diagnosis",
     "description" : "Age of the patient at diagnosis in complete years.",
     "naaccr_item" : 230,
+    "naaccr_xml_id" : "ageAtDiagnosis",
     "used_for_staging" : false
   }, {
     "key" : "lvi",
     "name" : "Lymph-vascular Invasion",
     "description" : "Indicates whether lymphatic duct or blood vessel (LVI) is identified in the pathology report.",
     "naaccr_item" : 1182,
+    "naaccr_xml_id" : "lymphVascularInvasion",
     "default" : "9",
     "table" : "lvi",
     "used_for_staging" : true
@@ -68,6 +76,7 @@
     "name" : "CS Tumor Size",
     "description" : "Records the largest dimension or diameter of the primary tumor in millimeters.",
     "naaccr_item" : 2800,
+    "naaccr_xml_id" : "csTumorSize",
     "default" : "999",
     "table" : "size_apa",
     "used_for_staging" : false
@@ -76,6 +85,7 @@
     "name" : "CS Extension",
     "description" : "Identifies contiguous growth (extension) of the primary tumor within the organ of origin or its direct extension into neighboring organs. For certain sites such as ovary, discontinuous metastasis is coded in CS Extension.",
     "naaccr_item" : 2810,
+    "naaccr_xml_id" : "csExtension",
     "default" : "999",
     "table" : "extension_bdh",
     "used_for_staging" : true
@@ -84,6 +94,7 @@
     "name" : "CS Tumor Size/Ext Eval",
     "description" : "Records how the codes for the two items CS Tumor Size and CS Extension were determined, based on the diagnostic methods employed.",
     "naaccr_item" : 2820,
+    "naaccr_xml_id" : "csTumorSizeExtEval",
     "default" : "9",
     "table" : "extension_eval_cpa",
     "used_for_staging" : true
@@ -92,6 +103,7 @@
     "name" : "CS Lymph Nodes",
     "description" : "Identifies the regional lymph nodes involved with cancer at the time of diagnosis.",
     "naaccr_item" : 2830,
+    "naaccr_xml_id" : "csLymphNodes",
     "default" : "999",
     "table" : "nodes_ddf",
     "used_for_staging" : true
@@ -100,6 +112,7 @@
     "name" : "CS Lymph Nodes Eval",
     "description" : "Records how the code for CS Lymph Nodes was determined, based on the diagnosticmethods employed.",
     "naaccr_item" : 2840,
+    "naaccr_xml_id" : "csLymphNodesEval",
     "default" : "9",
     "table" : "nodes_eval_epa",
     "used_for_staging" : true
@@ -108,6 +121,7 @@
     "name" : "Regional Nodes Positive",
     "description" : "Records the exact number of regional nodes examined by the pathologist and found to contain metastases. ",
     "naaccr_item" : 820,
+    "naaccr_xml_id" : "regionalNodesPositive",
     "default" : "99",
     "table" : "nodes_pos_fpc",
     "used_for_staging" : true
@@ -116,6 +130,7 @@
     "name" : "Regional Nodes Examined",
     "description" : "Records the total number of regional lymph nodes that were removed and examined by the pathologist. ",
     "naaccr_item" : 830,
+    "naaccr_xml_id" : "regionalNodesExamined",
     "default" : "99",
     "table" : "nodes_exam_gpa",
     "used_for_staging" : false
@@ -124,6 +139,7 @@
     "name" : "CS Mets at DX",
     "description" : "Identifies the distant site(s) of metastatic involvement at time of diagnosis.",
     "naaccr_item" : 2850,
+    "naaccr_xml_id" : "csMetsAtDx",
     "default" : "99",
     "table" : "mets_hbb",
     "used_for_staging" : true
@@ -132,6 +148,7 @@
     "name" : "CS Mets Eval",
     "description" : "Records how the code for CS Mets at Dx was determined based on the diagnostic methods employed.",
     "naaccr_item" : 2860,
+    "naaccr_xml_id" : "csMetsEval",
     "default" : "9",
     "table" : "mets_eval_ipb",
     "used_for_staging" : true
@@ -139,6 +156,7 @@
     "key" : "ssf1",
     "name" : "OBSOLETE - Alpha Fetoprotein (AFP)",
     "naaccr_item" : 2880,
+    "naaccr_xml_id" : "csSiteSpecificFactor1",
     "default" : "988",
     "table" : "ssf1_jal",
     "used_for_staging" : true
@@ -146,6 +164,7 @@
     "key" : "ssf2",
     "name" : "OBSOLETE - Human Chorionic Gonadotropin (hCG)",
     "naaccr_item" : 2890,
+    "naaccr_xml_id" : "csSiteSpecificFactor2",
     "default" : "988",
     "table" : "ssf2_kad",
     "used_for_staging" : true
@@ -153,6 +172,7 @@
     "key" : "ssf3",
     "name" : "OBSOLETE - Lactate Dehydrogenase (LDH)",
     "naaccr_item" : 2900,
+    "naaccr_xml_id" : "csSiteSpecificFactor3",
     "default" : "988",
     "table" : "ssf3_lad",
     "used_for_staging" : true
@@ -160,6 +180,7 @@
     "key" : "ssf4",
     "name" : "Radical Orchiectomy Performed",
     "naaccr_item" : 2910,
+    "naaccr_xml_id" : "csSiteSpecificFactor4",
     "default" : "999",
     "table" : "ssf4_mac",
     "used_for_staging" : true,
@@ -168,6 +189,7 @@
     "key" : "ssf5",
     "name" : "Size of Metastasis in Lymph Nodes",
     "naaccr_item" : 2920,
+    "naaccr_xml_id" : "csSiteSpecificFactor5",
     "default" : "999",
     "table" : "ssf5_nab",
     "used_for_staging" : true,
@@ -176,6 +198,7 @@
     "key" : "ssf6",
     "name" : "Pre-Orchiectomy Alpha Fetoprotein (AFP) Lab Value",
     "naaccr_item" : 2930,
+    "naaccr_xml_id" : "csSiteSpecificFactor6",
     "default" : "988",
     "table" : "ssf6_oay",
     "used_for_staging" : false,
@@ -184,6 +207,7 @@
     "key" : "ssf7",
     "name" : "Pre-Orchiectomy Alpha Fetoprotein (AFP) Range",
     "naaccr_item" : 2861,
+    "naaccr_xml_id" : "csSiteSpecificFactor7",
     "default" : "999",
     "table" : "ssf7_seh",
     "used_for_staging" : false,
@@ -192,6 +216,7 @@
     "key" : "ssf8",
     "name" : "Pre-Orchiectomy Human Chorionic Gonadotropin (hCG) Lab Value",
     "naaccr_item" : 2862,
+    "naaccr_xml_id" : "csSiteSpecificFactor8",
     "default" : "988",
     "table" : "ssf8_sei",
     "used_for_staging" : false,
@@ -200,6 +225,7 @@
     "key" : "ssf9",
     "name" : "Pre-Orchiectomy Human Chorionic Gonadotropin (hCG) Range",
     "naaccr_item" : 2863,
+    "naaccr_xml_id" : "csSiteSpecificFactor9",
     "default" : "999",
     "table" : "ssf9_sej",
     "used_for_staging" : false,
@@ -208,6 +234,7 @@
     "key" : "ssf10",
     "name" : "Pre-Orchiectomy Lactate Dehydrogenase (LDH) Range",
     "naaccr_item" : 2864,
+    "naaccr_xml_id" : "csSiteSpecificFactor10",
     "default" : "999",
     "table" : "ssf10_sek",
     "used_for_staging" : false,
@@ -216,6 +243,7 @@
     "key" : "ssf11",
     "name" : "OBSOLETE - Persistence of Elevated Serum Tumor Markers",
     "naaccr_item" : 2865,
+    "naaccr_xml_id" : "csSiteSpecificFactor11",
     "default" : "988",
     "table" : "ssf11_sel",
     "used_for_staging" : false
@@ -223,6 +251,7 @@
     "key" : "ssf12",
     "name" : "Post-Orchiectomy Alpha Fetoprotein (AFP) Lab Value",
     "naaccr_item" : 2866,
+    "naaccr_xml_id" : "csSiteSpecificFactor12",
     "default" : "988",
     "table" : "ssf12_sfd",
     "used_for_staging" : false
@@ -230,6 +259,7 @@
     "key" : "ssf13",
     "name" : "Post-Orchiectomy Alpha Fetoprotein (AFP) Range",
     "naaccr_item" : 2867,
+    "naaccr_xml_id" : "csSiteSpecificFactor13",
     "default" : "999",
     "table" : "ssf13_sfe",
     "used_for_staging" : true,
@@ -238,6 +268,7 @@
     "key" : "ssf14",
     "name" : "Post-Orchiectomy Human Chorionic Gonadotropin (hCG) Lab Value",
     "naaccr_item" : 2868,
+    "naaccr_xml_id" : "csSiteSpecificFactor14",
     "default" : "988",
     "table" : "ssf14_sff",
     "used_for_staging" : false
@@ -245,6 +276,7 @@
     "key" : "ssf15",
     "name" : "Post-Orchiectomy Human Chorionic Gonadotropin (hCG) Range",
     "naaccr_item" : 2869,
+    "naaccr_xml_id" : "csSiteSpecificFactor15",
     "default" : "999",
     "table" : "ssf15_sfg",
     "used_for_staging" : true,
@@ -253,6 +285,7 @@
     "key" : "ssf16",
     "name" : "Post-Orchiectomy Lactate Dehydrogenase (LDH) Range",
     "naaccr_item" : 2870,
+    "naaccr_xml_id" : "csSiteSpecificFactor16",
     "default" : "999",
     "table" : "ssf16_sfh",
     "used_for_staging" : true,
@@ -261,6 +294,7 @@
     "key" : "ssf17",
     "name" : "CS Site-Specific Factor 17",
     "naaccr_item" : 2871,
+    "naaccr_xml_id" : "csSiteSpecificFactor17",
     "default" : "988",
     "table" : "ssf17_snl",
     "used_for_staging" : false,
@@ -269,6 +303,7 @@
     "key" : "ssf18",
     "name" : "CS Site-Specific Factor 18",
     "naaccr_item" : 2872,
+    "naaccr_xml_id" : "csSiteSpecificFactor18",
     "default" : "988",
     "table" : "ssf18_snm",
     "used_for_staging" : false,
@@ -277,6 +312,7 @@
     "key" : "ssf19",
     "name" : "CS Site-Specific Factor 19",
     "naaccr_item" : 2873,
+    "naaccr_xml_id" : "csSiteSpecificFactor19",
     "default" : "988",
     "table" : "ssf19_snn",
     "used_for_staging" : false,
@@ -285,6 +321,7 @@
     "key" : "ssf20",
     "name" : "CS Site-Specific Factor 20",
     "naaccr_item" : 2874,
+    "naaccr_xml_id" : "csSiteSpecificFactor20",
     "default" : "988",
     "table" : "ssf20_sno",
     "used_for_staging" : false,
@@ -293,6 +330,7 @@
     "key" : "ssf21",
     "name" : "CS Site-Specific Factor 21",
     "naaccr_item" : 2875,
+    "naaccr_xml_id" : "csSiteSpecificFactor21",
     "default" : "988",
     "table" : "ssf21_snp",
     "used_for_staging" : false,
@@ -301,6 +339,7 @@
     "key" : "ssf22",
     "name" : "CS Site-Specific Factor 22",
     "naaccr_item" : 2876,
+    "naaccr_xml_id" : "csSiteSpecificFactor22",
     "default" : "988",
     "table" : "ssf22_snq",
     "used_for_staging" : false,
@@ -309,6 +348,7 @@
     "key" : "ssf23",
     "name" : "CS Site-Specific Factor 23",
     "naaccr_item" : 2877,
+    "naaccr_xml_id" : "csSiteSpecificFactor23",
     "default" : "988",
     "table" : "ssf23_snr",
     "used_for_staging" : false,
@@ -317,6 +357,7 @@
     "key" : "ssf24",
     "name" : "CS Site-Specific Factor 24",
     "naaccr_item" : 2878,
+    "naaccr_xml_id" : "csSiteSpecificFactor24",
     "default" : "988",
     "table" : "ssf24_sns",
     "used_for_staging" : false,
@@ -325,6 +366,7 @@
     "key" : "ssf25",
     "name" : "CS Site-Specific Factor 25",
     "naaccr_item" : 2879,
+    "naaccr_xml_id" : "csSiteSpecificFactor25",
     "default" : "988",
     "table" : "ssf25_snt",
     "used_for_staging" : false,
@@ -340,6 +382,7 @@
     "name" : "CS Version Derived",
     "description" : "Collaborative Staging (CS) version used to derive the CS output fields.",
     "naaccr_item" : 2936,
+    "naaccr_xml_id" : "csVersionDerived",
     "default" : "020550"
   }, {
     "key" : "ajcc6_t",
@@ -410,67 +453,83 @@
   }, {
     "key" : "stor_ajcc6_t",
     "name" : "AJCC6 T (Storage)",
-    "naaccr_item" : 2940
+    "naaccr_item" : 2940,
+    "naaccr_xml_id" : "derivedAjcc6T"
   }, {
     "key" : "stor_ajcc6_tdescriptor",
     "name" : "AJCC6 T Descriptor (Storage)",
-    "naaccr_item" : 2950
+    "naaccr_item" : 2950,
+    "naaccr_xml_id" : "derivedAjcc6TDescript"
   }, {
     "key" : "stor_ajcc6_n",
     "name" : "AJCC6 N (Storage)",
-    "naaccr_item" : 2960
+    "naaccr_item" : 2960,
+    "naaccr_xml_id" : "derivedAjcc6N"
   }, {
     "key" : "stor_ajcc6_ndescriptor",
     "name" : "AJCC6 N Descriptor (Storage)",
-    "naaccr_item" : 2970
+    "naaccr_item" : 2970,
+    "naaccr_xml_id" : "derivedAjcc6NDescript"
   }, {
     "key" : "stor_ajcc6_m",
     "name" : "AJCC6 M (Storage)",
-    "naaccr_item" : 2980
+    "naaccr_item" : 2980,
+    "naaccr_xml_id" : "derivedAjcc6M"
   }, {
     "key" : "stor_ajcc6_mdescriptor",
     "name" : "AJCC6 M Descriptor (Storage)",
-    "naaccr_item" : 2990
+    "naaccr_item" : 2990,
+    "naaccr_xml_id" : "derivedAjcc6MDescript"
   }, {
     "key" : "stor_ajcc6_stage",
     "name" : "AJCC6 Stage Group (Storage)",
-    "naaccr_item" : 3000
+    "naaccr_item" : 3000,
+    "naaccr_xml_id" : "derivedAjcc6StageGrp"
   }, {
     "key" : "stor_ajcc7_t",
     "name" : "AJCC7 T (Storage)",
-    "naaccr_item" : 3400
+    "naaccr_item" : 3400,
+    "naaccr_xml_id" : "derivedAjcc7T"
   }, {
     "key" : "stor_ajcc7_tdescriptor",
     "name" : "AJCC7 T Descriptor (Storage)",
-    "naaccr_item" : 3402
+    "naaccr_item" : 3402,
+    "naaccr_xml_id" : "derivedAjcc7TDescript"
   }, {
     "key" : "stor_ajcc7_n",
     "name" : "AJCC7 N (Storage)",
-    "naaccr_item" : 3410
+    "naaccr_item" : 3410,
+    "naaccr_xml_id" : "derivedAjcc7N"
   }, {
     "key" : "stor_ajcc7_ndescriptor",
     "name" : "AJCC7 N Descriptor (Storage)",
-    "naaccr_item" : 3412
+    "naaccr_item" : 3412,
+    "naaccr_xml_id" : "derivedAjcc7NDescript"
   }, {
     "key" : "stor_ajcc7_m",
     "name" : "AJCC7 M (Storage)",
-    "naaccr_item" : 3420
+    "naaccr_item" : 3420,
+    "naaccr_xml_id" : "derivedAjcc7M"
   }, {
     "key" : "stor_ajcc7_mdescriptor",
     "name" : "AJCC7 M Descriptor (Storage)",
-    "naaccr_item" : 3422
+    "naaccr_item" : 3422,
+    "naaccr_xml_id" : "derivedAjcc7MDescript"
   }, {
     "key" : "stor_ajcc7_stage",
     "name" : "AJCC7 Stage Group (Storage)",
-    "naaccr_item" : 3430
+    "naaccr_item" : 3430,
+    "naaccr_xml_id" : "derivedAjcc7StageGrp"
   }, {
     "key" : "stor_ss77",
     "name" : "Summary Stage Group 1977 (Storage)",
-    "naaccr_item" : 3010
+    "naaccr_item" : 3010,
+    "naaccr_xml_id" : "derivedSs1977"
   }, {
     "key" : "stor_ss2000",
     "name" : "Summary Stage Group 2000 (Storage)",
-    "naaccr_item" : 3020
+    "naaccr_item" : 3020,
+    "naaccr_xml_id" : "derivedSs2000"
   } ],
   "mappings" : [ {
     "id" : "mapping_t",
@@ -1165,5 +1224,5 @@
     } ]
   } ],
   "involved_tables" : [ "ssf16_sfh", "extension_orchiectomy_lviajcc6_table_csv2_xis", "ssf5_nab", "ssf25_snt", "ssf15_sfg", "nodes_ddf", "ajcc7_t_codes", "ssf23_snr", "determine_correct_table_for_ajcc6_t_ns34", "histology", "schema_selection_testis", "cs_input_version_original", "ssf14_sff", "ssf22_snq", "lvi", "ssf3_lad", "ajcc_tdescriptor_cleanup", "mets_hbb", "lymph_nodes_pathologic_eval_xgu", "determine_correct_table_for_s_ns36", "combined_serum_tumor_marker_svalue_tablefor_yearof_diagnosis_less_than2010_xiz", "ajcc7_year_validation", "ssf21_snp", "ajcc7_stage_uqd", "ssf17_snl", "determine_correct_table_for_n_ns35", "ajcc_descriptor_codes", "ssf10_sek", "ajcc7_inclusions_tpj", "grade", "summary_stage_rpa", "ajcc7_m_codes", "ssf20_sno", "ajcc_ndescriptor_cleanup", "ssf1_jal", "extension_orchiectomy_lviajcc7_xgs", "ajcc6_t_codes", "ajcc6_exclusions_paj", "extension_orchiectomy_lviajcc6_table_csv1_xbv", "ajcc_mdescriptor_cleanup", "ss_codes", "size_apa", "nodes_exam_gpa", "extension_bdh", "ssf4_mac", "ajcc6_n_codes", "combined_serum_tumor_marker_svalue_tablefor_yearof_diagnosis_greater_than2009_xiy", "behavior", "ssf11_sel", "ssf7_seh", "mets_eval_ipb", "ssf6_oay", "ssf18_snm", "lymph_nodes_clinical_eval_xgt", "ssf13_sfe", "extension_eval_cpa", "ajcc7_n_codes", "ajcc6_stage_codes", "ajcc6_stage_qpq", "serum_tumor_marker_svalue_table_basedon_csssf123_xcj", "ssf19_snn", "ajcc7_stage_codes", "ssf8_sei", "determine_correct_table_for_ajcc6_stg_ns37", "primary_site", "ajcc6_year_validation", "ssf12_sfd", "ssf2_kad", "nodes_pos_fpc", "ajcc6_m_codes", "nodes_eval_epa", "cs_year_validation", "lymph_nodes_positive_eval_blank_xgv", "ajcctnm6_stage_csv1_xpz", "ssf24_sns", "ssf9_sej", "postorchiectomy_serum_tumor_marker_svalue_table_basedon_ssf131516_xgr" ],
-  "last_modified" : "2016-01-28T18:55:56.785Z"
+  "last_modified" : "2020-06-30T19:47:36.844Z"
 }

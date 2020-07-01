@@ -12,6 +12,7 @@
     "name" : "Primary Site",
     "description" : "Code for the primary site of the tumor being reported using either ICD-O-2 or ICD-O-3.",
     "naaccr_item" : 400,
+    "naaccr_xml_id" : "primarySite",
     "table" : "primary_site",
     "used_for_staging" : true
   }, {
@@ -19,6 +20,7 @@
     "name" : "Histology",
     "description" : "Codes for the histologic type of the tumor being reported using ICD-O-3.",
     "naaccr_item" : 522,
+    "naaccr_xml_id" : "histologicTypeIcdO3",
     "table" : "histology",
     "used_for_staging" : true
   }, {
@@ -26,6 +28,7 @@
     "name" : "Year of Diagnosis",
     "description" : "Date of initial diagnosis by a recognized medical practitioner for the tumor being reported whether clinically or microscopically confirmed.",
     "naaccr_item" : 390,
+    "naaccr_xml_id" : "dateOfDiagnosis",
     "table" : "cs_year_validation",
     "used_for_staging" : true
   }, {
@@ -33,6 +36,7 @@
     "name" : "CS Version Input Original",
     "description" : "Collaborative Staging (CS) version number initially used to code CS fields.",
     "naaccr_item" : 2935,
+    "naaccr_xml_id" : "csVersionInputOriginal",
     "table" : "cs_input_version_original",
     "used_for_staging" : true
   }, {
@@ -40,6 +44,7 @@
     "name" : "Behavior ICD-O-3",
     "description" : "Code for the behavior of the tumor being reported using ICD-O-3.",
     "naaccr_item" : 523,
+    "naaccr_xml_id" : "behaviorCodeIcdO3",
     "table" : "behavior",
     "used_for_staging" : true
   }, {
@@ -47,6 +52,7 @@
     "name" : "Grade",
     "description" : "Code for the grade or degree of differentiation of the reportable tumor.",
     "naaccr_item" : 440,
+    "naaccr_xml_id" : "grade",
     "table" : "grade",
     "used_for_staging" : false
   }, {
@@ -54,12 +60,14 @@
     "name" : "Age at Diagnosis",
     "description" : "Age of the patient at diagnosis in complete years.",
     "naaccr_item" : 230,
+    "naaccr_xml_id" : "ageAtDiagnosis",
     "used_for_staging" : false
   }, {
     "key" : "lvi",
     "name" : "Lymph-vascular Invasion",
     "description" : "Indicates whether lymphatic duct or blood vessel (LVI) is identified in the pathology report.",
     "naaccr_item" : 1182,
+    "naaccr_xml_id" : "lymphVascularInvasion",
     "default" : "8",
     "table" : "lvi",
     "used_for_staging" : false
@@ -68,6 +76,7 @@
     "name" : "CS Tumor Size",
     "description" : "Records the largest dimension or diameter of the primary tumor in millimeters.",
     "naaccr_item" : 2800,
+    "naaccr_xml_id" : "csTumorSize",
     "default" : "999",
     "table" : "size_aab",
     "used_for_staging" : true
@@ -76,6 +85,7 @@
     "name" : "CS Extension",
     "description" : "Identifies contiguous growth (extension) of the primary tumor within the organ of origin or its direct extension into neighboring organs. For certain sites such as ovary, discontinuous metastasis is coded in CS Extension.",
     "naaccr_item" : 2810,
+    "naaccr_xml_id" : "csExtension",
     "default" : "999",
     "table" : "extension_bak",
     "used_for_staging" : true
@@ -84,6 +94,7 @@
     "name" : "CS Tumor Size/Ext Eval",
     "description" : "Records how the codes for the two items CS Tumor Size and CS Extension were determined, based on the diagnostic methods employed.",
     "naaccr_item" : 2820,
+    "naaccr_xml_id" : "csTumorSizeExtEval",
     "default" : "9",
     "table" : "extension_eval_cpa",
     "used_for_staging" : true
@@ -92,6 +103,7 @@
     "name" : "CS Lymph Nodes",
     "description" : "Identifies the regional lymph nodes involved with cancer at the time of diagnosis.",
     "naaccr_item" : 2830,
+    "naaccr_xml_id" : "csLymphNodes",
     "default" : "999",
     "table" : "nodes_daj",
     "used_for_staging" : true
@@ -100,6 +112,7 @@
     "name" : "CS Lymph Nodes Eval",
     "description" : "Records how the code for CS Lymph Nodes was determined, based on the diagnosticmethods employed.",
     "naaccr_item" : 2840,
+    "naaccr_xml_id" : "csLymphNodesEval",
     "default" : "9",
     "table" : "nodes_eval_epa",
     "used_for_staging" : true
@@ -108,6 +121,7 @@
     "name" : "Regional Nodes Positive",
     "description" : "Records the exact number of regional nodes examined by the pathologist and found to contain metastases. ",
     "naaccr_item" : 820,
+    "naaccr_xml_id" : "regionalNodesPositive",
     "default" : "99",
     "table" : "nodes_pos_fab",
     "used_for_staging" : false
@@ -116,6 +130,7 @@
     "name" : "Regional Nodes Examined",
     "description" : "Records the total number of regional lymph nodes that were removed and examined by the pathologist. ",
     "naaccr_item" : 830,
+    "naaccr_xml_id" : "regionalNodesExamined",
     "default" : "99",
     "table" : "nodes_exam_gpa",
     "used_for_staging" : false
@@ -124,6 +139,7 @@
     "name" : "CS Mets at DX",
     "description" : "Identifies the distant site(s) of metastatic involvement at time of diagnosis.",
     "naaccr_item" : 2850,
+    "naaccr_xml_id" : "csMetsAtDx",
     "default" : "99",
     "table" : "mets_hau",
     "used_for_staging" : true
@@ -132,6 +148,7 @@
     "name" : "CS Mets Eval",
     "description" : "Records how the code for CS Mets at Dx was determined based on the diagnostic methods employed.",
     "naaccr_item" : 2860,
+    "naaccr_xml_id" : "csMetsEval",
     "default" : "9",
     "table" : "mets_eval_ipa",
     "used_for_staging" : true
@@ -139,6 +156,7 @@
     "key" : "ssf1",
     "name" : "Estrogen Receptor (ER) Assay",
     "naaccr_item" : 2880,
+    "naaccr_xml_id" : "csSiteSpecificFactor1",
     "default" : "999",
     "table" : "ssf1_jag",
     "used_for_staging" : false,
@@ -147,6 +165,7 @@
     "key" : "ssf2",
     "name" : "Progesterone Receptor (PR) Assay",
     "naaccr_item" : 2890,
+    "naaccr_xml_id" : "csSiteSpecificFactor2",
     "default" : "999",
     "table" : "ssf2_kac",
     "used_for_staging" : false,
@@ -155,6 +174,7 @@
     "key" : "ssf3",
     "name" : "Number of Positive Ipsilateral Level I-II Axillary Lymph Nodes",
     "naaccr_item" : 2900,
+    "naaccr_xml_id" : "csSiteSpecificFactor3",
     "default" : "099",
     "table" : "ssf3_lac",
     "used_for_staging" : true,
@@ -163,6 +183,7 @@
     "key" : "ssf4",
     "name" : "Immunohistochemistry (IHC) of Regional Lymph Nodes",
     "naaccr_item" : 2910,
+    "naaccr_xml_id" : "csSiteSpecificFactor4",
     "default" : "987",
     "table" : "ssf4_mab",
     "used_for_staging" : true,
@@ -171,6 +192,7 @@
     "key" : "ssf5",
     "name" : "Molecular (MOL) Studies of Regional Lymph Nodes",
     "naaccr_item" : 2920,
+    "naaccr_xml_id" : "csSiteSpecificFactor5",
     "default" : "987",
     "table" : "ssf5_naa",
     "used_for_staging" : true,
@@ -179,6 +201,7 @@
     "key" : "ssf6",
     "name" : "Size of Tumor-Invasive Component",
     "naaccr_item" : 2930,
+    "naaccr_xml_id" : "csSiteSpecificFactor6",
     "default" : "987",
     "table" : "ssf6_oaa",
     "used_for_staging" : false,
@@ -187,6 +210,7 @@
     "key" : "ssf7",
     "name" : "Nottingham or Bloom-Richardson (BR) Score/Grade",
     "naaccr_item" : 2861,
+    "naaccr_xml_id" : "csSiteSpecificFactor7",
     "default" : "999",
     "table" : "ssf7_saa",
     "used_for_staging" : false,
@@ -195,6 +219,7 @@
     "key" : "ssf8",
     "name" : "HER2: Immunohistochemistry (IHC) Lab Value",
     "naaccr_item" : 2862,
+    "naaccr_xml_id" : "csSiteSpecificFactor8",
     "default" : "999",
     "table" : "ssf8_sab",
     "used_for_staging" : false,
@@ -203,6 +228,7 @@
     "key" : "ssf9",
     "name" : "HER2: Immunohistochemistry (IHC) Test Interpretation",
     "naaccr_item" : 2863,
+    "naaccr_xml_id" : "csSiteSpecificFactor9",
     "default" : "999",
     "table" : "ssf9_sac",
     "used_for_staging" : false,
@@ -211,6 +237,7 @@
     "key" : "ssf10",
     "name" : "HER2: Fluorescence In Situ Hybridization (FISH) Lab Value",
     "naaccr_item" : 2864,
+    "naaccr_xml_id" : "csSiteSpecificFactor10",
     "default" : "988",
     "table" : "ssf10_sad",
     "used_for_staging" : false,
@@ -219,6 +246,7 @@
     "key" : "ssf11",
     "name" : "HER2: Fluorescence In Situ Hybridization (FISH) Test Interpretation",
     "naaccr_item" : 2865,
+    "naaccr_xml_id" : "csSiteSpecificFactor11",
     "default" : "999",
     "table" : "ssf11_sae",
     "used_for_staging" : false,
@@ -227,6 +255,7 @@
     "key" : "ssf12",
     "name" : "HER2: Chromogenic In Situ Hybridization (CISH) Lab Value",
     "naaccr_item" : 2866,
+    "naaccr_xml_id" : "csSiteSpecificFactor12",
     "default" : "988",
     "table" : "ssf12_saf",
     "used_for_staging" : false,
@@ -235,6 +264,7 @@
     "key" : "ssf13",
     "name" : "HER2: Chromogenic In Situ Hybridization (CISH) Test Interpretation",
     "naaccr_item" : 2867,
+    "naaccr_xml_id" : "csSiteSpecificFactor13",
     "default" : "999",
     "table" : "ssf13_sag",
     "used_for_staging" : false,
@@ -243,6 +273,7 @@
     "key" : "ssf14",
     "name" : "HER2: Result of Other or Unknown Test",
     "naaccr_item" : 2868,
+    "naaccr_xml_id" : "csSiteSpecificFactor14",
     "default" : "999",
     "table" : "ssf14_sbf",
     "used_for_staging" : false,
@@ -251,6 +282,7 @@
     "key" : "ssf15",
     "name" : "HER2: Summary Result of Testing",
     "naaccr_item" : 2869,
+    "naaccr_xml_id" : "csSiteSpecificFactor15",
     "default" : "999",
     "table" : "ssf15_sbg",
     "used_for_staging" : false,
@@ -259,6 +291,7 @@
     "key" : "ssf16",
     "name" : "Combinations of ER, PR, and HER2 Results",
     "naaccr_item" : 2870,
+    "naaccr_xml_id" : "csSiteSpecificFactor16",
     "default" : "988",
     "table" : "ssf16_sah",
     "used_for_staging" : false,
@@ -267,6 +300,7 @@
     "key" : "ssf17",
     "name" : "Circulating Tumor Cells (CTC) and Method of Detection",
     "naaccr_item" : 2871,
+    "naaccr_xml_id" : "csSiteSpecificFactor17",
     "default" : "988",
     "table" : "ssf17_sai",
     "used_for_staging" : false
@@ -274,6 +308,7 @@
     "key" : "ssf18",
     "name" : "Disseminated Tumor Cells (DTC) and Method of Detection",
     "naaccr_item" : 2872,
+    "naaccr_xml_id" : "csSiteSpecificFactor18",
     "default" : "988",
     "table" : "ssf18_saj",
     "used_for_staging" : false
@@ -281,6 +316,7 @@
     "key" : "ssf19",
     "name" : "Assessment of Positive Ipsilateral Axillary Lymph Nodes",
     "naaccr_item" : 2873,
+    "naaccr_xml_id" : "csSiteSpecificFactor19",
     "default" : "988",
     "table" : "ssf19_sak",
     "used_for_staging" : false
@@ -288,6 +324,7 @@
     "key" : "ssf20",
     "name" : "Assessment of Positive Distant Metastases",
     "naaccr_item" : 2874,
+    "naaccr_xml_id" : "csSiteSpecificFactor20",
     "default" : "988",
     "table" : "ssf20_sal",
     "used_for_staging" : false
@@ -295,6 +332,7 @@
     "key" : "ssf21",
     "name" : "Response to Neoadjuvant Therapy",
     "naaccr_item" : 2875,
+    "naaccr_xml_id" : "csSiteSpecificFactor21",
     "default" : "988",
     "table" : "ssf21_sam",
     "used_for_staging" : false,
@@ -303,6 +341,7 @@
     "key" : "ssf22",
     "name" : "Multigene Signature Method",
     "naaccr_item" : 2876,
+    "naaccr_xml_id" : "csSiteSpecificFactor22",
     "default" : "999",
     "table" : "ssf22_san",
     "used_for_staging" : false,
@@ -311,6 +350,7 @@
     "key" : "ssf23",
     "name" : "Multigene Signature Results",
     "naaccr_item" : 2877,
+    "naaccr_xml_id" : "csSiteSpecificFactor23",
     "default" : "999",
     "table" : "ssf23_sao",
     "used_for_staging" : false,
@@ -319,6 +359,7 @@
     "key" : "ssf24",
     "name" : "Paget Disease",
     "naaccr_item" : 2878,
+    "naaccr_xml_id" : "csSiteSpecificFactor24",
     "default" : "988",
     "table" : "ssf24_sap",
     "used_for_staging" : false
@@ -326,6 +367,7 @@
     "key" : "ssf25",
     "name" : "CS Site-Specific Factor 25",
     "naaccr_item" : 2879,
+    "naaccr_xml_id" : "csSiteSpecificFactor25",
     "default" : "988",
     "table" : "ssf25_snt",
     "used_for_staging" : false,
@@ -341,6 +383,7 @@
     "name" : "CS Version Derived",
     "description" : "Collaborative Staging (CS) version used to derive the CS output fields.",
     "naaccr_item" : 2936,
+    "naaccr_xml_id" : "csVersionDerived",
     "default" : "020550"
   }, {
     "key" : "ajcc6_t",
@@ -411,67 +454,83 @@
   }, {
     "key" : "stor_ajcc6_t",
     "name" : "AJCC6 T (Storage)",
-    "naaccr_item" : 2940
+    "naaccr_item" : 2940,
+    "naaccr_xml_id" : "derivedAjcc6T"
   }, {
     "key" : "stor_ajcc6_tdescriptor",
     "name" : "AJCC6 T Descriptor (Storage)",
-    "naaccr_item" : 2950
+    "naaccr_item" : 2950,
+    "naaccr_xml_id" : "derivedAjcc6TDescript"
   }, {
     "key" : "stor_ajcc6_n",
     "name" : "AJCC6 N (Storage)",
-    "naaccr_item" : 2960
+    "naaccr_item" : 2960,
+    "naaccr_xml_id" : "derivedAjcc6N"
   }, {
     "key" : "stor_ajcc6_ndescriptor",
     "name" : "AJCC6 N Descriptor (Storage)",
-    "naaccr_item" : 2970
+    "naaccr_item" : 2970,
+    "naaccr_xml_id" : "derivedAjcc6NDescript"
   }, {
     "key" : "stor_ajcc6_m",
     "name" : "AJCC6 M (Storage)",
-    "naaccr_item" : 2980
+    "naaccr_item" : 2980,
+    "naaccr_xml_id" : "derivedAjcc6M"
   }, {
     "key" : "stor_ajcc6_mdescriptor",
     "name" : "AJCC6 M Descriptor (Storage)",
-    "naaccr_item" : 2990
+    "naaccr_item" : 2990,
+    "naaccr_xml_id" : "derivedAjcc6MDescript"
   }, {
     "key" : "stor_ajcc6_stage",
     "name" : "AJCC6 Stage Group (Storage)",
-    "naaccr_item" : 3000
+    "naaccr_item" : 3000,
+    "naaccr_xml_id" : "derivedAjcc6StageGrp"
   }, {
     "key" : "stor_ajcc7_t",
     "name" : "AJCC7 T (Storage)",
-    "naaccr_item" : 3400
+    "naaccr_item" : 3400,
+    "naaccr_xml_id" : "derivedAjcc7T"
   }, {
     "key" : "stor_ajcc7_tdescriptor",
     "name" : "AJCC7 T Descriptor (Storage)",
-    "naaccr_item" : 3402
+    "naaccr_item" : 3402,
+    "naaccr_xml_id" : "derivedAjcc7TDescript"
   }, {
     "key" : "stor_ajcc7_n",
     "name" : "AJCC7 N (Storage)",
-    "naaccr_item" : 3410
+    "naaccr_item" : 3410,
+    "naaccr_xml_id" : "derivedAjcc7N"
   }, {
     "key" : "stor_ajcc7_ndescriptor",
     "name" : "AJCC7 N Descriptor (Storage)",
-    "naaccr_item" : 3412
+    "naaccr_item" : 3412,
+    "naaccr_xml_id" : "derivedAjcc7NDescript"
   }, {
     "key" : "stor_ajcc7_m",
     "name" : "AJCC7 M (Storage)",
-    "naaccr_item" : 3420
+    "naaccr_item" : 3420,
+    "naaccr_xml_id" : "derivedAjcc7M"
   }, {
     "key" : "stor_ajcc7_mdescriptor",
     "name" : "AJCC7 M Descriptor (Storage)",
-    "naaccr_item" : 3422
+    "naaccr_item" : 3422,
+    "naaccr_xml_id" : "derivedAjcc7MDescript"
   }, {
     "key" : "stor_ajcc7_stage",
     "name" : "AJCC7 Stage Group (Storage)",
-    "naaccr_item" : 3430
+    "naaccr_item" : 3430,
+    "naaccr_xml_id" : "derivedAjcc7StageGrp"
   }, {
     "key" : "stor_ss77",
     "name" : "Summary Stage Group 1977 (Storage)",
-    "naaccr_item" : 3010
+    "naaccr_item" : 3010,
+    "naaccr_xml_id" : "derivedSs1977"
   }, {
     "key" : "stor_ss2000",
     "name" : "Summary Stage Group 2000 (Storage)",
-    "naaccr_item" : 3020
+    "naaccr_item" : 3020,
+    "naaccr_xml_id" : "derivedSs2000"
   } ],
   "mappings" : [ {
     "id" : "mapping_t",
@@ -1142,5 +1201,5 @@
     } ]
   } ],
   "involved_tables" : [ "lymph_nodes_clinical_evaluation_xcx", "size_aab", "ssf22_san", "ssf23_sao", "ssf5_naa", "ssf25_snt", "extension_behavior_xci", "schema_selection_breast", "lymph_nodes_positive_axillary_node_xcy", "ajcc7_t_codes", "extension_size_xar", "determine_correct_table_for_ajcc6_n_ns9", "histology", "ssf24_sap", "cs_input_version_original", "ajcc7_stage_uac", "nodes_pos_fab", "lvi", "ssf3_lac", "ajcc_tdescriptor_cleanup", "ssf11_sae", "ssf16_sah", "ssf14_sbf", "ssf20_sal", "ajcc7_year_validation", "nodes_daj", "ajcc_descriptor_codes", "ajcc7_inclusions_tpg", "ssf10_sad", "ssf15_sbg", "ajcc6_stage_qad", "ssf21_sam", "grade", "summary_stage_rpa", "ssf17_sai", "ajcc7_m_codes", "ssf1_jag", "ajcc_ndescriptor_cleanup", "extension_bak", "ssf19_sak", "ssf6_oaa", "ajcc6_t_codes", "ssf18_saj", "ajcc_mdescriptor_cleanup", "ajcc6_exclusions_pan", "ss_codes", "ssf7_saa", "nodes_exam_gpa", "ssf4_mab", "ajcc6_n_codes", "behavior", "mets_hau", "mets_eval_ipa", "ssf8_sab", "extension_eval_cpa", "ajcc7_n_codes", "ajcc6_stage_codes", "ssf12_saf", "ajcc7_stage_codes", "ihcmol_xcc", "primary_site", "ajcc6_year_validation", "ssf2_kac", "lymph_nodes_pathologic_evaluation_xcw", "ajcc6_m_codes", "nodes_eval_epa", "cs_year_validation", "ssf9_sac", "ssf13_sag" ],
-  "last_modified" : "2016-01-28T18:55:45.436Z"
+  "last_modified" : "2020-06-30T19:47:11.163Z"
 }

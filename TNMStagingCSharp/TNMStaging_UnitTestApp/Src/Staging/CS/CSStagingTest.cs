@@ -511,6 +511,55 @@ namespace TNMStaging_UnitTestApp.Src
         }
 
         [TestMethod]
+        public void testColonUnknownDxYear()
+        {
+            CsStagingData data = new CsStagingData();
+            data.setInput(CsInput.PRIMARY_SITE, "C183");
+            data.setInput(CsInput.HISTOLOGY, "8140");
+            data.setInput(CsInput.BEHAVIOR, "0");
+            data.setInput(CsInput.GRADE, "1");
+            data.setInput(CsInput.DX_YEAR, "");
+            data.setInput(CsInput.CS_VERSION_ORIGINAL, "010401");
+            data.setInput(CsInput.TUMOR_SIZE, "000");
+            data.setInput(CsInput.EXTENSION, "000");
+            data.setInput(CsInput.EXTENSION_EVAL, "0");
+            data.setInput(CsInput.LYMPH_NODES, "000");
+            data.setInput(CsInput.LYMPH_NODES_EVAL, "0");
+            data.setInput(CsInput.REGIONAL_NODES_POSITIVE, "00");
+            data.setInput(CsInput.REGIONAL_NODES_EXAMINED, "00");
+            data.setInput(CsInput.METS_AT_DX, "00");
+            data.setInput(CsInput.METS_EVAL, "0");
+            data.setInput(CsInput.LVI, "0");
+            data.setInput(CsInput.AGE_AT_DX, "0");
+            data.setSsf(1, "000");
+            data.setSsf(2, "000");
+            data.setSsf(3, "000");
+            data.setSsf(4, "000");
+            data.setSsf(5, "000");
+            data.setSsf(6, "000");
+            data.setSsf(7, "020");
+            data.setSsf(8, "000");
+            data.setSsf(9, "010");
+            data.setSsf(10, "010");
+            for (int i = 11; i <= 25; i++)
+            {
+                data.setSsf(i, "988");
+            }
+
+            // perform the staging
+            _STAGING.stage(data);
+
+            // verify the AJCC7 values should be null
+            foreach (KeyValuePair<string,string> entry in data.getOutput())
+            {
+                if (entry.Key.Contains("ajcc7"))
+                    Assert.IsNull(entry.Value, "AJCC7 Key '" + entry.Key + " should be null");
+                else
+                    Assert.IsNotNull(entry.Value, "Key '" + entry.Key + " should not be null");
+            }
+        }
+
+        [TestMethod]
         public void testBadLookupInStage()
         {
             CsStagingData data = new CsStagingData();

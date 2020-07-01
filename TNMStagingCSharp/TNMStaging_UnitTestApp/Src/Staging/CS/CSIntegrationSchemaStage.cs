@@ -191,7 +191,11 @@ namespace TNMStaging_UnitTestApp.Src.Staging.CS
             CsStagingData data = new CsStagingData();
             data.setInput(CsInput.PRIMARY_SITE, thisDataObj.mValues[0]);
             data.setInput(CsInput.HISTOLOGY, thisDataObj.mValues[1]);
-            data.setInput(CsInput.DX_YEAR, thisDataObj.mValues[2]);
+
+            //data.setInput(CsInput.DX_YEAR, thisDataObj.mValues[2]);
+            // the test data was originally set up to use 2019 as an invalid year.  Since it is now 2019 that causes failures.  Manually setting to 2049.
+            data.setInput(CsInput.DX_YEAR, ("2019".Equals(thisDataObj.mValues[2]) ? "2049" : thisDataObj.mValues[2]));
+
             data.setInput(CsInput.CS_VERSION_ORIGINAL, thisDataObj.mValues[3]);
             data.setInput(CsInput.BEHAVIOR, thisDataObj.mValues[4]);
             data.setInput(CsInput.GRADE, thisDataObj.mValues[5]);

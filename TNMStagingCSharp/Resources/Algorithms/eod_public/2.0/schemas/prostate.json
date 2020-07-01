@@ -10,42 +10,49 @@
     "key" : "year_dx",
     "name" : "Year of Diagnosis",
     "naaccr_item" : 390,
+    "naaccr_xml_id" : "dateOfDiagnosis",
     "table" : "year_dx_validation",
     "used_for_staging" : false
   }, {
     "key" : "site",
     "name" : "Primary Site",
     "naaccr_item" : 400,
+    "naaccr_xml_id" : "primarySite",
     "table" : "primary_site",
     "used_for_staging" : true
   }, {
     "key" : "hist",
     "name" : "Histology",
     "naaccr_item" : 522,
+    "naaccr_xml_id" : "histologicTypeIcdO3",
     "table" : "histology",
     "used_for_staging" : true
   }, {
     "key" : "behavior",
     "name" : "Behavior",
     "naaccr_item" : 523,
+    "naaccr_xml_id" : "behaviorCodeIcdO3",
     "table" : "behavior",
     "used_for_staging" : true
   }, {
     "key" : "size_clin",
     "name" : "Tumor Size Clinical",
     "naaccr_item" : 752,
+    "naaccr_xml_id" : "tumorSizeClinical",
     "table" : "tumor_size_clinical_60979",
     "used_for_staging" : false
   }, {
     "key" : "size_path",
     "name" : "Tumor Size Pathological",
     "naaccr_item" : 754,
+    "naaccr_xml_id" : "tumorSizePathologic",
     "table" : "tumor_size_pathological_25597",
     "used_for_staging" : false
   }, {
     "key" : "size_summary",
     "name" : "Tumor Size Summary",
     "naaccr_item" : 756,
+    "naaccr_xml_id" : "tumorSizeSummary",
     "default" : "999",
     "table" : "tumor_size_summary_63115",
     "used_for_staging" : false
@@ -53,6 +60,7 @@
     "key" : "nodes_pos",
     "name" : "Regional Nodes Positive",
     "naaccr_item" : 820,
+    "naaccr_xml_id" : "regionalNodesPositive",
     "default" : "99",
     "table" : "nodes_pos_fpa",
     "used_for_staging" : false
@@ -60,6 +68,7 @@
     "key" : "nodes_exam",
     "name" : "Regional Nodes Examined",
     "naaccr_item" : 830,
+    "naaccr_xml_id" : "regionalNodesExamined",
     "default" : "99",
     "table" : "nodes_exam_76029",
     "used_for_staging" : false
@@ -67,6 +76,7 @@
     "key" : "lvi",
     "name" : "LVI",
     "naaccr_item" : 1182,
+    "naaccr_xml_id" : "lymphVascularInvasion",
     "default" : "9",
     "table" : "lvi_full_56663",
     "used_for_staging" : false
@@ -74,18 +84,21 @@
     "key" : "radiation_surg_seq",
     "name" : "RX Summ Surgery/Radiation Sequence",
     "naaccr_item" : 1380,
+    "naaccr_xml_id" : "rxSummSurgRadSeq",
     "table" : "radiation_surg_seq",
     "used_for_staging" : true
   }, {
     "key" : "systemic_surg_seq",
     "name" : "RX Summ Systemic/Surgery Sequence",
     "naaccr_item" : 1639,
+    "naaccr_xml_id" : "rxSummSystemicSurSeq",
     "table" : "systemic_surg_seq",
     "used_for_staging" : true
   }, {
     "key" : "eod_primary_tumor",
     "name" : "EOD Primary Tumor",
     "naaccr_item" : 772,
+    "naaccr_xml_id" : "eodPrimaryTumor",
     "default" : "999",
     "table" : "extension_bbo",
     "used_for_staging" : true
@@ -93,6 +106,7 @@
     "key" : "eod_prostate_path_extension",
     "name" : "EOD Prostate Pathologic Extension",
     "naaccr_item" : 3919,
+    "naaccr_xml_id" : "prostatePathologicalExtension",
     "default" : "999",
     "table" : "eod_prostate_pathologic_extension_2781",
     "used_for_staging" : true
@@ -100,6 +114,7 @@
     "key" : "eod_regional_nodes",
     "name" : "EOD Regional Nodes",
     "naaccr_item" : 774,
+    "naaccr_xml_id" : "eodRegionalNodes",
     "default" : "999",
     "table" : "nodes_dbf",
     "used_for_staging" : true
@@ -107,6 +122,7 @@
     "key" : "eod_mets",
     "name" : "EOD Mets",
     "naaccr_item" : 776,
+    "naaccr_xml_id" : "eodMets",
     "default" : "00",
     "table" : "mets_hal",
     "used_for_staging" : true
@@ -114,12 +130,14 @@
     "key" : "ss2018",
     "name" : "SS2018",
     "naaccr_item" : 764,
+    "naaccr_xml_id" : "summaryStage2018",
     "table" : "ss2018_prostate_76172",
     "used_for_staging" : false
   }, {
     "key" : "grade_clin",
     "name" : "Grade Clinical",
     "naaccr_item" : 3843,
+    "naaccr_xml_id" : "gradeClinical",
     "default" : "9",
     "table" : "grade_clinical_46962",
     "used_for_staging" : true,
@@ -128,6 +146,7 @@
     "key" : "grade_path",
     "name" : "Grade Pathological",
     "naaccr_item" : 3844,
+    "naaccr_xml_id" : "gradePathological",
     "default" : "9",
     "table" : "grade_pathological_20069",
     "used_for_staging" : true,
@@ -143,6 +162,7 @@
     "key" : "grade_post_therapy_path",
     "name" : "Grade Post Therapy Path (yp)",
     "naaccr_item" : 3845,
+    "naaccr_xml_id" : "gradePostTherapy",
     "table" : "grade_post_therapy_path_20786",
     "used_for_staging" : true,
     "metadata" : [ "COC_REQUIRED", "NPCR_REQUIRED", "SSDI", "CCCR_REQUIRED", "SEER_REQUIRED" ]
@@ -150,6 +170,7 @@
     "key" : "psa",
     "name" : "PSA Lab Value",
     "naaccr_item" : 3920,
+    "naaccr_xml_id" : "psaLabValue",
     "default" : "XXX.9",
     "table" : "psa_46258",
     "used_for_staging" : true,
@@ -158,6 +179,7 @@
     "key" : "number_cores_pos",
     "name" : "Number of Cores Positive",
     "naaccr_item" : 3898,
+    "naaccr_xml_id" : "numberOfCoresPositive",
     "default" : "X8",
     "table" : "number_of_cores_positive_87819",
     "used_for_staging" : false,
@@ -166,6 +188,7 @@
     "key" : "number_cores_exam",
     "name" : "Number of Cores Examined",
     "naaccr_item" : 3897,
+    "naaccr_xml_id" : "numberOfCoresExamined",
     "default" : "X8",
     "table" : "number_of_cores_examined_64985",
     "used_for_staging" : false,
@@ -174,6 +197,7 @@
     "key" : "gleason_score_clin",
     "name" : "Gleason Score Clinical",
     "naaccr_item" : 3840,
+    "naaccr_xml_id" : "gleasonScoreClinical",
     "default" : "X8",
     "table" : "gleason_score_clinical_67175",
     "used_for_staging" : false,
@@ -182,6 +206,7 @@
     "key" : "gleason_patterns_clin",
     "name" : "Gleason Patterns Clinical",
     "naaccr_item" : 3838,
+    "naaccr_xml_id" : "gleasonPatternsClinical",
     "default" : "X8",
     "table" : "gleason_pattern_clinical_75179",
     "used_for_staging" : false,
@@ -190,6 +215,7 @@
     "key" : "gleason_score_path",
     "name" : "Gleason Score Pathological",
     "naaccr_item" : 3841,
+    "naaccr_xml_id" : "gleasonScorePathological",
     "default" : "X8",
     "table" : "gleason_score_pathological_82121",
     "used_for_staging" : false,
@@ -198,6 +224,7 @@
     "key" : "gleason_patterns_path",
     "name" : "Gleason Patterns Pathological",
     "naaccr_item" : 3839,
+    "naaccr_xml_id" : "gleasonPatternsPathological",
     "default" : "X8",
     "table" : "gleason_patterns_pathological_833",
     "used_for_staging" : false,
@@ -206,6 +233,7 @@
     "key" : "gleason_tertiary_pattern",
     "name" : "Gleason Tertiary Pattern",
     "naaccr_item" : 3842,
+    "naaccr_xml_id" : "gleasonTertiaryPattern",
     "default" : "X8",
     "table" : "gleason_tertiary_pattern_6430",
     "used_for_staging" : false,
@@ -215,16 +243,19 @@
     "key" : "naaccr_schema_id",
     "name" : "Schema ID",
     "naaccr_item" : 3800,
+    "naaccr_xml_id" : "schemaId",
     "default" : "00580"
   }, {
     "key" : "ajcc_id",
     "name" : "AJCC ID",
     "naaccr_item" : 995,
+    "naaccr_xml_id" : "ajccId",
     "default" : "XX"
   }, {
     "key" : "ajcc_version_number",
     "name" : "AJCC Version Number",
-    "naaccr_item" : 1060
+    "naaccr_item" : 1060,
+    "naaccr_xml_id" : "tnmEditionNumber"
   }, {
     "key" : "derived_version",
     "name" : "Derived Version",
@@ -233,26 +264,31 @@
     "key" : "eod_2018_t",
     "name" : "Derived EOD 2018 T",
     "naaccr_item" : 785,
+    "naaccr_xml_id" : "derivedEod2018T",
     "default" : "88"
   }, {
     "key" : "eod_2018_n",
     "name" : "Derived EOD 2018 N",
     "naaccr_item" : 815,
+    "naaccr_xml_id" : "derivedEod2018N",
     "default" : "88"
   }, {
     "key" : "eod_2018_m",
     "name" : "Derived EOD 2018 M",
     "naaccr_item" : 795,
+    "naaccr_xml_id" : "derivedEod2018M",
     "default" : "88"
   }, {
     "key" : "eod_2018_stage_group",
     "name" : "Derived EOD 2018 Stage Group",
     "naaccr_item" : 818,
+    "naaccr_xml_id" : "derivedEod2018StageGroup",
     "default" : "88"
   }, {
     "key" : "ss2018_derived",
     "name" : "Derived Summary Stage 2018",
     "naaccr_item" : 762,
+    "naaccr_xml_id" : "derivedSummaryStage2018",
     "default" : "9"
   } ],
   "mappings" : [ {
@@ -447,5 +483,5 @@
   } ],
   "involved_tables" : [ "mets_hal", "ajcc_chapter_calculation_41833", "radiation_surg_seq", "gleason_patterns_pathological_833", "nodes_pos_fpa", "parse_t_2177", "tnm_8_combined_stage_group_for_eod_44498", "nodes_dbf", "parse_n_67182", "grade_clinical_46962", "grade_post_therapy_clin_26978", "schema_selection_prostate", "histology", "combine_prostate_eod_extension_16771", "nodes_exam_76029", "gleason_score_pathological_82121", "lvi_full_56663", "combined_t_no_tis", "grade_post_therapy_path_20786", "tumor_size_summary_63115", "ss2018_prostate_76172", "combined_grade_56638", "behavior", "extension_bbo", "concatenate_t_51262", "tnm8_inclusions_tpv", "number_of_cores_examined_64985", "number_of_cores_positive_87819", "grade_pathological_20069", "gleason_pattern_clinical_75179", "tumor_size_pathological_25597", "tumor_size_clinical_60979", "gleason_tertiary_pattern_6430", "systemic_surg_seq", "parse_m_47057", "primary_site", "eod_tnm_component_cleanup_58170", "psa_46258", "year_dx_validation", "summary_stage_rpa", "eod_prostate_pathologic_extension_2781", "gleason_score_clinical_67175" ],
   "on_invalid_input" : "CONTINUE",
-  "last_modified" : "2020-06-04T17:09:13.317Z"
+  "last_modified" : "2020-06-30T19:49:30.244Z"
 }
