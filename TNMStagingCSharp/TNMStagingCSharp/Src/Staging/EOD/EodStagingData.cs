@@ -17,6 +17,7 @@ namespace TNMStagingCSharp.Src.Staging.EOD
     //========================================================================================================================
     public class EodInput
     {
+        // input key definitions; note this only includes keys that are required for staging
         public static readonly EodInput PRIMARY_SITE = new EodInput("site");
         public static readonly EodInput HISTOLOGY = new EodInput("hist");
         public static readonly EodInput BEHAVIOR = new EodInput("behavior");
@@ -25,20 +26,36 @@ namespace TNMStagingCSharp.Src.Staging.EOD
         public static readonly EodInput DISCRIMINATOR_1 = new EodInput("discriminator_1");
         public static readonly EodInput DISCRIMINATOR_2 = new EodInput("discriminator_2");
         public static readonly EodInput NODES_POS = new EodInput("nodes_pos");
-        public static readonly EodInput NODES_EXAM = new EodInput("nodes_exam");
         public static readonly EodInput EOD_PRIMARY_TUMOR = new EodInput("eod_primary_tumor");
         public static readonly EodInput EOD_REGIONAL_NODES = new EodInput("eod_regional_nodes");
         public static readonly EodInput EOD_METS = new EodInput("eod_mets");
         public static readonly EodInput GRADE_CLIN = new EodInput("grade_clin");
         public static readonly EodInput GRADE_PATH = new EodInput("grade_path");
-        public static readonly EodInput GRADE_POST_THERAPY = new EodInput("grade_post_therapy");
+        public static readonly EodInput GRADE_POST_THERAPY_CLIN = new EodInput("grade_post_therapy_clin");
+        public static readonly EodInput GRADE_POST_THERAPY_PATH = new EodInput("grade_post_therapy_path");
         public static readonly EodInput DX_YEAR = new EodInput("year_dx");
-        public static readonly EodInput TUMOR_SIZE_CLIN = new EodInput("size_clin");
-        public static readonly EodInput TUMOR_SIZE_PATH = new EodInput("size_path");
         public static readonly EodInput TUMOR_SIZE_SUMMARY = new EodInput("size_summary");
         public static readonly EodInput RADIATION_SURG_SEQ = new EodInput("radiation_surg_seq");
         public static readonly EodInput SYSTEMIC_SURG_SEQ = new EodInput("systemic_surg_seq");
-        public static readonly EodInput SS_2018 = new EodInput("ss2018");
+        public static readonly EodInput BRESLOW_THINKNESS = new EodInput("breslow_thickness");
+        public static readonly EodInput EOD_PROSTATE_PATH_EXTENSION = new EodInput("eod_prostate_path_extension");
+        public static readonly EodInput ER = new EodInput("er");
+        public static readonly EodInput ESOPH_TUMOR_EPICENTER = new EodInput("esoph_tumor_epicenter");
+        public static readonly EodInput GESTATIONAL_PROG_INDEX = new EodInput("gestational_prog_index");
+        public static readonly EodInput HER2_SUMMARY = new EodInput("her2_summary");
+        public static readonly EodInput LDH_LEVEL = new EodInput("ldh_level");
+        public static readonly EodInput LN_POS_AXILLARY_LEVEL_1_2 = new EodInput("ln_pos_axillary_level_1_2");
+        public static readonly EodInput LN_SIZE_OF_METS = new EodInput("ln_size_of_mets");
+        public static readonly EodInput MEASURED_BASAL_DIAMETER = new EodInput("measured_basal_diameter");
+        public static readonly EodInput MEASURED_THICKNESS = new EodInput("measured_thickness");
+        public static readonly EodInput ONCOTYPE_DX_SCORE = new EodInput("oncotype_dx_score");
+        public static readonly EodInput PERIPHERAL_BLOOD_INVOLV = new EodInput("peripheral_blood_involv");
+        public static readonly EodInput PERITONEAL_CYTOLOGY = new EodInput("peritoneal_cytology");
+        public static readonly EodInput PR = new EodInput("pr");
+        public static readonly EodInput PSA = new EodInput("psa");
+        public static readonly EodInput S_CATEGORY_CLIN = new EodInput("s_category_clin");
+        public static readonly EodInput S_CATEGORY_PATH = new EodInput("s_category_path");
+        public static readonly EodInput ULCERATION = new EodInput("ulceration");
 
         public static IEnumerable<EodInput> Values
         {
@@ -52,20 +69,36 @@ namespace TNMStagingCSharp.Src.Staging.EOD
                 yield return DISCRIMINATOR_1;
                 yield return DISCRIMINATOR_2;
                 yield return NODES_POS;
-                yield return NODES_EXAM;
                 yield return EOD_PRIMARY_TUMOR;
                 yield return EOD_REGIONAL_NODES;
                 yield return EOD_METS;
                 yield return GRADE_CLIN;
                 yield return GRADE_PATH;
-                yield return GRADE_POST_THERAPY;
+                yield return GRADE_POST_THERAPY_CLIN;
+                yield return GRADE_POST_THERAPY_PATH;
                 yield return DX_YEAR;
-                yield return TUMOR_SIZE_CLIN;
-                yield return TUMOR_SIZE_PATH;
                 yield return TUMOR_SIZE_SUMMARY;
                 yield return RADIATION_SURG_SEQ;
                 yield return SYSTEMIC_SURG_SEQ;
-                yield return SS_2018;
+                yield return BRESLOW_THINKNESS;
+                yield return EOD_PROSTATE_PATH_EXTENSION;
+                yield return ER;
+                yield return ESOPH_TUMOR_EPICENTER;
+                yield return GESTATIONAL_PROG_INDEX;
+                yield return HER2_SUMMARY;
+                yield return LDH_LEVEL;
+                yield return LN_POS_AXILLARY_LEVEL_1_2;
+                yield return LN_SIZE_OF_METS;
+                yield return MEASURED_BASAL_DIAMETER;
+                yield return MEASURED_THICKNESS;
+                yield return ONCOTYPE_DX_SCORE;
+                yield return PERIPHERAL_BLOOD_INVOLV;
+                yield return PERITONEAL_CYTOLOGY;
+                yield return PR;
+                yield return PSA;
+                yield return S_CATEGORY_CLIN;
+                yield return S_CATEGORY_PATH;
+                yield return ULCERATION;
             }
         }
 
@@ -89,6 +122,7 @@ namespace TNMStagingCSharp.Src.Staging.EOD
     {
         public static readonly EodOutput NAACCR_SCHEMA_ID = new EodOutput("naaccr_schema_id");
         public static readonly EodOutput AJCC_ID = new EodOutput("ajcc_id");
+        public static readonly EodOutput AJCC_VERSION_NUMBER = new EodOutput("ajcc_version_number");
         public static readonly EodOutput DERIVED_VERSION = new EodOutput("derived_version");
         public static readonly EodOutput EOD_2018_T = new EodOutput("eod_2018_t");
         public static readonly EodOutput EOD_2018_N = new EodOutput("eod_2018_n");
@@ -102,6 +136,7 @@ namespace TNMStagingCSharp.Src.Staging.EOD
             {
                 yield return NAACCR_SCHEMA_ID;
                 yield return AJCC_ID;
+                yield return AJCC_VERSION_NUMBER;
                 yield return DERIVED_VERSION;
                 yield return EOD_2018_T;
                 yield return EOD_2018_N;
@@ -188,11 +223,11 @@ namespace TNMStagingCSharp.Src.Staging.EOD
         // EodStagingInputBuilder builder
         public class EodStagingInputBuilder
         {
-            private static EodStagingData _data;
+            private readonly EodStagingData _data = new EodStagingData();
 
             public EodStagingInputBuilder()
             {
-                _data = new EodStagingData();
+                //_data = new EodStagingData();
             }
 
             public EodStagingInputBuilder withDisciminator1(String discriminator1)

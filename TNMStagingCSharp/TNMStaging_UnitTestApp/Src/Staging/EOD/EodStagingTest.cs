@@ -305,6 +305,49 @@ namespace TNMStaging_UnitTestApp.Src.Staging.EOD
         }
 
         [TestMethod]
+        public void testStageDefaultSsdi()
+        {
+            EodStagingData data = new EodStagingData.EodStagingInputBuilder()
+                    .withInput(EodInput.PRIMARY_SITE, "C502")
+                    .withInput(EodInput.HISTOLOGY, "8500")
+                    .withInput(EodInput.BEHAVIOR, "3")
+                    .withInput(EodInput.DX_YEAR, "2020")
+                    .withInput(EodInput.TUMOR_SIZE_SUMMARY, "025")
+                    .withInput(EodInput.EOD_PRIMARY_TUMOR, "100")
+                    .withInput(EodInput.EOD_REGIONAL_NODES, "200")
+                    .withInput(EodInput.EOD_METS, "00")
+                    .withInput(EodInput.GRADE_CLIN, "1")
+                    .withInput(EodInput.GRADE_PATH, "1")
+                    .build();
+
+            // add SSDIs
+            // - Lymph Nodes Pos Axillary Level I-II: leave blank, should default to X8)
+            // - Oncotype DX Recur Score: leave blank, should default to XX9
+            data.setInput("er", "1");
+            data.setInput("pr", "0");
+            data.setInput("her2_summary", "0");
+
+            // perform the staging
+            _STAGING.stage(data);
+
+            Assert.AreEqual(data.getResult(), StagingData.Result.STAGED);
+            Assert.AreEqual(data.getSchemaId(), "breast");
+            Assert.AreEqual(data.getErrors().Count, 0);
+            Assert.AreEqual(data.getPath().Count, 16);
+            Assert.AreEqual(data.getOutput().Count, 9);
+
+            // check outputs
+            Assert.AreEqual(data.getOutput(EodOutput.DERIVED_VERSION), EodDataProvider.getInstance().getVersion());
+            Assert.AreEqual(data.getOutput(EodOutput.SS_2018_DERIVED), "3");
+            Assert.AreEqual(data.getOutput(EodOutput.NAACCR_SCHEMA_ID), "00480");
+            Assert.AreEqual(data.getOutput(EodOutput.EOD_2018_STAGE_GROUP), "2B");
+            Assert.AreEqual(data.getOutput(EodOutput.EOD_2018_T), "T2");
+            Assert.AreEqual(data.getOutput(EodOutput.EOD_2018_N), "N1");
+            Assert.AreEqual(data.getOutput(EodOutput.EOD_2018_M), "M0");
+            Assert.AreEqual(data.getOutput(EodOutput.AJCC_ID), "48.2");
+        }
+
+        [TestMethod]
         public void testBadLookupInStage()
         {
             EodStagingData data = new EodStagingData();
@@ -485,17 +528,21 @@ namespace TNMStaging_UnitTestApp.Src.Staging.EOD
         public void testContentReturnedForInvalidInput()
         {
             EodStagingData data = new EodStagingData.EodStagingInputBuilder()
-                    .withInput(EodInput.PRIMARY_SITE, "C713")
-                    .withInput(EodInput.HISTOLOGY, "8020")
-                    .withInput(EodInput.BEHAVIOR, "3")
-                    .withInput(EodInput.DX_YEAR, "2018")
-                    .withInput(EodInput.EOD_PRIMARY_TUMOR, "200")
-                    .withInput(EodInput.EOD_REGIONAL_NODES, "300")
-                    .withInput(EodInput.EOD_METS, "00").build();
+                .withInput(EodInput.PRIMARY_SITE, "C713")
+                .withInput(EodInput.HISTOLOGY, "8020")
+                .withInput(EodInput.BEHAVIOR, "3")
+                .withInput(EodInput.DX_YEAR, "2018")
+                .withInput(EodInput.EOD_PRIMARY_TUMOR, "200")
+                .withInput(EodInput.EOD_REGIONAL_NODES, "300")
+                .withInput(EodInput.EOD_METS, "00").build();
 
             // perform the staging
             _STAGING.stage(data);
 
+            if (data.getResult() != StagingData.Result.STAGED)
+            {
+                Assert.IsTrue(false);
+            }
             Assert.AreEqual(StagingData.Result.STAGED, data.getResult());
             Assert.AreEqual("brain", data.getSchemaId());
             Assert.AreEqual(5, data.getErrors().Count);
@@ -508,13 +555,13 @@ namespace TNMStaging_UnitTestApp.Src.Staging.EOD
         public void testContentNotReturnedForInvalidYear()
         {
             EodStagingData data = new EodStagingData.EodStagingInputBuilder()
-                    .withInput(EodInput.PRIMARY_SITE, "C713")
-                    .withInput(EodInput.HISTOLOGY, "8020")
-                    .withInput(EodInput.BEHAVIOR, "3")
-                    .withInput(EodInput.DX_YEAR, "2010")
-                    .withInput(EodInput.EOD_PRIMARY_TUMOR, "200")
-                    .withInput(EodInput.EOD_REGIONAL_NODES, "300")
-                    .withInput(EodInput.EOD_METS, "00").build();
+                .withInput(EodInput.PRIMARY_SITE, "C713")
+                .withInput(EodInput.HISTOLOGY, "8020")
+                .withInput(EodInput.BEHAVIOR, "3")
+                .withInput(EodInput.DX_YEAR, "2010")
+                .withInput(EodInput.EOD_PRIMARY_TUMOR, "200")
+                .withInput(EodInput.EOD_REGIONAL_NODES, "300")
+                .withInput(EodInput.EOD_METS, "00").build();
 
             // perform the staging
             _STAGING.stage(data);
@@ -524,6 +571,23 @@ namespace TNMStaging_UnitTestApp.Src.Staging.EOD
             Assert.AreEqual(0, data.getErrors().Count);
             Assert.AreEqual(0, data.getPath().Count);
             Assert.AreEqual(0, data.getOutput().Count);
+        }
+
+        [TestMethod]
+        public void testGlossary()
+        {
+            Assert.AreEqual(23, _STAGING.getGlossaryTerms().Count);
+            GlossaryDefinition entry = _STAGING.getGlossaryDefinition("Medulla");
+            Assert.IsNotNull(entry);
+            Assert.AreEqual("Medulla", entry.getName());
+            Assert.IsTrue(entry.getDefinition().StartsWith("The central portion of an organ, in contrast to the outer layer"));
+            CollectionAssert.AreEqual(new List<string>() { "Medullary" }, entry.getAlternateNames());
+            Assert.IsNotNull(entry.getLastModified());
+
+            HashSet<String> hits = _STAGING.getSchemaGlossary("urethra");
+            Assert.AreEqual(1, hits.Count);
+            hits = _STAGING.getTableGlossary("extension_baj");
+            Assert.AreEqual(3, hits.Count);
         }
 
         [TestMethod]

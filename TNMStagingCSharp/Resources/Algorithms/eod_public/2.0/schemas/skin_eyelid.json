@@ -147,6 +147,7 @@
     "key" : "grade_post_therapy_clin",
     "name" : "Grade Post Therapy Clin (yc)",
     "naaccr_item" : 1068,
+    "naaccr_xml_id" : "gradePostTherapyClin",
     "table" : "grade_post_therapy_clin_41222",
     "used_for_staging" : false,
     "metadata" : [ "NPCR_REQUIRED", "COC_REQUIRED", "SSDI", "CCCR_REQUIRED", "SEER_REQUIRED" ]
@@ -338,6 +339,6 @@
     } ]
   } ],
   "involved_tables" : [ "tumor_size_with_primary_tumor_for_ajcc_t_80315", "nodes_dde", "radiation_surg_seq", "tumor_size_pathological_43328", "ajcc_chapter_calculation_64632", "grade_post_therapy_path_41285", "grade_pathological_31963", "grade_post_therapy_clin_41222", "nodes_pos_fpa", "parse_t_2177", "parse_n_67182", "histology", "nodes_exam_76029", "extension_bdg", "lvi_full_56663", "mets_hcu", "behavior", "schema_selection_skin_eyelid", "perineural_invasion_24604", "tumor_size_clinical_48894", "tnm8_inclusions_56405", "systemic_surg_seq", "parse_m_47057", "primary_site", "eod_tnm_component_cleanup_58170", "year_dx_validation", "ss2018_skin_of_eyelid_82925", "grade_clinical_73056", "summary_stage_rpa", "tumor_size_summary_47973", "tnm8_path_stage_uaf" ],
-  "on_invalid_input" : "CONTINUE",
-  "last_modified" : "2020-06-30T19:49:21.483Z"
+  "last_modified" : "2020-12-21T18:22:14.739Z",
+  "on_invalid_input" : "CONTINUE"
 }

@@ -88,6 +88,31 @@ namespace TNMStaging_UnitTestApp.Src
             // Summary Stage
             Assert.AreEqual("7", data.getOutput("stor_ss77"));
             Assert.AreEqual("7", data.getOutput("stor_ss2000"));
+
+            // test glossary items
+            Assert.AreEqual(13, _STAGING.getGlossaryTerms().Count);
+            GlossaryDefinition entry = _STAGING.getGlossaryDefinition("Adjacent tissue(s), NOS");
+            Assert.IsNotNull(entry);
+            Assert.AreEqual("Adjacent tissue(s), NOS", entry.getName());
+            Assert.IsTrue(entry.getDefinition().StartsWith("The unnamed tissues that immediately surround"));
+            CollectionAssert.AreEqual(new List<string>() { "Connective tissue" }, entry.getAlternateNames());
+            Assert.IsNotNull(entry.getLastModified());
+
+            List<GlossaryHit> hits = _STAGING.getGlossaryMatches("Some text and Cortex should be only match.");
+            Assert.AreEqual(1, hits.Count);
+            GlossaryHit hit = hits[0];
+            Assert.AreEqual("cortex", hit.getTerm());
+            Assert.AreEqual(14, (long)hit.getBegin());
+            Assert.AreEqual(19, (long)hit.getEnd());
+            hits = _STAGING.getGlossaryMatches("Cortex and stroma should be two matches.");
+            Assert.AreEqual(2, hits.Count);
+            hits = _STAGING.getGlossaryMatches("stromafoo not be a match since the keyword it is not a whole word");
+            Assert.AreEqual(0, hits.Count);
+
+            HashSet<String> glossary = _STAGING.getSchemaGlossary("urethra");
+            Assert.AreEqual(1, glossary.Count);
+            glossary = _STAGING.getTableGlossary("ssf1_jpd");
+            Assert.AreEqual(1, glossary.Count);
         }
     }
 }

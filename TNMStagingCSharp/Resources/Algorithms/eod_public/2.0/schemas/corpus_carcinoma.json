@@ -147,6 +147,7 @@
     "key" : "grade_post_therapy_clin",
     "name" : "Grade Post Therapy Clin (yc)",
     "naaccr_item" : 1068,
+    "naaccr_xml_id" : "gradePostTherapyClin",
     "table" : "grade_post_therapy_clin_21162",
     "used_for_staging" : false,
     "metadata" : [ "NPCR_REQUIRED", "COC_REQUIRED", "SSDI", "CCCR_REQUIRED", "SEER_REQUIRED" ]
@@ -383,6 +384,6 @@
     } ]
   } ],
   "involved_tables" : [ "ss2018_corpus_carcinoma_and_carcinosarcoma_28794", "radiation_surg_seq", "number_of_postive_pelvic_nodes_94512", "grade_clinical_83264", "nodes_pos_fpa", "parse_t_2177", "nodes_dbd", "schema_selection_corpus_carcinoma", "parse_n_67182", "tnm8_inclusions_tqg", "histology", "nodes_exam_76029", "lvi_full_56663", "tumor_size_summary_63115", "figo_stage_corpus_carcinoma_and_carcinosarcoma_69186", "behavior", "peritoneal_cytology_38674", "extension_bbl", "number_of_positive_para_aortic_nodes_62533", "peritoneal_cytology_with_primary_tumor_for_ss2018_t_66387", "grade_pathological_4783", "grade_post_therapy_path_87571", "tumor_size_pathological_25597", "tumor_size_clinical_60979", "systemic_surg_seq", "ajcc_chapter_calculation_28119", "parse_m_47057", "primary_site", "eod_tnm_component_cleanup_58170", "number_of_examined_para_aortic_nodes_38078", "grade_post_therapy_clin_21162", "eod_mets_30426", "number_of_examined_pelvic_nodes_60771", "year_dx_validation", "summary_stage_rpa", "tnm_8_path_stage_group_for_eod_7124" ],
-  "on_invalid_input" : "CONTINUE",
-  "last_modified" : "2020-06-30T19:49:18.229Z"
+  "last_modified" : "2020-12-21T18:22:11.494Z",
+  "on_invalid_input" : "CONTINUE"
 }

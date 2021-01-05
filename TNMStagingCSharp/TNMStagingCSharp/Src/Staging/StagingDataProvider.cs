@@ -19,7 +19,7 @@ namespace TNMStagingCSharp.Src.Staging
         public static readonly String PRIMARY_SITE_TABLE = "primary_site";
         public static readonly String HISTOLOGY_TABLE = "histology";
 
-        private static Entities.StagingRange _MATCH_ALL_ENDPOINT = new Entities.StagingRange();
+        private readonly static Entities.StagingRange _MATCH_ALL_ENDPOINT = new Entities.StagingRange();
 
         private ConcurrentDictionary<String, List<StagingSchema>> mLookupMemoryDict;
         private int miLookupMemoryDictCount;
@@ -28,6 +28,7 @@ namespace TNMStagingCSharp.Src.Staging
 
         private const int NUM_ITEMS_IN_CACHE_CAUSES_TRIM = 10000;
 
+        protected HashSet<String> _trie;
 
         // Constructor loads all schemas and sets up cache
         public StagingDataProvider()
@@ -345,6 +346,47 @@ namespace TNMStagingCSharp.Src.Staging
         // Return a set of all the table names
         // @return a List of table identifier
         public abstract HashSet<String> getTableIds();
+
+        // Return a set of supported glossary terms
+        // @return a Set of terms
+        public abstract HashSet<String> getGlossaryTerms();
+
+        // Return a defitition of a glossary term
+        // @param term glossary term
+        // @return a glossary definiiion
+        public abstract GlossaryDefinition getGlossaryDefinition(String term);
+
+        // Return a list of all glossary matches in the supplied text
+        // @param text text to match against
+        // @return a List of glossary hits
+        public virtual List<GlossaryHit> getGlossaryMatches(String text)
+        {
+            //return _trie.parseText(text).stream().map(hit-> new GlossaryHit(hit.getKeyword(), hit.getStart(), hit.getEnd())).collect(Collectors.toSet());
+            List<GlossaryHit> retval = new List<GlossaryHit>();
+
+            //onlyWholeWords().ignoreCase();
+            int index = -1;
+            foreach (String term in _trie)
+            {
+                index = 0;
+                while (index >= 0)
+                {
+                    index = text.IndexOf(term, index, StringComparison.InvariantCultureIgnoreCase);
+                    if (index >= 0)
+                    {
+                        char before = index - 1 >= 0 ? text[index - 1] : ' ';
+                        char after = index + term.Length < text.Length ? text[index + term.Length] : ' ';
+                        if (!char.IsLetter(before) && !char.IsLetter(after))
+                        {
+                            GlossaryHit newHit = new GlossaryHit(term.ToLower(), index, index + term.Length - 1);
+                            retval.Add(newHit);
+                        }
+                        index += term.Length;
+                    }
+                }
+            }
+            return retval;
+        }
 
         // Return all the legal site values
         // @return a set of valid sites

@@ -250,11 +250,11 @@ namespace TNMStagingCSharp.Src.Staging.TNM
         public class TnmStagingInputBuilder
         {
 
-            private static TnmStagingData _data;
+            private readonly TnmStagingData _data = new TnmStagingData();
 
             public TnmStagingInputBuilder()
             {
-                _data = new TnmStagingData();
+                //_data = new TnmStagingData();
             }
 
             public TnmStagingInputBuilder withSsf(int id, String ssf)

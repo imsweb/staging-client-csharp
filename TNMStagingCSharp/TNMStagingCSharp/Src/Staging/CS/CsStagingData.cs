@@ -311,12 +311,11 @@ namespace TNMStagingCSharp.Src.Staging.CS
         // CsStagingInputBuilder builder
         public class CsStagingInputBuilder
         {
-
-            private static CsStagingData _data;
+            private readonly CsStagingData _data = new CsStagingData();
 
             public CsStagingInputBuilder()
             {
-                _data = new CsStagingData();
+                //_data = new CsStagingData();
             }
 
             public CsStagingInputBuilder withSsf(int id, String ssf)

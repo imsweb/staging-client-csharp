@@ -147,6 +147,7 @@
     "key" : "grade_post_therapy_clin",
     "name" : "Grade Post Therapy Clin (yc)",
     "naaccr_item" : 1068,
+    "naaccr_xml_id" : "gradePostTherapyClin",
     "table" : "grade_post_therapy_clin_41222",
     "used_for_staging" : false,
     "metadata" : [ "NPCR_REQUIRED", "COC_REQUIRED", "SSDI", "CCCR_REQUIRED", "SEER_REQUIRED" ]
@@ -356,6 +357,6 @@
     } ]
   } ],
   "involved_tables" : [ "nodes_pos_fah", "radiation_surg_seq", "tumor_size_pathological_43328", "grade_post_therapy_path_41285", "eod_regional_nodes_7080", "grade_pathological_31963", "grade_post_therapy_clin_41222", "summary_stage_rac", "parse_t_2177", "parse_n_67182", "tnm_8_path_stage_group_90415", "histology", "nodes_exam_76029", "lymph_nodes_size_of_metastasis_87329", "behavior", "ajcc_chapter_calculation_75770", "tnm8_inclusions_83218", "perineural_invasion_24604", "tumor_size_with_primary_tumor_for_ajcc_t_55569", "tumor_size_clinical_48894", "high_risk_features_73750", "schema_selection_cutaneous_squamous_cell_carcinoma_head_and_neck", "systemic_surg_seq", "eod_mets_3742", "parse_m_47057", "primary_site", "ss2018_skin_other_56341", "eod_tnm_component_cleanup_58170", "year_dx_validation", "grade_clinical_73056", "lvi_dna_56663", "tumor_size_summary_47973", "seer_primary_tumor_9084" ],
-  "on_invalid_input" : "CONTINUE",
-  "last_modified" : "2020-06-30T19:49:31.199Z"
+  "last_modified" : "2020-12-21T18:22:22.085Z",
+  "on_invalid_input" : "CONTINUE"
 }

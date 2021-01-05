@@ -16,10 +16,11 @@ namespace TNMStagingCSharp.Src.Staging
     {
         private String _algorithm;
         private String _version;
-        private Dictionary<String, StagingTable> _tables = new Dictionary<String, StagingTable>();
-        private Dictionary<String, StagingSchema> _schemas = new Dictionary<String, StagingSchema>();
-        private HashSet<String> _TableKeys = new HashSet<String>();
-        private HashSet<String> _SchemaKeys = new HashSet<String>();
+        private readonly Dictionary<String, StagingTable> _tables = new Dictionary<String, StagingTable>();
+        private readonly Dictionary<String, StagingSchema> _schemas = new Dictionary<String, StagingSchema>();
+        private readonly HashSet<String> _TableKeys = new HashSet<String>();
+        private readonly HashSet<String> _SchemaKeys = new HashSet<String>();
+        private readonly Dictionary<String, GlossaryDefinition> _glossaryTerms = new Dictionary<String, GlossaryDefinition>();
 
         // Constructor loads all schemas and sets up table cache
         // @param is InputStream pointing the the zip file
@@ -46,6 +47,8 @@ namespace TNMStagingCSharp.Src.Staging
             HashSet<String> algorithms = new HashSet<String>();
             HashSet<String> versions = new HashSet<String>();
 
+            //TrieBuilder builder = Trie.builder().onlyWholeWords().ignoreCase();
+            _trie = new HashSet<String>();
 
             using (ZipArchive archive = new ZipArchive(inStream, ZipArchiveMode.Read))
             {
@@ -92,7 +95,16 @@ namespace TNMStagingCSharp.Src.Staging
 
                         _schemas[schema.getId()] = schema;
                     }
+                    else if (entry.FullName.StartsWith("glossary"))
+                    {
+                        //GlossaryDefinition glossary = getMapper().reader().readValue(getMapper().getFactory().createParser(extractEntry(stream)), GlossaryDefinition.class);
+                        String s = extractEntry(entry);
+                        GlossaryDefinition glossary = new GlossaryDefinition();
+                        glossary = Newtonsoft.Json.JsonConvert.DeserializeObject<GlossaryDefinition>(s);
 
+                        _glossaryTerms[glossary.getName()] = glossary;
+                        _trie.Add(glossary.getName());
+                    }
                 }
             }
 
@@ -172,6 +184,16 @@ namespace TNMStagingCSharp.Src.Staging
                 oRetval = _schemas[id];
 
             return oRetval;
+        }
+
+        public override HashSet<String> getGlossaryTerms()
+        {
+            return new HashSet<String>(_glossaryTerms.Keys);
+        }
+
+        public override GlossaryDefinition getGlossaryDefinition(String term)
+        {
+            return _glossaryTerms[term];
         }
     }
 }

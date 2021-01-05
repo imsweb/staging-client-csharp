@@ -134,6 +134,7 @@
     "key" : "grade_post_therapy_clin",
     "name" : "Grade Post Therapy Clin (yc)",
     "naaccr_item" : 1068,
+    "naaccr_xml_id" : "gradePostTherapyClin",
     "table" : "grade_post_therapy_clin_26948",
     "used_for_staging" : false,
     "metadata" : [ "NPCR_REQUIRED", "COC_REQUIRED", "SSDI", "CCCR_REQUIRED", "SEER_REQUIRED" ]
@@ -228,6 +229,6 @@
     } ]
   } ],
   "involved_tables" : [ "ajcc_chapter_calculation_58282", "extension_bfy", "ss2018_intracranial_gland_98794", "summary_stage_benign_3306", "tumor_size_pathological_25597", "grade_post_therapy_path_86055", "tumor_size_clinical_60979", "nodes_exam_dna_95635", "grade_pathological_11803", "schema_selection_intracranial_gland", "primary_site", "histology", "grade_post_therapy_clin_26948", "year_dx_validation", "eod_mets_35594", "lvi_dna_56663", "tumor_size_summary_63115", "behavior", "grade_clinical_19997", "nodes_dna", "nodes_pos_dna_91511" ],
-  "on_invalid_input" : "CONTINUE",
-  "last_modified" : "2020-06-30T19:49:17.285Z"
+  "last_modified" : "2020-12-21T18:22:10.442Z",
+  "on_invalid_input" : "CONTINUE"
 }

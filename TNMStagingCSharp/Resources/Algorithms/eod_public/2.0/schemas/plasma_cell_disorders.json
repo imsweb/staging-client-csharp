@@ -136,6 +136,7 @@
     "key" : "grade_post_therapy_clin",
     "name" : "Grade Post Therapy Clin (yc)",
     "naaccr_item" : 1068,
+    "naaccr_xml_id" : "gradePostTherapyClin",
     "table" : "grade_post_therapy_clin_74830",
     "used_for_staging" : false,
     "metadata" : [ "NPCR_REQUIRED", "COC_REQUIRED", "SSDI", "CCCR_REQUIRED", "SEER_REQUIRED" ]
@@ -230,6 +231,6 @@
     } ]
   } ],
   "involved_tables" : [ "nodes_exam_17543", "tumor_size_clinical_dna_64119", "nodes_pos_2999", "ss2018_44993", "ajcc_chapter_calculation_84768", "tumor_size_pathological_dna_6742", "tumor_size_summary_dna_13275", "primary_site", "schema_selection_plasmacytomas", "grade_post_therapy_clin_74830", "histology", "year_dx_validation", "grade_post_therapy_path_65729", "summary_stage_rpa", "lvi_dna_56663", "mets_hna", "grade_clinical_18316", "eod_primary_tumor_3385", "behavior", "grade_pathological_73388", "eod_regional_nodes_80411" ],
-  "on_invalid_input" : "CONTINUE",
-  "last_modified" : "2020-06-30T19:49:17.187Z"
+  "last_modified" : "2020-12-21T18:22:10.357Z",
+  "on_invalid_input" : "CONTINUE"
 }

@@ -19,8 +19,8 @@ namespace TNMStagingCSharp.Src.Tools
         public const bool DEBUG_LOADED_TABLES = false;
         public const bool DEBUG_LOADED_SCHEMAS = false;
 
-        public const bool RUN_LARGE_TNM_TESTS = true;
-        public const bool RUN_LARGE_CS_TESTS = true;
+        public const bool RUN_LARGE_TNM_TESTS = false;
+        public const bool RUN_LARGE_CS_TESTS = false;
 
         public const bool RUN_HUGE_GOOD_TNM_TESTS = false;
         public const bool RUN_HUGE_BAD_TNM_TESTS = false;

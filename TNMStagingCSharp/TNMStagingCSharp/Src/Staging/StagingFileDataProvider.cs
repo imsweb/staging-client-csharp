@@ -13,13 +13,14 @@ namespace TNMStagingCSharp.Src.Staging
     // In implementation of DataProvider which holds all data in memory
     public class StagingFileDataProvider: StagingDataProvider
     {
-        private String _algorithm;
-        private String _version;
-        private Dictionary<String, StagingTable> _tables = new Dictionary<String, StagingTable>();
-        private Dictionary<String, StagingSchema> _schemas = new Dictionary<String, StagingSchema>();
-        private HashSet<String> _TableKeys = new HashSet<String>();
-        private HashSet<String> _SchemaKeys = new HashSet<String>();
-
+        private readonly String _algorithm;
+        private readonly String _version;
+        private readonly Dictionary<String, StagingTable> _tables = new Dictionary<String, StagingTable>();
+        private readonly Dictionary<String, StagingSchema> _schemas = new Dictionary<String, StagingSchema>();
+        private readonly HashSet<String> _TableKeys = new HashSet<String>();
+        private readonly HashSet<String> _SchemaKeys = new HashSet<String>();
+        private readonly Dictionary<String, String> _glossaryTerms = new Dictionary<String, String>();
+        private readonly String _basedir;
 
         // Constructor loads all schemas and sets up table cache
         // @param algorithm algorithm
@@ -29,12 +30,15 @@ namespace TNMStagingCSharp.Src.Staging
             _algorithm = algorithm;
             _version = version;
 
-            String basedir = System.IO.Directory.GetCurrentDirectory() + "\\";
-            if (!Directory.Exists(basedir + "Algorithms\\"))
+            _basedir = System.IO.Directory.GetCurrentDirectory() + "\\";
+            if (!Directory.Exists(_basedir + "Algorithms\\"))
             {
-                basedir = System.IO.Directory.GetCurrentDirectory() + "\\..\\..\\..\\";
-                if (System.IO.Directory.GetCurrentDirectory().IndexOf("x64") >= 0) basedir += "\\..\\";
-                basedir += "Resources\\";
+                _basedir = System.IO.Directory.GetCurrentDirectory() + "\\..\\..\\..\\";
+                if (System.IO.Directory.GetCurrentDirectory().IndexOf("x64") >= 0)
+                {
+                    _basedir += "\\..\\";
+                }
+                _basedir += "Resources\\";
             }
 
 
@@ -43,7 +47,7 @@ namespace TNMStagingCSharp.Src.Staging
             // loop over all tables and load them into Map
             try
             {
-                directory = basedir + "Algorithms\\" + algorithm.ToLower() + "\\" + version + "\\tables";
+                directory = _basedir + "Algorithms\\" + algorithm.ToLower() + "\\" + version + "\\tables";
                 foreach (String file in readLines(directory + "\\ids.txt"))
                 {
                     if (file.Length != 0)
@@ -72,7 +76,7 @@ namespace TNMStagingCSharp.Src.Staging
             // loop over all schemas and load them into Map
             try
             {
-                directory = basedir + "Algorithms\\" + algorithm.ToLower() + "\\" + version + "\\schemas";
+                directory = _basedir + "Algorithms\\" + algorithm.ToLower() + "\\" + version + "\\schemas";
 
                 foreach (String file in readLines(directory + "\\ids.txt"))
                 {
@@ -95,6 +99,37 @@ namespace TNMStagingCSharp.Src.Staging
             catch (IOException e) 
             {
                 throw new System.InvalidOperationException("IOException reading schemas: " + e.Message);
+            }
+
+            // load the glossary terms
+            try
+            {
+                _trie = new HashSet<String>();
+                directory = _basedir + "Algorithms\\" + algorithm.ToLower() + "\\" + version + "\\";
+                String termsFilename = directory + "Glossary\\terms.txt";
+
+                // if the file is not found, that just means that there are no glossary terms
+                if (File.Exists(termsFilename))
+                {
+                    foreach (String line in readLines(termsFilename))
+                    {
+                        if (line.Length != 0)
+                        {
+                            String[] parts = line.Split('~');
+                            if (parts.Length != 2)
+                            {
+                                throw new System.InvalidOperationException("Error parsing glossary terms.  Should only be two parts of each line in terms.txt");
+                            }
+
+                            _glossaryTerms[parts[0]] = parts[1];
+                            _trie.Add(parts[0]);
+                        }
+                    }
+                }
+            }
+            catch (IOException e)
+            {
+                throw new System.InvalidOperationException("IOException reading glossary terms: " + e.Message);
             }
 
             GenerateSchemaIds();
@@ -199,6 +234,38 @@ namespace TNMStagingCSharp.Src.Staging
             return oRetval;
         }
 
+        public override HashSet<String> getGlossaryTerms()
+        {
+            return new HashSet<String>(_glossaryTerms.Keys);
+        }
+
+        public override GlossaryDefinition getGlossaryDefinition(String term)
+        {
+            String id = _glossaryTerms[term];
+            if (id == null)
+            {
+                return null;
+            }
+
+            string directory = _basedir + "Algorithms\\" + _algorithm.ToLower() + "\\" + _version + "\\";
+            string filename = directory + "Glossary\\" + id + ".json";
+
+            try
+            {
+                TextReader reader = getStagingInputStream(filename);
+                GlossaryDefinition glossaryDef = new GlossaryDefinition();
+                using (reader)
+                {
+                    Newtonsoft.Json.JsonSerializer serializer = new Newtonsoft.Json.JsonSerializer();
+                    glossaryDef = (GlossaryDefinition)serializer.Deserialize(reader, typeof(GlossaryDefinition));
+                }
+                return glossaryDef;
+            }
+            catch (IOException e) 
+            {
+                throw new System.InvalidOperationException("Error reading glossary term: " + e.Message);
+            }
+        }
     }
 }
 

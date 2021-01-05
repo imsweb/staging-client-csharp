@@ -126,6 +126,7 @@
     "key" : "grade_post_therapy_clin",
     "name" : "Grade Post Therapy Clin (yc)",
     "naaccr_item" : 1068,
+    "naaccr_xml_id" : "gradePostTherapyClin",
     "table" : "grade_post_therapy_clin_69737",
     "used_for_staging" : false,
     "metadata" : [ "NPCR_REQUIRED", "COC_REQUIRED", "SSDI", "CCCR_REQUIRED", "SEER_REQUIRED" ]
@@ -213,6 +214,6 @@
     } ]
   } ],
   "involved_tables" : [ "seer_mets_48348", "grade_clinical_standard_non_ajcc_32473", "grade_pathological_standard_non_ajcc_5627", "nodes_pos_fpa", "tumor_size_pathological_25597", "tumor_size_clinical_60979", "grade_post_therapy_clin_69737", "primary_site", "ss2018_respiratory_other_36695", "histology", "nodes_exam_76029", "grade_post_therapy_path_75348", "extension_bce", "year_dx_validation", "summary_stage_rpa", "lvi_dna_56663", "tumor_size_summary_63115", "nodes_dbv", "schema_selection_respiratory_other" ],
-  "on_invalid_input" : "CONTINUE",
-  "last_modified" : "2020-06-30T19:49:27.407Z"
+  "last_modified" : "2020-12-21T18:22:19.261Z",
+  "on_invalid_input" : "CONTINUE"
 }

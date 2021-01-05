@@ -147,6 +147,7 @@
     "key" : "grade_post_therapy_clin",
     "name" : "Grade Post Therapy Clin (yc)",
     "naaccr_item" : 1068,
+    "naaccr_xml_id" : "gradePostTherapyClin",
     "table" : "grade_post_therapy_clin_41222",
     "used_for_staging" : false,
     "metadata" : [ "NPCR_REQUIRED", "COC_REQUIRED", "SSDI", "CCCR_REQUIRED", "SEER_REQUIRED" ]
@@ -180,6 +181,7 @@
     "key" : "alk_rearrangement",
     "name" : "ALK Rearrangement",
     "naaccr_item" : 3938,
+    "naaccr_xml_id" : "alkRearrangement",
     "default" : "8",
     "table" : "alk_rerragnement_49080",
     "used_for_staging" : false,
@@ -188,6 +190,7 @@
     "key" : "egfr_mutational_analysis",
     "name" : "EGFR Mutational Analysis",
     "naaccr_item" : 3939,
+    "naaccr_xml_id" : "egfrMutationalAnalysis",
     "default" : "8",
     "table" : "egfr_mutational_analysis_51122",
     "used_for_staging" : false,
@@ -370,6 +373,6 @@
     } ]
   } ],
   "involved_tables" : [ "alk_rerragnement_49080", "radiation_surg_seq", "grade_post_therapy_path_41285", "mets_hab", "grade_pathological_31963", "grade_post_therapy_clin_41222", "tumor_size_pathological_full_62176", "nodes_pos_fpa", "parse_t_2177", "ajcc_chapter_calculation_86583", "parse_n_67182", "histology", "nodes_exam_76029", "lvi_full_56663", "occult_from_eod_primary_tumor_15325", "behavior", "schema_selection_lung", "tumor_size_with_mets_for_ajcc_m_95167", "tumor_size_clinical_full_74867", "tnm8_path_stage_ubq", "nodes_dai", "egfr_mutational_analysis_51122", "systemic_surg_seq", "visceral_pleural_invasion_25940", "tumor_size_summary_full_31213", "parse_m_47057", "primary_site", "separate_tumor_nodules_69006", "eod_tnm_component_cleanup_58170", "tumor_size_with_primary_tumor_for_ajcc_t_36016", "tnm8_inclusions_98513", "year_dx_validation", "extension_baj", "grade_clinical_73056", "summary_stage_rpa", "lung_occult_stage_11131", "ss2018_lung_41334" ],
-  "on_invalid_input" : "CONTINUE",
-  "last_modified" : "2020-06-30T19:49:24.579Z"
+  "last_modified" : "2020-12-21T18:22:17.187Z",
+  "on_invalid_input" : "CONTINUE"
 }

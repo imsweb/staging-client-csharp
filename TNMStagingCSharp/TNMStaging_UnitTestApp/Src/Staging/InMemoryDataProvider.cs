@@ -22,13 +22,13 @@ namespace TNMStaging_UnitTestApp.Src.Staging
             TEST1
         }
 
-        private String _algorithm;
-        private String _version;
+        private readonly String _algorithm;
+        private readonly String _version;
 
-        private Dictionary<String, StagingTable> _tables = new Dictionary<String, StagingTable>();
-        private Dictionary<String, StagingSchema> _schemas = new Dictionary<String, StagingSchema>();
-        private HashSet<String> _TableKeys = new HashSet<String>();
-        private HashSet<String> _SchemaKeys = new HashSet<String>();
+        private readonly Dictionary<String, StagingTable> _tables = new Dictionary<String, StagingTable>();
+        private readonly Dictionary<String, StagingSchema> _schemas = new Dictionary<String, StagingSchema>();
+        private readonly HashSet<String> _TableKeys = new HashSet<String>();
+        private readonly HashSet<String> _SchemaKeys = new HashSet<String>();
 
 
         /**
@@ -108,6 +108,21 @@ namespace TNMStaging_UnitTestApp.Src.Staging
             {
                 _SchemaKeys.Add(entry.Key);
             }
+        }
+
+        public override HashSet<String> getGlossaryTerms()
+        {
+            throw new Exception("Glossary not supported in this provider");
+        }
+
+        public override GlossaryDefinition getGlossaryDefinition(String term)
+        {
+            throw new Exception("Glossary not supported in this provider");
+        }
+
+        public override List<GlossaryHit> getGlossaryMatches(String text)
+        {
+            throw new Exception("Glossary not supported in this provider");
         }
     }
 }

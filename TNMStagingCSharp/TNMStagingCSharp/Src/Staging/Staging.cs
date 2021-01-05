@@ -21,8 +21,8 @@ namespace TNMStagingCSharp.Src.Staging
                 { CTX_ALGORITHM_VERSION, CTX_YEAR_CURRENT });
 
 
-        private DecisionEngineClass _engine;
-        private StagingDataProvider _provider;
+        private readonly DecisionEngineClass _engine;
+        private readonly StagingDataProvider _provider;
 
         // Private constructor
         // @param provider data provider
@@ -70,6 +70,26 @@ namespace TNMStagingCSharp.Src.Staging
             return (StagingSchema)(_provider.getDefinition(id));
         }
 
+        // Return a list of glossary matches for the specific schema
+        // @param id Schema identifier
+        // @return a set of glossary terms
+        public HashSet<String> getSchemaGlossary(String id)
+        {
+            HashSet<String> hits = new HashSet<String>();
+
+            StagingSchema schema = getSchema(id);
+            if (schema != null)
+            {
+                addGlossaryMatches(hits, schema.getName());
+                addGlossaryMatches(hits, schema.getTitle());
+                addGlossaryMatches(hits, schema.getDescription());
+                addGlossaryMatches(hits, schema.getSubtitle());
+                addGlossaryMatches(hits, schema.getNotes());
+            }
+
+            return hits;
+        }
+
         // Return true if the site is valid
         // @param site primary site
         // @return true if the side is valid
@@ -109,6 +129,50 @@ namespace TNMStagingCSharp.Src.Staging
             ITable thisTable = _provider.getTable(id);
             StagingTable oRetval = (StagingTable)thisTable;
             return oRetval;
+        }
+
+        // Return a list of glossary matches for the specific table
+        // @param id Table identifier
+        // @return a set of glossary terms
+        public HashSet<String> getTableGlossary(String id)
+        {
+            HashSet<String> hits = new HashSet<String>();
+
+            StagingTable table = getTable(id);
+            if (table != null)
+            {
+                // add all the String fields
+                addGlossaryMatches(hits, table.getName());
+                addGlossaryMatches(hits, table.getTitle());
+                addGlossaryMatches(hits, table.getDescription());
+                addGlossaryMatches(hits, table.getSubtitle());
+                addGlossaryMatches(hits, table.getNotes());
+                addGlossaryMatches(hits, table.getFootnotes());
+
+                // add any DESCRIPTION columns glossary matches
+                if (table.getColumnDefinitions() != null && table.getRawRows() != null)
+                {
+                    HashSet<int> descriptionCols = new HashSet<int>();
+                    List<IColumnDefinition> colDefs = table.getColumnDefinitions();
+                    for (int i = 0; i < colDefs.Count; i++)
+                    {
+                        if (colDefs[i].getType() == ColumnType.DESCRIPTION)
+                        {
+                            descriptionCols.Add(i);
+                        }
+                    }
+
+                    foreach (List<String> row in table.getRawRows())
+                    {
+                        foreach (int col in descriptionCols)
+                        {
+                            addGlossaryMatches(hits, row[col]);
+                        }
+                    }
+                }
+            }
+
+            return hits;
         }
 
         // Check the code validity of a single field in a schema.  If the schema or field do no exist, false will be returned.
@@ -155,7 +219,7 @@ namespace TNMStagingCSharp.Src.Staging
                 return false;
 
             // missing context will always return false
-            if (context == null || context.Count  == 0)
+            if (context == null || context.Count == 0)
                 return false;
 
             // all context input needs to be trimmed
@@ -452,7 +516,7 @@ namespace TNMStagingCSharp.Src.Staging
         public StagingData stage(StagingData data)
         {
             // first clear out schema/output/errors/path
- 
+
             data.setSchemaId(null);
             data.setOutput(new Dictionary<String, String>(100, StringComparer.Ordinal));
             data.setErrors(new List<Error>(100));
@@ -464,7 +528,7 @@ namespace TNMStagingCSharp.Src.Staging
                 data.setResult(StagingData.Result.FAILED_MISSING_SITE_OR_HISTOLOGY);
                 return data;
             }
-             
+
             // get the schema; if a single schema is not found, return right away with an error
             List<StagingSchema> schemas = lookupSchema(new SchemaLookup(data.getInput()));
             if (schemas.Count != 1)
@@ -534,6 +598,29 @@ namespace TNMStagingCSharp.Src.Staging
             return data;
         }
 
+        // Return a list of all supported glossary terms
+        // @return a set of terms
+        public HashSet<String> getGlossaryTerms()
+        {
+            return _provider.getGlossaryTerms();
+        }
+
+        // Return the definition of a glossary term
+        // @param term glossery term
+        // @return full glossary definition
+        public GlossaryDefinition getGlossaryDefinition(String term)
+        {
+            return _provider.getGlossaryDefinition(term);
+        }
+
+        // Return a list of glossary terms in the passed text
+        // @param text text to match against
+        // @return a list of glossary terms
+        public List<GlossaryHit> getGlossaryMatches(String text)
+        {
+            return _provider.getGlossaryMatches(text);
+        }
+
         // Add the context keys which are used in staging and other calls
         // @param context Map of context
         // @return updated Map of context
@@ -556,6 +643,22 @@ namespace TNMStagingCSharp.Src.Staging
             context.Remove(CTX_YEAR_CURRENT);
 
             return context;
+        }
+
+        // Helper method to collect glossary matches
+        private void addGlossaryMatches(HashSet<String> hits, String text)
+        {
+            if (text != null)
+            {
+                List<GlossaryHit> matches = getGlossaryMatches(text);
+                if (matches != null)
+                {
+                    foreach (GlossaryHit match in matches)
+                    {
+                        hits.Add(match.getTerm());
+                    }
+                }
+            }
         }
     }
 }

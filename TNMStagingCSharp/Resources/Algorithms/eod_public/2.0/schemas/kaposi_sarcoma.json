@@ -128,6 +128,7 @@
     "key" : "grade_post_therapy_clin",
     "name" : "Grade Post Therapy Clin (yc)",
     "naaccr_item" : 1068,
+    "naaccr_xml_id" : "gradePostTherapyClin",
     "table" : "grade_post_therapy_clin_1647",
     "used_for_staging" : false,
     "metadata" : [ "NPCR_REQUIRED", "COC_REQUIRED", "SSDI", "CCCR_REQUIRED", "SEER_REQUIRED" ]
@@ -222,6 +223,6 @@
     } ]
   } ],
   "involved_tables" : [ "tumor_size_clinical_dna_64119", "grade_pathological_40399", "tumor_size_pathological_dna_6742", "grade_post_therapy_path_36935", "nodes_pos_fpa", "tumor_size_summary_dna_13275", "grade_clinical_41135", "primary_site", "grade_post_therapy_clin_1647", "ss2018_kaposi_sarcoma_17563", "histology", "nodes_exam_76029", "year_dx_validation", "ajcc_chapter_calculation_60109", "nodes_dby", "summary_stage_rpa", "schema_selection_kaposi_sarcoma", "extension_bcj", "lvi_dna_56663", "mets_hna" ],
-  "on_invalid_input" : "CONTINUE",
-  "last_modified" : "2020-06-30T19:49:27.515Z"
+  "last_modified" : "2020-12-21T18:22:19.334Z",
+  "on_invalid_input" : "CONTINUE"
 }

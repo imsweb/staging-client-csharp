@@ -147,6 +147,7 @@
     "key" : "grade_post_therapy_clin",
     "name" : "Grade Post Therapy Clin (yc)",
     "naaccr_item" : 1068,
+    "naaccr_xml_id" : "gradePostTherapyClin",
     "table" : "grade_post_therapy_clin_61658",
     "used_for_staging" : false,
     "metadata" : [ "NPCR_REQUIRED", "COC_REQUIRED", "SSDI", "CCCR_REQUIRED", "SEER_REQUIRED" ]
@@ -383,6 +384,6 @@
     } ]
   } ],
   "involved_tables" : [ "schema_selection_vulva", "nodes_dbb", "grade_post_therapy_clin_61658", "radiation_surg_seq", "tumor_size_pathological_43328", "grade_clinical_6485", "nodes_pos_fpa", "parse_t_2177", "parse_n_67182", "tnm_8_path_stage_group_for_eod_73636", "lymph_node_status_24997", "tumor_size_with_primary_tumor_for_ajcc_t_34262", "histology", "tnm8_inclusions_tpq", "nodes_exam_76029", "mets_hba", "lymph_nodes_assessment_method_femoral_46948", "lvi_full_56663", "extension_bbi", "ajcc_chapter_calculation_91940", "behavior", "ss2018_vulva_49198", "tumor_size_clinical_48894", "grade_post_therapy_path_40048", "figo_stage_vulva_69787", "systemic_surg_seq", "lymph_nodes_assessment_method_pelvic_33476", "parse_m_47057", "lymph_node_laterality_65685", "primary_site", "eod_tnm_component_cleanup_58170", "grade_pathological_84704", "year_dx_validation", "lymph_nodes_assessment_method_para_aortic_56026", "summary_stage_rpa", "tumor_size_summary_47973" ],
-  "on_invalid_input" : "CONTINUE",
-  "last_modified" : "2020-06-30T19:49:26.800Z"
+  "last_modified" : "2020-12-21T18:22:18.719Z",
+  "on_invalid_input" : "CONTINUE"
 }

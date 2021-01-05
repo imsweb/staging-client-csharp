@@ -158,6 +158,7 @@
     "key" : "grade_post_therapy_clin",
     "name" : "Grade Post Therapy Clin (yc)",
     "naaccr_item" : 1068,
+    "naaccr_xml_id" : "gradePostTherapyClin",
     "table" : "grade_post_therapy_clin_1647",
     "used_for_staging" : false,
     "metadata" : [ "NPCR_REQUIRED", "COC_REQUIRED", "SSDI", "CCCR_REQUIRED", "SEER_REQUIRED" ]
@@ -261,6 +262,6 @@
     } ]
   } ],
   "involved_tables" : [ "tumor_size_summary_full_15510", "extension_bbr", "schema_discriminator_2_15990", "occult_head_and_neck_lymph_nodes_10277", "schema_selection_peritoneum", "nodes_dbi", "grade_post_therapy_path_36935", "nodes_pos_fpa", "grade_post_therapy_clin_1647", "histology", "nodes_exam_76029", "bone_invasion_96628", "sex_19563", "lvi_full_56663", "ajcc_chapter_calculation_14693", "behavior", "ss2018_soft_tissue_31311", "tumor_size_pathological_full_93442", "tumor_size_clinical_full_19656", "grade_pathological_40399", "grade_clinical_41135", "primary_site", "eod_mets_20229", "year_dx_validation", "summary_stage_rpa" ],
-  "on_invalid_input" : "CONTINUE",
-  "last_modified" : "2020-06-30T19:49:17.083Z"
+  "last_modified" : "2020-12-21T18:22:10.258Z",
+  "on_invalid_input" : "CONTINUE"
 }

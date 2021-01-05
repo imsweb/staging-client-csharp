@@ -147,6 +147,7 @@
     "key" : "grade_post_therapy_clin",
     "name" : "Grade Post Therapy Clin (yc)",
     "naaccr_item" : 1068,
+    "naaccr_xml_id" : "gradePostTherapyClin",
     "table" : "grade_post_therapy_clin_61658",
     "used_for_staging" : false,
     "metadata" : [ "NPCR_REQUIRED", "COC_REQUIRED", "SSDI", "CCCR_REQUIRED", "SEER_REQUIRED" ]
@@ -162,6 +163,7 @@
     "key" : "ca19_9_pretx_lab_value",
     "name" : "CA 19-9 PreTx Lab Value",
     "naaccr_item" : 3942,
+    "naaccr_xml_id" : "ca199PretxLabValue",
     "default" : "XXXX.8",
     "table" : "ca_19_9_pretx_lab_value_17332",
     "used_for_staging" : false,
@@ -337,6 +339,6 @@
     } ]
   } ],
   "involved_tables" : [ "grade_post_therapy_clin_61658", "ss2018_pancreas_95507", "radiation_surg_seq", "tumor_size_pathological_43328", "grade_clinical_6485", "nodes_pos_fpa", "parse_t_2177", "parse_n_67182", "tnm8_path_stage_ups", "histology", "nodes_exam_76029", "seer_mets_66514", "rn_positive_with_regional_nodes_for_n_85525", "lvi_full_56663", "schema_selection_pancreas_body_tail", "behavior", "tumor_size_clinical_48894", "grade_post_therapy_path_40048", "systemic_surg_seq", "parse_m_47057", "seer_primary_tumor_95193", "primary_site", "ajcc_chapter_calculation_23065", "eod_tnm_component_cleanup_58170", "ca_19_9_pretx_lab_value_17332", "grade_pathological_84704", "year_dx_validation", "eod_regional_nodes_11936", "summary_stage_rpa", "tnm8_inclusions_tae", "tumor_size_summary_47973", "tumor_size_with_primary_tumor_for_ajcc_t_15190" ],
-  "on_invalid_input" : "CONTINUE",
-  "last_modified" : "2020-06-30T19:49:21.824Z"
+  "last_modified" : "2020-12-21T18:22:15.007Z",
+  "on_invalid_input" : "CONTINUE"
 }

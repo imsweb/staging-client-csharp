@@ -147,6 +147,7 @@
     "key" : "grade_post_therapy_clin",
     "name" : "Grade Post Therapy Clin (yc)",
     "naaccr_item" : 1068,
+    "naaccr_xml_id" : "gradePostTherapyClin",
     "table" : "grade_post_therapy_clin_95734",
     "used_for_staging" : false,
     "metadata" : [ "COC_REQUIRED", "NPCR_REQUIRED", "SSDI", "CCCR_REQUIRED", "SEER_REQUIRED" ]
@@ -329,6 +330,6 @@
     } ]
   } ],
   "involved_tables" : [ "radiation_surg_seq", "seer_primary_tumor_68925", "nodes_pos_fpa", "parse_t_2177", "parse_n_67182", "histology", "nodes_exam_76029", "lvi_full_56663", "tnm_8_path_stage_group_for_eod_90891", "tumor_size_summary_63115", "grade_post_therapy_clin_95734", "behavior", "seer_regional_nodes_copy_24179", "grade_clinical_standard_94331", "ss2018_thymus_60066", "ajcc_chapter_calculation_88570", "tnm8_inclusions_thymus", "tumor_size_pathological_25597", "systemic_surg_seq", "tumor_size_clinical_60979", "parse_m_47057", "schema_selection_thymus", "primary_site", "eod_tnm_component_cleanup_58170", "seer_mets_4721", "year_dx_validation", "grade_pathological_standard_94268", "summary_stage_rpa", "grade_post_therapy_path_32110" ],
-  "on_invalid_input" : "CONTINUE",
-  "last_modified" : "2020-06-30T19:49:19.819Z"
+  "last_modified" : "2020-12-21T18:22:13.237Z",
+  "on_invalid_input" : "CONTINUE"
 }
