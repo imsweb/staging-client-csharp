@@ -292,7 +292,7 @@
     "tables" : [ {
       "id" : "ajcc_chapter_calculation_21765",
       "inputs" : [ "hist" ],
-      "outputs" : [ "ajcc_id", "ajcc_version_nubmer" ]
+      "outputs" : [ "ajcc_id", "ajcc_version_number" ]
     } ]
   }, {
     "id" : "summary_stage_2018",

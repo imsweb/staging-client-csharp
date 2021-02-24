@@ -14,20 +14,20 @@ namespace TNMStagingCSharp.Src.Tools
     {
     }
 
-    public class DebugSettings
+    public static class DebugSettings
     {
-        public const bool DEBUG_LOADED_TABLES = false;
-        public const bool DEBUG_LOADED_SCHEMAS = false;
+        public static bool DEBUG_LOADED_TABLES = false;
+        public static bool DEBUG_LOADED_SCHEMAS = false;
 
-        public const bool RUN_LARGE_TNM_TESTS = false;
-        public const bool RUN_LARGE_CS_TESTS = false;
+        public static bool RUN_LARGE_TNM_TESTS = false;
+        public static bool RUN_LARGE_CS_TESTS = false;
 
-        public const bool RUN_HUGE_GOOD_TNM_TESTS = false;
-        public const bool RUN_HUGE_BAD_TNM_TESTS = false;
-        public const bool USE_LOCAL_ZIP_FILE_FOR_TNM_TESTS = true;
+        public static bool RUN_HUGE_GOOD_TNM_TESTS = false;
+        public static bool RUN_HUGE_BAD_TNM_TESTS = false;
+        public static bool USE_LOCAL_ZIP_FILE_FOR_TNM_TESTS = true;
 
-        public const bool RUN_HUGE_GOOD_CS_TESTS = false;
-        public const bool RUN_HUGE_BAD_CS_TESTS = false;
+        public static bool RUN_HUGE_GOOD_CS_TESTS = false;
+        public static bool RUN_HUGE_BAD_CS_TESTS = false;
 
     }
 

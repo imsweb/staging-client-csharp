@@ -638,6 +638,148 @@ namespace TNMStaging_UnitTestApp.Src.Staging.EOD
             foreach (String hist in invalidHist)
                 Assert.IsFalse(provider.getValidHistologies().Contains(hist), "The histology '" + hist + "' is not supposed to be in the valid histology list");
         }
+
+        [TestMethod]
+        public void testBehaviorDescriminator()
+        {
+            // test valid combination that requires discriminator and a good discriminator is supplied
+            EodSchemaLookup lookup = new EodSchemaLookup("C717", "9591");
+            List<StagingSchema> lookups = _STAGING.lookupSchema(lookup);
+            Assert.AreEqual(lookups.Count, 3);
+            lookup.setInput(EodInput.DISCRIMINATOR_1.toString(), "1");
+            lookup.setInput(EodInput.BEHAVIOR.toString(), "3");
+            lookups = _STAGING.lookupSchema(lookup);
+            Assert.AreEqual(lookups.Count, 1);
+            Assert.AreEqual(lookups[0].getId(), "hemeretic");
+        }
+
+        [TestMethod]
+        public void testStagingEnums()
+        {
+            HashSet<String> enumInput = new HashSet<String>();
+            foreach (EodInput value in EodInput.Values)
+            {
+                enumInput.Add(value.toString());
+            }
+
+            HashSet<String> enumOutput = new HashSet<String>();
+            foreach (EodOutput value in EodOutput.Values)
+            {
+                enumOutput.Add(value.toString());
+            }
+
+            // collect all input and output fields from all schemas
+            HashSet<String> schemaInput = new HashSet<String>();
+            HashSet<String> schemaOutput = new HashSet<String>();
+            foreach (String schemaId in _STAGING.getSchemaIds())
+            {
+                StagingSchema schema = _STAGING.getSchema(schemaId);
+
+                schemaInput.UnionWith(_STAGING.getInputs(schema));
+                schemaOutput.UnionWith(_STAGING.getOutputs(schema));
+            }
+
+            Assert.IsTrue(schemaInput.SetEquals(enumInput));
+            Assert.IsTrue(schemaOutput.SetEquals(enumOutput));
+        }
+
+        [TestMethod]
+        public void testNaaccrXmlIds()
+        {
+            List<String> errors = new List<String>();
+
+            Dictionary<String, HashSet<String>> inputMappings = new Dictionary<String, HashSet<String>>();
+            Dictionary<String, HashSet<String>> outputMappings = new Dictionary<String, HashSet<String>>();
+            foreach (String schemaId in _STAGING.getSchemaIds())
+            {
+                StagingSchema schema = _STAGING.getSchema(schemaId);
+
+                foreach (StagingSchemaInput input in schema.getInputs())
+                {
+                    if (input.getNaaccrItem() > 0 && input.getNaaccrXmlId() == null)
+                    {
+                        errors.Add("Schema input " + schema.getId() + "." + input.getKey() + " has a NAACCR number but is missing NAACCR XML ID");
+                    }
+
+                    if (input.getNaaccrXmlId() != null)
+                    {
+                        if (inputMappings.ContainsKey(input.getNaaccrXmlId()))
+                            inputMappings[input.getNaaccrXmlId()].Add(input.getKey());
+                        else
+                            inputMappings[input.getNaaccrXmlId()] = new HashSet<String>() { input.getKey() };
+                    }
+                }
+
+                foreach (StagingSchemaOutput output in schema.getOutputs())
+                {
+                    if (output.getNaaccrItem() > 0 && output.getNaaccrXmlId() == null)
+                    {
+                        errors.Add("Schema output " + schema.getId() + "." + output.getKey() + " has a NAACCR number but is missing NAACCR XML ID");
+                    }
+
+                    if (output.getNaaccrXmlId() != null)
+                    {
+                        if (outputMappings.ContainsKey(output.getNaaccrXmlId()))
+                            outputMappings[output.getNaaccrXmlId()].Add(output.getKey());
+                        else
+                            outputMappings[output.getNaaccrXmlId()] = new HashSet<String>() { output.getKey() };
+                    }
+                }
+            }
+
+            // verify that if a field has a given NAACCR XML ID, then all fields with that same XML ID have the same key.
+            foreach (KeyValuePair<String, HashSet<String>> entry in inputMappings)
+            {
+                if (entry.Value.Count > 1)
+                {
+                    errors.Add("NAACCR XML Id " + entry.Key + " is listed for multiple inputs: " + entry.Value);
+                }
+            }
+            foreach (KeyValuePair<String, HashSet<String>> entry in outputMappings)
+            {
+                if (entry.Value.Count > 1)
+                {
+                    errors.Add("NAACCR XML Id " + entry.Key + " is listed for multiple outputs: " + entry.Value);
+                }
+            }
+
+            //assertThat(errors).overridingErrorMessage(()-> "\n" + String.join("\n", errors)).isEmpty();
+            Assert.AreEqual(0, errors.Count);
+        }
+
+        [TestMethod]
+        public void testMisspelledProperty()
+        {
+            EodStagingData data = new EodStagingData();
+            data.setInput(EodInput.DX_YEAR, "2020");
+            data.setInput(EodInput.PRIMARY_SITE, "C180");
+            data.setInput(EodInput.HISTOLOGY, "8000");
+            data.setInput(EodInput.NODES_POS, "90");
+            data.setInput(EodInput.EOD_PRIMARY_TUMOR, "700");
+            data.setInput(EodInput.EOD_REGIONAL_NODES, "300");
+            data.setInput(EodInput.EOD_METS, "10");
+
+            // perform the staging
+            _STAGING.stage(data);
+
+            Assert.AreEqual(StagingData.Result.STAGED, data.getResult());
+            Assert.AreEqual("colon_rectum", data.getSchemaId());
+            Assert.AreEqual(0, data.getErrors().Count);
+            Assert.AreEqual(11, data.getPath().Count);
+
+            // before the bug fix, AJCC_VERSION_NUMBER was returning an empty string
+            Assert.AreEqual("08", data.getOutput(EodOutput.AJCC_VERSION_NUMBER));
+
+            // check other output
+            Assert.AreEqual("00200", data.getOutput(EodOutput.NAACCR_SCHEMA_ID));
+            Assert.AreEqual("4A", data.getOutput(EodOutput.EOD_2018_STAGE_GROUP));
+            Assert.AreEqual("2.0", data.getOutput(EodOutput.DERIVED_VERSION));
+            Assert.AreEqual("7", data.getOutput(EodOutput.SS_2018_DERIVED));
+            Assert.AreEqual("T4b", data.getOutput(EodOutput.EOD_2018_T));
+            Assert.AreEqual("N2b", data.getOutput(EodOutput.EOD_2018_N));
+            Assert.AreEqual("M1a", data.getOutput(EodOutput.EOD_2018_M));
+            Assert.AreEqual("20", data.getOutput(EodOutput.AJCC_ID));
+        }
     }
 }
 

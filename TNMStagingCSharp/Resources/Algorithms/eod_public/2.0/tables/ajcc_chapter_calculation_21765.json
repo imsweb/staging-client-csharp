@@ -18,7 +18,7 @@
     "name" : "Description",
     "type" : "DESCRIPTION"
   }, {
-    "key" : "ajcc_version_nubmer",
+    "key" : "ajcc_version_number",
     "name" : "AJCC Version Number",
     "type" : "ENDPOINT"
   } ],
