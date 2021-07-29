@@ -1,10 +1,13 @@
 ﻿// Copyright (C) 2017 Information Management Services, Inc.
 
 using System;
+using System.Collections.Generic;
 using System.Text;
 using Newtonsoft.Json;
 using System.Runtime.Serialization;
 
+using TNMStagingCSharp.Src.DecisionEngine;
+using TNMStagingCSharp.Src.Tools;
 
 namespace TNMStagingCSharp.Src.Staging.Entities
 {
@@ -22,8 +25,11 @@ namespace TNMStagingCSharp.Src.Staging.Entities
         private String _naaccrXmlId;
         [JsonProperty("table", Order = 6)]
         private String _table;
-        [JsonProperty("default")]
+        [JsonProperty("default", Order = 7)]
         private String _default;
+        [JsonProperty("metadata", Order = 8)]
+        [JsonConverter(typeof(CustomHashSetConverter<String>))]
+        private HashSet<String> _metadata;
 
         int miHashCode;
 
@@ -54,8 +60,11 @@ namespace TNMStagingCSharp.Src.Staging.Entities
             setName(other.getName());
             setDescription(other.getDescription());
             setNaaccrItem(other.getNaaccrItem());
+            setNaaccrXmlId(other.getNaaccrXmlId());
             setTable(other.getTable());
             setDefault(other.getDefault());
+            if (other.getMetadata() != null)
+                setMetadata(new HashSet<String>(other.getMetadata()));
             ComputeHashCode();
         }
 
@@ -136,6 +145,16 @@ namespace TNMStagingCSharp.Src.Staging.Entities
             ComputeHashCode();
         }
 
+        public HashSet<String> getMetadata()
+        {
+            return _metadata;
+        }
+
+        public void setMetadata(HashSet<String> metadata)
+        {
+            _metadata = metadata;
+        }
+
         public override bool Equals(Object o)
         {
             if (this == o)
@@ -152,7 +171,8 @@ namespace TNMStagingCSharp.Src.Staging.Entities
                    Equals(_naaccrItem, that._naaccrItem) &&
                    Equals(_naaccrXmlId, that._naaccrXmlId) &&
                    Equals(_table, that._table) &&
-                   Equals(_default, that._default);
+                   Equals(_default, that._default) &&
+                   _metadata.SetEquals(that._metadata);
         }
 
         public override int GetHashCode()
@@ -176,7 +196,10 @@ namespace TNMStagingCSharp.Src.Staging.Entities
             MyStringBuilder.Append(_naaccrXmlId);
             MyStringBuilder.Append(_table);
             MyStringBuilder.Append(_default);
-
+            foreach (String s in _metadata)
+            {
+                MyStringBuilder.Append(s);
+            }
             return MyStringBuilder.ToString();
         }
 

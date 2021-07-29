@@ -96,7 +96,6 @@
     <Compile Include="Src\Staging\CS\CsDataProvider.cs" />
     <Compile Include="Src\Staging\CS\CsSchemaLookup.cs" />
     <Compile Include="Src\Staging\CS\CsStagingData.cs" />
-    <Compile Include="Src\Staging\Entities\StagingCode.cs" />
     <Compile Include="Src\Staging\Entities\StagingColumnDefinition.cs" />
     <Compile Include="Src\Staging\Entities\StagingEndpoint.cs" />
     <Compile Include="Src\Staging\Entities\StagingKeyMapping.cs" />

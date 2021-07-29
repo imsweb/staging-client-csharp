@@ -1,4 +1,6 @@
-﻿using System;
+﻿// Copyright (C) 2021 Information Management Services, Inc.
+
+using System;
 using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -19,10 +21,11 @@ namespace TNMStaging_UnitTestApp.Src
             Assert.IsTrue(input1.Equals(input2));
 
             input1.setKey("key");
-            input2.setKey("key");
             input1.setName("name");
-            input2.setName("name");
+            input1.setTable("table");
             input1.setMetadata(new HashSet<String>() { "META1" });
+
+            input2 = new StagingSchemaInput("key", "name", "table");
             input2.setMetadata(new HashSet<String>() { "META1" });
 
             Assert.IsTrue(input1.Equals(input2));
@@ -30,6 +33,10 @@ namespace TNMStaging_UnitTestApp.Src
             input2.setMetadata(new HashSet<String>() { "META2" });
 
             Assert.IsFalse(input1.Equals(input2));
+
+            // test copy constructor
+            StagingSchemaInput input3 = new StagingSchemaInput(input1);
+            Assert.IsTrue(input1.Equals(input3));
         }
     }
 }

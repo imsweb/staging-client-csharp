@@ -585,10 +585,23 @@ namespace TNMStagingCSharp.Src.Staging
             // remove the original input keys from the resulting context;  in addition, we want to remove any input keys
             // from the resulting context that were set with a default value; to accomplish this remove all keys that are
             // defined as input in the selected schema
+
+            HashSet<String> definedOutputs = new HashSet<String>();
+            if (schema.getOutputs() != null)
+            {
+                foreach (StagingSchemaOutput output in schema.getOutputs())
+                {
+                    definedOutputs.Add(output.getKey());
+                }
+            }
+
             foreach (KeyValuePair<String, String> entry in data.getInput())
-                context.Remove(entry.Key);
-            foreach (StagingSchemaInput input in schemas[0].getInputs())
-                context.Remove(input.getKey());
+                if (!definedOutputs.Contains(entry.Key))
+                    context.Remove(entry.Key);
+
+            foreach (StagingSchemaInput input in schema.getInputs())
+                if (!definedOutputs.Contains(input.getKey()))
+                    context.Remove(input.getKey());
 
             // add the results to the data card
             data.setOutput(result.getContext());

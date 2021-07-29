@@ -246,12 +246,39 @@ namespace TNMStaging_UnitTestApp.Src.Staging
             table.getRawRows().Add(new List<String>() { "*", "*", "*", "VALUE:ABC" });
             provider.addTable(table);
 
+            table = new StagingTable();
+            table.setId("primary_site");
+            table.setColumnDefinitions(new List<IColumnDefinition>() { new StagingColumnDefinition("site", "Site", ColumnType.INPUT) });
+            table.setRawRows(new List<List<String>>());
+            table.getRawRows().Add(new List<String>() { "C509" });
+            provider.addTable(table);
+
+            table = new StagingTable();
+            table.setId("histology");
+            table.setColumnDefinitions(new List<IColumnDefinition>() { new StagingColumnDefinition("hist", "Histology", ColumnType.INPUT) });
+            table.setRawRows(new List<List<String>>());
+            table.getRawRows().Add(new List<String>() { "8000" });
+            provider.addTable(table);
+
+            table = new StagingTable();
+            table.setId("table_year_dx");
+            table.setColumnDefinitions(new List<IColumnDefinition>() { new StagingColumnDefinition("year_dx", "Year DX", ColumnType.INPUT) });
+            table.setRawRows(new List<List<String>>());
+            table.getRawRows().Add(new List<String>() { "1900-2100" });
+            provider.addTable(table);
+
+
             StagingSchema schema = new StagingSchema();
             schema.setId("schema_test");
             schema.setSchemaSelectionTable("table_selection");
             List<StagingSchemaInput> inputs = new List<StagingSchemaInput>();
+            inputs.Add(new StagingSchemaInput("site", "Primary Site", "primary_site"));
+            inputs.Add(new StagingSchemaInput("hist", "Hist", "histology"));
+            inputs.Add(new StagingSchemaInput("year_dx", "Year DX", "table_year_dx"));
             inputs.Add(new StagingSchemaInput("input1", "Input 1", "table_input1"));
             inputs.Add(new StagingSchemaInput("input2", "Input 2", "table_input2"));
+            inputs.Add(new StagingSchemaInput("final_output", "Final Output"));  // field is input and output
+
             schema.setInputs(inputs);
             List<StagingSchemaOutput> outputs = new List<StagingSchemaOutput>();
             outputs.Add(new StagingSchemaOutput("final_output", "Final Output"));
@@ -295,6 +322,13 @@ namespace TNMStaging_UnitTestApp.Src.Staging
             // should only return the "real" inputs and not the temp field set in initial context
             Assert.IsTrue(testSet1.SetEquals(testSet2));
 
+            StagingData data = new StagingData("C509", "8000");
+            data.setInput("year_dx", "2018");
+            data.setInput("input1", "1");
+            data.setInput("input2", "B");
+
+            staging.stage(data);
+            Assert.AreEqual(data.getResult(), StagingData.Result.STAGED);
         }
 
         [TestMethod]
