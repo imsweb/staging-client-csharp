@@ -6,14 +6,15 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
+using TNMStagingCSharp.Src.Staging.Entities;
+
 namespace TNMStagingCSharp.Src.Staging.EOD
 {
-
     public class EodSchemaLookup : SchemaLookup
     {
         private static readonly ReadOnlyCollection<String> _ALLOWED_KEYS = new ReadOnlyCollection<String>(new List<String>
-                { EodStagingData.PRIMARY_SITE_KEY,
-                  EodStagingData.HISTOLOGY_KEY,
+                { StagingData.PRIMARY_SITE_KEY,
+                  StagingData.HISTOLOGY_KEY,
                   EodInput.SEX.toString(),
                   EodInput.BEHAVIOR.toString(),
                   EodInput.DISCRIMINATOR_1.toString(),

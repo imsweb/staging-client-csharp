@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
+using TNMStagingCSharp.Src.Staging.Entities;
 
 namespace TNMStagingCSharp.Src.Staging.CS
 {

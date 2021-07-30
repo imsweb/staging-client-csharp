@@ -70,24 +70,9 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="Src\DecisionEngine\Basic\BasicColumnDefinition.cs" />
-    <Compile Include="Src\DecisionEngine\Basic\BasicDataProvider.cs" />
-    <Compile Include="Src\DecisionEngine\Basic\BasicDataProviderTest.cs" />
-    <Compile Include="Src\DecisionEngine\Basic\BasicDefinition.cs" />
-    <Compile Include="Src\DecisionEngine\Basic\BasicEndpoint.cs" />
-    <Compile Include="Src\DecisionEngine\Basic\BasicInput.cs" />
-    <Compile Include="Src\DecisionEngine\Basic\BasicKeyMapping.cs" />
-    <Compile Include="Src\DecisionEngine\Basic\BasicKeyValue.cs" />
-    <Compile Include="Src\DecisionEngine\Basic\BasicMapping.cs" />
-    <Compile Include="Src\DecisionEngine\Basic\BasicOutput.cs" />
-    <Compile Include="Src\DecisionEngine\Basic\BasicRange.cs" />
-    <Compile Include="Src\DecisionEngine\Basic\BasicTable.cs" />
-    <Compile Include="Src\DecisionEngine\Basic\BasicTablePath.cs" />
-    <Compile Include="Src\DecisionEngine\Basic\BasicTableRow.cs" />
-    <Compile Include="Src\Staging\BasicStagingTest.cs" />
-    <Compile Include="Src\Staging\Entities\StagingSchemaOutputTest.cs" />
+    <Compile Include="Src\Staging\Engine\BasicStagingTest.cs" />
+    <Compile Include="Src\Staging\Entities\Impl\StagingSchemaOutputTest.cs" />
     <Compile Include="Src\Staging\EOD\EodStagingTest.cs" />
-    <Compile Include="Src\Staging\InMemoryDataProvider.cs" />
     <Compile Include="Src\Staging\MultiTasksExecutor.cs" />
     <Compile Include="Src\Staging\ComparisonUtils.cs" />
     <Compile Include="Src\Staging\CS\CSBigIntegrationTest.cs" />
@@ -95,14 +80,14 @@
     <Compile Include="Src\Staging\CS\CSIntegrationSchemaStage.cs" />
     <Compile Include="Src\Staging\CS\CSSchemaLookupTest.cs" />
     <Compile Include="Src\Staging\CS\CSStagingTest.cs" />
-    <Compile Include="Src\DecisionEngine\DecisionEngineTest.cs" />
+    <Compile Include="Src\Staging\Engine\DecisionEngineTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Src\Staging\ExternalStagingFileDataProviderTest.cs" />
     <Compile Include="Src\Staging\IntegrationUtils.cs" />
-    <Compile Include="Src\Staging\SchemaLookupTest.cs" />
+    <Compile Include="Src\Staging\Entities\SchemaLookupTest.cs" />
     <Compile Include="Src\Staging\StagingDataProviderTest.cs" />
-    <Compile Include="Src\Staging\Entities\StagingSchemaInputTest.cs" />
-    <Compile Include="Src\Staging\StagingRangeTest.cs" />
+    <Compile Include="Src\Staging\Entities\Impl\StagingSchemaInputTest.cs" />
+    <Compile Include="Src\Staging\Entities\StagingRangeTest.cs" />
     <Compile Include="Src\Staging\StagingTest.cs" />
     <Compile Include="Src\Staging\TNM\TnmBigIntegrationTest.cs" />
     <Compile Include="Src\Staging\TNM\TnmIntegrationSchemaSelection.cs" />

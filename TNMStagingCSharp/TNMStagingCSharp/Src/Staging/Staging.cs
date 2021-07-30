@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
-using TNMStagingCSharp.Src.DecisionEngine;
+using TNMStagingCSharp.Src.Staging.Engine;
 using TNMStagingCSharp.Src.Staging.Entities;
 
 
@@ -64,10 +64,10 @@ namespace TNMStagingCSharp.Src.Staging
         // Return a schema based on schema id
         // @param id Schema identifier
         // @return an Algorithm object
-        public StagingSchema getSchema(String id)
+        public Schema getSchema(String id)
         {
             //return (_provider.getDefinition(id) as StagingSchema);
-            return (StagingSchema)(_provider.getDefinition(id));
+            return _provider.getSchema(id);
         }
 
         // Return a list of glossary matches for the specific schema
@@ -77,7 +77,7 @@ namespace TNMStagingCSharp.Src.Staging
         {
             HashSet<String> hits = new HashSet<String>();
 
-            StagingSchema schema = getSchema(id);
+            Schema schema = getSchema(id);
             if (schema != null)
             {
                 addGlossaryMatches(hits, schema.getName());
@@ -109,7 +109,7 @@ namespace TNMStagingCSharp.Src.Staging
         // Look up a schema based on site, histology and an optional discriminator.
         // @param lookup schema lookup input
         // @return a list of StagingSchema objects
-        public List<StagingSchema> lookupSchema(SchemaLookup lookup)
+        public List<Schema> lookupSchema(SchemaLookup lookup)
         {
             return _provider.lookupSchema(lookup);
         }
@@ -124,11 +124,11 @@ namespace TNMStagingCSharp.Src.Staging
         // Return a mapping table based on table name
         // @param id table identifier
         // @return Table object
-        public StagingTable getTable(String id)
+        public ITable getTable(String id)
         {
-            ITable thisTable = _provider.getTable(id);
-            StagingTable oRetval = (StagingTable)thisTable;
-            return oRetval;
+            //ITable thisTable = _provider.getTable(id);
+            //ITable oRetval = (StagingTable)thisTable;
+            return _provider.getTable(id);
         }
 
         // Return a list of glossary matches for the specific table
@@ -138,7 +138,7 @@ namespace TNMStagingCSharp.Src.Staging
         {
             HashSet<String> hits = new HashSet<String>();
 
-            StagingTable table = getTable(id);
+            ITable table = getTable(id);
             if (table != null)
             {
                 // add all the String fields
@@ -207,7 +207,7 @@ namespace TNMStagingCSharp.Src.Staging
         public bool isContextValid(String schemaId, String key, Dictionary<String, String> context)
         {
             // first get the algorithm
-            StagingSchema schema = getSchema(schemaId);
+            Schema schema = getSchema(schemaId);
             if (schema == null)
                 return false;
 
@@ -278,7 +278,7 @@ namespace TNMStagingCSharp.Src.Staging
         {
             HashSet<String> tables = new HashSet<String>();
 
-            StagingSchema schema = getSchema(schemaId);
+            Schema schema = getSchema(schemaId);
             if (schema != null && schema.getInvolvedTables() != null)
                 tables = schema.getInvolvedTables();
 
@@ -308,7 +308,7 @@ namespace TNMStagingCSharp.Src.Staging
         // used in jumps tables.
         // @param path a StagingTablePath
         // @return a Set of unique input keys
-        public HashSet<String> getInputs(StagingTablePath path)
+        public HashSet<String> getInputs(ITablePath path)
         {
             return getInputs(path, new HashSet<String>());
         }
@@ -318,7 +318,7 @@ namespace TNMStagingCSharp.Src.Staging
         // @param path a StagingTablePath
         // @param excludedInputs a list of input keys to not consider as inputs
         // @return a Set of unique input keys
-        public HashSet<String> getInputs(StagingTablePath path, HashSet<String> excludedInputs)
+        public HashSet<String> getInputs(ITablePath path, HashSet<String> excludedInputs)
         {
             HashSet<String> inputs = new HashSet<String>();
 
@@ -340,7 +340,7 @@ namespace TNMStagingCSharp.Src.Staging
         // used in the inclusion and exclusion tables if any.
         // @param mapping a StagingMapping
         // @return a Set of unique input keys
-        public HashSet<String> getInputs(StagingMapping mapping)
+        public HashSet<String> getInputs(IMapping mapping)
         {
             return getInputs(mapping, null, new HashSet<String>());
         }
@@ -352,18 +352,18 @@ namespace TNMStagingCSharp.Src.Staging
         // @param context a context of values used to to check mapping inclusion/exclusion
         // @param excludedInputs a list of input keys to not consider as inputs
         // @return a Set of unique input keys
-        public HashSet<String> getInputs(StagingMapping mapping, Dictionary<String, String> context, HashSet<String> excludedInputs)
+        public HashSet<String> getInputs(IMapping mapping, Dictionary<String, String> context, HashSet<String> excludedInputs)
         {
             HashSet<String> inputs = new HashSet<String>();
 
             // the inclusion tables are always evaluated so any inputs there should be added always
             if (mapping.getInclusionTables() != null)
-                foreach (StagingTablePath path in mapping.getInclusionTables())
+                foreach (ITablePath path in mapping.getInclusionTables())
                     inputs.UnionWith(getInputs(path, excludedInputs));
 
             // the exclusion tables are always evaluated so any inputs there should be added always
             if (mapping.getExclusionTables() != null)
-                foreach (StagingTablePath path in mapping.getExclusionTables())
+                foreach (ITablePath path in mapping.getExclusionTables())
                     inputs.UnionWith(getInputs(path, excludedInputs));
 
             // if there are tables paths and if the mapping is involved, add the inputs
@@ -383,7 +383,7 @@ namespace TNMStagingCSharp.Src.Staging
         // list otherwise there is a problem with the schema.
         // @param schema a StagingSchema
         // @return a Set of unique input keys
-        public HashSet<String> getInputs(StagingSchema schema)
+        public HashSet<String> getInputs(Schema schema)
         {
             return getInputs(schema, null);
         }
@@ -396,17 +396,17 @@ namespace TNMStagingCSharp.Src.Staging
         // @param schema a StagingSchema
         // @param context a context of values used to to check mapping inclusion/exclusion
         // @return a Set of unique input keys
-        public HashSet<String> getInputs(StagingSchema schema, Dictionary<String, String> context)
+        public HashSet<String> getInputs(Schema schema, Dictionary<String, String> context)
         {
             HashSet<String> inputs = new HashSet<String>();
 
             // add schema selection fields
             if (schema.getSchemaSelectionTable() != null)
             {
-                StagingTable table = getTable(schema.getSchemaSelectionTable());
+                ITable table = getTable(schema.getSchemaSelectionTable());
                 if (table != null)
                 {
-                    foreach (StagingColumnDefinition def in table.getColumnDefinitions())
+                    foreach (IColumnDefinition def in table.getColumnDefinitions())
                         if (ColumnType.INPUT == def.getType())
                             inputs.Add(def.getKey());
                 }
@@ -417,7 +417,7 @@ namespace TNMStagingCSharp.Src.Staging
             {
                 HashSet<String> excludedInputs = new HashSet<String>();
                 HashSet<String> thisInput = null;
-                foreach (StagingMapping mapping in schema.getMappings())
+                foreach (IMapping mapping in schema.getMappings())
                 {
                     thisInput = getInputs(mapping, context, excludedInputs);
                     inputs.UnionWith(thisInput);
@@ -433,7 +433,7 @@ namespace TNMStagingCSharp.Src.Staging
         // Looks at a table path (and all jump tables within in) and returns a list of output keys that could be created.
         // @param path a StagingTablePath
         // @return a Set of unique output keys
-        public HashSet<String> getOutputs(StagingTablePath path)
+        public HashSet<String> getOutputs(ITablePath path)
         {
             return _engine.getOutputs(path);
         }
@@ -442,7 +442,7 @@ namespace TNMStagingCSharp.Src.Staging
         // used in the inclusion and exclusion tables if any.
         // @param mapping a StagingMapping
         // @return a Set of unique output keys
-        public HashSet<String> getOutputs(StagingMapping mapping)
+        public HashSet<String> getOutputs(IMapping mapping)
         {
             return getOutputs(mapping, null);
         }
@@ -453,7 +453,7 @@ namespace TNMStagingCSharp.Src.Staging
         // @param mapping a StagingMapping
         // @param context a context of values used to to check mapping inclusion/exclusion
         // @return a Set of unique output keys
-        public HashSet<String> getOutputs(StagingMapping mapping, Dictionary<String, String> context)
+        public HashSet<String> getOutputs(IMapping mapping, Dictionary<String, String> context)
         {
             HashSet<String> outputs = new HashSet<String>();
 
@@ -470,7 +470,7 @@ namespace TNMStagingCSharp.Src.Staging
         // outputs.
         // @param schema a StagingSchema
         // @return a Set of unique output keys
-        public HashSet<String> getOutputs(StagingSchema schema)
+        public HashSet<String> getOutputs(Schema schema)
         {
             return getOutputs(schema, null);
         }
@@ -481,7 +481,7 @@ namespace TNMStagingCSharp.Src.Staging
         // @param schema a StagingSchema
         // @param context a context of values used to to check mapping inclusion/exclusion
         // @return a Set of unique output keys
-        public HashSet<String> getOutputs(StagingSchema schema, Dictionary<String, String> context)
+        public HashSet<String> getOutputs(Schema schema, Dictionary<String, String> context)
         {
             HashSet<String> outputs = new HashSet<String>();
 
@@ -497,7 +497,7 @@ namespace TNMStagingCSharp.Src.Staging
 
             // if outputs were not defined, then the tables involved in the mappings will be used to determine the possible outputs
             if (schema.getMappings() != null)
-                foreach (StagingMapping mapping in schema.getMappings())
+                foreach (IMapping mapping in schema.getMappings())
                     outputs.UnionWith(getOutputs(mapping, context));
 
             // if valid outputs are defined on the schema level, only return outputs that defined; this removed "temporary" outputs that may be defined during the
@@ -530,7 +530,7 @@ namespace TNMStagingCSharp.Src.Staging
             }
 
             // get the schema; if a single schema is not found, return right away with an error
-            List<StagingSchema> schemas = lookupSchema(new SchemaLookup(data.getInput()));
+            List<Schema> schemas = lookupSchema(new SchemaLookup(data.getInput()));
             if (schemas.Count != 1)
             {
                 if (schemas.Count == 0)
@@ -540,7 +540,7 @@ namespace TNMStagingCSharp.Src.Staging
                 return data;
             }
 
-            StagingSchema schema = null;
+            Schema schema = null;
             if (schemas.Count > 0) schema = schemas[0];
 
             // add schema id to result
@@ -589,7 +589,7 @@ namespace TNMStagingCSharp.Src.Staging
             HashSet<String> definedOutputs = new HashSet<String>();
             if (schema.getOutputs() != null)
             {
-                foreach (StagingSchemaOutput output in schema.getOutputs())
+                foreach (IOutput output in schema.getOutputs())
                 {
                     definedOutputs.Add(output.getKey());
                 }
@@ -599,7 +599,7 @@ namespace TNMStagingCSharp.Src.Staging
                 if (!definedOutputs.Contains(entry.Key))
                     context.Remove(entry.Key);
 
-            foreach (StagingSchemaInput input in schema.getInputs())
+            foreach (IInput input in schema.getInputs())
                 if (!definedOutputs.Contains(input.getKey()))
                     context.Remove(input.getKey());
 

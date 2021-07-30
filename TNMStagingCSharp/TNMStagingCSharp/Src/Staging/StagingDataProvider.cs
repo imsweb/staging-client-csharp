@@ -7,7 +7,8 @@ using System.Text;
 using System.Threading;
 
 using TNMStagingCSharp.Src.Staging.Entities;
-using TNMStagingCSharp.Src.DecisionEngine;
+using TNMStagingCSharp.Src.Staging.Entities.Impl;
+using TNMStagingCSharp.Src.Staging.Engine;
 
 
 namespace TNMStagingCSharp.Src.Staging
@@ -19,9 +20,10 @@ namespace TNMStagingCSharp.Src.Staging
         public static readonly String PRIMARY_SITE_TABLE = "primary_site";
         public static readonly String HISTOLOGY_TABLE = "histology";
 
-        private readonly static Entities.StagingRange _MATCH_ALL_ENDPOINT = new Entities.StagingRange();
+        //private readonly static Entities.StagingRange _MATCH_ALL_ENDPOINT = new Entities.StagingRange();
+        private readonly static Range _matchAllEndpoint = getMatchAllRange();
 
-        private ConcurrentDictionary<String, List<StagingSchema>> mLookupMemoryDict;
+        private ConcurrentDictionary<String, List<Schema>> mLookupMemoryDict;
         private int miLookupMemoryDictCount;
 
         private ConcurrentDictionary<String, HashSet<String>> mValuesMemoryDict;
@@ -53,7 +55,7 @@ namespace TNMStagingCSharp.Src.Staging
         {
             int concurrencyLevel = Math.Min(9, Environment.ProcessorCount + 1);
 
-            mLookupMemoryDict = new ConcurrentDictionary<String, List<StagingSchema>> (concurrencyLevel, NUM_ITEMS_IN_CACHE_CAUSES_TRIM);
+            mLookupMemoryDict = new ConcurrentDictionary<String, List<Schema>> (concurrencyLevel, NUM_ITEMS_IN_CACHE_CAUSES_TRIM);
             miLookupMemoryDictCount = 0;
 
         }
@@ -69,7 +71,7 @@ namespace TNMStagingCSharp.Src.Staging
         // Initialize a schema.
         // @param schema schema entity
         // @return initialized schema entity
-        public static StagingSchema initSchema(StagingSchema schema)
+        public static Schema initSchema(Schema schema)
         {
             // parse the schema selection ranges
             if (schema.getSchemaSelectionTable() == null)
@@ -80,7 +82,7 @@ namespace TNMStagingCSharp.Src.Staging
             {
                 Dictionary<String, IInput> parsedInputMap = new Dictionary<String, IInput>();
 
-                foreach (StagingSchemaInput input in schema.getInputs())
+                foreach (IInput input in schema.getInputs())
                 {
                     // verify that all inputs contain a key
                     if (input.getKey() == null)
@@ -97,7 +99,7 @@ namespace TNMStagingCSharp.Src.Staging
             {
                 Dictionary<String, IOutput> parsedOutputMap = new Dictionary<String, IOutput>();
 
-                foreach (StagingSchemaOutput output in schema.getOutputs())
+                foreach (IOutput output in schema.getOutputs())
                 {
                     // verify that all inputs contain a key
                     if (output.getKey() == null)
@@ -111,9 +113,9 @@ namespace TNMStagingCSharp.Src.Staging
 
             // make sure that the mapping initial context does not set a value for an input field
             if (schema.getMappings() != null)
-                foreach (StagingMapping mapping in schema.getMappings())
+                foreach (IMapping mapping in schema.getMappings())
                     if (mapping.getInitialContext() != null)
-                        foreach (StagingKeyValue kv in mapping.getInitialContext())
+                        foreach (IKeyValue kv in mapping.getInitialContext())
                             if (schema.getInputMap().ContainsKey(kv.getKey()))
                                 throw new System.InvalidOperationException("The key '" + kv.getKey() + "' is defined in an initial context, but that is not allowed since it is also defined as an input.");
 
@@ -124,25 +126,20 @@ namespace TNMStagingCSharp.Src.Staging
         // Initialize a table.
         // @param table table entity
         // @return initialized table entity
-        public static StagingTable initTable(StagingTable table)
+        public ITable initTable(ITable table)
         {
             HashSet<String> extraInputs = new HashSet<String>();
 
             List<List<String>> pTableRawRows = table.getRawRows();
 
             // empty out the parsed rows
-            List<ITableRow> newTableRows = new List<ITableRow>();
-            if (pTableRawRows != null)
-            {
-                newTableRows.Capacity = pTableRawRows.Count;
-            }
-            table.setTableRows(newTableRows);
+            table.clearTableRows();
 
             if (pTableRawRows != null)
             {
                 foreach (List<String> row in pTableRawRows)
                 {
-                    StagingTableRow tableRowEntity = new StagingTableRow();
+                    ITableRow tableRowEntity = getTableRow();
 
                     // make sure the number of cells in the row matches the number of columns defined
                     if (table.getColumnDefinitions().Count != row.Count)
@@ -151,7 +148,7 @@ namespace TNMStagingCSharp.Src.Staging
                     // loop over the column definitions in order since the data needs to be retrieved by array position
                     for (int i = 0; i < table.getColumnDefinitions().Count; i++)
                     {
-                        StagingColumnDefinition col = (StagingColumnDefinition)(table.getColumnDefinitions()[i]);
+                        IColumnDefinition col = table.getColumnDefinitions()[i];
                         String cellValue = row[i];
 
                         switch (col.getType())
@@ -164,7 +161,7 @@ namespace TNMStagingCSharp.Src.Staging
                                     tableRowEntity.addInput(col.getKey(), ranges);
 
                                     // if there are key references used (values that reference other inputs) like {{key}}, then add them to the extra inputs list
-                                    foreach (StagingRange range in ranges)
+                                    foreach (Range range in ranges)
                                     {
                                         if (DecisionEngineFuncs.isReferenceVariable(range.getLow()))
                                             extraInputs.Add(DecisionEngineFuncs.trimBraces(range.getLow()));
@@ -174,7 +171,7 @@ namespace TNMStagingCSharp.Src.Staging
                                 }
                                 break;
                             case ColumnType.ENDPOINT:
-                                StagingEndpoint endpoint = parseEndpoint(cellValue);
+                                IEndpoint endpoint = parseEndpoint(cellValue);
                                 endpoint.setResultKey(col.getKey());
                                 tableRowEntity.addEndpoint(endpoint);
 
@@ -192,7 +189,7 @@ namespace TNMStagingCSharp.Src.Staging
 
                     tableRowEntity.ConvertColumnInput();
 
-                    newTableRows.Add(tableRowEntity);
+                    table.addTableRow(tableRowEntity);
                 }
             }
 
@@ -246,7 +243,7 @@ namespace TNMStagingCSharp.Src.Staging
         // Parse the string representation of an endpoint into a Endpoint object
         // @param endpoint endpoint String
         // @return an Endpoint object
-        public static StagingEndpoint parseEndpoint(String endpoint)
+        public IEndpoint parseEndpoint(String endpoint)
         {
             String[] parts = endpoint.Split(":".ToCharArray(), 2);
             bool bTypeEmpty = true;
@@ -273,13 +270,13 @@ namespace TNMStagingCSharp.Src.Staging
             if ((value == null || value.Length == 0) && EndpointType.JUMP == type)
                 throw new System.InvalidOperationException("JUMP endpoint types must have a value: '" + endpoint + "'");
 
-            return new StagingEndpoint(type, value);
+            return getEndpoint(type, value);
         }
 
         // Parses a string in having lists of ranges into a List of Range objects
         // @param values String representing sets value ranges
         // @return a parsed list of string Range objects
-        public static List<Range> splitValues(String values)
+        public List<Range> splitValues(String values)
         {
             List<Range> convertedRanges = new List<Range>();
 
@@ -287,7 +284,7 @@ namespace TNMStagingCSharp.Src.Staging
             {
                 // if the value of the string is "*", then consider it as matching anything
                 if (values == "*")
-                    convertedRanges.Add(_MATCH_ALL_ENDPOINT);
+                    convertedRanges.Add(_matchAllEndpoint);
                 else
                 {
                     // split the string; the "9999" makes sure to not discard empty strings
@@ -307,24 +304,30 @@ namespace TNMStagingCSharp.Src.Staging
                             String high = parts[1].Trim();
 
                             // check if both sides of the range are numeric values; if so the length does not have to match
-                            bool isNumericRange = StagingRange.isNumeric(low) && StagingRange.isNumeric(high);
+                            bool isNumericRange = isNumeric(low) && isNumeric(high);
 
                             // if same length, a numeric range, or one of the parts is a context variable, use the low and high as range.  Otherwise consier
                             // a single value (i.e. low = high)
                             if (low.Length == high.Length || isNumericRange || DecisionEngineFuncs.isReferenceVariable(low) || DecisionEngineFuncs.isReferenceVariable(high))
-                                convertedRanges.Add(new StagingRange(low, high));
+                                convertedRanges.Add(getRange(low, high));
                             else
-                                convertedRanges.Add(new StagingRange(range.Trim(), range.Trim()));
+                                convertedRanges.Add(getRange(range.Trim(), range.Trim()));
 
 
                         }
                         else
-                            convertedRanges.Add(new StagingRange(range.Trim(), range.Trim()));
+                            convertedRanges.Add(getRange(range.Trim(), range.Trim()));
                     }
                 }
             }
 
             return convertedRanges;
+        }
+
+        public static bool isNumeric(String value)
+        {
+            int result = 0;
+            return int.TryParse(value, out result);
         }
 
         // Return the algorithm associated with the provider
@@ -335,9 +338,35 @@ namespace TNMStagingCSharp.Src.Staging
         // @return version number
         public abstract String getVersion();
 
+        // Return a new table
+        // @param id the table id
+        // @return Table entity
         public abstract ITable getTable(String id);
 
-        public abstract IDefinition getDefinition(String id);
+        // Return a new schema
+        // @param id the schema id
+        // @return Schema entity
+        public abstract Schema getSchema(String id);
+
+        // Return a new endpoint
+        // @param type type of endpoint
+        // @param value value of endpoint
+        // @return Endpoint entity
+        public abstract IEndpoint getEndpoint(EndpointType type, String value);
+
+        // Return a new table row
+        // @return TableRow entity
+        public abstract ITableRow getTableRow();
+
+        // Return a range representing "match all"
+        // @return a Range entity
+        public abstract Range getMatchAllRange();
+
+        // Return a newly created range
+        // @param low low value
+        // @param high high value
+        // @return Range entity
+        public abstract Range getRange(String low, String high);
 
         // Return a set of all schema identifiers as 
         // @return a Set of schema identifiers
@@ -433,9 +462,9 @@ namespace TNMStagingCSharp.Src.Staging
         // Look up a schema based on site, histology and an optional discriminator.
         // @param lookup schema lookup input
         // @return a list of StagingSchemaInfo objects
-        public List<StagingSchema> lookupSchema(SchemaLookup lookup)
+        public List<Schema> lookupSchema(SchemaLookup lookup)
         {
-            List<StagingSchema> lstRetval = null;
+            List<Schema> lstRetval = null;
 
             // If doing a more broad lookup without giving both site and histology, do not use the cache.  I don't want to cache
             // since the results could include all the data
@@ -471,9 +500,9 @@ namespace TNMStagingCSharp.Src.Staging
         // Look up a schema based on site, histology and an optional discriminator.
         // @param lookup schema lookup input
         // @return a list of StagingSchemaInfo objects
-        private List<StagingSchema> getSchemas(SchemaLookup lookup)
+        private List<Schema> getSchemas(SchemaLookup lookup)
         {
-            List<StagingSchema> matchedSchemas = new List<StagingSchema>(5);
+            List<Schema> matchedSchemas = new List<Schema>(5);
 
             String site = lookup.getInput(StagingData.PRIMARY_SITE_KEY);
             String histology = lookup.getInput(StagingData.HISTOLOGY_KEY);
@@ -497,11 +526,11 @@ namespace TNMStagingCSharp.Src.Staging
                 // loop over selection table and match using only the supplied keys
                 foreach (String schemaId in lstSchemaIds)
                 {
-                    StagingSchema schema = (StagingSchema)(getDefinition(schemaId));
+                    StagingSchema schema = (StagingSchema)(getSchema(schemaId));
 
                     if (schema.getSchemaSelectionTable() != null)
                     {
-                        StagingTable table = (StagingTable)(getTable(schema.getSchemaSelectionTable()));
+                        ITable table = getTable(schema.getSchemaSelectionTable());
                         if (table != null && DecisionEngineFuncs.matchTable(table, lookup.getInputs(), lookup.getKeys()) != null)
                             matchedSchemas.Add(schema);
                     }
@@ -520,13 +549,13 @@ namespace TNMStagingCSharp.Src.Staging
 
             // if the table is not found, return right away with an empty list
             //StagingTable table = (getTable(tableId) as StagingTable);
-            StagingTable table = (StagingTable)(getTable(tableId));
+            ITable table = getTable(tableId);
             if (table == null)
                 return values;
 
             // find the input key
             HashSet<String> inputKeys = new HashSet<String>();
-            foreach (StagingColumnDefinition col in table.getColumnDefinitions())
+            foreach (IColumnDefinition col in table.getColumnDefinitions())
             {
                 if (col.getType() == ColumnType.INPUT)
                 {
@@ -541,9 +570,9 @@ namespace TNMStagingCSharp.Src.Staging
             enumInput.MoveNext();
             String inputKey = enumInput.Current;
 
-            foreach (StagingTableRow row in table.getTableRows())
+            foreach (ITableRow row in table.getTableRows())
             {
-                foreach (StagingRange range in row.getColumnInput(inputKey))
+                foreach (Range range in row.getColumnInput(inputKey))
                 {
                     if (range.getLow() != null)
                     {

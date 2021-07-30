@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.IO;
 
 using TNMStagingCSharp.Src.Staging.Entities;
-using TNMStagingCSharp.Src.DecisionEngine;
+using TNMStagingCSharp.Src.Staging.Entities.Impl;
 
 
 namespace TNMStagingCSharp.Src.Staging
@@ -216,6 +216,26 @@ namespace TNMStagingCSharp.Src.Staging
             return oRetval;
         }
 
+        public override IEndpoint getEndpoint(EndpointType type, String value)
+        {
+            return new StagingEndpoint(type, value);
+        }
+
+        public override ITableRow getTableRow()
+        {
+            return new StagingTableRow();
+        }
+
+        public override Range getMatchAllRange()
+        {
+            return new StagingRange();
+        }
+
+        public override Range getRange(String low, String high)
+        {
+            return new StagingRange(low, high);
+        }
+
         public override HashSet<String> getSchemaIds()
         {
             return _SchemaKeys;
@@ -226,11 +246,10 @@ namespace TNMStagingCSharp.Src.Staging
             return _TableKeys;
         }
 
-        public override IDefinition getDefinition(String id)
+        public override Schema getSchema(String id)
         {
             StagingSchema oRetval = null;
             _schemas.TryGetValue(id, out oRetval);
-
             return oRetval;
         }
 

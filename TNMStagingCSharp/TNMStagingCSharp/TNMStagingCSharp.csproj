@@ -70,49 +70,50 @@
     <Reference Include="System.Runtime.Caching" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Src\DecisionEngine\ColumnDefinition.cs" />
-    <Compile Include="Src\DecisionEngine\DataProvider.cs" />
-    <Compile Include="Src\DecisionEngine\DecisionEngine.cs" />
-    <Compile Include="Src\DecisionEngine\Definition.cs" />
-    <Compile Include="Src\DecisionEngine\Endpoint.cs" />
-    <Compile Include="Src\DecisionEngine\Error.cs" />
-    <Compile Include="Src\DecisionEngine\Input.cs" />
+    <Compile Include="Src\Staging\Entities\ColumnDefinition.cs" />
+    <Compile Include="Src\Staging\Entities\DataProvider.cs" />
+    <Compile Include="Src\Staging\Engine\DecisionEngine.cs" />
+    <Compile Include="Src\Staging\Entities\Endpoint.cs" />
+    <Compile Include="Src\Staging\Entities\Error.cs" />
+    <Compile Include="Src\Staging\Entities\Input.cs" />
     <Compile Include="Src\Staging\Entities\GlossaryDefinition.cs" />
     <Compile Include="Src\Staging\Entities\GlossaryHit.cs" />
+    <Compile Include="Src\Staging\Entities\Schema.cs" />
     <Compile Include="Src\Staging\EOD\EodDataProvider.cs" />
     <Compile Include="Src\Staging\EOD\EodSchemaLookup.cs" />
     <Compile Include="Src\Staging\EOD\EodStagingData.cs" />
+    <Compile Include="Src\Staging\InMemoryDataProvider.cs" />
     <Compile Include="Src\Tools\TestingTools.cs" />
-    <Compile Include="Src\DecisionEngine\KeyMapping.cs" />
-    <Compile Include="Src\DecisionEngine\KeyValue.cs" />
-    <Compile Include="Src\DecisionEngine\Mapping.cs" />
-    <Compile Include="Src\DecisionEngine\Output.cs" />
-    <Compile Include="Src\DecisionEngine\Result.cs" />
-    <Compile Include="Src\DecisionEngine\Range.cs" />
-    <Compile Include="Src\DecisionEngine\Table.cs" />
-    <Compile Include="Src\DecisionEngine\TablePath.cs" />
-    <Compile Include="Src\DecisionEngine\TableRow.cs" />
+    <Compile Include="Src\Staging\Entities\KeyMapping.cs" />
+    <Compile Include="Src\Staging\Entities\KeyValue.cs" />
+    <Compile Include="Src\Staging\Entities\Mapping.cs" />
+    <Compile Include="Src\Staging\Entities\Output.cs" />
+    <Compile Include="Src\Staging\Entities\Result.cs" />
+    <Compile Include="Src\Staging\Entities\Range.cs" />
+    <Compile Include="Src\Staging\Entities\Table.cs" />
+    <Compile Include="Src\Staging\Entities\TablePath.cs" />
+    <Compile Include="Src\Staging\Entities\TableRow.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Src\Staging\CS\CsDataProvider.cs" />
     <Compile Include="Src\Staging\CS\CsSchemaLookup.cs" />
     <Compile Include="Src\Staging\CS\CsStagingData.cs" />
-    <Compile Include="Src\Staging\Entities\StagingColumnDefinition.cs" />
-    <Compile Include="Src\Staging\Entities\StagingEndpoint.cs" />
-    <Compile Include="Src\Staging\Entities\StagingKeyMapping.cs" />
-    <Compile Include="Src\Staging\Entities\StagingKeyValue.cs" />
-    <Compile Include="Src\Staging\Entities\StagingMapping.cs" />
-    <Compile Include="Src\Staging\Entities\StagingOutput.cs" />
-    <Compile Include="Src\Staging\Entities\StagingSchema.cs" />
-    <Compile Include="Src\Staging\Entities\StagingSchemaInput.cs" />
-    <Compile Include="Src\Staging\Entities\StagingSchemaOutput.cs" />
-    <Compile Include="Src\Staging\Entities\StagingRange.cs" />
-    <Compile Include="Src\Staging\Entities\StagingTable.cs" />
-    <Compile Include="Src\Staging\Entities\StagingTablePath.cs" />
-    <Compile Include="Src\Staging\Entities\StagingTableRow.cs" />
+    <Compile Include="Src\Staging\Entities\Impl\StagingColumnDefinition.cs" />
+    <Compile Include="Src\Staging\Entities\Impl\StagingEndpoint.cs" />
+    <Compile Include="Src\Staging\Entities\Impl\StagingKeyMapping.cs" />
+    <Compile Include="Src\Staging\Entities\Impl\StagingKeyValue.cs" />
+    <Compile Include="Src\Staging\Entities\Impl\StagingMapping.cs" />
+    <Compile Include="Src\Staging\Entities\Impl\StagingOutput.cs" />
+    <Compile Include="Src\Staging\Entities\Impl\StagingSchema.cs" />
+    <Compile Include="Src\Staging\Entities\Impl\StagingSchemaInput.cs" />
+    <Compile Include="Src\Staging\Entities\Impl\StagingSchemaOutput.cs" />
+    <Compile Include="Src\Staging\Entities\Impl\StagingRange.cs" />
+    <Compile Include="Src\Staging\Entities\Impl\StagingTable.cs" />
+    <Compile Include="Src\Staging\Entities\Impl\StagingTablePath.cs" />
+    <Compile Include="Src\Staging\Entities\Impl\StagingTableRow.cs" />
     <Compile Include="Src\Staging\ExternalStagingFileDataProvider.cs" />
-    <Compile Include="Src\Staging\SchemaLookup.cs" />
+    <Compile Include="Src\Staging\Entities\SchemaLookup.cs" />
     <Compile Include="Src\Staging\Staging.cs" />
-    <Compile Include="Src\Staging\StagingData.cs" />
+    <Compile Include="Src\Staging\Entities\StagingData.cs" />
     <Compile Include="Src\Staging\StagingDataProvider.cs" />
     <Compile Include="Src\Staging\StagingFileDataProvider.cs" />
     <Compile Include="Src\Staging\TNM\TnmDataProvider.cs" />
@@ -126,6 +127,7 @@
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>xcopy "$(TargetDir)TNMStagingCSharp.dll" "$(SolutionDir)TNMStaging_StagingViewerApp\$(OutDir)" /Y /E

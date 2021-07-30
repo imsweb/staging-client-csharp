@@ -8,6 +8,7 @@ using System.Collections.Generic;
 
 namespace TNMStagingCSharp.Src.Staging.EOD
 {
+    using TNMStagingCSharp.Src.Staging.Entities;
 
     //========================================================================================================================
     // input key definitions
@@ -56,6 +57,11 @@ namespace TNMStagingCSharp.Src.Staging.EOD
         public static readonly EodInput S_CATEGORY_CLIN = new EodInput("s_category_clin");
         public static readonly EodInput S_CATEGORY_PATH = new EodInput("s_category_path");
         public static readonly EodInput ULCERATION = new EodInput("ulceration");
+        public static readonly EodInput THROMBOCYTOPENIA = new EodInput("thrombocytopenia");
+        public static readonly EodInput ORGANOMEGALY = new EodInput("organomegaly");
+        public static readonly EodInput ADENOPATHY = new EodInput("adenopathy");
+        public static readonly EodInput ANEMIA = new EodInput("anemia");
+        public static readonly EodInput LYMPHOCYTOSIS = new EodInput("lymphocytosis");
 
         public static IEnumerable<EodInput> Values
         {
@@ -129,6 +135,7 @@ namespace TNMStagingCSharp.Src.Staging.EOD
         public static readonly EodOutput EOD_2018_M = new EodOutput("eod_2018_m");
         public static readonly EodOutput EOD_2018_STAGE_GROUP = new EodOutput("eod_2018_stage_group");
         public static readonly EodOutput SS_2018_DERIVED = new EodOutput("ss2018_derived");
+        public static readonly EodOutput DERIVED_RAI_STAGE = new EodOutput("derived_rai_stage");
 
         public static IEnumerable<EodOutput> Values
         {

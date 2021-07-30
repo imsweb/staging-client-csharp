@@ -8,6 +8,7 @@ using System.Diagnostics;
 
 using TNMStagingCSharp.Src.Tools;
 using TNMStagingCSharp.Src.Staging.Entities;
+using TNMStagingCSharp.Src.Staging.Entities.Impl;
 
 
 namespace TNMStagingCSharp.Src.Staging
@@ -156,9 +157,9 @@ namespace TNMStagingCSharp.Src.Staging
             return _version;
         }
 
-        public override DecisionEngine.ITable getTable(String id)
+        public override ITable getTable(String id)
         {
-            DecisionEngine.ITable oRetval = null;
+            ITable oRetval = null;
             if (id != null)
                 if (_tables.ContainsKey(id))
                     oRetval = _tables[id];
@@ -177,13 +178,33 @@ namespace TNMStagingCSharp.Src.Staging
             return _TableKeys;
         }
 
-        public override DecisionEngine.IDefinition getDefinition(String id)
+        public override Schema getSchema(String id)
         {
-            DecisionEngine.IDefinition oRetval = null;
+            Schema oRetval = null;
             if (_schemas.ContainsKey(id))
                 oRetval = _schemas[id];
 
             return oRetval;
+        }
+
+        public override IEndpoint getEndpoint(EndpointType type, String value)
+        {
+            return new StagingEndpoint(type, value);
+        }
+
+        public override ITableRow getTableRow()
+        {
+            return new StagingTableRow();
+        }
+
+        public override Range getMatchAllRange()
+        {
+            return new StagingRange();
+        }
+
+        public override Range getRange(String low, String high)
+        {
+            return new StagingRange(low, high);
         }
 
         public override HashSet<String> getGlossaryTerms()
