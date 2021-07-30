@@ -31,7 +31,7 @@ namespace TNMStaging_UnitTestApp.Src.Staging.EOD
 
         public override string getVersion()
         {
-            return EodVersion.v2_0.getVersion();
+            return EodVersion.v2_1.getVersion();
         }
 
 
@@ -91,7 +91,7 @@ namespace TNMStaging_UnitTestApp.Src.Staging.EOD
         public void testSchemaSelection()
         {
             // test bad values
-            List<StagingSchema> lookup = _STAGING.lookupSchema(new SchemaLookup());
+            List<Schema> lookup = _STAGING.lookupSchema(new SchemaLookup());
             Assert.AreEqual(0, lookup.Count);
 
             lookup = _STAGING.lookupSchema(new EodSchemaLookup("XXX", "YYY"));
@@ -102,11 +102,11 @@ namespace TNMStaging_UnitTestApp.Src.Staging.EOD
             schemaLookup.setInput(EodInput.DISCRIMINATOR_1.toString(), "");
             lookup = _STAGING.lookupSchema(schemaLookup);
             Assert.AreEqual(1, lookup.Count);
-            Assert.AreEqual("soft_tissue_other", lookup[0].getId());
+            Assert.AreEqual("soft_tissue_rare", lookup[0].getId());
             schemaLookup.setInput(EodInput.DISCRIMINATOR_1.toString(), null);
             lookup = _STAGING.lookupSchema(schemaLookup);
             Assert.AreEqual(1, lookup.Count);
-            Assert.AreEqual("soft_tissue_other", lookup[0].getId());
+            Assert.AreEqual("soft_tissue_rare", lookup[0].getId());
 
             // test valid combination that requires a discriminator but is not supplied one
             lookup = _STAGING.lookupSchema(new EodSchemaLookup("C111", "8200"));
@@ -114,7 +114,7 @@ namespace TNMStaging_UnitTestApp.Src.Staging.EOD
 
             HashSet<String> hash1 = null;
             HashSet<String> hash2 = null;
-            foreach (StagingSchema schema in lookup)
+            foreach (Schema schema in lookup)
             {
                 hash1 = new HashSet<String>() { "discriminator_1", "discriminator_2" };
                 hash2 = schema.getSchemaDiscriminators();
@@ -126,7 +126,7 @@ namespace TNMStaging_UnitTestApp.Src.Staging.EOD
             schemaLookup.setInput(EodInput.DISCRIMINATOR_1.toString(), "1");
             lookup = _STAGING.lookupSchema(schemaLookup);
             Assert.AreEqual(1, lookup.Count);
-            foreach (StagingSchema schema in lookup)
+            foreach (Schema schema in lookup)
             {
                 hash1 = new HashSet<String>() { "discriminator_1", "discriminator_2" };
                 hash2 = schema.getSchemaDiscriminators();
@@ -157,7 +157,7 @@ namespace TNMStaging_UnitTestApp.Src.Staging.EOD
             schemaLookup.setInput(EodInput.DISCRIMINATOR_2.toString(), "1");
             lookup = _STAGING.lookupSchema(schemaLookup);
             Assert.AreEqual(1, lookup.Count);
-            foreach (StagingSchema schema in lookup)
+            foreach (Schema schema in lookup)
             {
                 hash1 = new HashSet<String>() { "discriminator_1", "discriminator_2" };
                 hash2 = schema.getSchemaDiscriminators();
@@ -173,7 +173,7 @@ namespace TNMStaging_UnitTestApp.Src.Staging.EOD
 
             // test searching on only site
             lookup = _STAGING.lookupSchema(new EodSchemaLookup("C401", null));
-            Assert.AreEqual(8, lookup.Count);
+            Assert.AreEqual(9, lookup.Count);
 
             // test searching on only hist
             lookup = _STAGING.lookupSchema(new EodSchemaLookup(null, "9702"));
@@ -209,7 +209,7 @@ namespace TNMStaging_UnitTestApp.Src.Staging.EOD
         {
             HashSet<String> allDiscriminators = new HashSet<String>();
             HashSet<String> theseDiscriminators;
-            StagingSchema ss;
+            Schema ss;
 
             HashSet<String> algorithms = _STAGING.getSchemaIds();
             foreach (String schemaId in algorithms)
@@ -240,13 +240,13 @@ namespace TNMStaging_UnitTestApp.Src.Staging.EOD
         public void testLookupCache()
         {
             // do the same lookup twice
-            List<StagingSchema> lookup = _STAGING.lookupSchema(new EodSchemaLookup("C629", "9231"));
+            List<Schema> lookup = _STAGING.lookupSchema(new EodSchemaLookup("C629", "9231"));
             Assert.AreEqual(1, lookup.Count);
-            Assert.AreEqual("soft_tissue_other", lookup[0].getId());
+            Assert.AreEqual("soft_tissue_rare", lookup[0].getId());
 
             lookup = _STAGING.lookupSchema(new EodSchemaLookup("C629", "9231"));
             Assert.AreEqual(1, lookup.Count);
-            Assert.AreEqual("soft_tissue_other", lookup[0].getId());
+            Assert.AreEqual("soft_tissue_rare", lookup[0].getId());
 
             // now invalidate the cache
             EodDataProvider.getInstance(EodVersion.LATEST).invalidateCache();
@@ -254,7 +254,7 @@ namespace TNMStaging_UnitTestApp.Src.Staging.EOD
             // try the lookup again
             lookup = _STAGING.lookupSchema(new EodSchemaLookup("C629", "9231"));
             Assert.AreEqual(1, lookup.Count);
-            Assert.AreEqual("soft_tissue_other", lookup[0].getId());
+            Assert.AreEqual("soft_tissue_rare", lookup[0].getId());
         }
 
         [TestMethod]
@@ -298,7 +298,7 @@ namespace TNMStaging_UnitTestApp.Src.Staging.EOD
             Assert.AreEqual("7", data.getOutput(EodOutput.SS_2018_DERIVED));
             Assert.AreEqual("00280", data.getOutput(EodOutput.NAACCR_SCHEMA_ID));
             Assert.AreEqual("4", data.getOutput(EodOutput.EOD_2018_STAGE_GROUP));
-            Assert.AreEqual("T1", data.getOutput(EodOutput.EOD_2018_T));
+            Assert.AreEqual("T1a", data.getOutput(EodOutput.EOD_2018_T));
             Assert.AreEqual("N1", data.getOutput(EodOutput.EOD_2018_N));
             Assert.AreEqual("M1", data.getOutput(EodOutput.EOD_2018_M));
             Assert.AreEqual("28", data.getOutput(EodOutput.AJCC_ID));
@@ -477,16 +477,16 @@ namespace TNMStaging_UnitTestApp.Src.Staging.EOD
         public void testLookupOutputs()
         {
             EodSchemaLookup lookup = new EodSchemaLookup("C680", "8590");
-            List<StagingSchema> lookups = _STAGING.lookupSchema(lookup);
+            List<Schema> lookups = _STAGING.lookupSchema(lookup);
             Assert.AreEqual(2, lookups.Count);
 
-            StagingSchema schema = _STAGING.getSchema(lookups[0].getId());
+            Schema schema = _STAGING.getSchema(lookups[0].getId());
             Assert.AreEqual("urethra", schema.getId());
 
             // build list of output keys
-            List<StagingSchemaOutput> outputs = schema.getOutputs();
+            List<IOutput> outputs = schema.getOutputs();
             HashSet<String> definedOutputs = new HashSet<String>();
-            foreach (StagingSchemaOutput o in outputs)
+            foreach (IOutput o in outputs)
             {
                 definedOutputs.Add(o.getKey());
             }
@@ -501,7 +501,7 @@ namespace TNMStaging_UnitTestApp.Src.Staging.EOD
         [TestMethod]
         public void testEncoding()
         {
-            StagingTable table = _STAGING.getTable("serum_alb_pretx_level_58159");
+            ITable table = _STAGING.getTable("serum_alb_pretx_level_58159");
 
             Assert.IsNotNull(table);
 
@@ -548,7 +548,7 @@ namespace TNMStaging_UnitTestApp.Src.Staging.EOD
             Assert.AreEqual(5, data.getErrors().Count);
             Assert.AreEqual(5, data.getPath().Count);
             Assert.AreEqual(9, data.getOutput().Count);
-            Assert.AreEqual("2.0", data.getOutput(EodOutput.DERIVED_VERSION.toString()));
+            Assert.AreEqual("2.1", data.getOutput(EodOutput.DERIVED_VERSION.toString()));
         }
 
         [TestMethod]
@@ -599,7 +599,7 @@ namespace TNMStaging_UnitTestApp.Src.Staging.EOD
 
             foreach (string id in _STAGING.getSchemaIds())
             {
-                StagingSchema schema = _STAGING.getSchema(id);
+                Schema schema = _STAGING.getSchema(id);
                 if (schema.getSchemaDiscriminators() != null)
                 {
                     descriminators.UnionWith(schema.getSchemaDiscriminators());
@@ -644,7 +644,7 @@ namespace TNMStaging_UnitTestApp.Src.Staging.EOD
         {
             // test valid combination that requires discriminator and a good discriminator is supplied
             EodSchemaLookup lookup = new EodSchemaLookup("C717", "9591");
-            List<StagingSchema> lookups = _STAGING.lookupSchema(lookup);
+            List<Schema> lookups = _STAGING.lookupSchema(lookup);
             Assert.AreEqual(lookups.Count, 3);
             lookup.setInput(EodInput.DISCRIMINATOR_1.toString(), "1");
             lookup.setInput(EodInput.BEHAVIOR.toString(), "3");
@@ -673,7 +673,7 @@ namespace TNMStaging_UnitTestApp.Src.Staging.EOD
             HashSet<String> schemaOutput = new HashSet<String>();
             foreach (String schemaId in _STAGING.getSchemaIds())
             {
-                StagingSchema schema = _STAGING.getSchema(schemaId);
+                Schema schema = _STAGING.getSchema(schemaId);
 
                 schemaInput.UnionWith(_STAGING.getInputs(schema));
                 schemaOutput.UnionWith(_STAGING.getOutputs(schema));
@@ -692,9 +692,9 @@ namespace TNMStaging_UnitTestApp.Src.Staging.EOD
             Dictionary<String, HashSet<String>> outputMappings = new Dictionary<String, HashSet<String>>();
             foreach (String schemaId in _STAGING.getSchemaIds())
             {
-                StagingSchema schema = _STAGING.getSchema(schemaId);
+                Schema schema = _STAGING.getSchema(schemaId);
 
-                foreach (StagingSchemaInput input in schema.getInputs())
+                foreach (IInput input in schema.getInputs())
                 {
                     if (input.getNaaccrItem() > 0 && input.getNaaccrXmlId() == null)
                     {
@@ -710,7 +710,7 @@ namespace TNMStaging_UnitTestApp.Src.Staging.EOD
                     }
                 }
 
-                foreach (StagingSchemaOutput output in schema.getOutputs())
+                foreach (IOutput output in schema.getOutputs())
                 {
                     if (output.getNaaccrItem() > 0 && output.getNaaccrXmlId() == null)
                     {
@@ -779,6 +779,23 @@ namespace TNMStaging_UnitTestApp.Src.Staging.EOD
             Assert.AreEqual("N2b", data.getOutput(EodOutput.EOD_2018_N));
             Assert.AreEqual("M1a", data.getOutput(EodOutput.EOD_2018_M));
             Assert.AreEqual("20", data.getOutput(EodOutput.AJCC_ID));
+        }
+
+        [TestMethod]
+        public void testMetadata()
+        {
+            Schema urethra = _STAGING.getSchema("urethra");
+            Assert.IsNotNull(urethra);
+
+            IInput gradeClin = urethra.getInputMap()["grade_clin"];
+            Assert.IsNotNull(gradeClin);
+
+            Assert.AreEqual(gradeClin.getMetadata().Count, 5);
+            Assert.IsTrue(gradeClin.getMetadata().Contains(new StagingMetadata("COC_REQUIRED")));
+            Assert.IsTrue(gradeClin.getMetadata().Contains(new StagingMetadata("CCCR_REQUIRED")));
+            Assert.IsTrue(gradeClin.getMetadata().Contains(new StagingMetadata("SEER_REQUIRED")));
+            Assert.IsTrue(gradeClin.getMetadata().Contains(new StagingMetadata("NPCR_REQUIRED")));
+            Assert.IsTrue(gradeClin.getMetadata().Contains(new StagingMetadata("SSDI")));
         }
     }
 }
