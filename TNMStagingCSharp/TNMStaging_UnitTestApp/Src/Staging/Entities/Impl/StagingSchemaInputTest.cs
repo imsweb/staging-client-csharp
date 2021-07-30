@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-using TNMStagingCSharp.Src.Staging.Entities;
+using TNMStagingCSharp.Src.Staging.Entities.Impl;
 
 
 namespace TNMStaging_UnitTestApp.Src.Staging.Entities.Impl

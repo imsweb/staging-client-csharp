@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-using TNMStagingCSharp.Src.Staging;
+using TNMStagingCSharp.Src.Staging.Entities;
 
 
 namespace TNMStaging_UnitTestApp.Src.Staging.Entities

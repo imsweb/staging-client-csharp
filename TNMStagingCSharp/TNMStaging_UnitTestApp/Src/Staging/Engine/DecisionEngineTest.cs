@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-using TNMStaging_UnitTestApp.Src.DecisionEngine.Basic;
-using TNMStagingCSharp.Src.DecisionEngine;
+using TNMStagingCSharp.Src.Staging;
+using TNMStagingCSharp.Src.Staging.Engine;
+using TNMStagingCSharp.Src.Staging.Entities;
+using TNMStagingCSharp.Src.Staging.Entities.Impl;
 
 
 namespace TNMStaging_UnitTestApp.Src.Staging.Engine
@@ -20,9 +22,9 @@ namespace TNMStaging_UnitTestApp.Src.Staging.Engine
         [ClassInitialize()]
         public static void ClassInit(TestContext context)
         {
-            BasicDataProvider provider = new BasicDataProvider();
+            InMemoryDataProvider provider = new InMemoryDataProvider("test", "1.0");
 
-            BasicTable table = new BasicTable("table_lookup_sample");
+            StagingTable table = new StagingTable("table_lookup_sample");
             table.addColumnDefinition("b", ColumnType.INPUT);
             table.addColumnDefinition("description", ColumnType.DESCRIPTION);
             table.addRawRow(new List<String>() { "00-09", "First 10" });
@@ -33,7 +35,7 @@ namespace TNMStaging_UnitTestApp.Src.Staging.Engine
             table.addRawRow(new List<String>() { "", "blank" });
             provider.addTable(table);
 
-            table = new BasicTable("table_jump_sample");
+            table = new StagingTable("table_jump_sample");
             table.addColumnDefinition("c", ColumnType.INPUT);
             table.addColumnDefinition("description", ColumnType.DESCRIPTION);
             table.addColumnDefinition("result", ColumnType.ENDPOINT);
@@ -43,7 +45,7 @@ namespace TNMStaging_UnitTestApp.Src.Staging.Engine
             table.addRawRow(new List<String>() {"Z", "Line4", "STOP" });
             provider.addTable(table);
 
-            table = new BasicTable("table_sample_first");
+            table = new StagingTable("table_sample_first");
             table.addColumnDefinition("a", ColumnType.INPUT);
             table.addColumnDefinition("b", ColumnType.INPUT);
             table.addColumnDefinition("description", ColumnType.DESCRIPTION);
@@ -57,7 +59,7 @@ namespace TNMStaging_UnitTestApp.Src.Staging.Engine
             table.addRawRow(new List<String>() {"9", "99", "Line6", "ERROR:999" });
             provider.addTable(table);
 
-            table = new BasicTable("table_multiple_inputs");
+            table = new StagingTable("table_multiple_inputs");
             table.addColumnDefinition("a", ColumnType.INPUT);
             table.addColumnDefinition("b", ColumnType.INPUT);
             table.addColumnDefinition("description", ColumnType.DESCRIPTION);
@@ -71,7 +73,7 @@ namespace TNMStaging_UnitTestApp.Src.Staging.Engine
             table.addRawRow(new List<String>() {"9", "99", "Line4", "ERROR:1_LINE4", "ERROR:2_LINE4", "ERROR:3_LINE4" });
             provider.addTable(table);
 
-            table = new BasicTable("table_sample_second");
+            table = new StagingTable("table_sample_second");
             table.addColumnDefinition("e", ColumnType.INPUT);
             table.addColumnDefinition("description", ColumnType.DESCRIPTION);
             table.addColumnDefinition("shared_result", ColumnType.ENDPOINT);
@@ -80,7 +82,7 @@ namespace TNMStaging_UnitTestApp.Src.Staging.Engine
             table.addRawRow(new List<String>() {"Z", "Line3", "VALUE:LINE3" });
             provider.addTable(table);
 
-            table = new BasicTable("table_recursion");
+            table = new StagingTable("table_recursion");
             table.addColumnDefinition("a", ColumnType.INPUT);
             table.addColumnDefinition("description", ColumnType.DESCRIPTION);
             table.addColumnDefinition("result", ColumnType.ENDPOINT);
@@ -88,27 +90,27 @@ namespace TNMStaging_UnitTestApp.Src.Staging.Engine
             table.addRawRow(new List<String>() {"3,4", "Line2", "JUMP:table_recursion" });
             provider.addTable(table);
 
-            table = new BasicTable("table_inclusion1");
+            table = new StagingTable("table_inclusion1");
             table.addColumnDefinition("a", ColumnType.INPUT);
             table.addRawRow(new List<String>() {"0-3,5" });
             provider.addTable(table);
 
-            table = new BasicTable("table_inclusion2");
+            table = new StagingTable("table_inclusion2");
             table.addColumnDefinition("a", ColumnType.INPUT);
             table.addRawRow(new List<String>() {"4,6-8" });
             provider.addTable(table);
 
-            table = new BasicTable("table_inclusion3");
+            table = new StagingTable("table_inclusion3");
             table.addColumnDefinition("not_in_input_list", ColumnType.INPUT);
             table.addRawRow(new List<String>() {"4,6-8" });
             provider.addTable(table);
 
-            table = new BasicTable("table_exclusion1");
+            table = new StagingTable("table_exclusion1");
             table.addColumnDefinition("a", ColumnType.INPUT);
             table.addRawRow(new List<String>() {"1" });
             provider.addTable(table);
 
-            table = new BasicTable("table_part1");
+            table = new StagingTable("table_part1");
             table.addColumnDefinition("val", ColumnType.INPUT);
             table.addColumnDefinition("description", ColumnType.DESCRIPTION);
             table.addColumnDefinition("result", ColumnType.ENDPOINT);
@@ -117,26 +119,26 @@ namespace TNMStaging_UnitTestApp.Src.Staging.Engine
             table.addRawRow(new List<String>() { "3", "3", "VALUE:3" });
             provider.addTable(table);
 
-            table = new BasicTable("table_part2");
+            table = new StagingTable("table_part2");
             table.addColumnDefinition("a", ColumnType.INPUT);
             table.addColumnDefinition("description", ColumnType.DESCRIPTION);
             table.addColumnDefinition("special", ColumnType.ENDPOINT);
             table.addRawRow(new List<String>() {"*", "", "VALUE:SUCCESS" });
             provider.addTable(table);
 
-            table = new BasicTable("table_create_intermediate");
+            table = new StagingTable("table_create_intermediate");
             table.addColumnDefinition("main_input", ColumnType.INPUT);
             table.addColumnDefinition("intermediate_output", ColumnType.ENDPOINT);
             table.addRawRow(new List<String>() {"1", "VALUE:1" });
             provider.addTable(table);
 
-            table = new BasicTable("table_use_intermediate");
+            table = new StagingTable("table_use_intermediate");
             table.addColumnDefinition("intermediate_output", ColumnType.INPUT);
             table.addColumnDefinition("final_output", ColumnType.ENDPOINT);
             table.addRawRow(new List<String>() {"1", "VALUE:1" });
             provider.addTable(table);
 
-            table = new BasicTable("table_blank_matching");
+            table = new StagingTable("table_blank_matching");
             table.addColumnDefinition("a", ColumnType.INPUT);
             table.addColumnDefinition("b", ColumnType.INPUT);
             table.addColumnDefinition("b", ColumnType.ENDPOINT);
@@ -147,7 +149,7 @@ namespace TNMStaging_UnitTestApp.Src.Staging.Engine
             table.addRawRow(new List<String>() {"*", "*", "MATCH", "MATCH" });
             provider.addTable(table);
 
-            table = new BasicTable("table_multiple_input");
+            table = new StagingTable("table_multiple_input");
             table.addColumnDefinition("a", ColumnType.INPUT);
             table.addColumnDefinition("b", ColumnType.INPUT);
             table.addColumnDefinition("result", ColumnType.ENDPOINT);
@@ -156,111 +158,128 @@ namespace TNMStaging_UnitTestApp.Src.Staging.Engine
             table.addRawRow(new List<String>() {"1", "1", "VALUE:LINE3" });
             provider.addTable(table);
 
-            BasicDefinition def = new BasicDefinition("starting_sample");
-            def.setOnInvalidInput(StagingInputErrorHandler.FAIL);
-            def.addInput("a");
-            BasicInput input = new BasicInput("b", "table_lookup_sample");
-            def.addInput(input);
-            def.addInput("c");
-            def.addInitialContext("d", "HARD-CODE");
-            BasicMapping mapping = new BasicMapping("m1");
-            mapping.setTablePaths(new List<ITablePath>() { new BasicTablePath("table_sample_first"), new BasicTablePath("table_sample_second") });
-            def.addMapping(mapping);
-            provider.addDefinition(def);
+            table = new StagingTable();
+            table.setId("table_selection");
+            table.setColumnDefinitions(new List<IColumnDefinition> { new StagingColumnDefinition("a", "a", ColumnType.INPUT) });
+            table.setRawRows(new List<List<string>>());
+            table.getRawRows().Add(new List<string> { "*" });
+            provider.addTable(table);
 
-            def = new BasicDefinition("starting_min");
-            def.addInitialContext("foo", "bar");
-            provider.addDefinition(def);
+            StagingSchema schema = new StagingSchema("starting_sample");
+            schema.setSchemaSelectionTable("table_selection");
+            schema.setOnInvalidInput(StagingInputErrorHandler.FAIL);
+            schema.addInput("a");
+            StagingSchemaInput input = new StagingSchemaInput("b", "table_lookup_sample");
+            schema.addInput(input);
+            schema.addInput("c");
+            schema.addInitialContext("d", "HARD-CODE");
+            StagingMapping mapping = new StagingMapping("m1");
+            mapping.setTablePaths(new List<ITablePath>() { new StagingTablePath("table_sample_first"), new StagingTablePath("table_sample_second") });
+            schema.addMapping(mapping);
+            provider.addSchema(schema);
 
-            def = new BasicDefinition("starting_multiple_endpoints");
-            def.addInput("a");
-            def.addInput("b");
-            def.addInput("c");
-            def.addMapping(new BasicMapping("m1", new List<ITablePath>() { new BasicTablePath("table_multiple_inputs") }));
-            provider.addDefinition(def);
+            schema = new StagingSchema("starting_min");
+            schema.setSchemaSelectionTable("table_selection");
+            schema.addInitialContext("foo", "bar");
+            provider.addSchema(schema);
 
-            def = new BasicDefinition("starting_recursion");
-            def.addInput("a");
-            def.addMapping(new BasicMapping("m1", new List<ITablePath>() { new BasicTablePath("table_recursion") }));
-            provider.addDefinition(def);
+            schema = new StagingSchema("starting_multiple_endpoints");
+            schema.setSchemaSelectionTable("table_selection");
+            schema.addInput("a");
+            schema.addInput("b");
+            schema.addInput("c");
+            schema.addMapping(new StagingMapping("m1", new List<ITablePath>() { new StagingTablePath("table_multiple_inputs") }));
+            provider.addSchema(schema);
 
-            def = new BasicDefinition("starting_inclusions");
-            def.addInput("a");
-            def.addInput("b");
-            def.addInput("c");
-            mapping = new BasicMapping("m1");
-            mapping.setInclusionTables(new List<ITablePath>() { new BasicTablePath("table_inclusion1") });
-            BasicTablePath path = new BasicTablePath("table_part1");
+            schema = new StagingSchema("starting_recursion");
+            schema.setSchemaSelectionTable("table_selection");
+            schema.addInput("a");
+            schema.addMapping(new StagingMapping("m1", new List<ITablePath>() { new StagingTablePath("table_recursion") }));
+            provider.addSchema(schema);
+
+            schema = new StagingSchema("starting_inclusions");
+            schema.setSchemaSelectionTable("table_selection");
+            schema.addInput("a");
+            schema.addInput("b");
+            schema.addInput("c");
+            mapping = new StagingMapping("m1");
+            mapping.setInclusionTables(new List<ITablePath>() { new StagingTablePath("table_inclusion1") });
+            StagingTablePath path = new StagingTablePath("table_part1");
             path.addInputMapping("b", "val");
             mapping.addTablePath(path);
-            def.addMapping(mapping);
-            mapping = new BasicMapping("m2");
-            mapping.setInclusionTables(new List<ITablePath>() { new BasicTablePath("table_inclusion2") });
-            path = new BasicTablePath("table_part1");
+            schema.addMapping(mapping);
+            mapping = new StagingMapping("m2");
+            mapping.setInclusionTables(new List<ITablePath>() { new StagingTablePath("table_inclusion2") });
+            path = new StagingTablePath("table_part1");
             path.addInputMapping("c", "val");
             mapping.addTablePath(path);
-            def.addMapping(mapping);
-            mapping = new BasicMapping("m3");
-            mapping.setExclusionTables(new List<ITablePath>() { new BasicTablePath("table_exclusion1") });
-            path = new BasicTablePath("table_part2");
+            schema.addMapping(mapping);
+            mapping = new StagingMapping("m3");
+            mapping.setExclusionTables(new List<ITablePath>() { new StagingTablePath("table_exclusion1") });
+            path = new StagingTablePath("table_part2");
             mapping.addTablePath(path);
-            def.addMapping(mapping);
-            provider.addDefinition(def);
+            schema.addMapping(mapping);
+            provider.addSchema(schema);
 
-            def = new BasicDefinition("starting_intermediate_values");
-            def.addInput("main_input");
-            mapping = new BasicMapping("m1");
-            mapping.addTablePath(new BasicTablePath("table_create_intermediate"));
-            mapping.addTablePath(new BasicTablePath("table_use_intermediate"));
-            def.addMapping(mapping);
-            provider.addDefinition(def);
+            schema = new StagingSchema("starting_intermediate_values");
+            schema.setSchemaSelectionTable("table_selection");
+            schema.addInput("main_input");
+            mapping = new StagingMapping("m1");
+            mapping.addTablePath(new StagingTablePath("table_create_intermediate"));
+            mapping.addTablePath(new StagingTablePath("table_use_intermediate"));
+            schema.addMapping(mapping);
+            provider.addSchema(schema);
 
-            def = new BasicDefinition("starting_inclusions_extra_inputs");
-            def.addInput("a");
-            def.addInput("b");
-            def.addInput("c");
-            mapping = new BasicMapping("m1");
-            mapping.setInclusionTables(new List<ITablePath>() { new BasicTablePath("table_inclusion3") });
-            path = new BasicTablePath("table_part1");
+            schema = new StagingSchema("starting_inclusions_extra_inputs");
+            schema.setSchemaSelectionTable("table_selection");
+            schema.addInput("a");
+            schema.addInput("b");
+            schema.addInput("c");
+            mapping = new StagingMapping("m1");
+            mapping.setInclusionTables(new List<ITablePath>() { new StagingTablePath("table_inclusion3") });
+            path = new StagingTablePath("table_part1");
             path.addInputMapping("b", "val");
             path.addOutputMapping("result", "mapped_result");
             mapping.addTablePath(path);
-            def.addMapping(mapping);
-            provider.addDefinition(def);
+            schema.addMapping(mapping);
+            provider.addSchema(schema);
 
-            def = new BasicDefinition("starting_blank");
-            def.addInput("a");
-            def.addInput("b");
-            mapping = new BasicMapping("m1");
-            path = new BasicTablePath("table_blank_matching");
+            schema = new StagingSchema("starting_blank");
+            schema.setSchemaSelectionTable("table_selection");
+            schema.addInput("a");
+            schema.addInput("b");
+            mapping = new StagingMapping("m1");
+            path = new StagingTablePath("table_blank_matching");
             path.addInputMapping("x", "a");
             path.addInputMapping("y", "b");
             path.addOutputMapping("b", "y");
             path.addOutputMapping("c", "z");
             mapping.addTablePath(path);
-            def.addMapping(mapping);
-            provider.addDefinition(def);
+            schema.addMapping(mapping);
+            provider.addSchema(schema);
 
-            def = new BasicDefinition("starting_double_input");
-            def.addInput("x");
-            mapping = new BasicMapping("m1");
-            path = new BasicTablePath("table_multiple_input");
+            schema = new StagingSchema("starting_double_input");
+            schema.setSchemaSelectionTable("table_selection");
+            schema.addInput("x");
+            mapping = new StagingMapping("m1");
+            path = new StagingTablePath("table_multiple_input");
             path.addInputMapping("x", "a");
             path.addInputMapping("x", "b");
             mapping.addTablePath(path);
-            def.addMapping(mapping);
-            provider.addDefinition(def);
+            schema.addMapping(mapping);
+            provider.addSchema(schema);
 
-            def = new BasicDefinition("starting_double_output");
-            def.addInput("a");
-            def.addInput("b");
-            mapping = new BasicMapping("m1");
-            path = new BasicTablePath("table_sample_first");
+            schema = new StagingSchema("starting_double_output");
+            schema.setSchemaSelectionTable("table_selection");
+            schema.addInput("a");
+            schema.addInput("b");
+            mapping = new StagingMapping("m1");
+            path = new StagingTablePath("table_sample_first");
             path.addOutputMapping("result", "output1");
             path.addOutputMapping("result", "output2");
             mapping.addTablePath(path);
-            def.addMapping(mapping);
-            provider.addDefinition(def);
+            schema.addMapping(mapping);
+            provider.addSchema(schema);
 
             _ENGINE = new DecisionEngineClass(provider);
         }
@@ -269,29 +288,29 @@ namespace TNMStaging_UnitTestApp.Src.Staging.Engine
         public void testMatch()
         {
             List<Range> range = new List<Range>();
-            range.Add(new BasicRange("1", "1"));
-            range.Add(new BasicRange("4", "4"));
-            range.Add(new BasicRange("9", "9"));
+            range.Add(new StagingRange("1", "1"));
+            range.Add(new StagingRange("4", "4"));
+            range.Add(new StagingRange("9", "9"));
             Assert.IsTrue(DecisionEngineFuncs.testMatch(range, "9", new Dictionary<String, String>()));
             Assert.IsFalse(DecisionEngineFuncs.testMatch(range, "7", new Dictionary<String, String>()));
 
             range = new List<Range>();
-            range.Add(new BasicRange("11", "54"));
-            range.Add(new BasicRange("99", "99"));
+            range.Add(new StagingRange("11", "54"));
+            range.Add(new StagingRange("99", "99"));
             Assert.IsTrue(DecisionEngineFuncs.testMatch(range, "23", new Dictionary<String, String>()));
         }
 
         [TestMethod]
         public void testEmptyTable() 
         {
-            BasicDataProvider provider = new BasicDataProvider();
-            BasicTable table = new BasicTable("basic_test_table");
+            InMemoryDataProvider provider = new InMemoryDataProvider("Test", "1.0");
+            StagingTable table = new StagingTable("basic_test_table");
             table.addColumnDefinition("size", ColumnType.INPUT);
             table.addColumnDefinition("description", ColumnType.DESCRIPTION);
             table.addColumnDefinition("size_result", ColumnType.ENDPOINT);
             provider.addTable(table);
 
-            table = (BasicTable)provider.getTable("basic_test_table");
+            table = (StagingTable)provider.getTable("basic_test_table");
             Assert.IsTrue(table.getRawRows().Count == 0);
             Assert.IsTrue(table.getTableRows().Count == 0);
         }
@@ -299,8 +318,8 @@ namespace TNMStaging_UnitTestApp.Src.Staging.Engine
         [TestMethod]
         public void testMatchTable() 
         {
-            BasicDataProvider provider = new BasicDataProvider();
-            BasicTable table = new BasicTable("basic_test_table");
+            InMemoryDataProvider provider = new InMemoryDataProvider("Test", "1.0");
+            StagingTable table = new StagingTable("basic_test_table");
             table.addColumnDefinition("size", ColumnType.INPUT);
             table.addColumnDefinition("description", ColumnType.DESCRIPTION);
             table.addColumnDefinition("size_result", ColumnType.ENDPOINT);
@@ -320,7 +339,7 @@ namespace TNMStaging_UnitTestApp.Src.Staging.Engine
             Assert.IsNull(DecisionEngineFuncs.matchTable(matchTable, input));
 
             input["size"] = "003";
-            List<IEndpoint> lst1 = new List<IEndpoint>() { new BasicEndpoint(EndpointType.JUMP, "some_crazy_table", "size_result") };
+            List<IEndpoint> lst1 = new List<IEndpoint>() { new StagingEndpoint(EndpointType.JUMP, "some_crazy_table", "size_result") };
             List<IEndpoint> lst2 = DecisionEngineFuncs.matchTable(matchTable, input);
             Assert.IsTrue(CompareListsOfBasicEndpoint(lst1, lst2));
 
@@ -332,7 +351,7 @@ namespace TNMStaging_UnitTestApp.Src.Staging.Engine
             Assert.AreEqual("size_result", results[0].getResultKey());
 
             input["size"] = "086";
-            lst1 = new List<IEndpoint>() { new BasicEndpoint(EndpointType.ERROR, "Get that huge stuff out of here!", "size_result") };
+            lst1 = new List<IEndpoint>() { new StagingEndpoint(EndpointType.ERROR, "Get that huge stuff out of here!", "size_result") };
             lst2 = DecisionEngineFuncs.matchTable(matchTable, input);
             Assert.IsTrue(CompareListsOfBasicEndpoint(lst1, lst2));
 
@@ -344,8 +363,8 @@ namespace TNMStaging_UnitTestApp.Src.Staging.Engine
         [TestMethod]
         public void testMatchTableWithBlankOrMissingInput() 
         {
-            BasicDataProvider provider = new BasicDataProvider();
-            BasicTable table = new BasicTable("basic_test_table");
+            InMemoryDataProvider provider = new InMemoryDataProvider("Test", "1.0");
+            StagingTable table = new StagingTable("basic_test_table");
             table.addColumnDefinition("size", ColumnType.INPUT);
             table.addColumnDefinition("description", ColumnType.DESCRIPTION);
             table.addColumnDefinition("result", ColumnType.ENDPOINT);
@@ -368,7 +387,7 @@ namespace TNMStaging_UnitTestApp.Src.Staging.Engine
             Assert.IsNotNull(DecisionEngineFuncs.matchTable(matchTable, input));
 
             // test matching on multiple mising values
-            table = new BasicTable("basic_test_table_multi");
+            table = new StagingTable("basic_test_table_multi");
             table.addColumnDefinition("a", ColumnType.INPUT);
             table.addColumnDefinition("b", ColumnType.INPUT);
             table.addColumnDefinition("c", ColumnType.INPUT);
@@ -391,8 +410,8 @@ namespace TNMStaging_UnitTestApp.Src.Staging.Engine
         [TestMethod]
         public void testMatchOnSpecificKeys()
         {
-            BasicDataProvider provider = new BasicDataProvider();
-            BasicTable table = new BasicTable("basic_test_table_keytest");
+            InMemoryDataProvider provider = new InMemoryDataProvider("Test", "1.0");
+            StagingTable table = new StagingTable("basic_test_table_keytest");
             table.addColumnDefinition("key1", ColumnType.INPUT);
             table.addColumnDefinition("key2", ColumnType.INPUT);
             table.addColumnDefinition("result", ColumnType.ENDPOINT);
@@ -415,29 +434,29 @@ namespace TNMStaging_UnitTestApp.Src.Staging.Engine
             Assert.IsNull(DecisionEngineFuncs.matchTable(matchTable, input));
 
             // specify to only match on key1, there should be a match to the first line
-            List<IEndpoint> lst1 = new List<IEndpoint>() { new BasicEndpoint(EndpointType.MATCH, "LINE1", "result") };
+            List<IEndpoint> lst1 = new List<IEndpoint>() { new StagingEndpoint(EndpointType.MATCH, "LINE1", "result") };
             List<IEndpoint> lst2 = DecisionEngineFuncs.matchTable(matchTable, input, new HashSet<String>() { "key1" });
             Assert.IsTrue(CompareListsOfBasicEndpoint(lst1, lst2));
 
             // add key2 to the input map and there should be a match
             input["key2"] = "7";
-            lst1 = new List<IEndpoint>() { new BasicEndpoint(EndpointType.MATCH, "LINE2", "result") };
+            lst1 = new List<IEndpoint>() { new StagingEndpoint(EndpointType.MATCH, "LINE2", "result") };
             lst2 = DecisionEngineFuncs.matchTable(matchTable, input);
             Assert.IsTrue(CompareListsOfBasicEndpoint(lst1, lst2));
 
             // if searching on key1 only, even though key2 was supplied should still match to first line
-            lst1 = new List<IEndpoint>() { new BasicEndpoint(EndpointType.MATCH, "LINE1", "result") };
+            lst1 = new List<IEndpoint>() { new StagingEndpoint(EndpointType.MATCH, "LINE1", "result") };
             lst2 = DecisionEngineFuncs.matchTable(matchTable, input, new HashSet<String>() { "key1" });
             Assert.IsTrue(CompareListsOfBasicEndpoint(lst1, lst2));
 
             // supply an empty set of keys (the same meaning as not passing any keys
-            lst1 = new List<IEndpoint>() { new BasicEndpoint(EndpointType.MATCH, "LINE1", "result") };
+            lst1 = new List<IEndpoint>() { new StagingEndpoint(EndpointType.MATCH, "LINE1", "result") };
             lst2 = DecisionEngineFuncs.matchTable(matchTable, input, new HashSet<String>());
             Assert.IsTrue(CompareListsOfBasicEndpoint(lst1, lst2));
 
             // supply an invalid key.  I think this should find nothing, but for the moment finds a match to the first row since none of the cells were compared to.  It
             // is the same as matching to a table with no INPUTS which would currently find a match to the first row.
-            lst1 = new List<IEndpoint>() { new BasicEndpoint(EndpointType.MATCH, "LINE1", "result") };
+            lst1 = new List<IEndpoint>() { new StagingEndpoint(EndpointType.MATCH, "LINE1", "result") };
             lst2 = DecisionEngineFuncs.matchTable(matchTable, input, new HashSet<String>() { "bad_key" });
             Assert.IsTrue(CompareListsOfBasicEndpoint(lst1, lst2));
         }
@@ -452,12 +471,12 @@ namespace TNMStaging_UnitTestApp.Src.Staging.Engine
             }
             else
             {
-                BasicEndpoint endpoint1 = null;
-                BasicEndpoint endpoint2 = null;
+                StagingEndpoint endpoint1 = null;
+                StagingEndpoint endpoint2 = null;
                 for (int i=0; (i < lst1.Count) && (bRetval); i++)
                 {
-                    endpoint1 = (BasicEndpoint)lst1[i];
-                    endpoint2 = (BasicEndpoint)lst2[i];
+                    endpoint1 = (StagingEndpoint)lst1[i];
+                    endpoint2 = (StagingEndpoint)lst2[i];
 
                     if ((endpoint1.getType() != endpoint2.getType()) ||
                         (endpoint1.getValue() != endpoint2.getValue()) ||
@@ -475,8 +494,8 @@ namespace TNMStaging_UnitTestApp.Src.Staging.Engine
         [TestMethod]
         public void testMatchMissingVsAll()
         {
-            BasicDataProvider provider = new BasicDataProvider();
-            BasicTable table = new BasicTable("testMissingAndAll");
+            InMemoryDataProvider provider = new InMemoryDataProvider("Test", "1.0");
+            StagingTable table = new StagingTable("testMissingAndAll");
             table.addColumnDefinition("a", ColumnType.INPUT);
             table.addColumnDefinition("result", ColumnType.ENDPOINT);
             table.addRawRow(new List<String>() { "", "VALUE:missing" });
@@ -503,8 +522,8 @@ namespace TNMStaging_UnitTestApp.Src.Staging.Engine
         [TestMethod]
         public void testValueKeyReferences()
         {
-            BasicDataProvider provider = new BasicDataProvider();
-            BasicTable table = new BasicTable("table_key_references");
+            InMemoryDataProvider provider = new InMemoryDataProvider("Test", "1.0");
+            StagingTable table = new StagingTable("table_key_references");
             table.addColumnDefinition("a", ColumnType.INPUT);
             table.addColumnDefinition("b", ColumnType.INPUT);
             table.addColumnDefinition("result", ColumnType.ENDPOINT);
@@ -515,11 +534,12 @@ namespace TNMStaging_UnitTestApp.Src.Staging.Engine
             table.addRawRow(new List<String>() { "10", "*", "VALUE:{{b}}" });
             table.addRawRow(new List<String>() { "11", "*", "VALUE:{{bad_key}}" });
             provider.addTable(table);
-            BasicDefinition def = new BasicDefinition("alg_key_references");
-            def.addInput("a");
-            def.addInput("b");
-            def.addMapping(new BasicMapping("m1", new List<ITablePath> { new BasicTablePath("table_key_references") }));
-            provider.addDefinition(def);
+            StagingSchema schema = new StagingSchema("alg_key_references");
+            schema.setSchemaSelectionTable("table_selection");
+            schema.addInput("a");
+            schema.addInput("b");
+            schema.addMapping(new StagingMapping("m1", new List<ITablePath> { new StagingTablePath("table_key_references") }));
+            provider.addSchema(schema);
             DecisionEngineClass engine = new DecisionEngineClass(provider);
 
             Dictionary<String, String> input = new Dictionary<String, String>();
@@ -552,8 +572,8 @@ namespace TNMStaging_UnitTestApp.Src.Staging.Engine
         [TestMethod]
         public void testMatchTableMissingCell() 
         {
-            BasicDataProvider provider = new BasicDataProvider();
-            BasicTable table = new BasicTable("table_sample_first");
+            InMemoryDataProvider provider = new InMemoryDataProvider("Test", "1.0");
+            StagingTable table = new StagingTable("table_sample_first");
             table.addColumnDefinition("a", ColumnType.INPUT);
             table.addColumnDefinition("b", ColumnType.INPUT);
             table.addColumnDefinition("description", ColumnType.DESCRIPTION);
@@ -588,8 +608,8 @@ namespace TNMStaging_UnitTestApp.Src.Staging.Engine
         [TestMethod]
         public void testBlankMatching()
         {
-            BasicDataProvider provider = new BasicDataProvider();
-            BasicTable table = new BasicTable("table_blank_matching");
+            InMemoryDataProvider provider = new InMemoryDataProvider("Test", "1.0");
+            StagingTable table = new StagingTable("table_blank_matching");
             table.addColumnDefinition("a", ColumnType.INPUT);
             table.addColumnDefinition("b", ColumnType.INPUT);
             table.addColumnDefinition("b", ColumnType.ENDPOINT);
@@ -620,8 +640,8 @@ namespace TNMStaging_UnitTestApp.Src.Staging.Engine
         [TestMethod]
         public void testLookupTable() 
         {
-            BasicDataProvider provider = new BasicDataProvider();
-            BasicTable table = new BasicTable("site_table");
+            InMemoryDataProvider provider = new InMemoryDataProvider("Test", "1.0");
+            StagingTable table = new StagingTable("site_table");
             table.addColumnDefinition("site", ColumnType.INPUT);
             table.addColumnDefinition("description", ColumnType.DESCRIPTION);
             table.addRawRow(new List<String>() { "C000", "External upper lip" });
@@ -650,8 +670,8 @@ namespace TNMStaging_UnitTestApp.Src.Staging.Engine
         [TestMethod]
         public void testAllValuesMatching() 
         {
-            BasicDataProvider provider = new BasicDataProvider();
-            BasicTable table = new BasicTable("all_values_test");
+            InMemoryDataProvider provider = new InMemoryDataProvider("Test", "1.0");
+            StagingTable table = new StagingTable("all_values_test");
             table.addColumnDefinition("a", ColumnType.INPUT);
             table.addColumnDefinition("b", ColumnType.INPUT);
             table.addColumnDefinition("description", ColumnType.DESCRIPTION);
@@ -711,13 +731,13 @@ namespace TNMStaging_UnitTestApp.Src.Staging.Engine
         [TestMethod]
         public void testMinimumAlgorithm()
         {
-            IDefinition minDefinition = _ENGINE.getProvider().getDefinition("starting_min");
-            Assert.IsNotNull(minDefinition);
-            Assert.AreEqual("starting_min", minDefinition.getId());
-            Assert.IsNotNull(minDefinition.getInitialContext());
+            Schema minSchema = _ENGINE.getProvider().getSchema("starting_min");
+            Assert.IsNotNull(minSchema);
+            Assert.AreEqual("starting_min", minSchema.getId());
+            Assert.IsNotNull(minSchema.getInitialContext());
 
             Dictionary<String, String> input = new Dictionary<String, String>();
-            Result result = _ENGINE.process(minDefinition, input);
+            Result result = _ENGINE.process(minSchema, input);
 
             Assert.IsFalse(result.hasErrors());
             Assert.AreEqual("bar", input["foo"]);
@@ -726,7 +746,7 @@ namespace TNMStaging_UnitTestApp.Src.Staging.Engine
         [TestMethod]
         public void testAlgorithm()
         {
-            IDefinition starting = _ENGINE.getProvider().getDefinition("starting_sample");
+            Schema starting = _ENGINE.getProvider().getSchema("starting_sample");
             Assert.IsNotNull(starting);
             Assert.AreEqual("starting_sample", starting.getId());
             Assert.IsNotNull(starting.getInitialContext());
@@ -871,9 +891,9 @@ namespace TNMStaging_UnitTestApp.Src.Staging.Engine
         [TestMethod]
         public void testProcessWithNullValues()
         {
-            BasicDataProvider provider = new BasicDataProvider();
+            InMemoryDataProvider provider = new InMemoryDataProvider("Test", "1.0");
 
-            BasicTable table = new BasicTable("table_null_values");
+            StagingTable table = new StagingTable("table_null_values");
             table.addColumnDefinition("a", ColumnType.INPUT);
             table.addColumnDefinition("result", ColumnType.ENDPOINT);
             table.addRawRow(new List<String>() { "1", "VALUE:FOUND1" });
@@ -882,13 +902,14 @@ namespace TNMStaging_UnitTestApp.Src.Staging.Engine
             table.addRawRow(new List<String>() { "*", "MATCH" });
             provider.addTable(table);
 
-            BasicDefinition def = new BasicDefinition("starting_null_values");
-            BasicInput inputKey = new BasicInput("a");
+            StagingSchema schema = new StagingSchema("starting_null_values");
+            schema.setSchemaSelectionTable("table_selection");
+            StagingSchemaInput inputKey = new StagingSchemaInput("a");
             inputKey.setDefault("0");
-            def.addInput(inputKey);
-            def.addInitialContext("result", "0");
-            def.addMapping(new BasicMapping("m1", new List<ITablePath>() { new BasicTablePath("table_null_values") }));
-            provider.addDefinition(def);
+            schema.addInput(inputKey);
+            schema.addInitialContext("result", "0");
+            schema.addMapping(new StagingMapping("m1", new List<ITablePath>() { new StagingTablePath("table_null_values") }));
+            provider.addSchema(schema);
             DecisionEngineClass engine = new DecisionEngineClass(provider);
 
             Dictionary<String, String> input = new Dictionary<String, String>();
@@ -1010,21 +1031,21 @@ namespace TNMStaging_UnitTestApp.Src.Staging.Engine
             List<IMapping> mappings;
             Dictionary<String, String> context = new Dictionary<String, String>();
 
-            IDefinition definition = _ENGINE.getProvider().getDefinition("starting_min");
-            mappings = _ENGINE.getInvolvedMappings(definition, context);
+            Schema schema = _ENGINE.getProvider().getSchema("starting_min");
+            mappings = _ENGINE.getInvolvedMappings(schema, context);
             Assert.AreEqual(0, mappings.Count);
 
-            definition = _ENGINE.getProvider().getDefinition("starting_inclusions");
+            schema = _ENGINE.getProvider().getSchema("starting_inclusions");
 
-            mappings = _ENGINE.getInvolvedMappings(definition, context);
+            mappings = _ENGINE.getInvolvedMappings(schema, context);
             Assert.AreEqual(1, mappings.Count);
 
             context["a"] = "1";
-            mappings = _ENGINE.getInvolvedMappings(definition, context);
+            mappings = _ENGINE.getInvolvedMappings(schema, context);
             Assert.AreEqual(1, mappings.Count);
 
             context["a"] = "2";
-            mappings = _ENGINE.getInvolvedMappings(definition, context);
+            mappings = _ENGINE.getInvolvedMappings(schema, context);
             Assert.AreEqual(2, mappings.Count);
         }
 
@@ -1058,26 +1079,27 @@ namespace TNMStaging_UnitTestApp.Src.Staging.Engine
         [TestMethod]
         public void testInvolvedTablesWhenEmpty()
         {
-            BasicDataProvider provider = new BasicDataProvider();
+            InMemoryDataProvider provider = new InMemoryDataProvider("Test", "1.0");
 
             // add empty table
-            BasicTable table = new BasicTable("table1");
+            StagingTable table = new StagingTable("table1");
             table.addColumnDefinition("a", ColumnType.INPUT);
             provider.addTable(table);
 
             // add another empty table
-            table = new BasicTable("table2");
+            table = new StagingTable("table2");
             table.addColumnDefinition("b", ColumnType.INPUT);
             provider.addTable(table);
 
-            BasicDefinition def = new BasicDefinition("def1");
-            def.setOnInvalidInput(StagingInputErrorHandler.FAIL);
-            def.addInput("a");
-            def.addInput("b");
-            BasicMapping mapping = new BasicMapping("m1");
-            mapping.setTablePaths(new List<ITablePath>() { new BasicTablePath("table1"), new BasicTablePath("table2") });
-            def.addMapping(mapping);
-            provider.addDefinition(def);
+            StagingSchema schema = new StagingSchema("def1");
+            schema.setSchemaSelectionTable("table_selection");
+            schema.setOnInvalidInput(StagingInputErrorHandler.FAIL);
+            schema.addInput("a");
+            schema.addInput("b");
+            StagingMapping mapping = new StagingMapping("m1");
+            mapping.setTablePaths(new List<ITablePath>() { new StagingTablePath("table1"), new StagingTablePath("table2") });
+            schema.addMapping(mapping);
+            provider.addSchema(schema);
 
             DecisionEngineClass engine = new DecisionEngineClass(provider);
 
@@ -1195,10 +1217,10 @@ namespace TNMStaging_UnitTestApp.Src.Staging.Engine
         [TestMethod]
         public void testRowNotFoundWithMultipleOutputs()
         {
-            BasicDataProvider provider = new BasicDataProvider();
+            InMemoryDataProvider provider = new InMemoryDataProvider("Test", "1.0");
 
             // test a situation where a a row with mulitple inputs is not found
-            BasicTable table = new BasicTable("table_input");
+            StagingTable table = new StagingTable("table_input");
             table.addColumnDefinition("input1", ColumnType.INPUT);
             table.addColumnDefinition("output1", ColumnType.ENDPOINT);
             table.addColumnDefinition("output2", ColumnType.ENDPOINT);
@@ -1206,15 +1228,16 @@ namespace TNMStaging_UnitTestApp.Src.Staging.Engine
             table.addRawRow(new List<String>() { "001", "VALUE:001", "VALUE:001" });
             provider.addTable(table);
 
-            BasicDefinition def = new BasicDefinition("sample_outputs");
-            def.setOnInvalidInput(StagingInputErrorHandler.FAIL);
-            def.addInput(new BasicInput("input1", "table_input"));
+            StagingSchema schema = new StagingSchema("sample_outputs");
+            schema.setSchemaSelectionTable("table_selection");
+            schema.setOnInvalidInput(StagingInputErrorHandler.FAIL);
+            schema.addInput(new StagingSchemaInput("input1", "table_input"));
 
-            BasicMapping mapping = new BasicMapping("mapping1");
-            BasicTablePath path = new BasicTablePath("table_input");
+            StagingMapping mapping = new StagingMapping("mapping1");
+            StagingTablePath path = new StagingTablePath("table_input");
             mapping.addTablePath(path);
-            def.addMapping(mapping);
-            provider.addDefinition(def);
+            schema.addMapping(mapping);
+            provider.addSchema(schema);
 
             DecisionEngineClass engine = new DecisionEngineClass(provider);
 
@@ -1288,85 +1311,85 @@ namespace TNMStaging_UnitTestApp.Src.Staging.Engine
         [ExpectedException(typeof(System.InvalidOperationException))]
         public void testDuplicateAlgorithms() 
         {
-            BasicDataProvider provider = new BasicDataProvider();
-            BasicDefinition def = new BasicDefinition();
-            def.setId("TEST1");
-            provider.addDefinition(def);
-            provider.addDefinition(def);
+            InMemoryDataProvider provider = new InMemoryDataProvider("Test", "1.0");
+            StagingSchema schema = new StagingSchema();
+            schema.setId("TEST1");
+            provider.addSchema(schema);
+            provider.addSchema(schema);
         }
 
         [TestMethod]
-        public void testAlgorithmInputs()
+        public void testSchemaInputs()
         {
             IDataProvider provider = _ENGINE.getProvider();
 
             HashSet<String> hash1 = new HashSet<String>() { };
-            HashSet<String> hash2 = _ENGINE.getInputs(provider.getDefinition("starting_min"));
+            HashSet<String> hash2 = _ENGINE.getInputs(provider.getSchema("starting_min"));
             Assert.IsTrue(hash1.SetEquals(hash2));
 
             hash1 = new HashSet<String>() { "a", "b", "c", "e" };
-            hash2 = _ENGINE.getInputs(provider.getDefinition("starting_sample"));
+            hash2 = _ENGINE.getInputs(provider.getSchema("starting_sample"));
             Assert.IsTrue(hash1.SetEquals(hash2));
 
             hash1 = new HashSet<String>() { "a", "b", "c" };
-            hash2 = _ENGINE.getInputs(provider.getDefinition("starting_inclusions"));
+            hash2 = _ENGINE.getInputs(provider.getSchema("starting_inclusions"));
             Assert.IsTrue(hash1.SetEquals(hash2));
 
             hash1 = new HashSet<String>() { "a" };
-            hash2 = _ENGINE.getInputs(provider.getDefinition("starting_recursion"));
+            hash2 = _ENGINE.getInputs(provider.getSchema("starting_recursion"));
             Assert.IsTrue(hash1.SetEquals(hash2));
 
             hash1 = new HashSet<String>() { "a", "b", "c" };
-            hash2 = _ENGINE.getInputs(provider.getDefinition("starting_multiple_endpoints"));
+            hash2 = _ENGINE.getInputs(provider.getSchema("starting_multiple_endpoints"));
             Assert.IsTrue(hash1.SetEquals(hash2));
 
             hash1 = new HashSet<String>() { "b", "not_in_input_list" };
-            hash2 = _ENGINE.getInputs(provider.getDefinition("starting_inclusions_extra_inputs"));
+            hash2 = _ENGINE.getInputs(provider.getSchema("starting_inclusions_extra_inputs"));
             Assert.IsTrue(hash1.SetEquals(hash2));
 
             hash1 = new HashSet<String>() { "main_input" };
-            hash2 = _ENGINE.getInputs(provider.getDefinition("starting_intermediate_values"));
+            hash2 = _ENGINE.getInputs(provider.getSchema("starting_intermediate_values"));
             Assert.IsTrue(hash1.SetEquals(hash2));
         }
 
         [TestMethod]
-        public void testGetAlgorithmOutputs()
+        public void testGetSchemaOutputs()
         {
             IDataProvider provider = _ENGINE.getProvider();
 
             HashSet<String> hash1 = new HashSet<String>() { };
-            HashSet<String> hash2 = _ENGINE.getOutputs(provider.getDefinition("starting_min"));
+            HashSet<String> hash2 = _ENGINE.getOutputs(provider.getSchema("starting_min"));
             Assert.IsTrue(hash1.SetEquals(hash2));
 
             hash1 = new HashSet<String>() { "result", "shared_result" };
-            hash2 = _ENGINE.getOutputs(provider.getDefinition("starting_sample"));
+            hash2 = _ENGINE.getOutputs(provider.getSchema("starting_sample"));
             Assert.IsTrue(hash1.SetEquals(hash2));
 
             hash1 = new HashSet<String>() { "result", "special" };
-            hash2 = _ENGINE.getOutputs(provider.getDefinition("starting_inclusions"));
+            hash2 = _ENGINE.getOutputs(provider.getSchema("starting_inclusions"));
             Assert.IsTrue(hash1.SetEquals(hash2));
 
             hash1 = new HashSet<String>() { "result" };
-            hash2 = _ENGINE.getOutputs(provider.getDefinition("starting_recursion"));
+            hash2 = _ENGINE.getOutputs(provider.getSchema("starting_recursion"));
             Assert.IsTrue(hash1.SetEquals(hash2));
 
             hash1 = new HashSet<String>() { "result", "r1", "r2", "r3" };
-            hash2 = _ENGINE.getOutputs(provider.getDefinition("starting_multiple_endpoints"));
+            hash2 = _ENGINE.getOutputs(provider.getSchema("starting_multiple_endpoints"));
             Assert.IsTrue(hash1.SetEquals(hash2));
 
             hash1 = new HashSet<String>() { "mapped_result" };
-            hash2 = _ENGINE.getOutputs(provider.getDefinition("starting_inclusions_extra_inputs"));
+            hash2 = _ENGINE.getOutputs(provider.getSchema("starting_inclusions_extra_inputs"));
             Assert.IsTrue(hash1.SetEquals(hash2));
 
             hash1 = new HashSet<String>() { "intermediate_output", "final_output" };
-            hash2 = _ENGINE.getOutputs(provider.getDefinition("starting_intermediate_values"));
+            hash2 = _ENGINE.getOutputs(provider.getSchema("starting_intermediate_values"));
             Assert.IsTrue(hash1.SetEquals(hash2));
         }
 
         [TestMethod]
         public void testGetTableInputsAsString()
         {
-            BasicTable table = new BasicTable("table_inputs");
+            StagingTable table = new StagingTable("table_inputs");
             table.addColumnDefinition("a", ColumnType.INPUT);
             table.addColumnDefinition("b", ColumnType.INPUT);
             table.addColumnDefinition("description", ColumnType.DESCRIPTION);
@@ -1392,7 +1415,7 @@ namespace TNMStaging_UnitTestApp.Src.Staging.Engine
             context["a"] = "7    ";
             Assert.AreEqual("7,25", DecisionEngineFuncs.getTableInputsAsString(table, context));
 
-            table = new BasicTable("table_empty");
+            table = new StagingTable("table_empty");
             context = new Dictionary<String, String>();
             Assert.AreEqual("", DecisionEngineFuncs.getTableInputsAsString(table, context));
         }
@@ -1400,9 +1423,9 @@ namespace TNMStaging_UnitTestApp.Src.Staging.Engine
         [TestMethod]
         public void testOutputsAndDefaults()
         {
-            BasicDataProvider provider = new BasicDataProvider();
+            InMemoryDataProvider provider = new InMemoryDataProvider("Test", "1.0");
 
-            BasicTable table = new BasicTable("table_input");
+            StagingTable table = new StagingTable("table_input");
             table.addColumnDefinition("input1", ColumnType.INPUT);
             table.addColumnDefinition("description", ColumnType.DESCRIPTION);
             table.addRawRow(new List<String>() { "000", "Alpha" });
@@ -1410,7 +1433,7 @@ namespace TNMStaging_UnitTestApp.Src.Staging.Engine
             table.addRawRow(new List<String>() { "002", "Gamma" });
             provider.addTable(table);
 
-            table = new BasicTable("table_output");
+            table = new StagingTable("table_output");
             table.addColumnDefinition("output1", ColumnType.INPUT);
             table.addColumnDefinition("description", ColumnType.DESCRIPTION);
             table.addRawRow(new List<String>() { "A", "Alpha" });
@@ -1418,20 +1441,21 @@ namespace TNMStaging_UnitTestApp.Src.Staging.Engine
             table.addRawRow(new List<String>() { "C", "Gamma" });
             provider.addTable(table);
 
-            BasicDefinition def = new BasicDefinition("sample_outputs");
-            def.setOnInvalidInput(StagingInputErrorHandler.FAIL);
-            def.addInput(new BasicInput("input1", "table_input"));
+            StagingSchema schema = new StagingSchema("sample_outputs");
+            schema.setSchemaSelectionTable("table_selection");
+            schema.setOnInvalidInput(StagingInputErrorHandler.FAIL);
+            schema.addInput(new StagingSchemaInput("input1", "input1", "table_input"));
 
-            BasicOutput output = new BasicOutput("output1", "table_output");
+            StagingSchemaOutput output = new StagingSchemaOutput("output1", "output1", "table_output");
             output.setDefault("A");
-            def.addOutput(output);
+            schema.addOutput(output);
 
-            output = new BasicOutput("output2");
-            def.addOutput(output);
+            output = new StagingSchemaOutput("output2");
+            schema.addOutput(output);
 
-            BasicMapping mapping = new BasicMapping("mapping1");
-            def.addMapping(mapping);
-            provider.addDefinition(def);
+            StagingMapping mapping = new StagingMapping("mapping1");
+            schema.addMapping(mapping);
+            provider.addSchema(schema);
 
             DecisionEngineClass engine = new DecisionEngineClass(provider);
 
@@ -1449,12 +1473,12 @@ namespace TNMStaging_UnitTestApp.Src.Staging.Engine
             Assert.IsFalse(result.hasErrors());
 
             HashSet<String> hash1 = new HashSet<String>() { "table_input", "table_output" };
-            HashSet<String> hash2 = engine.getInvolvedTables(def);
+            HashSet<String> hash2 = engine.getInvolvedTables(schema);
             Assert.IsTrue(hash1.SetEquals(hash2));
 
             // modify the definition to create a bad default value for output1
-            def.getOutputs()[0].setDefault("BAD");
-            provider.initDefinition(def);
+            schema.getOutputs()[0].setDefault("BAD");
+            provider.initSchema(schema);
             engine = new DecisionEngineClass(provider);
 
             input = new Dictionary<String, String>();
@@ -1476,17 +1500,18 @@ namespace TNMStaging_UnitTestApp.Src.Staging.Engine
         [TestMethod]
         public void testInitialContextReferences()
         {
-            BasicDefinition def = new BasicDefinition("test_initial_context");
-            def.setOnInvalidInput(StagingInputErrorHandler.FAIL);
+            StagingSchema schema = new StagingSchema("test_initial_context");
+            schema.setSchemaSelectionTable("table_selection");
+            schema.setOnInvalidInput(StagingInputErrorHandler.FAIL);
 
-            def.addInitialContext("a", "foo1");
-            def.addInitialContext("b", "{{foo1}}");
-            def.addInitialContext("c", "foo2");
-            def.addInitialContext("d", "{{foo2}}");
-            def.addInitialContext("e", "{{bad_key}}");
+            schema.addInitialContext("a", "foo1");
+            schema.addInitialContext("b", "{{foo1}}");
+            schema.addInitialContext("c", "foo2");
+            schema.addInitialContext("d", "{{foo2}}");
+            schema.addInitialContext("e", "{{bad_key}}");
 
-            BasicDataProvider provider = new BasicDataProvider();
-            provider.addDefinition(def);
+            InMemoryDataProvider provider = new InMemoryDataProvider("Test", "1.0");
+            provider.addSchema(schema);
             DecisionEngineClass engine = new DecisionEngineClass(provider);
 
             Dictionary<String, String> context = new Dictionary<String, String>();
@@ -1506,41 +1531,42 @@ namespace TNMStaging_UnitTestApp.Src.Staging.Engine
         [TestMethod]
         public void testInputsOutputsDefaultContextReferences()
         {
-            BasicDefinition def = new BasicDefinition("test_context");
-            def.setOnInvalidInput(StagingInputErrorHandler.FAIL);
+            StagingSchema schema = new StagingSchema("test_context");
+            schema.setSchemaSelectionTable("dummy");
+            schema.setOnInvalidInput(StagingInputErrorHandler.FAIL);
 
             // add inputs
-            BasicInput input = new BasicInput("input1");
+            StagingSchemaInput input = new StagingSchemaInput("input1");
             input.setDefault("foo1");
-            def.addInput(input);
+            schema.addInput(input);
 
-            input = new BasicInput("input2");
+            input = new StagingSchemaInput("input2");
             input.setDefault("{{foo1}}");
-            def.addInput(input);
+            schema.addInput(input);
 
             // add outputs
-            BasicOutput output = new BasicOutput("output1");
+            StagingSchemaOutput output = new StagingSchemaOutput("output1");
             output.setDefault("foo2");
-            def.addOutput(output);
+            schema.addOutput(output);
 
-            output = new BasicOutput("output2");
+            output = new StagingSchemaOutput("output2");
             output.setDefault("{{foo2}}");
-            def.addOutput(output);
+            schema.addOutput(output);
 
-            output = new BasicOutput("output3");
+            output = new StagingSchemaOutput("output3");
             output.setDefault("{{bad_key}}");
-            def.addOutput(output);
+            schema.addOutput(output);
 
-            output = new BasicOutput("output4");
+            output = new StagingSchemaOutput("output4");
             output.setDefault("{{input1}}");
-            def.addOutput(output);
+            schema.addOutput(output);
 
-            output = new BasicOutput("output5");
+            output = new StagingSchemaOutput("output5");
             output.setDefault("{{input2}}");
-            def.addOutput(output);
+            schema.addOutput(output);
 
-            BasicDataProvider provider = new BasicDataProvider();
-            provider.addDefinition(def);
+            InMemoryDataProvider provider = new InMemoryDataProvider("Test", "1.0");
+            provider.addSchema(schema);
             DecisionEngineClass engine = new DecisionEngineClass(provider);
 
             Dictionary<String, String> context = new Dictionary<String, String>();
@@ -1560,11 +1586,11 @@ namespace TNMStaging_UnitTestApp.Src.Staging.Engine
         [TestMethod]
         public void testMappingInputsWithReferenceInTable()
         {
-            BasicDataProvider provider = new BasicDataProvider();
+            InMemoryDataProvider provider = new InMemoryDataProvider("Test", "1.0");
 
             // test a situation where an input is also used as a reference in an endpoint; when the definition remaps that input it should not show up
             // as both values
-            BasicTable table = new BasicTable("table_input");
+            StagingTable table = new StagingTable("table_input");
             table.addColumnDefinition("input1", ColumnType.INPUT);
             table.addColumnDefinition("output1", ColumnType.ENDPOINT);
             table.addRawRow(new List<String>() { "000", "VALUE:001" });
@@ -1572,21 +1598,22 @@ namespace TNMStaging_UnitTestApp.Src.Staging.Engine
             table.addRawRow(new List<String>() { "002", "VALUE:{{input1}}" });
             provider.addTable(table);
 
-            BasicDefinition def = new BasicDefinition("sample_outputs");
-            def.setOnInvalidInput(StagingInputErrorHandler.FAIL);
-            def.addInput(new BasicInput("input1", "table_input"));
+            StagingSchema schema = new StagingSchema("sample_outputs");
+            schema.setSchemaSelectionTable("table_selection");
+            schema.setOnInvalidInput(StagingInputErrorHandler.FAIL);
+            schema.addInput(new StagingSchemaInput("input1", "input1", "table_input"));
 
-            BasicMapping mapping = new BasicMapping("mapping1");
-            BasicTablePath path = new BasicTablePath("table_input");
+            StagingMapping mapping = new StagingMapping("mapping1");
+            StagingTablePath path = new StagingTablePath("table_input");
             path.addInputMapping("remapped1", "input1");
             mapping.addTablePath(path);
-            def.addMapping(mapping);
-            provider.addDefinition(def);
+            schema.addMapping(mapping);
+            provider.addSchema(schema);
 
             DecisionEngineClass engine = new DecisionEngineClass(provider);
 
             HashSet<String> hash1 = new HashSet<String>() { "remapped1" };
-            HashSet<String> hash2 = engine.getInputs(def.getMappings()[0].getTablePaths()[0]);
+            HashSet<String> hash2 = engine.getInputs(schema.getMappings()[0].getTablePaths()[0]);
             Assert.IsTrue(hash1.SetEquals(hash2));
         }
 

@@ -5,11 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-using TNMStagingCSharp.Src.DecisionEngine;
-using TNMStagingCSharp.Src.Staging;
-using TNMStagingCSharp.Src.Staging.TNM;
-using TNMStagingCSharp.Src.Staging.CS;
 using TNMStagingCSharp.Src.Staging.Entities;
+using TNMStagingCSharp.Src.Staging.Entities.Impl;
 
 
 namespace TNMStaging_UnitTestApp.Src.Staging.Entities
@@ -34,7 +31,7 @@ namespace TNMStaging_UnitTestApp.Src.Staging.Entities
         public void testContext()
         {
             Dictionary<String, String> context = new Dictionary<String, String>();
-            StagingRange range = new StagingRange("2000", "{{current_year}}");
+            Range range = new StagingRange("2000", "{{current_year}}");
 
             Assert.IsFalse(range.contains("2004", context));
 
@@ -105,24 +102,7 @@ namespace TNMStaging_UnitTestApp.Src.Staging.Entities
             // nothing checks that a decimal is there.  Non-decimal value will still be considered in the range.
             Assert.IsTrue(new StagingRange("0.1", "99999.9").contains("1000", new Dictionary<String, String>()));
         }
-
-        [TestMethod]
-        public void testIsNumeric()
-        {
-            Assert.IsTrue(StagingRange.isNumeric("0"));
-            Assert.IsTrue(StagingRange.isNumeric("1"));
-            Assert.IsTrue(StagingRange.isNumeric("-1"));
-            Assert.IsTrue(StagingRange.isNumeric("1.1"));
-
-            Assert.IsFalse(StagingRange.isNumeric(null));
-            Assert.IsFalse(StagingRange.isNumeric(""));
-            Assert.IsFalse(StagingRange.isNumeric("1.1.1"));
-            Assert.IsFalse(StagingRange.isNumeric("NAN"));
-        }
-
-
     }
-
 }
 
 

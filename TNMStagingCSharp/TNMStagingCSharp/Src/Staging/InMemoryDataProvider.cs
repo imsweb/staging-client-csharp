@@ -14,7 +14,7 @@ namespace TNMStagingCSharp.Src.Staging
     /**
      * In implementation of DataProvider which holds all data in memory
      */
-    class InMemoryDataProvider : StagingDataProvider
+    public class InMemoryDataProvider : StagingDataProvider
     {
         public enum Algorithm
         {

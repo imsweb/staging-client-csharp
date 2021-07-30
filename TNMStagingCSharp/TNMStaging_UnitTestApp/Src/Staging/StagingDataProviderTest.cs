@@ -5,11 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-using TNMStagingCSharp.Src.DecisionEngine;
 using TNMStagingCSharp.Src.Staging;
-using TNMStagingCSharp.Src.Staging.TNM;
-using TNMStagingCSharp.Src.Staging.CS;
 using TNMStagingCSharp.Src.Staging.Entities;
+using TNMStagingCSharp.Src.Staging.Entities.Impl;
 
 
 namespace TNMStaging_UnitTestApp.Src
@@ -41,7 +39,8 @@ namespace TNMStaging_UnitTestApp.Src
             table.getRawRows().Add(new List<String>() { "6", "MATCH:{{match_extra}}" });
             table.getRawRows().Add(new List<String>() { "7", "ERROR:{{error_extra}}" });
 
-            StagingDataProvider.initTable(table);
+            StagingDataProvider provider = new InMemoryDataProvider("test", "1.0");
+            provider.initTable(table);
 
             HashSet<String> hash1 = new HashSet<String>() { "extra1", "extra2" };
             HashSet<String> hash2 = table.getExtraInput();
@@ -52,7 +51,7 @@ namespace TNMStaging_UnitTestApp.Src
             table.setRawRows(new List<List<String>>());
             table.getRawRows().Add(new List<String>() { "{{ctx_year_current}}", "MATCH" });
 
-            StagingDataProvider.initTable(table);
+            provider.initTable(table);
 
             Assert.IsNull(table.getExtraInput());
         }
@@ -60,40 +59,42 @@ namespace TNMStaging_UnitTestApp.Src
         [TestMethod]
         public void testSplitValues()
         {
-            Assert.AreEqual(0, StagingDataProvider.splitValues(null).Count);
+            StagingDataProvider provider = new InMemoryDataProvider("algorithm", "verison");
 
-            Assert.AreEqual(1, StagingDataProvider.splitValues("").Count);
-            Assert.AreEqual(1, StagingDataProvider.splitValues("*").Count);
-            Assert.AreEqual(1, StagingDataProvider.splitValues("1 2 3").Count);
-            Assert.AreEqual(1, StagingDataProvider.splitValues("23589258625086").Count);
+            Assert.AreEqual(0, provider.splitValues(null).Count);
 
-            Assert.AreEqual(2, StagingDataProvider.splitValues("A,B").Count);
-            Assert.AreEqual(2, StagingDataProvider.splitValues(" A , B ").Count);
-            Assert.AreEqual(2, StagingDataProvider.splitValues("A , B").Count);
+            Assert.AreEqual(1, provider.splitValues("").Count);
+            Assert.AreEqual(1, provider.splitValues("*").Count);
+            Assert.AreEqual(1, provider.splitValues("1 2 3").Count);
+            Assert.AreEqual(1, provider.splitValues("23589258625086").Count);
 
-            Assert.AreEqual(10, StagingDataProvider.splitValues("A,B,C,D,E,F,G,H,I,J").Count);
+            Assert.AreEqual(2, provider.splitValues("A,B").Count);
+            Assert.AreEqual(2, provider.splitValues(" A , B ").Count);
+            Assert.AreEqual(2, provider.splitValues("A , B").Count);
 
-            List<Range> ranges = StagingDataProvider.splitValues(",1,2,3,4");
+            Assert.AreEqual(10, provider.splitValues("A,B,C,D,E,F,G,H,I,J").Count);
+
+            List<Range> ranges = provider.splitValues(",1,2,3,4");
             Assert.AreEqual(5, ranges.Count);
             Assert.AreEqual("", ranges[0].getLow());
             Assert.AreEqual("", ranges[0].getHigh());
 
-            ranges = StagingDataProvider.splitValues("     ,1,2,3,4");
+            ranges = provider.splitValues("     ,1,2,3,4");
             Assert.AreEqual(5, ranges.Count);
             Assert.AreEqual("", ranges[0].getLow());
             Assert.AreEqual("", ranges[0].getHigh());
 
-            ranges = StagingDataProvider.splitValues("1,2,3,4,");
+            ranges = provider.splitValues("1,2,3,4,");
             Assert.AreEqual(5, ranges.Count);
             Assert.AreEqual("", ranges[4].getLow());
             Assert.AreEqual("", ranges[4].getHigh());
 
-            ranges = StagingDataProvider.splitValues("1,2,3,4,    ");
+            ranges = provider.splitValues("1,2,3,4,    ");
             Assert.AreEqual(5, ranges.Count);
             Assert.AreEqual("", ranges[4].getLow());
             Assert.AreEqual("", ranges[4].getHigh());
 
-            ranges = StagingDataProvider.splitValues("1,11,111-222");
+            ranges = provider.splitValues("1,11,111-222");
             Assert.AreEqual(3, ranges.Count);
             Assert.AreEqual("1", ranges[0].getLow());
             Assert.AreEqual("1", ranges[0].getHigh());
@@ -102,7 +103,7 @@ namespace TNMStaging_UnitTestApp.Src
             Assert.AreEqual("111", ranges[2].getLow());
             Assert.AreEqual("222", ranges[2].getHigh());
 
-            ranges = StagingDataProvider.splitValues("88,90-95,99");
+            ranges = provider.splitValues("88,90-95,99");
             Assert.AreEqual(3, ranges.Count);
             Assert.AreEqual("88", ranges[0].getLow());
             Assert.AreEqual("88", ranges[0].getHigh());
@@ -111,23 +112,23 @@ namespace TNMStaging_UnitTestApp.Src
             Assert.AreEqual("99", ranges[2].getLow());
             Assert.AreEqual("99", ranges[2].getHigh());
 
-            ranges = StagingDataProvider.splitValues("p0I-");
+            ranges = provider.splitValues("p0I-");
             Assert.AreEqual(1, ranges.Count);
             Assert.AreEqual("p0I-", ranges[0].getLow());
             Assert.AreEqual("p0I-", ranges[0].getHigh());
 
-            ranges = StagingDataProvider.splitValues("N0(mol-)");
+            ranges = provider.splitValues("N0(mol-)");
             Assert.AreEqual(1, ranges.Count);
             Assert.AreEqual("N0(mol-)", ranges[0].getLow());
             Assert.AreEqual("N0(mol-)", ranges[0].getHigh());
 
             // test numeric ranges
-            ranges = StagingDataProvider.splitValues("1-21");
+            ranges = provider.splitValues("1-21");
             Assert.AreEqual(1, ranges.Count);
             Assert.AreEqual("1", ranges[0].getLow());
             Assert.AreEqual("21", ranges[0].getHigh());
 
-            ranges = StagingDataProvider.splitValues("21-111");
+            ranges = provider.splitValues("21-111");
             Assert.AreEqual(1, ranges.Count);
             Assert.AreEqual("21", ranges[0].getLow());
             Assert.AreEqual("111", ranges[0].getHigh());
@@ -143,7 +144,8 @@ namespace TNMStaging_UnitTestApp.Src
             table.getRawRows().Add(new List<String>() { ",1,2,3" });
             table.getRawRows().Add(new List<String>() { "1,2,3," });
 
-            StagingDataProvider.initTable(table);
+            StagingDataProvider provider = new InMemoryDataProvider("test", "1.0");
+            provider.initTable(table);
 
             Assert.AreEqual(2, table.getTableRows().Count);
 

@@ -8,7 +8,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 using TNMStagingCSharp.Src.Staging;
 using TNMStagingCSharp.Src.Staging.Entities;
-using TNMStagingCSharp.Src.DecisionEngine;
+using TNMStagingCSharp.Src.Staging.Entities.Impl;
 
 
 namespace TNMStaging_UnitTestApp.Src.Staging.Engine

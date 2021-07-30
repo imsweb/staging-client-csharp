@@ -25,6 +25,13 @@ namespace TNMStagingCSharp.Src.Staging.Entities.Impl
             _value = value;
         }
 
+        public StagingEndpoint(EndpointType type, String value, String result)
+        {
+            _type = type;
+            _value = value;
+            _resultKey = result;
+        }
+
         public EndpointType getType()
         {
             return _type;

@@ -1,6 +1,5 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using TNMStagingCSharp.Src.DecisionEngine;
 using TNMStagingCSharp.Src.Staging;
 using TNMStagingCSharp.Src.Staging.Entities;
 using System.IO;
@@ -38,12 +37,12 @@ namespace TNMStaging_UnitTestApp.Src
             Assert.AreEqual(1, _STAGING.getSchemaIds().Count);
             Assert.AreEqual(62, _STAGING.getTableIds().Count);
 
-            StagingSchema schema = _STAGING.getSchema("urethra");
+            Schema schema = _STAGING.getSchema("urethra");
             Assert.IsNotNull(schema);
             Assert.AreEqual("testing", schema.getAlgorithm());
             Assert.AreEqual("99.99", schema.getVersion());
 
-            StagingTable table = _STAGING.getTable("ajcc_descriptor_codes");
+            ITable table = _STAGING.getTable("ajcc_descriptor_codes");
             Assert.IsNotNull(table);
             Assert.AreEqual("testing", table.getAlgorithm());
             Assert.AreEqual("99.99", table.getVersion());

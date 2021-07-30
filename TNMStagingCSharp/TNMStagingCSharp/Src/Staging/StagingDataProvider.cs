@@ -71,7 +71,7 @@ namespace TNMStagingCSharp.Src.Staging
         // Initialize a schema.
         // @param schema schema entity
         // @return initialized schema entity
-        public static Schema initSchema(Schema schema)
+        public Schema initSchema(Schema schema)
         {
             // parse the schema selection ranges
             if (schema.getSchemaSelectionTable() == null)

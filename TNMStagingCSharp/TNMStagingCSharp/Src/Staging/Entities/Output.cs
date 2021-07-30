@@ -33,6 +33,8 @@ namespace TNMStagingCSharp.Src.Staging.Entities
         //========================================================================================================================
         String getDefault();
 
+        void setDefault(String value);
+
         HashSet<String> getMetadata();
 
     }
