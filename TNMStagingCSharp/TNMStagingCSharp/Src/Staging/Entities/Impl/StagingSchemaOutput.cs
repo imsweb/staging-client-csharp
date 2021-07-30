@@ -3,6 +3,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Linq;
 using Newtonsoft.Json;
 using System.Runtime.Serialization;
 
@@ -28,7 +29,7 @@ namespace TNMStagingCSharp.Src.Staging.Entities.Impl
         private String _default;
         [JsonProperty("metadata", Order = 8)]
         [JsonConverter(typeof(CustomHashSetConverter<String>))]
-        private HashSet<String> _metadata;
+        private List<StagingMetadata> _metadata;
 
         int miHashCode;
 
@@ -68,7 +69,7 @@ namespace TNMStagingCSharp.Src.Staging.Entities.Impl
             setTable(other.getTable());
             setDefault(other.getDefault());
             if (other.getMetadata() != null)
-                setMetadata(new HashSet<String>(other.getMetadata()));
+                setMetadata(new List<StagingMetadata>(other._metadata));
             ComputeHashCode();
         }
 
@@ -149,12 +150,12 @@ namespace TNMStagingCSharp.Src.Staging.Entities.Impl
             ComputeHashCode();
         }
 
-        public HashSet<String> getMetadata()
+        public List<Metadata> getMetadata()
         {
-            return _metadata;
+            return new List<Metadata>(_metadata);
         }
 
-        public void setMetadata(HashSet<String> metadata)
+        public void setMetadata(List<StagingMetadata> metadata)
         {
             _metadata = metadata;
         }
@@ -176,7 +177,7 @@ namespace TNMStagingCSharp.Src.Staging.Entities.Impl
                    Equals(_naaccrXmlId, that._naaccrXmlId) &&
                    Equals(_table, that._table) &&
                    Equals(_default, that._default) &&
-                   _metadata.SetEquals(that._metadata);
+                   _metadata.SequenceEqual(that._metadata);
         }
 
         public override int GetHashCode()
@@ -200,9 +201,9 @@ namespace TNMStagingCSharp.Src.Staging.Entities.Impl
             MyStringBuilder.Append(_naaccrXmlId);
             MyStringBuilder.Append(_table);
             MyStringBuilder.Append(_default);
-            foreach (String s in _metadata)
+            foreach (StagingMetadata m in _metadata)
             {
-                MyStringBuilder.Append(s);
+                MyStringBuilder.Append(m.GetHashString());
             }
             return MyStringBuilder.ToString();
         }

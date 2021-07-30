@@ -75,9 +75,12 @@
     <Compile Include="Src\Staging\Engine\DecisionEngine.cs" />
     <Compile Include="Src\Staging\Entities\Endpoint.cs" />
     <Compile Include="Src\Staging\Entities\Error.cs" />
+    <Compile Include="Src\Staging\Entities\Impl\StagingMetadata.cs" />
+    <Compile Include="Src\Staging\Entities\Impl\StagingMetadataDeserializer.cs" />
     <Compile Include="Src\Staging\Entities\Input.cs" />
     <Compile Include="Src\Staging\Entities\GlossaryDefinition.cs" />
     <Compile Include="Src\Staging\Entities\GlossaryHit.cs" />
+    <Compile Include="Src\Staging\Entities\Metadata.cs" />
     <Compile Include="Src\Staging\Entities\Schema.cs" />
     <Compile Include="Src\Staging\EOD\EodDataProvider.cs" />
     <Compile Include="Src\Staging\EOD\EodSchemaLookup.cs" />

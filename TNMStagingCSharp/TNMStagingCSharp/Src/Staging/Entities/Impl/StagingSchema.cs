@@ -207,7 +207,7 @@ namespace TNMStagingCSharp.Src.Staging.Entities.Impl
 
         public List<IInput> getInputs()
         {
-            return (List<IInput>)_inputs;
+            return new List<IInput>(_inputs);
         }
 
         public void setInputs(List<StagingSchemaInput> inputs)
@@ -234,7 +234,7 @@ namespace TNMStagingCSharp.Src.Staging.Entities.Impl
 
         public List<IOutput> getOutputs()
         {
-            return _outputs;
+            return new List<IOutput>(_outputs);
         }
 
         public void setOutputs(List<StagingSchemaOutput> outputs)

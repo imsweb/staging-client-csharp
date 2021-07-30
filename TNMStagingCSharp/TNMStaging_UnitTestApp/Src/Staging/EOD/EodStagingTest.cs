@@ -6,6 +6,7 @@ using System.Text;
 using TNMStagingCSharp.Src.Staging;
 using TNMStagingCSharp.Src.Staging.EOD;
 using TNMStagingCSharp.Src.Staging.Entities;
+using TNMStagingCSharp.Src.Staging.Entities.Impl;
 
 namespace TNMStaging_UnitTestApp.Src.Staging.EOD
 {

@@ -43,7 +43,7 @@ namespace TNMStagingCSharp.Src.Staging.Entities
 
         int getDecimalPlaces();
 
-        HashSet<String> getMetadata();
+        List<Metadata> getMetadata();
 
     }
 }

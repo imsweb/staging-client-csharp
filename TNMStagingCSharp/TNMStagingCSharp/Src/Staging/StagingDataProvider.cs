@@ -21,7 +21,7 @@ namespace TNMStagingCSharp.Src.Staging
         public static readonly String HISTOLOGY_TABLE = "histology";
 
         //private readonly static Entities.StagingRange _MATCH_ALL_ENDPOINT = new Entities.StagingRange();
-        private readonly static Range _matchAllEndpoint = getMatchAllRange();
+        private static Range _matchAllEndpoint = null;
 
         private ConcurrentDictionary<String, List<Schema>> mLookupMemoryDict;
         private int miLookupMemoryDictCount;
@@ -35,6 +35,8 @@ namespace TNMStagingCSharp.Src.Staging
         // Constructor loads all schemas and sets up cache
         public StagingDataProvider()
         {
+            _matchAllEndpoint = getMatchAllRange();
+
             // cache schema lookups
             CreateLookupMemoryCache();
 

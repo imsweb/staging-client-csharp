@@ -1,43 +1,33 @@
-﻿// Copyright (C) 2017 Information Management Services, Inc.
-
+﻿/*
+ * Copyright (C) 2021 Information Management Services, Inc.
+ */
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace TNMStagingCSharp.Src.Staging.Entities
 {
-    public interface IOutput
+    public interface Metadata
     {
         //========================================================================================================================
-        // The key representing the field name
-        // @return a String name
+        // Name of metadata item
+        // @return String
         //========================================================================================================================
-        String getKey();
-
         String getName();
 
-        String getDescription();
-
-        int getNaaccrItem();
-
-        String getNaaccrXmlId();
+        //========================================================================================================================
+        // Start year of metadata
+        // @return Integer representing year
+        //========================================================================================================================
+        int getStart();
 
         //========================================================================================================================
-        // If supplied, the value of the field is verified to be contained in the table
-        // @return a String representing the lookup table name
+        // End year of metadata
+        // @return Integer representing year
         //========================================================================================================================
-        String getTable();
-
-        //========================================================================================================================
-        // If supplied, a default value to give the field at the beginning of the staging process
-        // @return a default value to be set for the output
-        //========================================================================================================================
-        String getDefault();
-
-        void setDefault(String value);
-
-        List<Metadata> getMetadata();
-
+        int getEnd();
     }
 }
-
 

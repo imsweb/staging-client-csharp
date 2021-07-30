@@ -24,15 +24,15 @@ namespace TNMStaging_UnitTestApp.Src.Staging.Entities.Impl
             output1.setName("name");
             output1.setTable("table");
             output1.setNaaccrXmlId("test");
-            output1.setMetadata(new HashSet<String>() { "META1" });
+            output1.setMetadata(new List<StagingMetadata>() { new StagingMetadata("META1") });
 
             output2 = new StagingSchemaOutput("key", "name", "table");
             output2.setNaaccrXmlId("test");
-            output2.setMetadata(new HashSet<String>() { "META1" });
+            output2.setMetadata(new List<StagingMetadata>() { new StagingMetadata("META1") });
 
             Assert.IsTrue(output1.Equals(output2));
 
-            output2.setMetadata(new HashSet<String>() { "META2" });
+            output2.setMetadata(new List<StagingMetadata>() { new StagingMetadata("META2") });
 
             Assert.IsFalse(output1.Equals(output2));
 

@@ -7,7 +7,6 @@ using System.IO;
 using System.Diagnostics;
 
 using TNMStagingCSharp.Src.Staging;
-using TNMStagingCSharp.Src.DecisionEngine;
 using TNMStagingCSharp.Src.Staging.Entities;
 using TNMStagingCSharp.Src.Staging.CS;
 using TNMStagingCSharp.Src.Staging.TNM;
@@ -295,7 +294,7 @@ namespace TNMStaging_StagingViewerApp
             mlstSchemaIds.Clear();
 
             HashSet<String> hsSchemaIds = mStaging.getSchemaIds();
-            StagingSchema thisSchema = null;
+            Schema thisSchema = null;
             foreach (String sID in hsSchemaIds)
             {
                 mlstSchemaIds.Add(sID);
@@ -323,7 +322,7 @@ namespace TNMStaging_StagingViewerApp
         {
             try
             {
-                StagingSchema thisSchema = mStaging.getSchema(sSchemaID);
+                Schema thisSchema = mStaging.getSchema(sSchemaID);
                 dataGridStagingInputs.RowCount = 0;
                 dataGridOutputs.RowCount = 0;
                 if (thisSchema != null)
@@ -355,8 +354,8 @@ namespace TNMStaging_StagingViewerApp
                     wbSchemaDescr.DocumentText = DescrResult;
 
 
-                    List<StagingSchemaInput> lstInputs = thisSchema.getInputs();
-                    StagingSchemaInput thisStagingSchemaInput = null;
+                    List<IInput> lstInputs = thisSchema.getInputs();
+                    IInput thisStagingSchemaInput = null;
                     bool bSummaryStageField = false;
                     String sKey = "";
                     String sInputName = "";
@@ -394,8 +393,8 @@ namespace TNMStaging_StagingViewerApp
 
 
                     // Display the staging outputs
-                    List<StagingSchemaOutput> lstOutputs = thisSchema.getOutputs();
-                    StagingSchemaOutput thisStagingSchemaOutput = null;
+                    List<IOutput> lstOutputs = thisSchema.getOutputs();
+                    IOutput thisStagingSchemaOutput = null;
                     for (int i = 0; i < lstOutputs.Count; i++)
                     {
                         thisStagingSchemaOutput = lstOutputs[i];
@@ -424,8 +423,8 @@ namespace TNMStaging_StagingViewerApp
 
         private void btnSchemaViewSelection_Click(object sender, EventArgs e)
         {
-            StagingSchema thisSchema = null;
-            StagingTable thisTable = null;
+            Schema thisSchema = null;
+            ITable thisTable = null;
             String sSchemaID = "";
             String sSchemaName = "";
             String sTableId = "";
@@ -463,7 +462,7 @@ namespace TNMStaging_StagingViewerApp
                 if (cmbSchemaSelect.SelectedIndex >= 0)
                 {
                     string sSchemaID = mlstSchemaIds[cmbSchemaSelect.SelectedIndex];
-                    StagingSchema thisSchema = mStaging.getSchema(sSchemaID);
+                    Schema thisSchema = mStaging.getSchema(sSchemaID);
                     if (thisSchema != null) sSchemaName = thisSchema.getName();
                 }
 
@@ -487,7 +486,7 @@ namespace TNMStaging_StagingViewerApp
             String sSiteLabel = "";
 
             // Populate site list - with the site codes from the current algorithm
-            StagingTable thisTable = mStaging.getTable(StagingDataProvider.PRIMARY_SITE_TABLE);
+            ITable thisTable = mStaging.getTable(StagingDataProvider.PRIMARY_SITE_TABLE);
             int iRows = 0;
             cmbxSite.Items.Clear();
             if (thisTable != null)
@@ -641,7 +640,7 @@ namespace TNMStaging_StagingViewerApp
 
 
             bool bNoSchemasFound = true;
-            StagingSchema thisStagingSchema = null;
+            Schema thisStagingSchema = null;
 
             // Any time this function is called, enable the staging controls.  The controls could have been
             // disabled due to the current histology being only summary staged.
@@ -651,7 +650,7 @@ namespace TNMStaging_StagingViewerApp
                 return;
 
             SchemaLookup lookup = new SchemaLookup(site, hist);
-            List<StagingSchema> lstSchemas = mStaging.lookupSchema(lookup);
+            List<Schema> lstSchemas = mStaging.lookupSchema(lookup);
             if (lstSchemas != null)
             {
                 if (lstSchemas.Count == 1)
@@ -925,14 +924,14 @@ namespace TNMStaging_StagingViewerApp
         }
 
 
-        private void LoadAndShowDiscriminator(List<StagingSchema> lstSchemas)
+        private void LoadAndShowDiscriminator(List<Schema> lstSchemas)
         {
             String sDiscrimKeyID = "";
             String sDescrimTableId = "";
-            StagingSchema thisSchema = null;
+            Schema thisSchema = null;
             HashSet<String> setDiscrim = null;
-            List<StagingSchemaInput> lstInputs = null;
-            StagingSchemaInput thisStagingSchemaInput = null;
+            List<IInput> lstInputs = null;
+            IInput thisStagingSchemaInput = null;
 
             for (int i = 0; (i < lstSchemas.Count) && (sDiscrimKeyID == ""); i++)
             {
@@ -985,7 +984,7 @@ namespace TNMStaging_StagingViewerApp
                 //*******************************************************************************
 
                 // Get the label from table pointed to by tableid
-                StagingTable thisTable = mStaging.getTable(sDescrimTableId);
+                ITable thisTable = mStaging.getTable(sDescrimTableId);
                 if (thisTable != null)
                 {
                     lblDescriminator.Text = thisTable.getTitle();
@@ -1068,7 +1067,7 @@ namespace TNMStaging_StagingViewerApp
             String sDefault = "";
             String sValueDescription = "";
             String sTableID = "";
-            StagingSchema thisSchema = null;
+            Schema thisSchema = null;
             IInput input = null;
             for (int i = 0; i < dataGridVariables.Rows.Count; i++)
             {
@@ -1155,9 +1154,9 @@ namespace TNMStaging_StagingViewerApp
             // First get all the keys of the staging input fields and place them
             // in a set - for quick searches.
             //*********************************************************************
-            StagingSchemaInput thisInput = null;
-            List<StagingSchemaInput> lstStagingInputs = null;
-            StagingSchema thisSchema = mStaging.getSchema(sStagingSchemaID);
+            IInput thisInput = null;
+            List<IInput> lstStagingInputs = null;
+            Schema thisSchema = mStaging.getSchema(sStagingSchemaID);
             if (thisSchema != null)
             {
                 lstStagingInputs = thisSchema.getInputs();
@@ -1254,7 +1253,7 @@ namespace TNMStaging_StagingViewerApp
             String sInputCellValue;
 
             // Locate the table
-            StagingTable thisTable = mStaging.getTable(sTableId);
+            ITable thisTable = mStaging.getTable(sTableId);
             List<IColumnDefinition> lstColDefs = null;
             // Locate the TNM_COLUMN_INPUT and the first TNM_COLUMN_DESCRIPTION column
             if (thisTable != null)
@@ -1278,7 +1277,7 @@ namespace TNMStaging_StagingViewerApp
                 String sColumnLabel = "";
                 for (int i = 0; i < lstDescriptionColumns.Count; i++)
                 {
-                    sColumnLabel = ((StagingColumnDefinition)lstColDefs[lstDescriptionColumns[i]]).getName();
+                    sColumnLabel = ((IColumnDefinition)lstColDefs[lstDescriptionColumns[i]]).getName();
                     if (sColumnLabel == "Description")
                         iDescriptionColumn = lstDescriptionColumns[i];
                 }
@@ -1557,8 +1556,8 @@ namespace TNMStaging_StagingViewerApp
         private String GetSchemaOutputName(String sSchemaId, String sKey)
         {
             String sRetval = sKey;
-            StagingSchema thisSchema = mStaging.getSchema(sSchemaId);
-            List<StagingSchemaOutput> lstOutputs = null;
+            Schema thisSchema = mStaging.getSchema(sSchemaId);
+            List<IOutput> lstOutputs = null;
             if (thisSchema != null)
             {
                 lstOutputs = thisSchema.getOutputs();

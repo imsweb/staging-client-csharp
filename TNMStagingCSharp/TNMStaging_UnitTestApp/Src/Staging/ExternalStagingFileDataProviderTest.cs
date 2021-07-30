@@ -1,11 +1,12 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using TNMStagingCSharp.Src.Staging;
-using TNMStagingCSharp.Src.Staging.Entities;
 using System.IO;
 using System.Reflection;
 using System.Collections.Generic;
 
+using TNMStagingCSharp.Src.Staging;
+using TNMStagingCSharp.Src.Staging.Entities;
+using TNMStagingCSharp.Src.Staging.Entities.Impl;
 
 namespace TNMStaging_UnitTestApp.Src
 {
@@ -112,6 +113,73 @@ namespace TNMStaging_UnitTestApp.Src
             Assert.AreEqual(1, glossary.Count);
             glossary = _STAGING.getTableGlossary("ssf1_jpd");
             Assert.AreEqual(1, glossary.Count);
+        }
+
+        [TestMethod]
+        public void testMetadata()
+        {
+            // verify if reads metadata in old format (List<String>) and new format (List<Metadata>)
+
+            Schema urethra = _STAGING.getSchema("urethra");
+
+            Assert.IsNotNull(urethra);
+
+            // old structure
+            IInput ssf1 = urethra.getInputMap()["ssf1"];
+            List<Metadata> list = ssf1.getMetadata();
+            //Assert.That(list.extracting("name").containsExactlyInAnyOrder("CCCR_IVA_COLLECT_IF_AVAILABLE_IN_PATH_REPORT", "COC_CLINICALLY_SIGNIFICANT", "SEER_CLINICALLY_SIGNIFICANT");
+            bool[] foundArray = new bool[3];
+            for (int i = 0; i < 3; i++)
+            {
+                foundArray[i] = false;
+            }
+            bool foundOthers = false;
+            foreach (Metadata md in list)
+            {
+                if (md.getName().Equals("CCCR_IVA_COLLECT_IF_AVAILABLE_IN_PATH_REPORT"))
+                {
+                    foundArray[0] = true;
+                }
+                else if (md.getName().Equals("COC_CLINICALLY_SIGNIFICANT"))
+                {
+                    foundArray[1] = true;
+                }
+                else if (md.getName().Equals("SEER_CLINICALLY_SIGNIFICANT"))
+                {
+                    foundArray[2] = true;
+                }
+                else
+                {
+                    foundOthers = true;
+                }
+            }
+            Assert.IsTrue(foundArray[0] && foundArray[1] && foundArray[2] && !foundOthers);
+
+            // new structure
+            IInput ssf2 = urethra.getInputMap()["ssf2"];
+            list = ssf2.getMetadata();
+            bool found = false;
+            foundOthers = false;
+            foreach (Metadata md in list)
+            {
+                if (md.getName().Equals("UNDEFINED_SSF"))
+                {
+                    found = true;
+                }
+                else
+                {
+                    foundOthers = true;
+                }
+            }
+            Assert.IsTrue(found && !foundOthers);
+
+            IInput ssf3 = urethra.getInputMap()["ssf3"];
+            Assert.AreEqual(ssf3.getMetadata().Count, 2);
+
+            List<StagingMetadata> expected = new List<StagingMetadata>();
+            expected.Add(new StagingMetadata("FIRST_ITEM", 2017, 2020));
+            expected.Add(new StagingMetadata("SECOND_ITEM", 2021));
+            Assert.AreEqual(ssf3.getMetadata(), expected);
         }
     }
 }

@@ -251,6 +251,43 @@ namespace TNMStaging_UnitTestApp.Src
                 Assert.Fail();
             }
         }
+
+        // Return the input length from a specified table
+        // @param tableId table indentifier
+        // @param key input key
+        // @return null if no length couild be determined, or the length
+        protected int getInputLength(String tableId, String key)
+        {
+            ITable table = _STAGING.getTable(tableId);
+            int length = 0;
+
+            // loop over each row
+            foreach (ITableRow row in table.getTableRows())
+            {
+                foreach (Range range in row.getColumnInput(key))
+                {
+                    String low = range.getLow();
+                    String high = range.getHigh();
+
+                    if (range.matchesAll() || low == null)
+                        continue;
+
+                    if (low.StartsWith("{{") && low.Contains(TNMStagingCSharp.Src.Staging.Staging.CTX_YEAR_CURRENT))
+                        //low = String.valueOf(Calendar.getInstance().get(Calendar.YEAR));
+                        low = DateTime.Now.Year.ToString();
+                    if (high.StartsWith("{{") && high.Contains(TNMStagingCSharp.Src.Staging.Staging.CTX_YEAR_CURRENT))
+                        //high = String.valueOf(Calendar.getInstance().get(Calendar.YEAR));
+                        high = DateTime.Now.Year.ToString();
+
+                    if (length > 0 && (low.Length != length || high.Length != length))
+                        throw new System.InvalidOperationException("Inconsistent lengths in table " + tableId + " for key " + key);
+
+                    length = low.Length;
+                }
+            }
+
+            return length;
+        }
     }
 }
 

@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using Newtonsoft.Json;
 
 using TNMStagingCSharp.Src.Staging.Entities;
-using TNMStagingCSharp.Src.DecisionEngine;
-
+using TNMStagingCSharp.Src.Staging.Entities.Impl;
 
 
 namespace TNMStagingCSharp.Src.Tools

@@ -3,6 +3,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Linq;
 using Newtonsoft.Json;
 using System.Runtime.Serialization;
 
@@ -35,7 +36,7 @@ namespace TNMStagingCSharp.Src.Staging.Entities.Impl
         private int _decimalPlaces;
         [JsonProperty("metadata", Order = 13)]
         [JsonConverter(typeof(CustomHashSetConverter<String>))]
-        private HashSet<String> _metadata;
+        private List<StagingMetadata> _metadata;
 
 
         int miHashCode;
@@ -77,7 +78,8 @@ namespace TNMStagingCSharp.Src.Staging.Entities.Impl
             setDefault(other.getDefault());
             setTable(other.getTable());
             if (other.getMetadata() != null)
-                setMetadata(new HashSet<String>(other.getMetadata()));
+                setMetadata(new List<StagingMetadata>(other._metadata));
+
             setUsedForStaging(other.getUsedForStaging());
             setUnit(other.getUnit());
             setDecimalPlaces(other.getDecimalPlaces());
@@ -194,12 +196,12 @@ namespace TNMStagingCSharp.Src.Staging.Entities.Impl
             ComputeHashCode();
         }
 
-        public HashSet<String> getMetadata()
+        public List<Metadata> getMetadata()
         {
-            return _metadata;
+            return new List<Metadata>(_metadata);
         }
 
-        public void setMetadata(HashSet<String> metadata)
+        public void setMetadata(List<StagingMetadata> metadata)
         {
             _metadata = metadata;
             ComputeHashCode();
@@ -241,7 +243,7 @@ namespace TNMStagingCSharp.Src.Staging.Entities.Impl
                 }
                 else if ((_metadata != null) && (that._metadata != null))
                 {
-                    bRetval = (_metadata.SetEquals(that._metadata));
+                    bRetval = (_metadata.SequenceEqual(that._metadata));
                 }
             }
 
@@ -274,9 +276,9 @@ namespace TNMStagingCSharp.Src.Staging.Entities.Impl
             MyStringBuilder.Append(_decimalPlaces);
             if (_metadata != null)
             {
-                foreach (String s in _metadata)
+                foreach (StagingMetadata m in _metadata)
                 {
-                    MyStringBuilder.Append(s);
+                    MyStringBuilder.Append(m.GetHashString());
                 }
             }
 

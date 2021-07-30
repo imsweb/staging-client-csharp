@@ -403,7 +403,7 @@ namespace TNMStagingCSharp.Src.Staging.Engine
         //========================================================================================================================
         public HashSet<String> getInvolvedTables(String schemaId)
         {
-            Schema schema = getProvider().getDefinition(schemaId);
+            Schema schema = getProvider().getSchema(schemaId);
 
             if (schema == null)
                 throw new System.InvalidOperationException("Unknown starting table: '" + schemaId + "'");
@@ -712,7 +712,7 @@ namespace TNMStagingCSharp.Src.Staging.Engine
         //========================================================================================================================
         public Result process(String schemaId, Dictionary<String, String> context)
         {
-            Schema start = getProvider().getDefinition(schemaId);
+            Schema start = getProvider().getSchema(schemaId);
 
             if (start == null)
                 throw new System.InvalidOperationException("Unknown schema: '" + schemaId + "'");

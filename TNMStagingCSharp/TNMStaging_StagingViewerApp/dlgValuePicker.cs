@@ -10,7 +10,7 @@ using System.Windows.Forms;
 
 using TNMStagingCSharp.Src.Staging;
 using TNMStagingCSharp.Src.Staging.Entities;
-using TNMStagingCSharp.Src.DecisionEngine;
+using TNMStagingCSharp.Src.Staging.Entities.Impl;
 
 
 namespace TNMStaging_StagingViewerApp
@@ -73,7 +73,7 @@ namespace TNMStaging_StagingViewerApp
             String sColumnName = "";
             String sColumnLabel = "";
 
-            StagingTable thisTable = mStaging.getTable(msTableId);
+            ITable thisTable = mStaging.getTable(msTableId);
 
             //String sVariableTitle = thisTable.getTitle();
             //String sVariableSubtitle = thisTable.getSubtitle();

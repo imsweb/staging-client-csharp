@@ -9,6 +9,7 @@ using System.IO.Compression;
 using TNMStagingCSharp.Src.Tools;
 using TNMStagingCSharp.Src.Staging;
 using TNMStagingCSharp.Src.Staging.Entities;
+using TNMStagingCSharp.Src.Staging.Entities.Impl;
 using TNMStagingCSharp.Src.Staging.TNM;
 
 

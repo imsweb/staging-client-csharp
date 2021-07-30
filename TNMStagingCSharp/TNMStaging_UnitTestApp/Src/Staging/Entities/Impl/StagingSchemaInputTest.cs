@@ -23,14 +23,14 @@ namespace TNMStaging_UnitTestApp.Src.Staging.Entities.Impl
             input1.setKey("key");
             input1.setName("name");
             input1.setTable("table");
-            input1.setMetadata(new HashSet<String>() { "META1" });
+            input1.setMetadata(new List<StagingMetadata>() { new StagingMetadata("META1") });
 
             input2 = new StagingSchemaInput("key", "name", "table");
-            input2.setMetadata(new HashSet<String>() { "META1" });
+            input2.setMetadata(new List<StagingMetadata>() { new StagingMetadata("META1") });
 
             Assert.IsTrue(input1.Equals(input2));
 
-            input2.setMetadata(new HashSet<String>() { "META2" });
+            input2.setMetadata(new List<StagingMetadata>() { new StagingMetadata("META2") });
 
             Assert.IsFalse(input1.Equals(input2));
 
