@@ -28,7 +28,7 @@ namespace TNMStagingCSharp.Src.Staging.Entities.Impl
         [JsonProperty("default", Order = 7)]
         private String _default;
         [JsonProperty("metadata", Order = 8)]
-        [JsonConverter(typeof(CustomHashSetConverter<String>))]
+        [JsonConverter(typeof(CustomListConverter<StagingMetadata>))]
         private List<StagingMetadata> _metadata;
 
         int miHashCode;
@@ -152,6 +152,10 @@ namespace TNMStagingCSharp.Src.Staging.Entities.Impl
 
         public List<Metadata> getMetadata()
         {
+            if (_metadata == null)
+            {
+                return null;
+            }
             return new List<Metadata>(_metadata);
         }
 
@@ -170,14 +174,28 @@ namespace TNMStagingCSharp.Src.Staging.Entities.Impl
             StagingSchemaOutput that = (StagingSchemaOutput)o;
 
             // do not include _parsedValues
-            return Equals(_key, that._key) &&
-                   Equals(_name, that._name) &&
-                   Equals(_description, that._description) &&
-                   Equals(_naaccrItem, that._naaccrItem) &&
-                   Equals(_naaccrXmlId, that._naaccrXmlId) &&
-                   Equals(_table, that._table) &&
-                   Equals(_default, that._default) &&
-                   _metadata.SequenceEqual(that._metadata);
+            bool bRetval = Equals(_key, that._key) &&
+                           Equals(_name, that._name) &&
+                           Equals(_description, that._description) &&
+                           Equals(_naaccrItem, that._naaccrItem) &&
+                           Equals(_naaccrXmlId, that._naaccrXmlId) &&
+                           Equals(_table, that._table) &&
+                           Equals(_default, that._default);
+
+            if (bRetval)
+            {
+                bRetval = false;
+                if ((_metadata == null) && (that._metadata == null))
+                {
+                    bRetval = true;
+                }
+                else if ((_metadata != null) && (that._metadata != null))
+                {
+                    bRetval = (_metadata.SequenceEqual(that._metadata));
+                }
+            }
+
+            return bRetval;
         }
 
         public override int GetHashCode()
@@ -201,9 +219,12 @@ namespace TNMStagingCSharp.Src.Staging.Entities.Impl
             MyStringBuilder.Append(_naaccrXmlId);
             MyStringBuilder.Append(_table);
             MyStringBuilder.Append(_default);
-            foreach (StagingMetadata m in _metadata)
+            if (_metadata != null)
             {
-                MyStringBuilder.Append(m.GetHashString());
+                foreach (StagingMetadata m in _metadata)
+                {
+                    MyStringBuilder.Append(m.GetHashString());
+                }
             }
             return MyStringBuilder.ToString();
         }

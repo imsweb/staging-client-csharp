@@ -11,7 +11,7 @@ using System.Runtime.Serialization;
 
 namespace TNMStagingCSharp.Src.Staging.Entities.Impl
 {
-    //@JsonDeserialize(using = StagingMetadataDeserializer.class)
+    [JsonConverter(typeof(StagingMetadataDeserializer))]
     public class StagingMetadata : Metadata
     {
         [JsonProperty("name", Order = 1)]

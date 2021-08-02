@@ -10,7 +10,7 @@ using TNMStagingCSharp.Src.Staging.Entities;
 using TNMStagingCSharp.Src.Staging.Entities.Impl;
 
 
-namespace TNMStaging_UnitTestApp.Src
+namespace TNMStaging_UnitTestApp.Src.Staging
 {
     [TestClass]
     public class StagingDataProviderTest

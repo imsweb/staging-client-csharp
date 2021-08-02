@@ -8,7 +8,7 @@ using System.Collections.Concurrent;
 using System.Threading;
 
 
-namespace TNMStaging_UnitTestApp.Src
+namespace TNMStaging_UnitTestApp.Src.Staging
 {
     public class MultiTasksExecutor
     {

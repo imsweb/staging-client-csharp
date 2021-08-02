@@ -328,8 +328,14 @@ namespace TNMStagingCSharp.Src.Staging
 
         public static bool isNumeric(String value)
         {
-            int result = 0;
-            return int.TryParse(value, out result);
+            int resultInt = 0;
+            bool retval = int.TryParse(value, out resultInt);
+            if (!retval)
+            {
+                float resultFloat = 0;
+                retval = float.TryParse(value, out resultFloat);
+            }
+            return retval;
         }
 
         // Return the algorithm associated with the provider

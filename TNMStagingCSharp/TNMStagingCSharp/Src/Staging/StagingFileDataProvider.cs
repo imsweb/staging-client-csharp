@@ -2,6 +2,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 
 using TNMStagingCSharp.Src.Staging.Entities;
@@ -99,6 +100,12 @@ namespace TNMStagingCSharp.Src.Staging
             catch (IOException e) 
             {
                 throw new System.InvalidOperationException("IOException reading schemas: " + e.Message);
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Exception: " + ex.Message);
+                Debug.WriteLine("           " + ex.StackTrace);
+                throw new System.InvalidOperationException("Exception reading schemas: " + ex.Message);
             }
 
             // load the glossary terms

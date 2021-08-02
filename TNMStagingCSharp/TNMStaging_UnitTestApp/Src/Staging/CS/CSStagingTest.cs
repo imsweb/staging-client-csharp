@@ -9,9 +9,9 @@ using TNMStagingCSharp.Src.Staging;
 using TNMStagingCSharp.Src.Staging.CS;
 using TNMStagingCSharp.Src.Staging.Entities;
 using TNMStagingCSharp.Src.Staging.Entities.Impl;
+using System.Linq;
 
-
-namespace TNMStaging_UnitTestApp.Src
+namespace TNMStaging_UnitTestApp.Src.Staging.CS
 {
     [TestClass]
     public class CsStagingTest : StagingTest
@@ -381,7 +381,7 @@ namespace TNMStaging_UnitTestApp.Src
             Assert.AreEqual(4, data.getErrors().Count);
             Error error = data.getErrors()[0];
             Assert.AreEqual("lymph_nodes_clinical_eval_v0205_ajcc7_xch", error.getTable());
-            Assert.AreEqual(new List<string> { "ajcc7_n" }, error.getColumns());
+            Assert.IsTrue(new List<string> { "ajcc7_n" }.SequenceEqual(error.getColumns()));
             Assert.AreEqual("Matching resulted in an error in table 'lymph_nodes_clinical_eval_v0205_ajcc7_xch' for column 'ajcc7_n' (000)", error.getMessage());
         }
 

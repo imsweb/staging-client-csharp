@@ -35,7 +35,7 @@ namespace TNMStagingCSharp.Src.Staging.Entities.Impl
         [JsonProperty("decimal_places", Order = 12)]
         private int _decimalPlaces;
         [JsonProperty("metadata", Order = 13)]
-        [JsonConverter(typeof(CustomHashSetConverter<String>))]
+        [JsonConverter(typeof(CustomListConverter<StagingMetadata>))]
         private List<StagingMetadata> _metadata;
 
 
@@ -198,6 +198,10 @@ namespace TNMStagingCSharp.Src.Staging.Entities.Impl
 
         public List<Metadata> getMetadata()
         {
+            if (_metadata == null)
+            {
+                return null;
+            }
             return new List<Metadata>(_metadata);
         }
 
@@ -216,30 +220,24 @@ namespace TNMStagingCSharp.Src.Staging.Entities.Impl
 
             StagingSchemaInput that = (StagingSchemaInput)o;
 
-            bool bRetval = true;
-
             // do not include _parsedValues
-            bRetval = (_key == that._key) &&
-                      (_name == that._name) &&
-                      (_description == that._description) &&
-                      (_naaccrItem == that._naaccrItem) &&
-                      (_naaccrXmlId == that._naaccrXmlId) &&
-                      (_default == that._default) &&
-                      (_table == that._table) &&
-                      (_usedForStaging == that._usedForStaging) &&
-                      (_unit == that._unit) &&
-                      (_decimalPlaces == that._decimalPlaces);
+            bool bRetval = (_key == that._key) &&
+                          (_name == that._name) &&
+                          (_description == that._description) &&
+                          (_naaccrItem == that._naaccrItem) &&
+                          (_naaccrXmlId == that._naaccrXmlId) &&
+                          (_default == that._default) &&
+                          (_table == that._table) &&
+                          (_usedForStaging == that._usedForStaging) &&
+                          (_unit == that._unit) &&
+                          (_decimalPlaces == that._decimalPlaces);
 
             if (bRetval)
             {
+                bRetval = false;
                 if ((_metadata == null) && (that._metadata == null))
                 {
                     bRetval = true;
-                }
-                else if (((_metadata != null) && (that._metadata == null)) ||
-                         ((_metadata == null) && (that._metadata != null)))
-                {
-                    bRetval = false;
                 }
                 else if ((_metadata != null) && (that._metadata != null))
                 {

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using TNMStagingCSharp.Src.Staging.CS;
 
 
-namespace TNMStaging_UnitTestApp.Src
+namespace TNMStaging_UnitTestApp.Src.Staging.CS
 {
     [TestClass]
     public class CsSchemaLookupTest

@@ -207,6 +207,10 @@ namespace TNMStagingCSharp.Src.Staging.Entities.Impl
 
         public List<IInput> getInputs()
         {
+            if (_inputs == null)
+            {
+                return null;
+            }
             return new List<IInput>(_inputs);
         }
 
@@ -234,6 +238,10 @@ namespace TNMStagingCSharp.Src.Staging.Entities.Impl
 
         public List<IOutput> getOutputs()
         {
+            if (_outputs == null)
+            {
+                return null;
+            }
             return new List<IOutput>(_outputs);
         }
 

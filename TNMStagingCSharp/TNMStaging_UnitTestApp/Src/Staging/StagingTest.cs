@@ -8,7 +8,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using TNMStagingCSharp.Src.Staging;
 using TNMStagingCSharp.Src.Staging.Entities;
 
-namespace TNMStaging_UnitTestApp.Src
+namespace TNMStaging_UnitTestApp.Src.Staging
 {
     /**
      * Base class for all algorithm-specific testing
@@ -129,7 +129,7 @@ namespace TNMStaging_UnitTestApp.Src
 
             // hist tests
             List<String> validHist = new List<String>() { "8000", "8002", "8005", "8290", "9992" };
-            List<String> invalidHist = new List<String>() { "8006", "9993" };
+            List<String> invalidHist = new List<String>() { "8006", "9990" };
             foreach (String hist in validHist)
                 Assert.IsTrue(provider.getValidHistologies().Contains(hist), "The histology '" + hist + "' is not in the valid histology list");
             foreach (String hist in invalidHist)

@@ -4,13 +4,23 @@ using Newtonsoft.Json;
 
 using TNMStagingCSharp.Src.Staging.Entities;
 using TNMStagingCSharp.Src.Staging.Entities.Impl;
-
+using System.Diagnostics;
 
 namespace TNMStagingCSharp.Src.Tools
 {
 
-    class TestingTools
+    public static class TestingTools
     {
+        public static void WriteException(Exception ex)
+        {
+            Debug.WriteLine("Exception: " + ex.Message);
+            Debug.WriteLine("           " + ex.StackTrace);
+            if (ex.InnerException != null)
+            {
+                Debug.WriteLine("Inner Exception: " + ex.InnerException.Message);
+                Debug.WriteLine("                 " + ex.InnerException.StackTrace);
+            }
+        }
     }
 
     public static class DebugSettings
@@ -45,7 +55,15 @@ namespace TNMStagingCSharp.Src.Tools
 
         public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
         {
-            return serializer.Deserialize<HashSet<T>>(reader);
+            try
+            {
+                return serializer.Deserialize<HashSet<T>>(reader);
+            }
+            catch (Exception ex)
+            {
+                TestingTools.WriteException(ex);
+            }
+            return null;
         }
 
         public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
@@ -62,7 +80,15 @@ namespace TNMStagingCSharp.Src.Tools
 
         public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
         {
-            return serializer.Deserialize<List<T>>(reader);
+            try
+            {
+                return serializer.Deserialize<List<T>>(reader);
+            }
+            catch (Exception ex)
+            {
+                TestingTools.WriteException(ex);
+            }
+            return null;
         }
 
         public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
@@ -79,14 +105,21 @@ namespace TNMStagingCSharp.Src.Tools
 
         public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
         {
-            return serializer.Deserialize<Dictionary<T, V>>(reader);
+            try
+            {
+                return serializer.Deserialize<Dictionary<T, V>>(reader);
+            }
+            catch (Exception ex)
+            {
+                TestingTools.WriteException(ex);
+            }
+            return null;
         }
 
         public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
         {
         }
     }
-
 
     public class CustomListConverter_StagingKeyValue_IKeyValue : JsonConverter
     {

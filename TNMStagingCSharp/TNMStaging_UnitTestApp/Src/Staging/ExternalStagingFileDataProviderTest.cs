@@ -7,8 +7,9 @@ using System.Collections.Generic;
 using TNMStagingCSharp.Src.Staging;
 using TNMStagingCSharp.Src.Staging.Entities;
 using TNMStagingCSharp.Src.Staging.Entities.Impl;
+using System.Linq;
 
-namespace TNMStaging_UnitTestApp.Src
+namespace TNMStaging_UnitTestApp.Src.Staging
 {
     [TestClass]
     public class ExternalStagingFileDataProviderTest
@@ -179,7 +180,8 @@ namespace TNMStaging_UnitTestApp.Src
             List<StagingMetadata> expected = new List<StagingMetadata>();
             expected.Add(new StagingMetadata("FIRST_ITEM", 2017, 2020));
             expected.Add(new StagingMetadata("SECOND_ITEM", 2021));
-            Assert.AreEqual(ssf3.getMetadata(), expected);
+
+            Assert.IsTrue(ssf3.getMetadata().SequenceEqual(expected));
         }
     }
 }
