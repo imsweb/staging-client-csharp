@@ -180,16 +180,16 @@ namespace TNMStagingCSharp.Src.Staging.Engine
         //========================================================================================================================
         public static String translateValue(String value, Dictionary<String, String> context)
         {
-            if (value != null)
+            if (value != null && value.StartsWith("{{"))
             {
                 Match match = _TEMPLATE_REFERENCE.Match(value);
                 if (match.Success)
                 {
-                    if (!context.TryGetValue(match.Groups[1].Value, out value))
+                    String referencedKey = match.Groups[1].Value;
+                    if (!context.TryGetValue(referencedKey, out value))
                         value = "";
                 }
             }
-
             return value;
         }
 

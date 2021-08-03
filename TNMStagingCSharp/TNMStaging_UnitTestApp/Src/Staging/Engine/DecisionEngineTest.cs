@@ -169,7 +169,7 @@ namespace TNMStaging_UnitTestApp.Src.Staging.Engine
             schema.setSchemaSelectionTable("table_selection");
             schema.setOnInvalidInput(StagingInputErrorHandler.FAIL);
             schema.addInput("a");
-            StagingSchemaInput input = new StagingSchemaInput("b", "table_lookup_sample");
+            StagingSchemaInput input = new StagingSchemaInput("b", "b", "table_lookup_sample");
             schema.addInput(input);
             schema.addInput("c");
             schema.addInitialContext("d", "HARD-CODE");

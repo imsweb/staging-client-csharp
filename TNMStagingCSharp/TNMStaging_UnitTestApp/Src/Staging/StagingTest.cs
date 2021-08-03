@@ -269,7 +269,7 @@ namespace TNMStaging_UnitTestApp.Src.Staging
                     String low = range.getLow();
                     String high = range.getHigh();
 
-                    if (range.matchesAll() || low == null)
+                    if (range.matchesAll() || low.Length == 0)
                         continue;
 
                     if (low.StartsWith("{{") && low.Contains(TNMStagingCSharp.Src.Staging.Staging.CTX_YEAR_CURRENT))
