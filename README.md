@@ -22,7 +22,7 @@ All of the standard setting organizations will collect the predictive and progno
  
 Versions supported:
 
-- 2.0 (released July 2020)
+- 2.1 (released August 2021)
 
 ### TNM
 
@@ -50,7 +50,7 @@ Versions supported:
 
 ## Download
 
-To download [the beta version of staging library - TNMStagingCSharp_v34.zip](https://github.com/imsweb/staging-client-csharp/releases/download/v3.4-beta/TNMStagingCSharp_v34.zip).
+To download [the beta version of staging library - TNMStagingCSharp_v35.zip](https://github.com/imsweb/staging-client-csharp/releases/download/v3.5-beta/TNMStagingCSharp_v35.zip).
 
 The download zip file contains the TNM Staging DLL and associated files. For more information, please reference the accompanying readme.txt file. Detailed documentation on how to use the DLL can be found in the [Wiki](https://github.com/imsweb/staging-client-csharp/wiki/).
 
@@ -58,7 +58,7 @@ The download zip file contains the TNM Staging DLL and associated files. For mor
 
 Functional Requirements: You will need the .NET Framework 4.5.2 or higher installed to use this library. 
 
-Data Requirements: You will need the algorithm data files for the TNM Staging Library to work properly. At present there are CS 02.05.50, TNM 1.9, and EOD 2.0 algorithms. You can find a copy of these data files within the TNM Staging source code in the Resources\Algorithms directory. The algorithm data files can be either in separate JSON files, or can be collected together in a compressed file such as .ZIP or .GZ. You can download the zip versions of [CS 02.05.50](https://github.com/imsweb/staging-client-csharp/releases/download/v3.4-beta/CS_02_05_50.zip), [TNM 1.9](https://github.com/imsweb/staging-client-csharp/releases/download/v3.4-beta/TNM_19.zip), and [EOD Public 2.0](https://github.com/imsweb/staging-client-csharp/releases/download/v3.4-beta/EOD_Public_20.zip) here. 
+Data Requirements: You will need the algorithm data files for the TNM Staging Library to work properly. At present there are CS 02.05.50, TNM 1.9, and EOD 2.0 algorithms. You can find a copy of these data files within the TNM Staging source code in the Resources\Algorithms directory. The algorithm data files can be either in separate JSON files, or can be collected together in a compressed file such as .ZIP or .GZ. You can download the zip versions of [CS 02.05.50](https://github.com/imsweb/staging-client-csharp/releases/download/v3.5-beta/CS_02_05_50.zip), [TNM 1.9](https://github.com/imsweb/staging-client-csharp/releases/download/v3.5-beta/TNM_19.zip), and [EOD Public 2.1](https://github.com/imsweb/staging-client-csharp/releases/download/v3.5-beta/EOD_Public_20.zip) here. 
 
 ## Usage
 
@@ -118,7 +118,7 @@ HashSet<String> schemaIds = staging.getSchemaIds();
 To get a single schema by identifer,
 
 ```csharp
-StagingSchema schema = staging.getSchema("prostate");
+Schema schema = staging.getSchema("prostate");
 ```
 
 ### Tables
@@ -160,7 +160,7 @@ customized for the specific inputs needed to lookup a schema.
 For Collaborative Staging, use the `CsSchemaLookup` object.  Here is a lookup based on site and histology.
 
 ```csharp
-List<StagingSchema> lookup = staging.lookupSchema(new CsSchemaLookup("C629", "9231"));
+List<Schema> lookup = staging.lookupSchema(new CsSchemaLookup("C629", "9231"));
 Assert.AreEqual(1, lookup.Count);
 Assert.AreEqual("testis", lookup[0].getId());
 ```
@@ -171,9 +171,9 @@ sets of discriminators that can be determined based on the result.
 
 ```csharp
 // do not supply a discriminator
-List<StagingSchema> lookup = staging.lookupSchema(new CsSchemaLookup("C111", "8200"));
+List<Schema> lookup = staging.lookupSchema(new CsSchemaLookup("C111", "8200"));
 Assert.AreEqual(2, lookup.Count);
-foreach (StagingSchema schema in lookup)
+foreach (Schema schema in lookup)
     Assert.IsTrue(schema.getSchemaDiscriminators().Contains(CsStagingData.SSF25_KEY));
 
 // supply a discriminator
