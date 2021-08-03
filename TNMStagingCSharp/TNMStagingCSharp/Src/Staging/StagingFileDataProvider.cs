@@ -2,10 +2,11 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 
 using TNMStagingCSharp.Src.Staging.Entities;
-using TNMStagingCSharp.Src.DecisionEngine;
+using TNMStagingCSharp.Src.Staging.Entities.Impl;
 
 
 namespace TNMStagingCSharp.Src.Staging
@@ -99,6 +100,12 @@ namespace TNMStagingCSharp.Src.Staging
             catch (IOException e) 
             {
                 throw new System.InvalidOperationException("IOException reading schemas: " + e.Message);
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Exception: " + ex.Message);
+                Debug.WriteLine("           " + ex.StackTrace);
+                throw new System.InvalidOperationException("Exception reading schemas: " + ex.Message);
             }
 
             // load the glossary terms
@@ -216,6 +223,26 @@ namespace TNMStagingCSharp.Src.Staging
             return oRetval;
         }
 
+        public override IEndpoint getEndpoint(EndpointType type, String value)
+        {
+            return new StagingEndpoint(type, value);
+        }
+
+        public override ITableRow getTableRow()
+        {
+            return new StagingTableRow();
+        }
+
+        public override Range getMatchAllRange()
+        {
+            return new StagingRange();
+        }
+
+        public override Range getRange(String low, String high)
+        {
+            return new StagingRange(low, high);
+        }
+
         public override HashSet<String> getSchemaIds()
         {
             return _SchemaKeys;
@@ -226,11 +253,10 @@ namespace TNMStagingCSharp.Src.Staging
             return _TableKeys;
         }
 
-        public override IDefinition getDefinition(String id)
+        public override Schema getSchema(String id)
         {
             StagingSchema oRetval = null;
             _schemas.TryGetValue(id, out oRetval);
-
             return oRetval;
         }
 

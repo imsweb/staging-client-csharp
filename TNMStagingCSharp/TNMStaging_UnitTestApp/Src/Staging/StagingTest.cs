@@ -5,12 +5,10 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-using TNMStagingCSharp.Src.DecisionEngine;
 using TNMStagingCSharp.Src.Staging;
 using TNMStagingCSharp.Src.Staging.Entities;
-using TNMStagingCSharp.Src.Staging.EOD;
 
-namespace TNMStaging_UnitTestApp.Src
+namespace TNMStaging_UnitTestApp.Src.Staging
 {
     /**
      * Base class for all algorithm-specific testing
@@ -41,7 +39,7 @@ namespace TNMStaging_UnitTestApp.Src
         {
             foreach (String id in _STAGING.getTableIds())
             {
-                StagingTable table = _STAGING.getTable(id);
+                ITable table = _STAGING.getTable(id);
 
                 Assert.IsNotNull(table);
                 Assert.IsNotNull(table.getAlgorithm());
@@ -76,8 +74,8 @@ namespace TNMStaging_UnitTestApp.Src
             // all inputs for all schemas will have null unit and decimal places
             foreach (String id in _STAGING.getSchemaIds())
             {
-                StagingSchema schema = _STAGING.getSchema(id);
-                foreach (StagingSchemaInput input in schema.getInputs())
+                Schema schema = _STAGING.getSchema(id);
+                foreach (IInput input in schema.getInputs())
                 {
                     Assert.IsNull(input.getUnit(), "No schemas should have units");
                     Assert.IsTrue(input.getDecimalPlaces() == 0, "No schemas should have decimal places");
@@ -131,7 +129,7 @@ namespace TNMStaging_UnitTestApp.Src
 
             // hist tests
             List<String> validHist = new List<String>() { "8000", "8002", "8005", "8290", "9992" };
-            List<String> invalidHist = new List<String>() { "8006", "9993" };
+            List<String> invalidHist = new List<String>() { "8006", "9990" };
             foreach (String hist in validHist)
                 Assert.IsTrue(provider.getValidHistologies().Contains(hist), "The histology '" + hist + "' is not in the valid histology list");
             foreach (String hist in invalidHist)
@@ -173,16 +171,16 @@ namespace TNMStaging_UnitTestApp.Src
 
             foreach (String schemaId in _STAGING.getSchemaIds())
             {
-                StagingSchema schema = _STAGING.getSchema(schemaId);
+                Schema schema = _STAGING.getSchema(schemaId);
 
                 // build a list of input tables that should be excluded
-                foreach (StagingSchemaInput input in schema.getInputs())
+                foreach (IInput input in schema.getInputs())
                 {
                     if (input.getTable() != null)
                     {
                         HashSet<String> inputKeys = new HashSet<String>();
-                        StagingTable table = _STAGING.getTable(input.getTable());
-                        foreach (StagingColumnDefinition def in table.getColumnDefinitions())
+                        ITable table = _STAGING.getTable(input.getTable());
+                        foreach (IColumnDefinition def in table.getColumnDefinitions())
                             if (ColumnType.INPUT == def.getType())
                                 inputKeys.Add(def.getKey());
 
@@ -203,7 +201,7 @@ namespace TNMStaging_UnitTestApp.Src
 
             foreach (String id in _STAGING.getSchemaIds())
             {
-                StagingSchema schema = _STAGING.getSchema(id);
+                Schema schema = _STAGING.getSchema(id);
 
                 // loop over all the inputs returned by processing the schema and make sure they are all part of the main list of inputs on the schema
                 foreach (String input in _STAGING.getInputs(schema))
@@ -221,13 +219,13 @@ namespace TNMStaging_UnitTestApp.Src
 
             foreach (String schemaId in _STAGING.getSchemaIds())
             {
-                StagingSchema schema = _STAGING.getSchema(schemaId);
+                Schema schema = _STAGING.getSchema(schemaId);
 
                 // build a list of input tables that should be excluded
                 HashSet<String> ids = new HashSet<String>();
                 List<IMapping> mappings = schema.getMappings();
                 if (mappings != null)
-                    foreach (StagingMapping mapping in mappings)
+                    foreach (IMapping mapping in mappings)
                     {
                         if (ids.Contains(mapping.getId()))
                             errors.Add("The mapping id " + schemaId + ":" + mapping.getId() + " is duplicated.  This should never happen");
@@ -254,21 +252,19 @@ namespace TNMStaging_UnitTestApp.Src
             }
         }
 
-        // * Return the input length from a specified table
-        // * @param tableId table indentifier
-        // * @param key input key
-        // * @return null if no length couild be determined, or the length
+        // Return the input length from a specified table
+        // @param tableId table indentifier
+        // @param key input key
+        // @return null if no length couild be determined, or the length
         protected int getInputLength(String tableId, String key)
         {
-            StagingTable table = _STAGING.getTable(tableId);
-            int length = -1;
+            ITable table = _STAGING.getTable(tableId);
+            int length = 0;
 
             // loop over each row
-            foreach (StagingTableRow row in table.getTableRows())
+            foreach (ITableRow row in table.getTableRows())
             {
-                List<Range> ranges = row.getInputs()[key];
-
-                foreach (StagingRange range in ranges)
+                foreach (Range range in row.getColumnInput(key))
                 {
                     String low = range.getLow();
                     String high = range.getHigh();
@@ -277,11 +273,13 @@ namespace TNMStaging_UnitTestApp.Src
                         continue;
 
                     if (low.StartsWith("{{") && low.Contains(TNMStagingCSharp.Src.Staging.Staging.CTX_YEAR_CURRENT))
+                        //low = String.valueOf(Calendar.getInstance().get(Calendar.YEAR));
                         low = DateTime.Now.Year.ToString();
                     if (high.StartsWith("{{") && high.Contains(TNMStagingCSharp.Src.Staging.Staging.CTX_YEAR_CURRENT))
+                        //high = String.valueOf(Calendar.getInstance().get(Calendar.YEAR));
                         high = DateTime.Now.Year.ToString();
 
-                    if (length >= 0 && (low.Length != length || high.Length != length))
+                    if (length > 0 && (low.Length != length || high.Length != length))
                         throw new System.InvalidOperationException("Inconsistent lengths in table " + tableId + " for key " + key);
 
                     length = low.Length;

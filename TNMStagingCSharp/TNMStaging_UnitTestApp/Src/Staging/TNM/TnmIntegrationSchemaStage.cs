@@ -9,7 +9,6 @@ using System.Threading;
 using TNMStagingCSharp.Src.Staging;
 using TNMStagingCSharp.Src.Staging.Entities;
 using TNMStagingCSharp.Src.Staging.TNM;
-using TNMStagingCSharp.Src.DecisionEngine;
 
 namespace TNMStaging_UnitTestApp.Src.Staging.TNM
 {
@@ -332,7 +331,7 @@ namespace TNMStaging_UnitTestApp.Src.Staging.TNM
                 SchemaLookup lookup = new SchemaLookup(data.getInput(TnmInput.PRIMARY_SITE), data.getInput(TnmInput.HISTOLOGY));
                 lookup.setInput(TnmStagingData.SEX_KEY, data.getInput(TnmInput.SEX));
                 lookup.setInput(TnmStagingData.SSF25_KEY, data.getInput(TnmInput.SSF25));
-                List<StagingSchema> schemas = mMultiTask_Staging.lookupSchema(lookup);
+                List<Schema> schemas = mMultiTask_Staging.lookupSchema(lookup);
 
                 if (schemas.Count == 1)
                     mMultiTask_Staging.stage(data);

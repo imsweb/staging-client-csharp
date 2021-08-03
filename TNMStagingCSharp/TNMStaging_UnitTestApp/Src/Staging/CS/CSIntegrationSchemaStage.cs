@@ -6,8 +6,8 @@ using System.Threading;
 
 using TNMStagingCSharp.Src.Staging;
 using TNMStagingCSharp.Src.Staging.Entities;
+using TNMStagingCSharp.Src.Staging.Entities.Impl;
 using TNMStagingCSharp.Src.Staging.CS;
-using TNMStagingCSharp.Src.DecisionEngine;
 
 namespace TNMStaging_UnitTestApp.Src.Staging.CS
 {
@@ -250,7 +250,7 @@ namespace TNMStaging_UnitTestApp.Src.Staging.CS
                 // run collaborative stage; if no schema found, set the output to empty
                 SchemaLookup lookup = new SchemaLookup(data.getInput(CsInput.PRIMARY_SITE), data.getInput(CsInput.HISTOLOGY));
                 lookup.setInput(CsStagingData.SSF25_KEY, data.getInput(CsInput.SSF25));
-                List<StagingSchema> schemas = mMultiTask_Staging.lookupSchema(lookup);
+                List<Schema> schemas = mMultiTask_Staging.lookupSchema(lookup);
 
                 if (schemas.Count == 1)
                     mMultiTask_Staging.stage(data);

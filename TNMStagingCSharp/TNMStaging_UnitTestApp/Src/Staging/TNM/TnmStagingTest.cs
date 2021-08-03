@@ -9,8 +9,8 @@ using System.IO.Compression;
 using TNMStagingCSharp.Src.Tools;
 using TNMStagingCSharp.Src.Staging;
 using TNMStagingCSharp.Src.Staging.Entities;
+using TNMStagingCSharp.Src.Staging.Entities.Impl;
 using TNMStagingCSharp.Src.Staging.TNM;
-using TNMStagingCSharp.Src.Staging.CS;
 
 
 namespace TNMStaging_UnitTestApp.Src.Staging.TNM
@@ -85,7 +85,7 @@ namespace TNMStaging_UnitTestApp.Src.Staging.TNM
         public void testSchemaSelection() 
         {
             // test bad values
-            List<StagingSchema> lookup = _STAGING.lookupSchema(new SchemaLookup());
+            List<Schema> lookup = _STAGING.lookupSchema(new SchemaLookup());
             Assert.AreEqual(0, lookup.Count);
 
             lookup = _STAGING.lookupSchema(new TnmSchemaLookup("XXX", "YYY"));
@@ -119,7 +119,7 @@ namespace TNMStaging_UnitTestApp.Src.Staging.TNM
 
             HashSet<String> hash1 = null;
             HashSet<String> hash2 = null;
-            foreach (StagingSchema schema in lookup)
+            foreach (Schema schema in lookup)
             {
                 hash1 = new HashSet<String>() { "ssf25" };
                 hash2 = schema.getSchemaDiscriminators();
@@ -131,7 +131,7 @@ namespace TNMStaging_UnitTestApp.Src.Staging.TNM
             schemaLookup.setInput(TnmStagingData.SSF25_KEY, "010");
             lookup = _STAGING.lookupSchema(schemaLookup);
             Assert.AreEqual(1, lookup.Count);
-            foreach (StagingSchema schema in lookup)
+            foreach (Schema schema in lookup)
             {
                 hash1 = new HashSet<String>() { "ssf25" };
                 hash2 = schema.getSchemaDiscriminators();
@@ -172,7 +172,7 @@ namespace TNMStaging_UnitTestApp.Src.Staging.TNM
         public void testLookupCache()
         {
             // do the same lookup twice
-            List<StagingSchema> lookup = _STAGING.lookupSchema(new TnmSchemaLookup("C629", "9231"));
+            List<Schema> lookup = _STAGING.lookupSchema(new TnmSchemaLookup("C629", "9231"));
             Assert.AreEqual(1, lookup.Count);
             Assert.AreEqual("testis", lookup[0].getId());
 
@@ -449,7 +449,7 @@ namespace TNMStaging_UnitTestApp.Src.Staging.TNM
         public void testLookupInputs()
         {
             // test valid combinations that do not require a discriminator
-            StagingSchema schema = _STAGING.getSchema("prostate");
+            Schema schema = _STAGING.getSchema("prostate");
             TnmSchemaLookup lookup = new TnmSchemaLookup("C619", "8000");
             Assert.IsTrue(_STAGING.getInputs(schema, lookup.getInputs()).Contains("clin_t"));
 
@@ -461,16 +461,16 @@ namespace TNMStaging_UnitTestApp.Src.Staging.TNM
         public void testLookupOutputs()
         {
             TnmSchemaLookup lookup = new TnmSchemaLookup("C680", "8590");
-            List<StagingSchema> lookups = _STAGING.lookupSchema(lookup);
+            List<Schema> lookups = _STAGING.lookupSchema(lookup);
             Assert.AreEqual(1, lookups.Count);
 
-            StagingSchema schema = _STAGING.getSchema(lookups[0].getId());
+            Schema schema = _STAGING.getSchema(lookups[0].getId());
             Assert.AreEqual("urethra", schema.getId());
 
             // build list of output keys
-            List<StagingSchemaOutput> outputs = schema.getOutputs();
+            List<IOutput> outputs = schema.getOutputs();
             HashSet<String> definedOutputs = new HashSet<String>();
-            foreach (StagingSchemaOutput o in outputs)
+            foreach (IOutput o in outputs)
             {
                 definedOutputs.Add(o.getKey());
             }
@@ -485,23 +485,23 @@ namespace TNMStaging_UnitTestApp.Src.Staging.TNM
         [TestMethod]
         public void testRangeParsing()
         {
-            StagingTable table = _STAGING.getTable("path_n_daj");
+            ITable table = _STAGING.getTable("path_n_daj");
 
             Assert.IsNotNull(table);
             Assert.AreEqual("p0I-", table.getRawRows()[2][0]);
 
-            StagingTableRow tablerow = (table.getTableRows()[2] as StagingTableRow);
-            Assert.AreEqual("p0I-", tablerow.getInputs()["path_n"][0].getLow());
+            ITableRow tablerow = (table.getTableRows()[2] as ITableRow);
+            Assert.AreEqual("p0I-", tablerow.getColumnInput("path_n")[0].getLow());
 
-            tablerow = (table.getTableRows()[2] as StagingTableRow);
-            Assert.AreEqual("p0I-", tablerow.getInputs()["path_n"][0].getHigh());
+            tablerow = (table.getTableRows()[2] as ITableRow);
+            Assert.AreEqual("p0I-", tablerow.getColumnInput("path_n")[0].getHigh());
 
         }
 
         [TestMethod]
         public void testEncoding() 
         {
-            StagingTable table = _STAGING.getTable("thyroid_t_6166");
+            ITable table = _STAGING.getTable("thyroid_t_6166");
 
             Assert.IsNotNull(table);
 
@@ -524,6 +524,21 @@ namespace TNMStaging_UnitTestApp.Src.Staging.TNM
             string asciiString = new string(asciiChars);
             Assert.AreNotEqual(table.getNotes(), asciiString);
 
+        }
+
+        [TestMethod]
+        public void testMetadata()
+        {
+            Schema urethra = _STAGING.getSchema("urethra");
+            Assert.IsNotNull(urethra);
+
+            IInput ssf1 = urethra.getInputMap()["ssf1"];
+            Assert.IsNotNull(ssf1);
+
+            Assert.AreEqual(ssf1.getMetadata().Count, 3);
+            Assert.IsTrue(ssf1.getMetadata().Contains(new StagingMetadata("COC_REQUIRED")));
+            Assert.IsTrue(ssf1.getMetadata().Contains(new StagingMetadata("CCCR_REQUIRED")));
+            Assert.IsTrue(ssf1.getMetadata().Contains(new StagingMetadata("SEER_REQUIRED")));
         }
 
         [TestMethod]

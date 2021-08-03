@@ -10,7 +10,7 @@ using System.Windows.Forms;
 
 using TNMStagingCSharp.Src.Staging;
 using TNMStagingCSharp.Src.Staging.Entities;
-using TNMStagingCSharp.Src.DecisionEngine;
+using TNMStagingCSharp.Src.Staging.Entities.Impl;
 
 namespace TNMStaging_StagingViewerApp
 {
@@ -36,7 +36,7 @@ namespace TNMStaging_StagingViewerApp
             lblDescription.Text = "";
             //webBrTableNotes.DocumentText = "";
 
-            StagingTable thisTable = mStaging.getTable(msTableId);
+            ITable thisTable = mStaging.getTable(msTableId);
             if (thisTable != null)
             {
                 lblTableName.Text = thisTable.getName();

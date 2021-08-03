@@ -4,14 +4,14 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.IO;
 using System.IO.Compression;
 
-using TNMStagingCSharp.Src.DecisionEngine;
 using TNMStagingCSharp.Src.Tools;
 using TNMStagingCSharp.Src.Staging;
 using TNMStagingCSharp.Src.Staging.CS;
 using TNMStagingCSharp.Src.Staging.Entities;
+using TNMStagingCSharp.Src.Staging.Entities.Impl;
+using System.Linq;
 
-
-namespace TNMStaging_UnitTestApp.Src
+namespace TNMStaging_UnitTestApp.Src.Staging.CS
 {
     [TestClass]
     public class CsStagingTest : StagingTest
@@ -96,7 +96,7 @@ namespace TNMStaging_UnitTestApp.Src
         public void testSchemaSelection() 
         {
             // test bad values
-            List<StagingSchema> lookup = _STAGING.lookupSchema(new SchemaLookup());
+            List<Schema> lookup = _STAGING.lookupSchema(new SchemaLookup());
             Assert.AreEqual(0, lookup.Count);
 
             lookup = _STAGING.lookupSchema(new CsSchemaLookup("XXX", "YYY"));
@@ -127,7 +127,7 @@ namespace TNMStaging_UnitTestApp.Src
 
             HashSet<String> hash1 = null;
             HashSet<String> hash2 = null;
-            foreach (StagingSchema schema in lookup)
+            foreach (Schema schema in lookup)
             {
                 hash1 = new HashSet<String>() { "ssf25" };
                 hash2 = schema.getSchemaDiscriminators();
@@ -137,7 +137,7 @@ namespace TNMStaging_UnitTestApp.Src
             // test valid combination that requires discriminator and a good discriminator is supplied
             lookup = _STAGING.lookupSchema(new CsSchemaLookup("C111", "8200", "010"));
             Assert.AreEqual(1, lookup.Count);
-            foreach (StagingSchema schema in lookup)
+            foreach (Schema schema in lookup)
             {
                 hash1 = new HashSet<String>() { "ssf25" };
                 hash2 = schema.getSchemaDiscriminators();
@@ -178,7 +178,7 @@ namespace TNMStaging_UnitTestApp.Src
         public void testLookupCache()
         {
             // do the same lookup twice
-            List<StagingSchema> lookup = _STAGING.lookupSchema(new CsSchemaLookup("C629", "9231", ""));
+            List<Schema> lookup = _STAGING.lookupSchema(new CsSchemaLookup("C629", "9231", ""));
             Assert.AreEqual(1, lookup.Count);
             Assert.AreEqual("testis", lookup[0].getId());
 
@@ -217,7 +217,7 @@ namespace TNMStaging_UnitTestApp.Src
 
             foreach (String id in _STAGING.getSchemaIds())
             {
-                StagingSchema schema = _STAGING.getSchema(id);
+                Schema schema = _STAGING.getSchema(id);
                 if (!oldNames.Contains(schema.getName()))
                     Assert.Fail("The schema name " + schema.getName() + " is not one of the original names.");
             }
@@ -340,6 +340,49 @@ namespace TNMStaging_UnitTestApp.Src
             Assert.AreEqual("brain", data.getSchemaId());
             foreach (Error error in data.getErrors())
                 Assert.AreEqual(Error.Type.MATCH_NOT_FOUND, error.getType());
+        }
+
+        [TestMethod]
+        public void testErrors()
+        {
+            CsStagingData data = new CsStagingData();
+            data.setInput(CsInput.PRIMARY_SITE, "C209");
+            data.setInput(CsInput.HISTOLOGY, "8490");
+            data.setInput(CsInput.BEHAVIOR, "3");
+            data.setInput(CsInput.GRADE, "9");
+            data.setInput(CsInput.DX_YEAR, "2015");
+            data.setInput(CsInput.CS_VERSION_ORIGINAL, "020550");
+            data.setInput(CsInput.TUMOR_SIZE, "999");
+            data.setInput(CsInput.EXTENSION, "455");
+            data.setInput(CsInput.EXTENSION_EVAL, "9");
+            data.setInput(CsInput.LYMPH_NODES, "300");
+            data.setInput(CsInput.LYMPH_NODES_EVAL, "9");
+            data.setInput(CsInput.REGIONAL_NODES_POSITIVE, "99");
+            data.setInput(CsInput.REGIONAL_NODES_EXAMINED, "99");
+            data.setInput(CsInput.METS_AT_DX, "00");
+            data.setInput(CsInput.METS_EVAL, "9");
+            data.setInput(CsInput.LVI, "9");
+            data.setInput(CsInput.AGE_AT_DX, "050");
+            data.setSsf(1, "999");
+            data.setSsf(2, "000");
+            data.setSsf(3, "988");
+            data.setSsf(4, "988");
+            data.setSsf(5, "988");
+            data.setSsf(6, "988");
+            data.setSsf(7, "988");
+            data.setSsf(8, "988");
+            data.setSsf(9, "999");
+            data.setSsf(10, "988");
+
+            // perform the staging
+            _STAGING.stage(data);
+
+            Assert.AreEqual(StagingData.Result.STAGED, data.getResult());
+            Assert.AreEqual(4, data.getErrors().Count);
+            Error error = data.getErrors()[0];
+            Assert.AreEqual("lymph_nodes_clinical_eval_v0205_ajcc7_xch", error.getTable());
+            Assert.IsTrue(new List<string> { "ajcc7_n" }.SequenceEqual(error.getColumns()));
+            Assert.AreEqual("Matching resulted in an error in table 'lymph_nodes_clinical_eval_v0205_ajcc7_xch' for column 'ajcc7_n' (000)", error.getMessage());
         }
 
         [TestMethod]
@@ -745,7 +788,7 @@ namespace TNMStaging_UnitTestApp.Src
         [TestMethod]
         public void testStagingInputsAndOutputs()
         {
-            StagingSchema schema = _STAGING.getSchema("testis");
+            Schema schema = _STAGING.getSchema("testis");
 
             HashSet<String> hash1 = new HashSet<String>() {
                 "cs_input_version_original", "extension", "extension_eval", "site", "hist", "lvi", "mets_eval", "mets", "nodes",
@@ -767,35 +810,9 @@ namespace TNMStaging_UnitTestApp.Src
             Assert.IsTrue(schema.getInputMap()["ssf15"].getUsedForStaging());
 
             // test metadata
-            IInput input = schema.getInputMap()["ssf11"];
-            if (input is StagingSchemaInput)
-            {
-                Assert.IsNull((input as StagingSchemaInput).getMetadata());
-            }
-            else
-            {
-                Assert.Fail("Input is incorrect type.");
-            }
-
-            input = schema.getInputMap()["ssf17"];
-            if (input is StagingSchemaInput)
-            {
-                Assert.IsTrue((input as StagingSchemaInput).getMetadata().Contains("UNDEFINED_SSF"));
-            }
-            else
-            {
-                Assert.Fail("Input is incorrect type.");
-            }
-
-            input = schema.getInputMap()["ssf7"];
-            if (input is StagingSchemaInput)
-            {
-                Assert.IsTrue((input as StagingSchemaInput).getMetadata().Contains("SEER_CLINICALLY_SIGNIFICANT"));
-            }
-            else
-            {
-                Assert.Fail("Input is incorrect type.");
-            }
+            Assert.IsNull(schema.getInputMap()["ssf11"].getMetadata());
+            Assert.IsTrue(schema.getInputMap()["ssf17"].getMetadata().Contains(new StagingMetadata("UNDEFINED_SSF")));
+            Assert.IsTrue(schema.getInputMap()["ssf7"].getMetadata().Contains(new StagingMetadata("SEER_CLINICALLY_SIGNIFICANT")));
 
             Dictionary<String, String> context = new Dictionary<String, String>();
             context[StagingData.PRIMARY_SITE_KEY] = "C629";
@@ -862,7 +879,7 @@ namespace TNMStaging_UnitTestApp.Src
                     Assert.AreEqual(3, values.Length);
 
                     // get schema by schema name
-                    StagingSchema schema = _STAGING.getSchema(nameMap[values[0]]);
+                    Schema schema = _STAGING.getSchema(nameMap[values[0]]);
                     Assert.IsTrue(_STAGING.isCodeValid(schema.getId(), values[1], values[2]),
                         "The value '" + values[2] + "' is not valid for table '" + values[1] + "' and schema '" + values[0] + "'");
 
@@ -886,11 +903,11 @@ namespace TNMStaging_UnitTestApp.Src
 
             foreach (String schemaId in _STAGING.getSchemaIds())
             {
-                StagingSchema schema = _STAGING.getSchema(schemaId);
+                Schema schema = _STAGING.getSchema(schemaId);
 
                 // build a list of input tables that should be excluded
                 Dictionary<String, int> inputTableLengths = new Dictionary<String, int>();
-                foreach (StagingSchemaInput input in schema.getInputs())
+                foreach (IInput input in schema.getInputs())
                     if (input.getTable() != null)
                         inputTableLengths[input.getTable()] = getInputLength(input.getTable(), input.getKey());
 
@@ -902,16 +919,14 @@ namespace TNMStaging_UnitTestApp.Src
                     if (inputTableLengths.ContainsKey(tableId))
                         continue;
 
-                    StagingTable table = _STAGING.getTable(tableId);
+                    ITable table = _STAGING.getTable(tableId);
 
                     // loop over each row
-                    foreach (StagingTableRow row in table.getTableRows())
+                    foreach (ITableRow row in table.getTableRows())
                     {
                         // loop over all input cells
-                        foreach (KeyValuePair<String, List<Range>> entry in row.getInputs())
+                        foreach (String key in row.getColumns())
                         {
-                            String key = entry.Key;
-
                             // only validate keys that are actually INPUT values
                             if (!schema.getInputMap().ContainsKey(key))
                                 continue;
@@ -924,7 +939,7 @@ namespace TNMStaging_UnitTestApp.Src
                             int expectedFieldLength = inputTableLengths[validationTableId];
 
                             // loop over list of ranges
-                            foreach (StagingRange range in entry.Value)
+                            foreach (Range range in row.getColumnInput(key))
                             {
                                 String low = range.getLow();
                                 String high = range.getHigh();

@@ -3,6 +3,7 @@
 using System;
 using System.Collections.Generic;
 
+using TNMStagingCSharp.Src.Staging.Entities;
 
 namespace TNMStagingCSharp.Src.Staging.CS
 {

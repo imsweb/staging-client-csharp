@@ -137,7 +137,7 @@ namespace TNMStaging_UnitTestApp.Src.Staging.CS
                 lookup.setInput(CsStagingData.SSF25_KEY, thisDataObj.mParts[2]);
 
 
-                List<StagingSchema> lookups = mMultiTask_Staging.lookupSchema(lookup);
+                List<Schema> lookups = mMultiTask_Staging.lookupSchema(lookup);
                 if (lookups == null)
                 {
                     IntegrationUtils.WritelineToLog("Line #" + thisDataObj.miLineNum + " [" + thisDataObj.msFullLine + "] --> mStaging.lookupSchema returned NULL.");
