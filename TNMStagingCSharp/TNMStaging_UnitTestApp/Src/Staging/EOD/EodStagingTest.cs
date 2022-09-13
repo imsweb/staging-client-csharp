@@ -178,7 +178,7 @@ namespace TNMStaging_UnitTestApp.Src.Staging.EOD
 
             // test searching on only hist
             lookup = _STAGING.lookupSchema(new EodSchemaLookup(null, "9702"));
-            Assert.AreEqual(5, lookup.Count);
+            Assert.AreEqual(8, lookup.Count);
 
             // test that searching on only discriminator_1 returns no results
             schemaLookup = new EodSchemaLookup(null, null);
@@ -329,21 +329,20 @@ namespace TNMStaging_UnitTestApp.Src.Staging.EOD
             // perform the staging
             _STAGING.stage(data);
 
-            Assert.AreEqual(data.getResult(), StagingData.Result.STAGED);
-            Assert.AreEqual(data.getSchemaId(), "breast");
-            Assert.AreEqual(data.getErrors().Count, 0);
-            Assert.AreEqual(data.getPath().Count, 16);
-            Assert.AreEqual(data.getOutput().Count, 7);
+            Assert.AreEqual(StagingData.Result.STAGED, data.getResult());
+            Assert.AreEqual("breast", data.getSchemaId());
+            Assert.AreEqual(0, data.getErrors().Count);
+            Assert.AreEqual(16, data.getPath().Count);
+            Assert.AreEqual(7, data.getOutput().Count);
 
             // check outputs
-            Assert.AreEqual(data.getOutput(EodOutput.DERIVED_VERSION), EodDataProvider.getInstance().getVersion());
-            Assert.AreEqual(data.getOutput(EodOutput.SS_2018_DERIVED), "3");
-            Assert.AreEqual(data.getOutput(EodOutput.NAACCR_SCHEMA_ID), "00480");
-            Assert.AreEqual(data.getOutput(EodOutput.EOD_2018_STAGE_GROUP), "2B");
-            Assert.AreEqual(data.getOutput(EodOutput.EOD_2018_T), "T2");
-            Assert.AreEqual(data.getOutput(EodOutput.EOD_2018_N), "N1");
-            Assert.AreEqual(data.getOutput(EodOutput.EOD_2018_M), "M0");
-            Assert.AreEqual(data.getOutput(EodOutput.AJCC_ID), "48.2");
+            Assert.AreEqual(EodDataProvider.getInstance().getVersion(), data.getOutput(EodOutput.DERIVED_VERSION));
+            Assert.AreEqual("3", data.getOutput(EodOutput.SS_2018_DERIVED));
+            Assert.AreEqual("00480", data.getOutput(EodOutput.NAACCR_SCHEMA_ID));
+            Assert.AreEqual("2B", data.getOutput(EodOutput.EOD_2018_STAGE_GROUP));
+            Assert.AreEqual("T2", data.getOutput(EodOutput.EOD_2018_T));
+            Assert.AreEqual("N1", data.getOutput(EodOutput.EOD_2018_N));
+            Assert.AreEqual("M0", data.getOutput(EodOutput.EOD_2018_M));
         }
 
         [TestMethod]

@@ -270,7 +270,8 @@ namespace TNMStagingCSharp.Src.Staging
 
         public override GlossaryDefinition getGlossaryDefinition(String term)
         {
-            String id = _glossaryTerms[term];
+            string id = string.Empty;
+            _glossaryTerms.TryGetValue(term, out id);
             if (id == null)
             {
                 return null;

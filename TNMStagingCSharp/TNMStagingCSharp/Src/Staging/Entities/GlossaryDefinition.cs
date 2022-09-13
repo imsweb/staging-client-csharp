@@ -84,7 +84,7 @@ namespace TNMStagingCSharp.Src.Staging.Entities
             GlossaryDefinition that = (GlossaryDefinition)o;
             return Equals(_name, that._name) &&
                    Equals(_definition, that._definition) &&
-                   Equals(_alternateNames, that._alternateNames) &&
+                   _alternateNames.SequenceEqual(that._alternateNames) &&
                    Equals(_lastModified, that._lastModified);
         }
 

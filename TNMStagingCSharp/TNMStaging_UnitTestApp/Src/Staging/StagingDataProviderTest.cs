@@ -180,10 +180,10 @@ namespace TNMStaging_UnitTestApp.Src.Staging
             Assert.IsTrue(StagingDataProvider.isNumeric("-1"));
             Assert.IsTrue(StagingDataProvider.isNumeric("1.1"));
 
-            Assert.IsTrue(StagingDataProvider.isNumeric(null));
-            Assert.IsTrue(StagingDataProvider.isNumeric(""));
-            Assert.IsTrue(StagingDataProvider.isNumeric("1.1.1"));
-            Assert.IsTrue(StagingDataProvider.isNumeric("NAN"));
+            Assert.IsFalse(StagingDataProvider.isNumeric(null));
+            Assert.IsFalse(StagingDataProvider.isNumeric(""));
+            Assert.IsFalse(StagingDataProvider.isNumeric("1.1.1"));
+            Assert.IsFalse(StagingDataProvider.isNumeric("NAN"));
         }
     }
 }

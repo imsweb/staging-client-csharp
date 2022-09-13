@@ -214,7 +214,9 @@ namespace TNMStagingCSharp.Src.Staging
 
         public override GlossaryDefinition getGlossaryDefinition(String term)
         {
-            return _glossaryTerms[term];
+            GlossaryDefinition retval = null;
+            _glossaryTerms.TryGetValue(term, out retval);
+            return retval;
         }
     }
 }

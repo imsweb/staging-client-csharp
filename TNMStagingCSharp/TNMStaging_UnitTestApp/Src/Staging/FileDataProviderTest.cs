@@ -85,7 +85,8 @@ namespace TNMStaging_UnitTestApp.Src.Staging
             HashSet<string> testHash = new HashSet<string>()
             { "Adjacent structures", "Carcinoma", "Cortex", "Parenchyma", "Stroma", "Medulla", "Isolated tumor cells",
               "Adjacent tissue(s), NOS", "Tumor deposits", "Postcricoid region", "Summary Stage", "Level V lymph nodes", "Masticator space" };
-            Assert.IsTrue(getStaging().getGlossaryTerms().SetEquals(testHash));
+            HashSet<string> glossaryTerms = getStaging().getGlossaryTerms();
+            Assert.IsTrue(glossaryTerms.SetEquals(testHash));
 
             GlossaryDefinition entry = getStaging().getGlossaryDefinition("Adjacent tissue(s), NOS");
             Assert.IsNotNull(entry);
