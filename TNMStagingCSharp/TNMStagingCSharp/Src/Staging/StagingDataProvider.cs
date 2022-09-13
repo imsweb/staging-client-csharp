@@ -20,6 +20,9 @@ namespace TNMStagingCSharp.Src.Staging
         public static readonly String PRIMARY_SITE_TABLE = "primary_site";
         public static readonly String HISTOLOGY_TABLE = "histology";
 
+        // output all dates in ISO-8061 format and UTC time
+        private static string _DATE_FORMAT = "yyyy-MM-dd'T'HH:mm:ss.zzz'Z'";
+
         //private readonly static Entities.StagingRange _MATCH_ALL_ENDPOINT = new Entities.StagingRange();
         private static Range _matchAllEndpoint = null;
 
@@ -36,6 +39,23 @@ namespace TNMStagingCSharp.Src.Staging
         public StagingDataProvider()
         {
             _matchAllEndpoint = getMatchAllRange();
+
+            /*
+            // do not write null values
+            _mapper.configure(SerializationFeature.WRITE_NULL_MAP_VALUES, false);
+            _mapper.setSerializationInclusion(Include.NON_NULL);
+
+            // set Date objects to output in readable customized format
+            _mapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
+
+            // output all dates in ISO-8061 format and UTC time
+            DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+            dateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
+            _mapper.setDateFormat(dateFormat);
+
+            _mapper.setVisibility(PropertyAccessor.ALL, Visibility.NONE);
+            _mapper.setVisibility(PropertyAccessor.GETTER, Visibility.ANY);
+            */
 
             // cache schema lookups
             CreateLookupMemoryCache();
@@ -59,7 +79,6 @@ namespace TNMStagingCSharp.Src.Staging
 
             mLookupMemoryDict = new ConcurrentDictionary<String, List<Schema>> (concurrencyLevel, NUM_ITEMS_IN_CACHE_CAUSES_TRIM);
             miLookupMemoryDictCount = 0;
-
         }
 
         private void CreateValuesMemoryCache()

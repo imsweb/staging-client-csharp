@@ -12,7 +12,7 @@ namespace TNMStagingCSharp.Src.Staging.EOD
 {
     public class EodSchemaLookup : SchemaLookup
     {
-        private static readonly ReadOnlyCollection<String> _ALLOWED_KEYS = new ReadOnlyCollection<String>(new List<String>
+        private static readonly HashSet<String> _ALLOWED_KEYS = new HashSet<String>(new List<String>
                 { StagingData.PRIMARY_SITE_KEY,
                   StagingData.HISTOLOGY_KEY,
                   EodInput.SEX.toString(),
@@ -31,7 +31,7 @@ namespace TNMStagingCSharp.Src.Staging.EOD
         }
 
 
-        public override ReadOnlyCollection<String> getAllowedKeys()
+        public override HashSet<String> getAllowedKeys()
         {
             return _ALLOWED_KEYS;
         }

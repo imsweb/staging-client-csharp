@@ -117,8 +117,10 @@ namespace TNMStaging_UnitTestApp.Src.Staging.Engine
 
             Assert.AreEqual("schema_test", staging.getSchema("schema_test").getId());
 
-            // check case where required input field not supplied (i.e. no default); since there are is no workflow defined, this should
-            // not cause an error
+            HashSet<string> testHash = new HashSet<string>() { "table_input1", "table_input2", "table_selection", "primary_site", "histology", "table_year_dx" };
+            Assert.IsTrue(staging.getTableIds().SetEquals(testHash));
+
+            // check case where required to be input field not supplied (i.e. no default); since there are is no workflow defined, this should
 
             StagingData data = new StagingData("C509", "8000");
             data.setInput("year_dx", "2018");

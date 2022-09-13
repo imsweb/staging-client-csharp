@@ -71,8 +71,11 @@
   </Choose>
   <ItemGroup>
     <Compile Include="Src\Staging\Engine\BasicStagingTest.cs" />
+    <Compile Include="Src\Staging\Entities\EntitiesTest.cs" />
+    <Compile Include="Src\Staging\Entities\GlossaryDefinitionTest.cs" />
     <Compile Include="Src\Staging\Entities\Impl\StagingSchemaOutputTest.cs" />
     <Compile Include="Src\Staging\EOD\EodStagingTest.cs" />
+    <Compile Include="Src\Staging\FileDataProviderTest.cs" />
     <Compile Include="Src\Staging\MultiTasksExecutor.cs" />
     <Compile Include="Src\Staging\ComparisonUtils.cs" />
     <Compile Include="Src\Staging\CS\CSBigIntegrationTest.cs" />
@@ -88,6 +91,7 @@
     <Compile Include="Src\Staging\StagingDataProviderTest.cs" />
     <Compile Include="Src\Staging\Entities\Impl\StagingSchemaInputTest.cs" />
     <Compile Include="Src\Staging\Entities\StagingRangeTest.cs" />
+    <Compile Include="Src\Staging\StagingFileDataProviderTest.cs" />
     <Compile Include="Src\Staging\StagingTest.cs" />
     <Compile Include="Src\Staging\TNM\TnmBigIntegrationTest.cs" />
     <Compile Include="Src\Staging\TNM\TnmIntegrationSchemaSelection.cs" />

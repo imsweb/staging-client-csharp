@@ -24,7 +24,7 @@ namespace TNMStagingCSharp.Src.Staging
         private readonly Dictionary<String, GlossaryDefinition> _glossaryTerms = new Dictionary<String, GlossaryDefinition>();
 
         // Constructor loads all schemas and sets up table cache
-        // @param is InputStream pointing the the zip file
+        // @param is InputStream pointing to the zip file
         public ExternalStagingFileDataProvider(Stream inStream) : base()
         {
             init(inStream);

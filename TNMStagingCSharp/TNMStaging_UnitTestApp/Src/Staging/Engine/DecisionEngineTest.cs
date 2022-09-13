@@ -379,7 +379,7 @@ namespace TNMStaging_UnitTestApp.Src.Staging.Engine
             // create context of input fields
             Dictionary<String, String> input = new Dictionary<String, String>();
 
-            // first try it with missing input (null should match just like blank))
+            // first try it with missing input (null should match just like blank)
             Assert.IsNotNull(DecisionEngineFuncs.matchTable(matchTable, input));
 
             // now add blank input
@@ -400,7 +400,7 @@ namespace TNMStaging_UnitTestApp.Src.Staging.Engine
             matchTable = provider.getTable("basic_test_table_multi");
             Assert.IsNotNull(matchTable);
 
-            // first try it with missing input (null should match just like blank))
+            // first try it with missing input (null should match just like blank)
             Assert.IsNull(DecisionEngineFuncs.matchTable(matchTable, new Dictionary<String, String>()));
 
             input["a"] = "2";
@@ -1219,7 +1219,7 @@ namespace TNMStaging_UnitTestApp.Src.Staging.Engine
         {
             InMemoryDataProvider provider = new InMemoryDataProvider("Test", "1.0");
 
-            // test a situation where a a row with mulitple inputs is not found
+            // test a situation where a row with mulitple inputs is not found
             StagingTable table = new StagingTable("table_input");
             table.addColumnDefinition("input1", ColumnType.INPUT);
             table.addColumnDefinition("output1", ColumnType.ENDPOINT);

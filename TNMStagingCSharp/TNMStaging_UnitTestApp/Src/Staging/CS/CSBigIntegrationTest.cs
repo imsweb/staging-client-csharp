@@ -21,7 +21,7 @@ namespace TNMStaging_UnitTestApp.Src.Staging.CS
 
                 IntegrationUtils.WritelineToLog("Starting CSBigIntegrationTest::testBigIntegrationTestGood...");
 
-                TNMStagingCSharp.Src.Staging.Staging staging = TNMStagingCSharp.Src.Staging.Staging.getInstance(CsDataProvider.getInstance(CsVersion.v020550));
+                TNMStagingCSharp.Src.Staging.Staging staging = TNMStagingCSharp.Src.Staging.Staging.getInstance(CsDataProvider.getInstance(CsVersion.V020550));
 
                 // hard-code data directory based on Windows vs Linux
                 String dataDirectory;
@@ -53,7 +53,7 @@ namespace TNMStaging_UnitTestApp.Src.Staging.CS
 
                 IntegrationUtils.WritelineToLog("Starting CSBigIntegrationTest::testBigIntegrationTestBad...");
 
-                TNMStagingCSharp.Src.Staging.Staging staging = TNMStagingCSharp.Src.Staging.Staging.getInstance(CsDataProvider.getInstance(CsVersion.v020550));
+                TNMStagingCSharp.Src.Staging.Staging staging = TNMStagingCSharp.Src.Staging.Staging.getInstance(CsDataProvider.getInstance(CsVersion.V020550));
 
                 // hard-code data directory based on Windows vs Linux
                 String dataDirectory;

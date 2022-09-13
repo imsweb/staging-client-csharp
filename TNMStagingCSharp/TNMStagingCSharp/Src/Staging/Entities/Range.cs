@@ -6,6 +6,7 @@ using System.Collections.Generic;
 
 namespace TNMStagingCSharp.Src.Staging.Entities
 {
+    // An interface representing a string range
     public abstract class Range
     {
         //========================================================================================================================

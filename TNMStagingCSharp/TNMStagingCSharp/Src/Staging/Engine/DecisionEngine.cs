@@ -17,6 +17,8 @@ namespace TNMStagingCSharp.Src.Staging.Engine
         // string to use for blank or null in error strings
         public static readonly String _BLANK_OUTPUT = "<blank>";
 
+        public static readonly String _CONTEXT_MISSING_MESSAGE = "Context must not be missing";
+
         //========================================================================================================================
         // Checked whether the value is a reference to another variable or context
         // @param value String value
@@ -98,7 +100,7 @@ namespace TNMStagingCSharp.Src.Staging.Engine
             int rowIndex = -1;
 
             if (context == null)
-                throw new System.InvalidOperationException("Context must not be missing");
+                throw new System.InvalidOperationException(_CONTEXT_MISSING_MESSAGE);
 
             List<ITableRow> pRows = table.getTableRows();
             List<IColumnDefinition> pColDefs = table.getInputColumnDefinitions();
@@ -273,7 +275,7 @@ namespace TNMStagingCSharp.Src.Staging.Engine
         public bool isMappingInvolved(IMapping mapping, Dictionary<String, String> context)
         {
             if (context == null)
-                throw new System.InvalidOperationException("Context must not be missing");
+                throw new System.InvalidOperationException(DecisionEngineFuncs._CONTEXT_MISSING_MESSAGE);
 
             bool matches = true;
 
@@ -383,7 +385,7 @@ namespace TNMStagingCSharp.Src.Staging.Engine
             List<IMapping> mappings = new List<IMapping>();
 
             if (context == null)
-                throw new System.InvalidOperationException("Context must not be missing");
+                throw new System.InvalidOperationException(DecisionEngineFuncs._CONTEXT_MISSING_MESSAGE);
 
             if (schema.getMappings() != null)
             {

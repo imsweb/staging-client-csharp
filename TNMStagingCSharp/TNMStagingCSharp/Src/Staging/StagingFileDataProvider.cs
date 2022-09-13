@@ -12,7 +12,7 @@ using TNMStagingCSharp.Src.Staging.Entities.Impl;
 namespace TNMStagingCSharp.Src.Staging
 {
     // In implementation of DataProvider which holds all data in memory
-    public class StagingFileDataProvider: StagingDataProvider
+    public class StagingFileDataProvider : StagingDataProvider
     {
         private readonly String _algorithm;
         private readonly String _version;
@@ -23,16 +23,19 @@ namespace TNMStagingCSharp.Src.Staging
         private readonly Dictionary<String, String> _glossaryTerms = new Dictionary<String, String>();
         private readonly String _basedir;
 
+        private const String _ALGORITHM_BASE_DIR = "algorithms\\";
+        private const String _JSON_EXT = ".json";
+
         // Constructor loads all schemas and sets up table cache
         // @param algorithm algorithm
         // @param version version
-        protected StagingFileDataProvider(String algorithm, String version): base ()
+        public StagingFileDataProvider(String algorithm, String version): base ()
         {
             _algorithm = algorithm;
             _version = version;
 
             _basedir = System.IO.Directory.GetCurrentDirectory() + "\\";
-            if (!Directory.Exists(_basedir + "Algorithms\\"))
+            if (!Directory.Exists(_basedir + _ALGORITHM_BASE_DIR))
             {
                 _basedir = System.IO.Directory.GetCurrentDirectory() + "\\..\\..\\..\\";
                 if (System.IO.Directory.GetCurrentDirectory().IndexOf("x64") >= 0)
@@ -48,12 +51,12 @@ namespace TNMStagingCSharp.Src.Staging
             // loop over all tables and load them into Map
             try
             {
-                directory = _basedir + "Algorithms\\" + algorithm.ToLower() + "\\" + version + "\\tables";
+                directory = _basedir + _ALGORITHM_BASE_DIR + algorithm.ToLower() + "\\" + version + "\\tables";
                 foreach (String file in readLines(directory + "\\ids.txt"))
                 {
                     if (file.Length != 0)
                     {
-                        TextReader reader = getStagingInputStream(directory + "\\" + file + ".json");
+                        TextReader reader = getStagingInputStream(directory + "\\" + file + _JSON_EXT);
                         StagingTable table = new StagingTable();
 
                         using (reader)
@@ -77,13 +80,13 @@ namespace TNMStagingCSharp.Src.Staging
             // loop over all schemas and load them into Map
             try
             {
-                directory = _basedir + "Algorithms\\" + algorithm.ToLower() + "\\" + version + "\\schemas";
+                directory = _basedir + _ALGORITHM_BASE_DIR + algorithm.ToLower() + "\\" + version + "\\schemas";
 
                 foreach (String file in readLines(directory + "\\ids.txt"))
                 {
                     if (file.Length != 0)
                     {
-                        TextReader reader = getStagingInputStream(directory + "\\" + file + ".json");
+                        TextReader reader = getStagingInputStream(directory + "\\" + file + _JSON_EXT);
                         StagingSchema schema = new StagingSchema();
 
                         using (reader)
@@ -112,7 +115,7 @@ namespace TNMStagingCSharp.Src.Staging
             try
             {
                 _trie = new HashSet<String>();
-                directory = _basedir + "Algorithms\\" + algorithm.ToLower() + "\\" + version + "\\";
+                directory = _basedir + _ALGORITHM_BASE_DIR + algorithm.ToLower() + "\\" + version + "\\";
                 String termsFilename = directory + "Glossary\\terms.txt";
 
                 // if the file is not found, that just means that there are no glossary terms
@@ -273,8 +276,8 @@ namespace TNMStagingCSharp.Src.Staging
                 return null;
             }
 
-            string directory = _basedir + "Algorithms\\" + _algorithm.ToLower() + "\\" + _version + "\\";
-            string filename = directory + "Glossary\\" + id + ".json";
+            string directory = _basedir + _ALGORITHM_BASE_DIR + _algorithm.ToLower() + "\\" + _version + "\\";
+            string filename = directory + "Glossary\\" + id + _JSON_EXT;
 
             try
             {

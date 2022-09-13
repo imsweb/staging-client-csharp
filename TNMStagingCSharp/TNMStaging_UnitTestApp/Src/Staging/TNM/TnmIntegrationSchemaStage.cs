@@ -222,7 +222,7 @@ namespace TNMStaging_UnitTestApp.Src.Staging.TNM
                                         case 39: in_key = TnmInput.SSF22; break;
                                         case 40: in_key = TnmInput.SSF23; break;
                                         case 41: in_key = TnmInput.SSF24; break;
-                                        case 42: in_key = TnmInput.SSF25; break;
+                                        //case 42: in_key = TnmInput.SSF25; break;
                                         case 43: out_key = TnmOutput.DERIVED_VERSION; break;
                                         case 44: out_key = TnmOutput.CLIN_STAGE_GROUP; break;
                                         case 45: out_key = TnmOutput.PATH_STAGE_GROUP; break;
@@ -330,7 +330,7 @@ namespace TNMStaging_UnitTestApp.Src.Staging.TNM
                 // run collaborative stage; if no schema found, set the output to empty
                 SchemaLookup lookup = new SchemaLookup(data.getInput(TnmInput.PRIMARY_SITE), data.getInput(TnmInput.HISTOLOGY));
                 lookup.setInput(TnmStagingData.SEX_KEY, data.getInput(TnmInput.SEX));
-                lookup.setInput(TnmStagingData.SSF25_KEY, data.getInput(TnmInput.SSF25));
+                //lookup.setInput(TnmStagingData.SSF25_KEY, data.getInput(TnmInput.SSF25));
                 List<Schema> schemas = mMultiTask_Staging.lookupSchema(lookup);
 
                 if (schemas.Count == 1)

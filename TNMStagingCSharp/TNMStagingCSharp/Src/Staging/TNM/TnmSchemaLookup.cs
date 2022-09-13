@@ -11,7 +11,7 @@ namespace TNMStagingCSharp.Src.Staging.TNM
     public class TnmSchemaLookup : SchemaLookup
     {
 
-        private static readonly ReadOnlyCollection<String> _ALLOWED_KEYS = new ReadOnlyCollection<String>(new List<String>
+        private static readonly HashSet<String> _ALLOWED_KEYS = new HashSet<String>(new List<String>
                 { TnmStagingData.PRIMARY_SITE_KEY, TnmStagingData.HISTOLOGY_KEY, TnmStagingData.SSF25_KEY, TnmStagingData.SEX_KEY });
 
 
@@ -22,7 +22,7 @@ namespace TNMStagingCSharp.Src.Staging.TNM
         {
         }
 
-        public override ReadOnlyCollection<String> getAllowedKeys()
+        public override HashSet<String> getAllowedKeys()
         {
             return _ALLOWED_KEYS;
         }
