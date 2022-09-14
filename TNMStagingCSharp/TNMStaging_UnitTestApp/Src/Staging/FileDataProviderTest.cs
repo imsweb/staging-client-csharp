@@ -95,6 +95,10 @@ namespace TNMStaging_UnitTestApp.Src.Staging
             CollectionAssert.AreEqual(new List<string>() { "Connective tissue" }, entry.getAlternateNames());
             Assert.IsNotNull(entry.getLastModified());
 
+            string dateMod = entry.getLastModified().ToString();
+            Assert.AreEqual("Thu Jul 23 14:30:47 EDT 2015", entry.getName());
+
+
             List<GlossaryHit> hits = getStaging().getGlossaryMatches("Some text and Cortex should be only match.");
             Assert.AreEqual(1, hits.Count);
             GlossaryHit hit = hits[0];

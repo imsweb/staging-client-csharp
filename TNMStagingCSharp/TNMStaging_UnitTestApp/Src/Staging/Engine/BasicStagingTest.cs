@@ -415,12 +415,8 @@ namespace TNMStaging_UnitTestApp.Src.Staging.Engine
             {
                 Assert.IsTrue(e.Message.Contains("not allowed since it is also defined as an input"));
             }
-
+        }
     }
-
-
-
-}
 }
 
 

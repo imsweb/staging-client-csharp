@@ -32,9 +32,8 @@ namespace TNMStaging_UnitTestApp.Src.Staging.EOD
 
         public override string getVersion()
         {
-            return EodVersion.v3_0.getVersion();
+            return EodVersion.V3_0.getVersion();
         }
-
 
         public override StagingFileDataProvider getProvider()
         {
@@ -129,9 +128,9 @@ namespace TNMStaging_UnitTestApp.Src.Staging.EOD
             Assert.AreEqual(1, lookup.Count);
             foreach (Schema schema in lookup)
             {
-                hash1 = new HashSet<String>() { "discriminator_1", "discriminator_2" };
+                hash1 = new HashSet<String>() { "discriminator_1"};
                 hash2 = schema.getSchemaDiscriminators();
-                Assert.IsTrue(hash1.IsSupersetOf(hash2));
+                Assert.IsTrue(hash1.SetEquals(hash2));
 
                 /*
                 System.Diagnostics.Trace.WriteLine("==========================================================================");
@@ -152,8 +151,8 @@ namespace TNMStaging_UnitTestApp.Src.Staging.EOD
                 }
                 */
             }
-
             Assert.AreEqual("nasopharynx", lookup[0].getId());
+
             schemaLookup.setInput(EodInput.DISCRIMINATOR_1.toString(), "2");
             schemaLookup.setInput(EodInput.DISCRIMINATOR_2.toString(), "1");
             lookup = _STAGING.lookupSchema(schemaLookup);
@@ -162,7 +161,7 @@ namespace TNMStaging_UnitTestApp.Src.Staging.EOD
             {
                 hash1 = new HashSet<String>() { "discriminator_1", "discriminator_2" };
                 hash2 = schema.getSchemaDiscriminators();
-                Assert.IsTrue(hash1.IsSupersetOf(hash2));
+                Assert.IsTrue(hash1.SetEquals(hash2));
             }
             Assert.AreEqual("oropharynx_p16_neg", lookup[0].getId());
 
@@ -235,7 +234,6 @@ namespace TNMStaging_UnitTestApp.Src.Staging.EOD
 
             Assert.IsTrue(test1.SetEquals(allDiscriminators));
         }
-
 
         [TestMethod]
         public void testLookupCache()
@@ -630,5 +628,4 @@ namespace TNMStaging_UnitTestApp.Src.Staging.EOD
         }
     }
 }
-
 

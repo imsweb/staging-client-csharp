@@ -49,7 +49,7 @@ namespace TNMStaging_UnitTestApp.Src.Staging
         }
 
         [TestMethod]
-        public void testValidCode()
+        public virtual void testValidCode()
         {
             Dictionary<String, String> context = new Dictionary<String, String>();
             context["hist"] = "7000";
@@ -266,5 +266,3 @@ namespace TNMStaging_UnitTestApp.Src.Staging
         }
     }
 }
-
-

@@ -13,14 +13,14 @@ namespace TNMStagingCSharp.Src.Staging.Toronto
     {
 
         public static readonly TorontoVersion LATEST = new TorontoVersion("0.1");
-        public static readonly TorontoVersion v0_1 = new TorontoVersion("0.1");
+        public static readonly TorontoVersion V0_1 = new TorontoVersion("0.1");
 
         public static IEnumerable<TorontoVersion> Values
         {
             get
             {
                 yield return LATEST;
-                yield return v0_1;
+                yield return V0_1;
             }
         }
 
