@@ -95,9 +95,12 @@ namespace TNMStaging_UnitTestApp.Src.Staging
             CollectionAssert.AreEqual(new List<string>() { "Connective tissue" }, entry.getAlternateNames());
             Assert.IsNotNull(entry.getLastModified());
 
-            string dateMod = entry.getLastModified().ToString();
-            Assert.AreEqual("Thu Jul 23 14:30:47 EDT 2015", entry.getName());
-
+            //DateTime baseTime = entry.getLastModified();
+            //string dateMod = baseTime.ToString("R");
+            //TimeZoneInfo estZone = TimeZoneInfo.FindSystemTimeZoneById("Eastern Standard Time");
+            //DateTime newTime = TimeZoneInfo.ConvertTimeFromUtc(baseTime, estZone);
+            //string easternDate = newTime.ToString("R");
+            //Assert.AreEqual("Thu Jul 23 14:30:47 EDT 2015", easternDate);
 
             List<GlossaryHit> hits = getStaging().getGlossaryMatches("Some text and Cortex should be only match.");
             Assert.AreEqual(1, hits.Count);

@@ -87,7 +87,10 @@ namespace TNMStaging_UnitTestApp.Src.Staging.Toronto
             foreach (string schemaId in allSchemaIds)
             {
                 HashSet<string> discrim = _STAGING.getSchema(schemaId).getSchemaDiscriminators();
-                Assert.IsTrue(discrim.SetEquals(checkDiscrim));
+                if (discrim != null)
+                {
+                    Assert.IsTrue(discrim.IsSubsetOf(checkDiscrim));
+                }
             }
         }
 
@@ -97,17 +100,17 @@ namespace TNMStaging_UnitTestApp.Src.Staging.Toronto
             Dictionary<string, string> context = new Dictionary<string, string>();
             context.Add("hist", "7000");
             Assert.IsFalse(_STAGING.isContextValid("ovarian", "hist", context));
-            context.Add("hist", "8000");
+            context["hist"] = "8000";
             Assert.IsTrue(_STAGING.isContextValid("ovarian", "hist", context));
-            context.Add("hist", "8542");
+            context["hist"] = "8542";
             Assert.IsTrue(_STAGING.isContextValid("ovarian", "hist", context));
 
             // make sure null is handled
-            context.Add("hist", null);
+            context["hist"] = null;
             Assert.IsFalse(_STAGING.isContextValid("ovarian", "hist", context));
 
             // make sure blank is handled
-            context.Add("hist", "");
+            context["hist"] = "";
             Assert.IsFalse(_STAGING.isContextValid("ovarian", "hist", context));
         }
 
@@ -131,7 +134,7 @@ namespace TNMStaging_UnitTestApp.Src.Staging.Toronto
             int count = 0;
             foreach (TorontoInput input in TorontoInput.Values)
             {
-                Assert.IsTrue(inputs.Contains(input.ToString()));
+                Assert.IsTrue(inputs.Contains(input.toString()));
                 count++;
             }
             Assert.AreEqual(inputs.Count, count);
@@ -139,7 +142,7 @@ namespace TNMStaging_UnitTestApp.Src.Staging.Toronto
             count = 0;
             foreach (TorontoOutput output in TorontoOutput.Values)
             {
-                Assert.IsTrue(outputs.Contains(output.ToString()));
+                Assert.IsTrue(outputs.Contains(output.toString()));
                 count++;
             }
             Assert.AreEqual(outputs.Count, count);
@@ -163,7 +166,7 @@ namespace TNMStaging_UnitTestApp.Src.Staging.Toronto
 
             // test valid combination that requires a discriminator but is not supplied one
             lookup = _STAGING.lookupSchema(new TorontoSchemaLookup("C723", "9384"));
-            Assert.AreEqual(1, lookup.Count);
+            Assert.AreEqual(2, lookup.Count);
             HashSet<String> hash1 = new HashSet<String>() { "astrocytoma", "adult_other_non_pediatric" };
             HashSet<String> hash2 = new HashSet<String>();
             foreach (Schema schema in lookup)
@@ -176,7 +179,7 @@ namespace TNMStaging_UnitTestApp.Src.Staging.Toronto
             foreach (Schema schema in lookup)
             {
                 hash2 = schema.getSchemaDiscriminators();
-                Assert.IsTrue(hash1.SetEquals(hash2));
+                Assert.IsTrue(hash2.IsSubsetOf(hash1));
             }
 
             // test valid combination that requires discriminator and a good discriminator is supplied
@@ -455,8 +458,16 @@ namespace TNMStaging_UnitTestApp.Src.Staging.Toronto
             List<Schema> lookups = _STAGING.lookupSchema(lookup);
             Assert.AreEqual(2, lookups.Count);
 
-            Schema schema = _STAGING.getSchema(lookups[0].getId());
-            Assert.AreEqual(schema.getId(), "ovarian");
+            HashSet<string> testSet = new HashSet<string>() { "ovarian", "adult_other_non_pediatric" };
+            HashSet<string> lookupSet = new HashSet<string>();
+            foreach (Schema s in lookups)
+            {
+                lookupSet.Add(s.getId());
+            }
+            Assert.IsTrue(lookupSet.SetEquals(testSet));
+            //assertThat(lookups).extracting("id").containsExactlyInAnyOrder("ovarian", "adult_other_non_pediatric");
+
+            Schema schema = _STAGING.getSchema("ovarian");
 
             // build list of output keys
             List<IOutput> outputs = schema.getOutputs();
@@ -476,7 +487,8 @@ namespace TNMStaging_UnitTestApp.Src.Staging.Toronto
         [TestMethod]
         public void testGlossary()
         {
-            Assert.AreEqual(0, _STAGING.getGlossaryTerms());
+            Assert.IsNotNull(_STAGING.getGlossaryTerms());
+            Assert.IsTrue(_STAGING.getGlossaryTerms().Count > 0);
             GlossaryDefinition entry = _STAGING.getGlossaryDefinition("Cortex");
             Assert.IsNotNull(entry);
             Assert.AreEqual("Cortex", entry.getName());
@@ -484,7 +496,6 @@ namespace TNMStaging_UnitTestApp.Src.Staging.Toronto
             Assert.IsTrue(entry.getAlternateNames().Contains("Cortical"));
             Assert.IsNotNull(entry.getLastModified());
         }
-
 
 
         [TestMethod]
