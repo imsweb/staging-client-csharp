@@ -185,7 +185,7 @@ namespace TNMStagingCSharp.Src.Staging
             Dictionary<String, String> context = new Dictionary<String, String>(20, StringComparer.Ordinal);
 
             // add the value to the context
-            if ((key == null) || (value == null) || (schemaId == null))
+            if (key == null)
             {
                 return false;
             }

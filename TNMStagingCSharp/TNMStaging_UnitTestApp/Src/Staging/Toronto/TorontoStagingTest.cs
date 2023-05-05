@@ -424,7 +424,7 @@ namespace TNMStaging_UnitTestApp.Src.Staging.Toronto
             Assert.IsFalse(_STAGING.isCodeValid(schemaId, "site", null));
 
             // test fields that have a "value" specified
-            Assert.IsFalse(_STAGING.isCodeValid(schemaId, "year_dx", null)); // year_dx is now allowed to be null
+            Assert.IsTrue(_STAGING.isCodeValid(schemaId, "year_dx", null)); // year_dx is now allowed to be null
             Assert.IsFalse(_STAGING.isCodeValid(schemaId, "year_dx", "200"));
             Assert.IsFalse(_STAGING.isCodeValid(schemaId, "year_dx", "2003"));
             Assert.IsFalse(_STAGING.isCodeValid(schemaId, "year_dx", "2145"));
