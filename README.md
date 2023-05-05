@@ -16,7 +16,7 @@ All the standard setting organizations will collect the predictive and prognosti
 
 To get started using the Toronto Pediatric algorithm, instantiate a `Staging` instance:
 
-```java
+```csharp
 Staging staging = TNMStagingCSharp.Src.Staging.Staging.getInstance(TorontoDataProvider.getInstance(TorontoVersion.LATEST));
 ```
 
