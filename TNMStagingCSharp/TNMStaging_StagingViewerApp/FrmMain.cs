@@ -11,7 +11,7 @@ using TNMStagingCSharp.Src.Staging.Entities;
 using TNMStagingCSharp.Src.Staging.CS;
 using TNMStagingCSharp.Src.Staging.TNM;
 using TNMStagingCSharp.Src.Staging.EOD;
-
+using TNMStagingCSharp.Src.Staging.Toronto;
 
 namespace TNMStaging_StagingViewerApp
 {
@@ -586,9 +586,9 @@ namespace TNMStaging_StagingViewerApp
                 if (discrim.Length > 0)
                 {
                     //Locate the "-" and get the code before it.
-                    if (discrim.IndexOf("-") > 0)
+                    if (discrim.IndexOf("::") > 0)
                     {
-                        discrim = discrim.Substring(0, discrim.IndexOf("-"));
+                        discrim = discrim.Substring(0, discrim.IndexOf("::"));
                         discrim = discrim.Trim();
                     }
                 }
@@ -1003,9 +1003,17 @@ namespace TNMStaging_StagingViewerApp
                     String sLabel = "";
                     for (int n = 0; n < iNumRows; n++)
                     {
-                        sValue = thisTable.getRawRows()[n][0];
-                        sLabel = thisTable.getRawRows()[n][1];
-                        cmbDescriminator.Items.Add(sValue + " - " + sLabel);
+                        sValue = string.Empty;
+                        sLabel = string.Empty;
+                        if (thisTable.getRawRows()[n].Count > 0)
+                        {
+                            sValue = thisTable.getRawRows()[n][0];
+                        }
+                        if (thisTable.getRawRows()[n].Count > 1)
+                        {
+                            sLabel = thisTable.getRawRows()[n][1];
+                        }
+                        cmbDescriminator.Items.Add(sValue + " :: " + sLabel);
                     }
                 }
             }
@@ -1473,10 +1481,12 @@ namespace TNMStaging_StagingViewerApp
             bool bCSStage = (mProvider.getAlgorithm().IndexOf("cs") >= 0);
             bool bTNMStage = (mProvider.getAlgorithm().IndexOf("tnm") >= 0);
             bool bEODStage = (mProvider.getAlgorithm().IndexOf("eod") >= 0);
+            bool bTorontoStage = (mProvider.getAlgorithm().IndexOf("toronto") >= 0);
 
             if (bCSStage)           data = new CsStagingData();
             else if (bTNMStage)     data = new TnmStagingData();
             else if (bEODStage)     data = new EodStagingData();
+            else if (bTorontoStage) data = new TorontoStagingData();
 
 
             String sSite = cmbxSite.Text;
@@ -1492,9 +1502,9 @@ namespace TNMStaging_StagingViewerApp
             if (cmbDescriminator.Visible && (msCurrentDescriminatorKey != ""))
             {
                 String sDiscrimVal = cmbDescriminator.Text;
-                if (sDiscrimVal.IndexOf("-") > 0)
+                if (sDiscrimVal.IndexOf("::") > 0)
                 {
-                    sDiscrimVal = sDiscrimVal.Substring(0, sDiscrimVal.IndexOf("-") - 1);
+                    sDiscrimVal = sDiscrimVal.Substring(0, sDiscrimVal.IndexOf("::") - 1);
                     sDiscrimVal = sDiscrimVal.Trim();
                 }
                 data.setInput(msCurrentDescriminatorKey, sDiscrimVal);
