@@ -58,8 +58,8 @@
     <SignAssembly>false</SignAssembly>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>..\packages\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -87,6 +87,9 @@
     <Compile Include="Src\Staging\EOD\EodSchemaLookup.cs" />
     <Compile Include="Src\Staging\EOD\EodStagingData.cs" />
     <Compile Include="Src\Staging\InMemoryDataProvider.cs" />
+    <Compile Include="Src\Staging\Toronto\TorontoDataProvider.cs" />
+    <Compile Include="Src\Staging\Toronto\TorontoSchemaLookup.cs" />
+    <Compile Include="Src\Staging\Toronto\TorontoStagingData.cs" />
     <Compile Include="Src\Tools\TestingTools.cs" />
     <Compile Include="Src\Staging\Entities\KeyMapping.cs" />
     <Compile Include="Src\Staging\Entities\KeyValue.cs" />
@@ -106,7 +109,6 @@
     <Compile Include="Src\Staging\Entities\Impl\StagingKeyMapping.cs" />
     <Compile Include="Src\Staging\Entities\Impl\StagingKeyValue.cs" />
     <Compile Include="Src\Staging\Entities\Impl\StagingMapping.cs" />
-    <Compile Include="Src\Staging\Entities\Impl\StagingOutput.cs" />
     <Compile Include="Src\Staging\Entities\Impl\StagingSchema.cs" />
     <Compile Include="Src\Staging\Entities\Impl\StagingSchemaInput.cs" />
     <Compile Include="Src\Staging\Entities\Impl\StagingSchemaOutput.cs" />

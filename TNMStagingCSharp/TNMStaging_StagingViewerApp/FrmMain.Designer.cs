@@ -41,12 +41,12 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle13 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle14 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle15 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle16 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle17 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle18 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle13 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle14 = new System.Windows.Forms.DataGridViewCellStyle();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.mnuHelp = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuHelpHowToUse = new System.Windows.Forms.ToolStripMenuItem();
@@ -103,10 +103,13 @@
             this.grpResults = new System.Windows.Forms.GroupBox();
             this.btnTablePath = new System.Windows.Forms.Button();
             this.dataGridResults = new System.Windows.Forms.DataGridView();
+            this.dataGridViewTextBoxColumn9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn10 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.txtStageResult = new System.Windows.Forms.TextBox();
             this.label89 = new System.Windows.Forms.Label();
             this.label28 = new System.Windows.Forms.Label();
             this.richTxErrorMessage = new System.Windows.Forms.RichTextBox();
+            this.richTxStagingPath = new System.Windows.Forms.RichTextBox();
             this.btnStageCase = new System.Windows.Forms.Button();
             this.dataGridVariables = new System.Windows.Forms.DataGridView();
             this.varID = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -128,9 +131,6 @@
             this.label1 = new System.Windows.Forms.Label();
             this.cmbAlgorithms = new System.Windows.Forms.ComboBox();
             this.tmrLoad = new System.Windows.Forms.Timer(this.components);
-            this.richTxStagingPath = new System.Windows.Forms.RichTextBox();
-            this.dataGridViewTextBoxColumn9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn10 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.menuStrip1.SuspendLayout();
             this.tabControl.SuspendLayout();
             this.tabSchemas.SuspendLayout();
@@ -168,14 +168,14 @@
             // mnuHelpHowToUse
             // 
             this.mnuHelpHowToUse.Name = "mnuHelpHowToUse";
-            this.mnuHelpHowToUse.Size = new System.Drawing.Size(138, 22);
+            this.mnuHelpHowToUse.Size = new System.Drawing.Size(136, 22);
             this.mnuHelpHowToUse.Text = "&How To Use";
             this.mnuHelpHowToUse.Click += new System.EventHandler(this.mnuHelpHowToUse_Click);
             // 
             // mnuHelpAbout
             // 
             this.mnuHelpAbout.Name = "mnuHelpAbout";
-            this.mnuHelpAbout.Size = new System.Drawing.Size(138, 22);
+            this.mnuHelpAbout.Size = new System.Drawing.Size(136, 22);
             this.mnuHelpAbout.Text = "&About";
             this.mnuHelpAbout.Click += new System.EventHandler(this.mnuHelpAbout_Click);
             // 
@@ -218,7 +218,6 @@
             // 
             // btnSchemaViewTable
             // 
-            this.btnSchemaViewTable.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnSchemaViewTable.Location = new System.Drawing.Point(11, 248);
             this.btnSchemaViewTable.Name = "btnSchemaViewTable";
             this.btnSchemaViewTable.Size = new System.Drawing.Size(83, 23);
@@ -841,6 +840,29 @@
             this.dataGridResults.Size = new System.Drawing.Size(392, 181);
             this.dataGridResults.TabIndex = 119;
             // 
+            // dataGridViewTextBoxColumn9
+            // 
+            dataGridViewCellStyle13.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle13.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewTextBoxColumn9.DefaultCellStyle = dataGridViewCellStyle13;
+            this.dataGridViewTextBoxColumn9.HeaderText = "Name";
+            this.dataGridViewTextBoxColumn9.Name = "dataGridViewTextBoxColumn9";
+            this.dataGridViewTextBoxColumn9.ReadOnly = true;
+            this.dataGridViewTextBoxColumn9.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.dataGridViewTextBoxColumn9.Width = 300;
+            // 
+            // dataGridViewTextBoxColumn10
+            // 
+            dataGridViewCellStyle14.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle14.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewTextBoxColumn10.DefaultCellStyle = dataGridViewCellStyle14;
+            this.dataGridViewTextBoxColumn10.FillWeight = 120F;
+            this.dataGridViewTextBoxColumn10.HeaderText = "Value";
+            this.dataGridViewTextBoxColumn10.Name = "dataGridViewTextBoxColumn10";
+            this.dataGridViewTextBoxColumn10.ReadOnly = true;
+            this.dataGridViewTextBoxColumn10.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.dataGridViewTextBoxColumn10.Width = 74;
+            // 
             // txtStageResult
             // 
             this.txtStageResult.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -888,6 +910,20 @@
             this.richTxErrorMessage.Size = new System.Drawing.Size(559, 135);
             this.richTxErrorMessage.TabIndex = 124;
             this.richTxErrorMessage.Text = "";
+            // 
+            // richTxStagingPath
+            // 
+            this.richTxStagingPath.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.richTxStagingPath.BackColor = System.Drawing.SystemColors.Control;
+            this.richTxStagingPath.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.richTxStagingPath.Location = new System.Drawing.Point(498, 49);
+            this.richTxStagingPath.Name = "richTxStagingPath";
+            this.richTxStagingPath.ReadOnly = true;
+            this.richTxStagingPath.Size = new System.Drawing.Size(462, 48);
+            this.richTxStagingPath.TabIndex = 140;
+            this.richTxStagingPath.Text = "";
+            this.richTxStagingPath.Visible = false;
             // 
             // btnStageCase
             // 
@@ -1131,43 +1167,6 @@
             // tmrLoad
             // 
             this.tmrLoad.Tick += new System.EventHandler(this.tmrLoad_Tick);
-            // 
-            // richTxStagingPath
-            // 
-            this.richTxStagingPath.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.richTxStagingPath.BackColor = System.Drawing.SystemColors.Control;
-            this.richTxStagingPath.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.richTxStagingPath.Location = new System.Drawing.Point(498, 49);
-            this.richTxStagingPath.Name = "richTxStagingPath";
-            this.richTxStagingPath.ReadOnly = true;
-            this.richTxStagingPath.Size = new System.Drawing.Size(462, 48);
-            this.richTxStagingPath.TabIndex = 140;
-            this.richTxStagingPath.Text = "";
-            this.richTxStagingPath.Visible = false;
-            // 
-            // dataGridViewTextBoxColumn9
-            // 
-            dataGridViewCellStyle13.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle13.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridViewTextBoxColumn9.DefaultCellStyle = dataGridViewCellStyle13;
-            this.dataGridViewTextBoxColumn9.HeaderText = "Name";
-            this.dataGridViewTextBoxColumn9.Name = "dataGridViewTextBoxColumn9";
-            this.dataGridViewTextBoxColumn9.ReadOnly = true;
-            this.dataGridViewTextBoxColumn9.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.dataGridViewTextBoxColumn9.Width = 300;
-            // 
-            // dataGridViewTextBoxColumn10
-            // 
-            dataGridViewCellStyle14.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle14.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridViewTextBoxColumn10.DefaultCellStyle = dataGridViewCellStyle14;
-            this.dataGridViewTextBoxColumn10.FillWeight = 120F;
-            this.dataGridViewTextBoxColumn10.HeaderText = "Value";
-            this.dataGridViewTextBoxColumn10.Name = "dataGridViewTextBoxColumn10";
-            this.dataGridViewTextBoxColumn10.ReadOnly = true;
-            this.dataGridViewTextBoxColumn10.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.dataGridViewTextBoxColumn10.Width = 74;
             // 
             // FrmMain
             // 

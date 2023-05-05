@@ -367,9 +367,8 @@ namespace TNMStagingCSharp.Src.Staging
                     inputs.UnionWith(getInputs(path, excludedInputs));
 
             // if there are tables paths and if the mapping is involved, add the inputs
-            if (mapping.getTablePaths() != null)
-                if (context == null || _engine.isMappingInvolved(mapping, context))
-                    inputs.UnionWith(_engine.getInputs(mapping, excludedInputs));
+            if (mapping.getTablePaths() != null && (context == null || _engine.isMappingInvolved(mapping, context)))
+                inputs.UnionWith(_engine.getInputs(mapping, excludedInputs));
 
             // always remove all context variables since they are never needed to be supplied
             inputs.ExceptWith(CONTEXT_KEYS);
@@ -394,7 +393,7 @@ namespace TNMStagingCSharp.Src.Staging
         // also include any used in schema selection.  All inputs returned from this method should be in the schema input list otherwise there is a problem with the
         // schema.
         // @param schema a StagingSchema
-        // @param context a context of values used to to check mapping inclusion/exclusion
+        // @param context a context of values used to check mapping inclusion/exclusion
         // @return a Set of unique input keys
         public HashSet<String> getInputs(Schema schema, Dictionary<String, String> context)
         {
@@ -457,11 +456,8 @@ namespace TNMStagingCSharp.Src.Staging
         {
             HashSet<String> outputs = new HashSet<String>();
 
-            if (mapping.getTablePaths() != null)
-            {
-                if (context == null || _engine.isMappingInvolved(mapping, context))
-                    outputs.UnionWith(_engine.getOutputs(mapping));
-            }
+            if (mapping.getTablePaths() != null && (context == null || _engine.isMappingInvolved(mapping, context)))
+                outputs.UnionWith(_engine.getOutputs(mapping));
 
             return outputs;
         }

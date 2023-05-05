@@ -29,6 +29,8 @@ namespace TNMStagingCSharp.Src.Staging
         private readonly HashSet<String> _TableKeys = new HashSet<String>();
         private readonly HashSet<String> _SchemaKeys = new HashSet<String>();
 
+        private readonly String _UNSUPPORTED_MESSAGE = "Glossary not supported in this provider";
+
 
         /**
          * Constructor loads all schemas and sets up table cache
@@ -131,17 +133,17 @@ namespace TNMStagingCSharp.Src.Staging
 
         public override HashSet<String> getGlossaryTerms()
         {
-            throw new Exception("Glossary not supported in this provider");
+            throw new Exception(_UNSUPPORTED_MESSAGE);
         }
 
         public override GlossaryDefinition getGlossaryDefinition(String term)
         {
-            throw new Exception("Glossary not supported in this provider");
+            throw new Exception(_UNSUPPORTED_MESSAGE);
         }
 
         public override List<GlossaryHit> getGlossaryMatches(String text)
         {
-            throw new Exception("Glossary not supported in this provider");
+            throw new Exception(_UNSUPPORTED_MESSAGE);
         }
     }
 }

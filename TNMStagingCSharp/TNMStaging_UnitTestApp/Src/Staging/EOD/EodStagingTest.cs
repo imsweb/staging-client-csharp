@@ -32,9 +32,8 @@ namespace TNMStaging_UnitTestApp.Src.Staging.EOD
 
         public override string getVersion()
         {
-            return EodVersion.v2_1.getVersion();
+            return EodVersion.V3_0.getVersion();
         }
-
 
         public override StagingFileDataProvider getProvider()
         {
@@ -59,7 +58,7 @@ namespace TNMStaging_UnitTestApp.Src.Staging.EOD
         [TestMethod]
         public void testBasicInitialization()
         {
-            Assert.AreEqual(121, _STAGING.getSchemaIds().Count);
+            Assert.AreEqual(_STAGING.getSchemaIds().Count, 127);
             Assert.IsTrue(_STAGING.getTableIds().Count > 0);
 
             Assert.IsNotNull(_STAGING.getSchema("urethra"));
@@ -129,9 +128,9 @@ namespace TNMStaging_UnitTestApp.Src.Staging.EOD
             Assert.AreEqual(1, lookup.Count);
             foreach (Schema schema in lookup)
             {
-                hash1 = new HashSet<String>() { "discriminator_1", "discriminator_2" };
+                hash1 = new HashSet<String>() { "discriminator_1"};
                 hash2 = schema.getSchemaDiscriminators();
-                Assert.IsTrue(hash1.IsSupersetOf(hash2));
+                Assert.IsTrue(hash1.SetEquals(hash2));
 
                 /*
                 System.Diagnostics.Trace.WriteLine("==========================================================================");
@@ -152,8 +151,8 @@ namespace TNMStaging_UnitTestApp.Src.Staging.EOD
                 }
                 */
             }
-
             Assert.AreEqual("nasopharynx", lookup[0].getId());
+
             schemaLookup.setInput(EodInput.DISCRIMINATOR_1.toString(), "2");
             schemaLookup.setInput(EodInput.DISCRIMINATOR_2.toString(), "1");
             lookup = _STAGING.lookupSchema(schemaLookup);
@@ -162,7 +161,7 @@ namespace TNMStaging_UnitTestApp.Src.Staging.EOD
             {
                 hash1 = new HashSet<String>() { "discriminator_1", "discriminator_2" };
                 hash2 = schema.getSchemaDiscriminators();
-                Assert.IsTrue(hash1.IsSupersetOf(hash2));
+                Assert.IsTrue(hash1.SetEquals(hash2));
             }
             Assert.AreEqual("oropharynx_p16_neg", lookup[0].getId());
 
@@ -178,7 +177,7 @@ namespace TNMStaging_UnitTestApp.Src.Staging.EOD
 
             // test searching on only hist
             lookup = _STAGING.lookupSchema(new EodSchemaLookup(null, "9702"));
-            Assert.AreEqual(5, lookup.Count);
+            Assert.AreEqual(8, lookup.Count);
 
             // test that searching on only discriminator_1 returns no results
             schemaLookup = new EodSchemaLookup(null, null);
@@ -236,7 +235,6 @@ namespace TNMStaging_UnitTestApp.Src.Staging.EOD
             Assert.IsTrue(test1.SetEquals(allDiscriminators));
         }
 
-
         [TestMethod]
         public void testLookupCache()
         {
@@ -273,17 +271,16 @@ namespace TNMStaging_UnitTestApp.Src.Staging.EOD
 
 
         [TestMethod]
-        public void testStageUrethra()
+        public void testStagePancreas()
         {
             EodStagingData data = new EodStagingData.EodStagingInputBuilder()
+                    .withInput(EodInput.DX_YEAR, "2018")
                     .withInput(EodInput.PRIMARY_SITE, "C250")
                     .withInput(EodInput.HISTOLOGY, "8154")
-                    .withInput(EodInput.DX_YEAR, "2018")
-                    .withInput(EodInput.TUMOR_SIZE_SUMMARY, "004")
-                    .withInput(EodInput.NODES_POS, "03")
                     .withInput(EodInput.EOD_PRIMARY_TUMOR, "500")
                     .withInput(EodInput.EOD_REGIONAL_NODES, "300")
-                    .withInput(EodInput.EOD_METS, "10").build();
+                    .withInput(EodInput.EOD_METS, "10")
+                    .withInput(EodInput.NODES_POS, "03").build();
 
             // perform the staging
             _STAGING.stage(data);
@@ -292,17 +289,16 @@ namespace TNMStaging_UnitTestApp.Src.Staging.EOD
             Assert.AreEqual("pancreas", data.getSchemaId());
             Assert.AreEqual(0, data.getErrors().Count);
             Assert.AreEqual(12, data.getPath().Count);
-            Assert.AreEqual(9, data.getOutput().Count);
+            Assert.AreEqual(7, data.getOutput().Count);
 
             // check outputs
             Assert.AreEqual(EodVersion.LATEST.getVersion(), data.getOutput(EodOutput.DERIVED_VERSION));
             Assert.AreEqual("7", data.getOutput(EodOutput.SS_2018_DERIVED));
             Assert.AreEqual("00280", data.getOutput(EodOutput.NAACCR_SCHEMA_ID));
             Assert.AreEqual("4", data.getOutput(EodOutput.EOD_2018_STAGE_GROUP));
-            Assert.AreEqual("T1a", data.getOutput(EodOutput.EOD_2018_T));
+            Assert.AreEqual("TX", data.getOutput(EodOutput.EOD_2018_T));
             Assert.AreEqual("N1", data.getOutput(EodOutput.EOD_2018_N));
             Assert.AreEqual("M1", data.getOutput(EodOutput.EOD_2018_M));
-            Assert.AreEqual("28", data.getOutput(EodOutput.AJCC_ID));
         }
 
         [TestMethod]
@@ -331,21 +327,20 @@ namespace TNMStaging_UnitTestApp.Src.Staging.EOD
             // perform the staging
             _STAGING.stage(data);
 
-            Assert.AreEqual(data.getResult(), StagingData.Result.STAGED);
-            Assert.AreEqual(data.getSchemaId(), "breast");
-            Assert.AreEqual(data.getErrors().Count, 0);
-            Assert.AreEqual(data.getPath().Count, 16);
-            Assert.AreEqual(data.getOutput().Count, 9);
+            Assert.AreEqual(StagingData.Result.STAGED, data.getResult());
+            Assert.AreEqual("breast", data.getSchemaId());
+            Assert.AreEqual(0, data.getErrors().Count);
+            Assert.AreEqual(16, data.getPath().Count);
+            Assert.AreEqual(7, data.getOutput().Count);
 
             // check outputs
-            Assert.AreEqual(data.getOutput(EodOutput.DERIVED_VERSION), EodDataProvider.getInstance().getVersion());
-            Assert.AreEqual(data.getOutput(EodOutput.SS_2018_DERIVED), "3");
-            Assert.AreEqual(data.getOutput(EodOutput.NAACCR_SCHEMA_ID), "00480");
-            Assert.AreEqual(data.getOutput(EodOutput.EOD_2018_STAGE_GROUP), "2B");
-            Assert.AreEqual(data.getOutput(EodOutput.EOD_2018_T), "T2");
-            Assert.AreEqual(data.getOutput(EodOutput.EOD_2018_N), "N1");
-            Assert.AreEqual(data.getOutput(EodOutput.EOD_2018_M), "M0");
-            Assert.AreEqual(data.getOutput(EodOutput.AJCC_ID), "48.2");
+            Assert.AreEqual(EodDataProvider.getInstance().getVersion(), data.getOutput(EodOutput.DERIVED_VERSION));
+            Assert.AreEqual("3", data.getOutput(EodOutput.SS_2018_DERIVED));
+            Assert.AreEqual("00480", data.getOutput(EodOutput.NAACCR_SCHEMA_ID));
+            Assert.AreEqual("2B", data.getOutput(EodOutput.EOD_2018_STAGE_GROUP));
+            Assert.AreEqual("T2", data.getOutput(EodOutput.EOD_2018_T));
+            Assert.AreEqual("N1", data.getOutput(EodOutput.EOD_2018_N));
+            Assert.AreEqual("M0", data.getOutput(EodOutput.EOD_2018_M));
         }
 
         [TestMethod]
@@ -382,7 +377,7 @@ namespace TNMStaging_UnitTestApp.Src.Staging.EOD
                 "seer_mets_48348", "nodes_dcc", "grade_clinical_standard_non_ajcc_32473", "grade_pathological_standard_non_ajcc_5627",
                 "adnexa_uterine_other_97891", "nodes_pos_fpa", "tumor_size_pathological_25597", "tumor_size_clinical_60979", "primary_site", "histology",
                 "nodes_exam_76029", "grade_post_therapy_clin_69737", "grade_post_therapy_path_75348", "schema_selection_adnexa_uterine_other",
-                "year_dx_validation", "summary_stage_rpa", "lvi_dna_56663", "tumor_size_summary_63115", "extension_bcn"};
+                "year_dx_validation", "summary_stage_rpa", "lvi_full_56663", "tumor_size_summary_63115", "extension_bcn"};
 
             Assert.IsTrue(tables.SetEquals(hash1));
         }
@@ -471,7 +466,7 @@ namespace TNMStaging_UnitTestApp.Src.Staging.EOD
         {
             Assert.IsNull(_STAGING.getSchema("bad_schema_name"));
             Assert.IsNotNull(_STAGING.getSchema("brain"));
-            Assert.AreEqual("Brain", _STAGING.getSchema("brain").getName());
+            Assert.AreEqual("Brain [8th: 2018-2022]", _STAGING.getSchema("brain").getName());
         }
 
         [TestMethod]
@@ -548,16 +543,16 @@ namespace TNMStaging_UnitTestApp.Src.Staging.EOD
             Assert.AreEqual("brain", data.getSchemaId());
             Assert.AreEqual(5, data.getErrors().Count);
             Assert.AreEqual(5, data.getPath().Count);
-            Assert.AreEqual(9, data.getOutput().Count);
-            Assert.AreEqual("2.1", data.getOutput(EodOutput.DERIVED_VERSION.toString()));
+            Assert.AreEqual(7, data.getOutput().Count);
+            Assert.AreEqual("3.0", data.getOutput(EodOutput.DERIVED_VERSION.toString()));
         }
 
         [TestMethod]
         public void testContentNotReturnedForInvalidYear()
         {
             EodStagingData data = new EodStagingData.EodStagingInputBuilder()
-                .withInput(EodInput.PRIMARY_SITE, "C713")
-                .withInput(EodInput.HISTOLOGY, "8020")
+                .withInput(EodInput.PRIMARY_SITE, "C670")
+                .withInput(EodInput.HISTOLOGY, "8000")
                 .withInput(EodInput.BEHAVIOR, "3")
                 .withInput(EodInput.DX_YEAR, "2010")
                 .withInput(EodInput.EOD_PRIMARY_TUMOR, "200")
@@ -568,7 +563,7 @@ namespace TNMStaging_UnitTestApp.Src.Staging.EOD
             _STAGING.stage(data);
 
             Assert.AreEqual(StagingData.Result.FAILED_INVALID_YEAR_DX, data.getResult());
-            Assert.AreEqual("brain", data.getSchemaId());
+            Assert.AreEqual("bladder", data.getSchemaId());
             Assert.AreEqual(0, data.getErrors().Count);
             Assert.AreEqual(0, data.getPath().Count);
             Assert.AreEqual(0, data.getOutput().Count);
@@ -607,7 +602,30 @@ namespace TNMStaging_UnitTestApp.Src.Staging.EOD
             Assert.IsTrue(gradeClin.getMetadata().Contains(new StagingMetadata("NPCR_REQUIRED")));
             Assert.IsTrue(gradeClin.getMetadata().Contains(new StagingMetadata("SSDI")));
         }
+
+        [TestMethod]
+        public virtual void testCachedSiteAndHistology()
+        {
+            StagingDataProvider provider = getProvider();
+            Assert.IsTrue(provider.getValidSites().Count > 0);
+            Assert.IsTrue(provider.getValidHistologies().Count > 0);
+
+            // site tests
+            List<String> validSites = new List<String>() { "C000", "C809" };
+            List<String> invalidSites = new List<String>() { "C727", "C810" };
+            foreach (String site in validSites)
+                Assert.IsTrue(provider.getValidSites().Contains(site));
+            foreach (String site in invalidSites)
+                Assert.IsFalse(provider.getValidSites().Contains(site));
+
+            // hist tests
+            List<String> validHist = new List<String>() { "8000", "8002", "8005", "8290", "9992" };
+            List<String> invalidHist = new List<String>() { "8006", "9990" };
+            foreach (String hist in validHist)
+                Assert.IsTrue(provider.getValidHistologies().Contains(hist), "The histology '" + hist + "' is not in the valid histology list");
+            foreach (String hist in invalidHist)
+                Assert.IsFalse(provider.getValidHistologies().Contains(hist), "The histology '" + hist + "' is not supposed to be in the valid histology list");
+        }
     }
 }
-
 

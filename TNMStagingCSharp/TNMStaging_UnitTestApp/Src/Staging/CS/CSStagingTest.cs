@@ -22,7 +22,7 @@ namespace TNMStaging_UnitTestApp.Src.Staging.CS
         [ClassInitialize()]
         public static void ClassInit(TestContext context)
         {
-            _STAGING = TNMStagingCSharp.Src.Staging.Staging.getInstance(CsDataProvider.getInstance(CsVersion.v020550));
+            _STAGING = TNMStagingCSharp.Src.Staging.Staging.getInstance(CsDataProvider.getInstance(CsVersion.V020550));
 
             /*
             String filename = "CS_02_05_50.zip";
@@ -51,13 +51,13 @@ namespace TNMStaging_UnitTestApp.Src.Staging.CS
 
         public override String getVersion()
         {
-            return CsVersion.v020550.getVersion();
+            return CsVersion.V020550.getVersion();
         }
 
 
         public override StagingFileDataProvider getProvider()
         {
-            return CsDataProvider.getInstance(CsVersion.v020550);
+            return CsDataProvider.getInstance(CsVersion.V020550);
         }
 
         [TestMethod]
@@ -73,7 +73,7 @@ namespace TNMStaging_UnitTestApp.Src.Staging.CS
         [TestMethod]
         public void testVersionInitializationTypes()
         {
-            TNMStagingCSharp.Src.Staging.Staging staging020550 = TNMStagingCSharp.Src.Staging.Staging.getInstance(CsDataProvider.getInstance(CsVersion.v020550));
+            TNMStagingCSharp.Src.Staging.Staging staging020550 = TNMStagingCSharp.Src.Staging.Staging.getInstance(CsDataProvider.getInstance(CsVersion.V020550));
             Assert.AreEqual("02.05.50", staging020550.getVersion());
 
             TNMStagingCSharp.Src.Staging.Staging stagingLatest = TNMStagingCSharp.Src.Staging.Staging.getInstance(CsDataProvider.getInstance());
@@ -1003,7 +1003,7 @@ namespace TNMStaging_UnitTestApp.Src.Staging.CS
                 String basedir = System.IO.Directory.GetCurrentDirectory() + "\\..\\..\\..\\";
                 if (System.IO.Directory.GetCurrentDirectory().IndexOf("x64") >= 0) basedir += "\\..\\";
 
-                String sFilePath = basedir + "Resources\\Test\\CS\\AJCC_6.V020550.txt.gz";
+                String sFilePath = basedir + "Resources\\Test\\CS\\AJCC_6.V020550.10000.txt.gz";
 
                 FileStream fstream = File.Open(sFilePath, FileMode.Open, FileAccess.Read, FileShare.Read);
                 GZipStream decompressionStream = new GZipStream(fstream, CompressionMode.Decompress);
@@ -1015,7 +1015,7 @@ namespace TNMStaging_UnitTestApp.Src.Staging.CS
                 decompressionStream.Close();
 
 
-                sFilePath = basedir + "Resources\\Test\\CS\\AJCC_7.V020550.txt.gz";
+                sFilePath = basedir + "Resources\\Test\\CS\\AJCC_7.V020550.10000.txt.gz";
 
                 fstream = File.Open(sFilePath, FileMode.Open, FileAccess.Read, FileShare.Read);
                 decompressionStream = new GZipStream(fstream, CompressionMode.Decompress);

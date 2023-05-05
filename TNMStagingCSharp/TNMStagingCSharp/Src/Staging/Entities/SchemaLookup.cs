@@ -42,9 +42,9 @@ namespace TNMStagingCSharp.Src.Staging.Entities
 
         // Returns a list of allowable keys.  If null, all keys are allowed
         // @return a set of keys
-        public virtual ReadOnlyCollection<String> getAllowedKeys()
+        public virtual HashSet<String> getAllowedKeys()
         {
-            return null;
+            return new HashSet<String>();
         }
 
         // Return a list of keys that are set.
@@ -77,7 +77,7 @@ namespace TNMStagingCSharp.Src.Staging.Entities
         // @param value value of input
         public void setInput(String key, String value)
         {
-            if (getAllowedKeys() != null && !getAllowedKeys().Contains(key))
+            if (getAllowedKeys() != null && getAllowedKeys().Count > 0 && !getAllowedKeys().Contains(key))
                 throw new System.InvalidOperationException("The input key " + key + " is not allowed for lookups");
 
             _inputs[key] = value;
@@ -137,14 +137,14 @@ namespace TNMStagingCSharp.Src.Staging.Entities
             {
                 String key = entry.Key;
 
-                if (StagingData.STANDARD_LOOKUP_KEYS.Contains(key))
-                    continue;
-
-                String value = entry.Value;
-                if (value != null && !(value.Length == 0))
+                if (!StagingData.STANDARD_LOOKUP_KEYS.Contains(key))
                 {
-                    hasDiscriminator = true;
-                    break;
+                    String value = entry.Value;
+                    if (value != null && !(value.Length == 0))
+                    {
+                        hasDiscriminator = true;
+                        break;
+                    }
                 }
             }
 

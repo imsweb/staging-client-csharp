@@ -542,6 +542,30 @@ namespace TNMStaging_UnitTestApp.Src.Staging.TNM
         }
 
         [TestMethod]
+        public virtual void testCachedSiteAndHistology()
+        {
+            StagingDataProvider provider = getProvider();
+            Assert.IsTrue(provider.getValidSites().Count > 0);
+            Assert.IsTrue(provider.getValidHistologies().Count > 0);
+
+            // site tests
+            List<String> validSites = new List<String>() { "C000", "C809" };
+            List<String> invalidSites = new List<String>() { "C727", "C810" };
+            foreach (String site in validSites)
+                Assert.IsTrue(provider.getValidSites().Contains(site));
+            foreach (String site in invalidSites)
+                Assert.IsFalse(provider.getValidSites().Contains(site));
+
+            // hist tests
+            List<String> validHist = new List<String>() { "8000", "8002", "8005", "8290", "9992" };
+            List<String> invalidHist = new List<String>() { "8006", "9990" };
+            foreach (String hist in validHist)
+                Assert.IsTrue(provider.getValidHistologies().Contains(hist), "The histology '" + hist + "' is not in the valid histology list");
+            foreach (String hist in invalidHist)
+                Assert.IsFalse(provider.getValidHistologies().Contains(hist), "The histology '" + hist + "' is not supposed to be in the valid histology list");
+        }
+
+        [TestMethod]
         public void testSchemaSelectionIntegration() 
         {
             if (DebugSettings.RUN_LARGE_TNM_TESTS)

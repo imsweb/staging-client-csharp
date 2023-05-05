@@ -10,7 +10,7 @@ namespace TNMStagingCSharp.Src.Staging.CS
 {
     public class CsSchemaLookup: SchemaLookup
     {
-        private static readonly ReadOnlyCollection<String> _ALLOWED_KEYS = new ReadOnlyCollection<String>(new List<String>
+        private static readonly HashSet<String> _ALLOWED_KEYS = new HashSet<String>(new List<String>
                 { CsStagingData.PRIMARY_SITE_KEY, CsStagingData.HISTOLOGY_KEY, CsStagingData.SSF25_KEY });
 
 
@@ -34,7 +34,7 @@ namespace TNMStagingCSharp.Src.Staging.CS
             setInput(CsStagingData.SSF25_KEY, discriminator);
         }
 
-        public override ReadOnlyCollection<String> getAllowedKeys()
+        public override HashSet<String> getAllowedKeys()
         {
             return _ALLOWED_KEYS;
         }

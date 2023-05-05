@@ -54,7 +54,6 @@ namespace TNMStagingCSharp.Src.Staging.TNM
         public static readonly TnmInput SSF22 = new TnmInput("ssf22");
         public static readonly TnmInput SSF23 = new TnmInput("ssf23");
         public static readonly TnmInput SSF24 = new TnmInput("ssf24");
-        public static readonly TnmInput SSF25 = new TnmInput("ssf25");
 
         public static IEnumerable<TnmInput> Values
         {
@@ -102,7 +101,6 @@ namespace TNMStagingCSharp.Src.Staging.TNM
                 yield return SSF22;
                 yield return SSF23;
                 yield return SSF24;
-                yield return SSF25;
             }
         }
 

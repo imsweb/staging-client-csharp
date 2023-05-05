@@ -171,6 +171,20 @@ namespace TNMStaging_UnitTestApp.Src.Staging
             Assert.AreEqual(StagingDataProvider.padStart("123", 4, '0'), "0123");
             Assert.AreEqual(StagingDataProvider.padStart("1", 5, '0'), "00001");
         }
+
+        [TestMethod]
+        public void testIsNumeric()
+        {
+            Assert.IsTrue(StagingDataProvider.isNumeric("0"));
+            Assert.IsTrue(StagingDataProvider.isNumeric("1"));
+            Assert.IsTrue(StagingDataProvider.isNumeric("-1"));
+            Assert.IsTrue(StagingDataProvider.isNumeric("1.1"));
+
+            Assert.IsFalse(StagingDataProvider.isNumeric(null));
+            Assert.IsFalse(StagingDataProvider.isNumeric(""));
+            Assert.IsFalse(StagingDataProvider.isNumeric("1.1.1"));
+            Assert.IsFalse(StagingDataProvider.isNumeric("NAN"));
+        }
     }
 }
 

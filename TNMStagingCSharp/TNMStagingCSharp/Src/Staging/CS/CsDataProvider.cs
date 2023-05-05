@@ -11,14 +11,14 @@ namespace TNMStagingCSharp.Src.Staging.CS
     {
 
         public static readonly CsVersion LATEST = new CsVersion("02.05.50");
-        public static readonly CsVersion v020550 = new CsVersion("02.05.50");
+        public static readonly CsVersion V020550 = new CsVersion("02.05.50");
 
         public static IEnumerable<CsVersion> Values
         {
             get
             {
                 yield return LATEST;
-                yield return v020550;
+                yield return V020550;
             }
         }
 

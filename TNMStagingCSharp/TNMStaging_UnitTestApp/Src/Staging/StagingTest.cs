@@ -49,7 +49,7 @@ namespace TNMStaging_UnitTestApp.Src.Staging
         }
 
         [TestMethod]
-        public void testValidCode()
+        public virtual void testValidCode()
         {
             Dictionary<String, String> context = new Dictionary<String, String>();
             context["hist"] = "7000";
@@ -113,30 +113,6 @@ namespace TNMStaging_UnitTestApp.Src.Staging
         }
 
         [TestMethod]
-        public virtual void testCachedSiteAndHistology()
-        {
-            StagingDataProvider provider = getProvider();
-            Assert.IsTrue(provider.getValidSites().Count > 0);
-            Assert.IsTrue(provider.getValidHistologies().Count > 0);
-
-            // site tests
-            List<String> validSites = new List<String>() { "C000", "C809" };
-            List<String> invalidSites = new List<String>() { "C727", "C810" };
-            foreach (String site in validSites)
-                Assert.IsTrue(provider.getValidSites().Contains(site));
-            foreach (String site in invalidSites)
-                Assert.IsFalse(provider.getValidSites().Contains(site));
-
-            // hist tests
-            List<String> validHist = new List<String>() { "8000", "8002", "8005", "8290", "9992" };
-            List<String> invalidHist = new List<String>() { "8006", "9990" };
-            foreach (String hist in validHist)
-                Assert.IsTrue(provider.getValidHistologies().Contains(hist), "The histology '" + hist + "' is not in the valid histology list");
-            foreach (String hist in invalidHist)
-                Assert.IsFalse(provider.getValidHistologies().Contains(hist), "The histology '" + hist + "' is not supposed to be in the valid histology list");
-        }
-
-        [TestMethod]
         public void testForUnusedTables()
         {
             HashSet<String> usedTables = new HashSet<String>();
@@ -184,7 +160,7 @@ namespace TNMStaging_UnitTestApp.Src.Staging
                             if (ColumnType.INPUT == def.getType())
                                 inputKeys.Add(def.getKey());
 
-                        // make sure the input key matches the an input column
+                        // make sure the input key matches an input column
                         if (!inputKeys.Contains(input.getKey()))
                             errors.Add("Input key " + schemaId + ":" + input.getKey() + " does not match validation table " + table.getId() + ": " + inputKeys.ToString());
                     }
@@ -290,5 +266,3 @@ namespace TNMStaging_UnitTestApp.Src.Staging
         }
     }
 }
-
-

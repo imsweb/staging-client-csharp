@@ -10,15 +10,15 @@ namespace TNMStagingCSharp.Src.Staging.TNM
     public class TnmVersion
     {
 
-        public static readonly TnmVersion LATEST = new TnmVersion("1.9");
-        public static readonly TnmVersion v1_9 = new TnmVersion("1.9");
+        public static readonly TnmVersion LATEST = new TnmVersion("2.0");
+        public static readonly TnmVersion V2_0 = new TnmVersion("2.0");
 
         public static IEnumerable<TnmVersion> Values
         {
             get
             {
                 yield return LATEST;
-                yield return v1_9;
+                yield return V2_0;
             }
         }
 
