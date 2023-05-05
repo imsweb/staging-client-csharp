@@ -74,7 +74,7 @@ namespace TNMStaging_UnitTestApp.Src.Staging.Toronto
         public void testDescriminatorKeys()
         {
             HashSet<String> hash1 = new HashSet<String>() { "age_dx" };
-            HashSet<String> hash2 = _STAGING.getSchema("acute_myeloid_leukemia").getSchemaDiscriminators();
+            HashSet<String> hash2 = _STAGING.getSchema("acute_lymphoblastic_leukemia").getSchemaDiscriminators();
             Assert.IsTrue(hash1.SetEquals(hash2));
 
             hash1 = new HashSet<String>() { "age_dx", "behavior" };
@@ -424,7 +424,7 @@ namespace TNMStaging_UnitTestApp.Src.Staging.Toronto
             Assert.IsFalse(_STAGING.isCodeValid(schemaId, "site", null));
 
             // test fields that have a "value" specified
-            Assert.IsTrue(_STAGING.isCodeValid(schemaId, "year_dx", null)); // year_dx is now allowed to be null
+            Assert.IsFalse(_STAGING.isCodeValid(schemaId, "year_dx", null)); // year_dx is now allowed to be null
             Assert.IsFalse(_STAGING.isCodeValid(schemaId, "year_dx", "200"));
             Assert.IsFalse(_STAGING.isCodeValid(schemaId, "year_dx", "2003"));
             Assert.IsFalse(_STAGING.isCodeValid(schemaId, "year_dx", "2145"));
