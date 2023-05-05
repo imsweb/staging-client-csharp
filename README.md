@@ -4,7 +4,7 @@ A cancer staging client library for C# applications.
 
 ## Supported staging algorithms
 
-### Toronto Pedatric Staging 0.1
+### Toronto Pedatric Staging 0.5
 
 Toronto Stage was developed based on a consensus meeting by the Union for Internal Cancer Control (UICC) in 2014. Since this time, multiple countries have implemented the Toronto Staging Guidelines for pediatric cancers. Starting in 2024, the United States will also implement the Toronto Staging in the SEER program. For the US, this requires the collection of the EOD 2018 data and expects the EOD 2018 API/library to be called prior to a call to the Toronto API/library. Toronto Stage is effective for cases diagnosed in 2024 and later (2018 and later in beta testing).
 
@@ -13,6 +13,12 @@ In each Toronto schema, valid values, definitions, and registrar notes are provi
 For cancer cases diagnosed January 1, 2024 and later (2018 and later in beta testing), the NCI SEER program will collect the related SSDIs for each schema. The schemas have been developed to be compatible with the Toronto Staging definitions. For some schemas, additional data items may be derived. Derived Toronto T, N, M and Stage Group will always be present, with defaults being set for those schemas where these concepts are not defined. A Toronto Schema ID will also be calculated.
 
 All the standard setting organizations will collect the predictive and prognostic factors through Site Specific Data Items (SSDIs). Unlike the SSFs, these data items have formats and code structures specific to the data item.
+
+To get started using the Toronto Pediatric algorithm, instantiate a `Staging` instance:
+
+```java
+Staging staging = TNMStagingCSharp.Src.Staging.Staging.getInstance(TorontoDataProvider.getInstance(TorontoVersion.LATEST));
+```
 
 ### EOD 3.0
 
@@ -86,7 +92,7 @@ Everything starts with getting an instance of the `Staging` object.  There are `
 object is thread safe and cached so subsequent calls to `Staging.getInstance()` will return the same object.
 
 To use a DataProvider, you will need a copy of a staging algorithm with the staging library. Each algorithm is composed of a collection of JSON files which represent the schemas and tables of that algorithm. These algorithm files can either be separate JSON files and in a directory on your hard drive, or they can be in a single zip file. 
-The staging library contains 3 algorithms in the Resources sub directory. Included with the release of the staging library, we also include zip versions of the algorithms. We recommend using the zip versions as they are easier to maintain and replace with newer versions. 
+The staging library contains 4 algorithms in the Resources sub directory. Included with the release of the staging library, we also include zip versions of the algorithms. We recommend using the zip versions as they are easier to maintain and replace with newer versions. 
 
 For example, to use the Collaborative Stage algorithm (in a single zip file), use the ExternalStagingFileDataProvider class. This option allows you to use a single zip file containing the entire CS algorithm.
 ```csharp

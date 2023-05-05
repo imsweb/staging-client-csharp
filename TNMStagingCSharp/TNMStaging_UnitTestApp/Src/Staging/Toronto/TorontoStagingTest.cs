@@ -36,7 +36,7 @@ namespace TNMStaging_UnitTestApp.Src.Staging.Toronto
 
         public override string getVersion()
         {
-            return TorontoVersion.V0_1.getVersion();
+            return TorontoVersion.V0_5.getVersion();
         }
 
         public override StagingFileDataProvider getProvider()
@@ -53,7 +53,7 @@ namespace TNMStaging_UnitTestApp.Src.Staging.Toronto
         [TestMethod]
         public void testBasicInitialization()
         {
-            Assert.AreEqual(_STAGING.getSchemaIds().Count, 35);
+            Assert.AreEqual(_STAGING.getSchemaIds().Count, 33);
             Assert.IsTrue(_STAGING.getTableIds().Count > 0);
 
             Assert.IsNotNull(_STAGING.getSchema("ependymoma"));
@@ -203,7 +203,7 @@ namespace TNMStaging_UnitTestApp.Src.Staging.Toronto
 
             // test searching on only site
             lookup = _STAGING.lookupSchema(new TorontoSchemaLookup("C401", null));
-            Assert.AreEqual(18, lookup.Count);
+            Assert.AreEqual(16, lookup.Count);
 
             // test searching on only hist
             lookup = _STAGING.lookupSchema(new TorontoSchemaLookup(null, "9702"));
@@ -255,7 +255,7 @@ namespace TNMStaging_UnitTestApp.Src.Staging.Toronto
             Assert.AreEqual(schemaId, lookup[0].getId());
 
             // now invalidate the cache
-            TorontoDataProvider.getInstance(TorontoVersion.V0_1).invalidateCache();
+            TorontoDataProvider.getInstance(TorontoVersion.V0_5).invalidateCache();
 
             // try the lookup again
             lookup = _STAGING.lookupSchema(new TorontoSchemaLookup(site, hist));
@@ -373,24 +373,18 @@ namespace TNMStaging_UnitTestApp.Src.Staging.Toronto
                 "toronto_m_65862",
                 "combined_s_category_15139",
                 "schema_selection_testicular",
-                "hcg_post_orchiectomy_range_2422",
                 "schema_id_42744",
                 "s_category_clinical_11368",
                 "nodes_pos_fpa",
-                "hcg_pre_orchiectomy_range_1551",
                 "toronto_stage_81706",
                 "primary_site",
-                "eod_primary_tumor_63650",
                 "s_category_pathological_46197",
+                "eod_primary_tumor_63650",
                 "histology",
-                "ldh_pre_orchiectomy_range_4903",
-                "afp_alpha_fetoprotein_pre_orchiectomy_range_33270",
                 "year_dx_validation",
                 "eod_mets_68192",
                 "behavior",
-                "afp_alpha_fetoprotein_post_orchiectomy_range_40524",
-                "eod_regional_nodes_4689",
-                "ldh_post_orchiectomy_range_81426" };
+                "eod_regional_nodes_4689" };
 
             Assert.IsTrue(tables.SetEquals(hash1));
         }
@@ -430,17 +424,17 @@ namespace TNMStaging_UnitTestApp.Src.Staging.Toronto
             Assert.IsFalse(_STAGING.isCodeValid(schemaId, "site", null));
 
             // test fields that have a "value" specified
-            Assert.IsFalse(_STAGING.isCodeValid(schemaId, "year_dx", null));
+            Assert.IsTrue(_STAGING.isCodeValid(schemaId, "year_dx", null)); // year_dx is now allowed to be null
             Assert.IsFalse(_STAGING.isCodeValid(schemaId, "year_dx", "200"));
             Assert.IsFalse(_STAGING.isCodeValid(schemaId, "year_dx", "2003"));
             Assert.IsFalse(_STAGING.isCodeValid(schemaId, "year_dx", "2145"));
             Assert.IsTrue(_STAGING.isCodeValid(schemaId, "year_dx", "2018"));
 
             // test valid and invalid fields
-            Assert.IsTrue(_STAGING.isCodeValid(schemaId, "m_category", "1"));
-            Assert.IsFalse(_STAGING.isCodeValid(schemaId, "m_category", "5"));
             Assert.IsTrue(_STAGING.isCodeValid(schemaId, "braf_mutational_analysis", "2"));
-            Assert.IsFalse(_STAGING.isCodeValid(schemaId, "braf_mutational_analysis", "3"));
+            Assert.IsFalse(_STAGING.isCodeValid(schemaId, "braf_mutational_analysis", "5"));
+            Assert.IsTrue(_STAGING.isCodeValid(schemaId, "eod_mets", "10"));
+            Assert.IsFalse(_STAGING.isCodeValid(schemaId, "eod_mets", "20"));
         }
 
         [TestMethod]
@@ -504,7 +498,7 @@ namespace TNMStaging_UnitTestApp.Src.Staging.Toronto
             Schema schema = _STAGING.getSchema("testicular");
             Assert.IsNotNull(schema);
 
-            IInput input = schema.getInputMap()["afp_pre_orch_range"];
+            IInput input = schema.getInputMap()["s_category_clin"];
             Assert.IsNotNull(input);
 
             Assert.AreEqual(input.getMetadata().Count, 2);

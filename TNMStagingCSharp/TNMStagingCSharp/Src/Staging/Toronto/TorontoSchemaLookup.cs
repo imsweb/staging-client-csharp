@@ -16,7 +16,7 @@ namespace TNMStagingCSharp.Src.Staging.Toronto
         private static readonly HashSet<String> _ALLOWED_KEYS = new HashSet<String>(new List<String>
                 { StagingData.PRIMARY_SITE_KEY,
                   StagingData.HISTOLOGY_KEY,
-                  EodInput.AGE_AT_DX.toString() });
+                  TorontoInput.AGE_DX.toString() });
 
 
         //========================================================================================================================

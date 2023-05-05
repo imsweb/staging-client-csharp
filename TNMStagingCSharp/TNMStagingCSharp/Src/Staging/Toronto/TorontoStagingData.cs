@@ -30,20 +30,11 @@ namespace TNMStagingCSharp.Src.Staging.Toronto
         public static readonly TorontoInput NODES_POS = new TorontoInput("nodes_pos");
         public static readonly TorontoInput GRADE_PATH = new TorontoInput("grade_path");
         public static readonly TorontoInput GRADE_CLIN = new TorontoInput("grade_clin");
-        public static readonly TorontoInput GRADE_POST_THERAPY_CLIN = new TorontoInput("grade_post_therapy_clin");
-        public static readonly TorontoInput GRADE_POST_THERAPY_PATH = new TorontoInput("grade_post_therapy_path");
         public static readonly TorontoInput SCHEMA_ID = new TorontoInput("schema_id");
-        public static readonly TorontoInput SHIMADA_CLASSIFICATION = new TorontoInput("shimada_classification");
         public static readonly TorontoInput S_CATEGORY_CLIN = new TorontoInput("s_category_clin");
-        public static readonly TorontoInput DNA_PLOIDY = new TorontoInput("dna_ploidy");
-        public static readonly TorontoInput N_MYC_APMLIFICATION = new TorontoInput("n_myc_amplification");
         public static readonly TorontoInput S_CATEGORY_PATH = new TorontoInput("s_category_path");
         public static readonly TorontoInput SIZE_SUMMARY = new TorontoInput("size_summary");
-        public static readonly TorontoInput INGRSS = new TorontoInput("ingrss");
         public static readonly TorontoInput B_SYMPTOMS = new TorontoInput("b_symptoms");
-        public static readonly TorontoInput MONTH_DX = new TorontoInput("month_dx");
-        public static readonly TorontoInput MONTH_BIRTH = new TorontoInput("month_birth");
-        public static readonly TorontoInput CHROM_11Q_STATUS = new TorontoInput("chrom_11q_status");
 
         public static IEnumerable<TorontoInput> Values
         {
@@ -60,20 +51,11 @@ namespace TNMStagingCSharp.Src.Staging.Toronto
                 yield return NODES_POS;
                 yield return GRADE_PATH;
                 yield return GRADE_CLIN;
-                yield return GRADE_POST_THERAPY_CLIN;
-                yield return GRADE_POST_THERAPY_PATH;
                 yield return SCHEMA_ID;
-                yield return SHIMADA_CLASSIFICATION;
                 yield return S_CATEGORY_CLIN;
-                yield return DNA_PLOIDY;
-                yield return N_MYC_APMLIFICATION;
                 yield return S_CATEGORY_PATH;
                 yield return SIZE_SUMMARY;
-                yield return INGRSS;
                 yield return B_SYMPTOMS;
-                yield return MONTH_DX;
-                yield return MONTH_BIRTH;
-                yield return CHROM_11Q_STATUS;
             }
         }
 
@@ -103,7 +85,6 @@ namespace TNMStagingCSharp.Src.Staging.Toronto
         public static readonly TorontoOutput TORONTO_GROUP = new TorontoOutput("toronto_group");
         public static readonly TorontoOutput TORONTO_GRADE = new TorontoOutput("toronto_grade");
         public static readonly TorontoOutput DERIVED_VERSION = new TorontoOutput("derived_version");
-        public static readonly TorontoOutput DERIVED_RISK_LEVEL = new TorontoOutput("derived_risk_level");
         public static readonly TorontoOutput DERIVED_ANN_ARBOR_STAGE = new TorontoOutput("derived_ann_arbor_stage");
 
         public static IEnumerable<TorontoOutput> Values
@@ -118,7 +99,6 @@ namespace TNMStagingCSharp.Src.Staging.Toronto
                 yield return TORONTO_GROUP;
                 yield return TORONTO_GRADE;
                 yield return DERIVED_VERSION;
-                yield return DERIVED_RISK_LEVEL;
                 yield return DERIVED_ANN_ARBOR_STAGE;
             }
         }
