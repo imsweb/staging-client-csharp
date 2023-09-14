@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.33927.289
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TNMStagingCSharp", "TNMStagingCSharp\TNMStagingCSharp.csproj", "{15A927C7-9920-4FAD-9DAE-B1088A7021A3}"
 EndProject
@@ -15,6 +15,11 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TNMStaging_StagingViewerApp", "TNMStaging_StagingViewerApp\TNMStaging_StagingViewerApp.csproj", "{C4460A58-9546-43E1-991C-B978D9734B48}"
 	ProjectSection(ProjectDependencies) = postProject
 		{15A927C7-9920-4FAD-9DAE-B1088A7021A3} = {15A927C7-9920-4FAD-9DAE-B1088A7021A3}
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{2D5B4AAC-4E09-4D89-8C3F-B3F3DF9C7320}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
 	EndProjectSection
 EndProject
 Global
@@ -78,5 +83,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {0C177AE7-0E1C-4303-B23D-C65CA1A8BAB9}
 	EndGlobalSection
 EndGlobal

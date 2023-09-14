@@ -32,7 +32,7 @@ namespace TNMStaging_UnitTestApp.Src.Staging.EOD
 
         public override string getVersion()
         {
-            return EodVersion.V3_0.getVersion();
+            return EodVersion.V3_1.getVersion();
         }
 
         public override StagingFileDataProvider getProvider()
@@ -58,7 +58,7 @@ namespace TNMStaging_UnitTestApp.Src.Staging.EOD
         [TestMethod]
         public void testBasicInitialization()
         {
-            Assert.AreEqual(_STAGING.getSchemaIds().Count, 127);
+            Assert.AreEqual(_STAGING.getSchemaIds().Count, 135);
             Assert.IsTrue(_STAGING.getTableIds().Count > 0);
 
             Assert.IsNotNull(_STAGING.getSchema("urethra"));
@@ -288,8 +288,8 @@ namespace TNMStaging_UnitTestApp.Src.Staging.EOD
             Assert.AreEqual(StagingData.Result.STAGED, data.getResult());
             Assert.AreEqual("pancreas", data.getSchemaId());
             Assert.AreEqual(0, data.getErrors().Count);
-            Assert.AreEqual(12, data.getPath().Count);
-            Assert.AreEqual(7, data.getOutput().Count);
+            Assert.AreEqual(13, data.getPath().Count);
+            Assert.AreEqual(8, data.getOutput().Count);
 
             // check outputs
             Assert.AreEqual(EodVersion.LATEST.getVersion(), data.getOutput(EodOutput.DERIVED_VERSION));
@@ -331,7 +331,7 @@ namespace TNMStaging_UnitTestApp.Src.Staging.EOD
             Assert.AreEqual("breast", data.getSchemaId());
             Assert.AreEqual(0, data.getErrors().Count);
             Assert.AreEqual(16, data.getPath().Count);
-            Assert.AreEqual(7, data.getOutput().Count);
+            Assert.AreEqual(8, data.getOutput().Count);
 
             // check outputs
             Assert.AreEqual(EodDataProvider.getInstance().getVersion(), data.getOutput(EodOutput.DERIVED_VERSION));
@@ -377,7 +377,7 @@ namespace TNMStaging_UnitTestApp.Src.Staging.EOD
                 "seer_mets_48348", "nodes_dcc", "grade_clinical_standard_non_ajcc_32473", "grade_pathological_standard_non_ajcc_5627",
                 "adnexa_uterine_other_97891", "nodes_pos_fpa", "tumor_size_pathological_25597", "tumor_size_clinical_60979", "primary_site", "histology",
                 "nodes_exam_76029", "grade_post_therapy_clin_69737", "grade_post_therapy_path_75348", "schema_selection_adnexa_uterine_other",
-                "year_dx_validation", "summary_stage_rpa", "lvi_full_56663", "tumor_size_summary_63115", "extension_bcn"};
+                "year_dx_validation", "summary_stage_rpa", "tumor_size_summary_63115", "extension_bcn", "combined_grade_56638"};
 
             Assert.IsTrue(tables.SetEquals(hash1));
         }
@@ -393,15 +393,14 @@ namespace TNMStaging_UnitTestApp.Src.Staging.EOD
         [TestMethod]
         public void testGetInputs()
         {
-            HashSet<String> test1 = new HashSet<String>() { "eod_mets", "site", "hist", "eod_primary_tumor", "eod_regional_nodes" };
+            HashSet<String> test1 = new HashSet<String>() { "eod_mets", "site", "hist", "eod_primary_tumor", "eod_regional_nodes", "eod_regional_nodes", "grade_path", "grade_clin" };
             HashSet<String> test2 = _STAGING.getInputs(_STAGING.getSchema("adnexa_uterine_other"));
             Assert.IsTrue(test1.SetEquals(test2));
 
-            test1 = new HashSet<String>() { "eod_mets", "site", "hist", "nodes_pos", "s_category_path", "eod_primary_tumor", "s_category_clin", "eod_regional_nodes" };
+            test1 = new HashSet<String>() { "eod_mets", "site", "hist", "nodes_pos", "s_category_path", "eod_primary_tumor", "s_category_clin", "eod_regional_nodes", "grade_path", "grade_clin" };
             test2 = _STAGING.getInputs(_STAGING.getSchema("testis"));
             Assert.IsTrue(test1.SetEquals(test2));
         }
-
 
         [TestMethod]
         public void testIsCodeValid()
@@ -416,7 +415,7 @@ namespace TNMStaging_UnitTestApp.Src.Staging.EOD
             Assert.IsFalse(_STAGING.isCodeValid("urethra", "site", null));
 
             // test fields that have a "value" specified
-            Assert.IsFalse(_STAGING.isCodeValid("urethra", "year_dx", null));
+            Assert.IsTrue(_STAGING.isCodeValid("urethra", "year_dx", null));
             Assert.IsFalse(_STAGING.isCodeValid("urethra", "year_dx", "200"));
             Assert.IsFalse(_STAGING.isCodeValid("urethra", "year_dx", "2003"));
             Assert.IsFalse(_STAGING.isCodeValid("urethra", "year_dx", "2145"));
@@ -542,9 +541,9 @@ namespace TNMStaging_UnitTestApp.Src.Staging.EOD
             Assert.AreEqual(StagingData.Result.STAGED, data.getResult());
             Assert.AreEqual("brain", data.getSchemaId());
             Assert.AreEqual(5, data.getErrors().Count);
-            Assert.AreEqual(5, data.getPath().Count);
-            Assert.AreEqual(7, data.getOutput().Count);
-            Assert.AreEqual("3.0", data.getOutput(EodOutput.DERIVED_VERSION.toString()));
+            Assert.AreEqual(6, data.getPath().Count);
+            Assert.AreEqual(8, data.getOutput().Count);
+            Assert.AreEqual("3.1", data.getOutput(EodOutput.DERIVED_VERSION.toString()));
         }
 
         [TestMethod]
