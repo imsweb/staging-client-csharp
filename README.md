@@ -4,7 +4,7 @@ A cancer staging client library for C# applications.
 
 ## Supported staging algorithms
 
-### Toronto Pedatric Staging 0.5
+### Toronto Pedatric Staging
 
 Toronto Stage was developed based on a consensus meeting by the Union for Internal Cancer Control (UICC) in 2014. Since this time, multiple countries have implemented the Toronto Staging Guidelines for pediatric cancers. Starting in 2024, the United States will also implement the Toronto Staging in the SEER program. For the US, this requires the collection of the EOD 2018 data and expects the EOD 2018 API/library to be called prior to a call to the Toronto API/library. Toronto Stage is effective for cases diagnosed in 2024 and later (2018 and later in beta testing).
 
@@ -20,7 +20,15 @@ To get started using the Toronto Pediatric algorithm, instantiate a `Staging` in
 Staging staging = TNMStagingCSharp.Src.Staging.Staging.getInstance(TorontoDataProvider.getInstance(TorontoVersion.LATEST));
 ```
 
-### EOD 3.0
+If a specific version is needed, the algorithm zip file can be downloaded and initialized using an ExternalStagingFileDataProvider.
+
+| Version | Release                                                                        | Algorithm ZIP                                                                                                  |
+|---------|--------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------|
+| 0.5     | [4.0](https://github.com/imsweb/staging-client-csharp/releases/tag/v4.0-beta)  | [toronto-0.5.zip](https://github.com/imsweb/staging-client-csharp/releases/download/v4.0-beta/toronto-0.5.zip) |
+| 0.1     | [3.6](https://github.com/imsweb/staging-client-csharp/releases/tag/v3.6-beta)  | [toronto-0.1.zip](https://github.com/imsweb/staging-client-csharp/releases/download/v3.6-beta/toronto-0.1.zip) |
+
+
+### EOD
 
 Extent of Disease (EOD) is a set of three data items that describe how far a cancer has spread at the time of diagnosis. EOD 2018 is effective for cases diagnosed in 2018 and later.
  
@@ -42,7 +50,16 @@ To get started using the EOD algorithm, instantiate a `Staging` instance:
 Staging staging = TNMStagingCSharp.Src.Staging.Staging.getInstance(EodDataProvider.getInstance(EodVersion.LATEST));
 ```
 
-### TNM 2.0
+If a specific version is needed, the algorithm zip file can be downloaded and initialized using an ExternalStagingFileDataProvider.
+
+| Version | Release                                                                       | Algorithm ZIP                                                                                                        |
+|---------|-------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------|
+| 3.1     | [4.2](https://github.com/imsweb/staging-client-csharp/releases/tag/v4.2-beta) | [eod_public-3.1.zip](https://github.com/imsweb/staging-client-csharp/releases/download/v4.2-beta/eod_public-3.1.zip) |
+| 3.0     | [3.6](https://github.com/imsweb/staging-client-csharp/releases/tag/v3.6-beta) | [eod_public-3.0.zip](https://github.com/imsweb/staging-client-csharp/releases/download/v3.6-beta/eod_public-3.0.zip) |
+| 2.1     | [3.5](https://github.com/imsweb/staging-client-csharp/releases/tag/v3.5-beta) | [eod_public-2.1.zip](https://github.com/imsweb/staging-client-csharp/releases/download/v3.5-beta/EOD_Public_21.zip)  |
+
+
+### TNM
 
 TNM is a widely accepted system of cancer staging. TNM stands for Tumor, Nodes, and Metastasis. T is assigned based on the extent of involvement at the primary tumor site, N for the extent of involvement in regional lymph nodes, and M for distant spread. Clinical TNM is assigned prior to treatment and pathologic TNM is assigned based on clinical information plus information from surgery. The clinical TNM and the pathologic TNM values are summarized as clinical stage group or pathologic stage group.
 
@@ -58,7 +75,15 @@ To get started using the TNM algorithm, instantiate a `Staging` instance:
 Staging staging = TNMStagingCSharp.Src.Staging.Staging.getInstance(TnmDataProvider.getInstance(TnmVersion.LATEST));
 ```
 
-### Collaborative Staging 02.50.50
+If a specific version is needed, the algorithm zip file can be downloaded and initialized using an ExternalStagingFileDataProvider.
+
+| Version | Release                                                                        | Algorithm ZIP                                                                                          |
+|---------|--------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------|
+| 2.0     | [3.6](https://github.com/imsweb/staging-client-csharp/releases/tag/v3.6-beta)  | [tnm-2.0.zip](https://github.com/imsweb/staging-client-csharp/releases/download/v3.6-beta/tnm-2.0.zip) |
+| 1.9     | [3.5](https://github.com/imsweb/staging-client-csharp/releases/tag/v3.5-beta)  | [tnm-1.9.zip](https://github.com/imsweb/staging-client-csharp/releases/download/v3.5-beta/TNM_19.zip)  |
+
+
+### Collaborative Staging
 
 [Collaborative Stage](https://cancerstaging.org/cstage/) is a unified data collection system designed to provide a common data set to meet the needs of all three
 staging systems (TNM, SEER EOD, and SEER SS). It provides a comprehensive system to improve data quality by standardizing rules for timing, clinical and pathologic
@@ -70,9 +95,17 @@ To get started using the TNM algorithm, instantiate a `Staging` instance:
 Staging staging = TNMStagingCSharp.Src.Staging.Staging.getInstance(CsDataProvider.getInstance(CsVersion.LATEST));
 ```
 
+If a specific version is needed, the algorithm zip file can be downloaded and initialized using an ExternalStagingFileDataProvider.
+
+| Version  | Release                                                                       | Algorithm ZIP                                                                                                  |
+|----------|-------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------|
+| 02.05.50 | [4.0](https://github.com/imsweb/staging-client-csharp/releases/tag/v4.0-beta) | [cs-02.05.50.zip](https://github.com/imsweb/staging-client-csharp/releases/download/v4.0-beta/cs-02.05.50.zip) |
+
+
+
 ## Download
 
-To download [the beta version of staging library - TNMStagingCSharp_v40.zip](https://github.com/imsweb/staging-client-csharp/releases/download/v4.0-beta/TNMStagingCSharp_v40.zip).
+To download [the beta version of staging library - TNMStagingCSharp_v42.zip](https://github.com/imsweb/staging-client-csharp/releases/download/v4.2-beta/TNMStagingCSharp_v42.zip).
 
 The download zip file contains the TNM Staging DLL and associated files. For more information, please reference the accompanying readme.txt file. Detailed documentation on how to use the DLL can be found in the [Wiki](https://github.com/imsweb/staging-client-csharp/wiki/).
 
@@ -80,7 +113,7 @@ The download zip file contains the TNM Staging DLL and associated files. For mor
 
 Functional Requirements: You will need the .NET Framework 4.6 or higher installed to use this library. 
 
-Data Requirements: You will need the algorithm data files for the TNM Staging Library to work properly. At present there are CS 02.05.50, TNM 2.0, EOD 3.0, and Toronto 0.5 algorithms. You can find a copy of these data files within the TNM Staging source code in the Resources\Algorithms directory. The algorithm data files can be either in separate JSON files, or can be collected together in a compressed file such as .ZIP or .GZ. You can download the zip versions of [CS 02.05.50](https://github.com/imsweb/staging-client-csharp/releases/download/v4.0-beta/cs-02.05.50.zip), [TNM 2.0](https://github.com/imsweb/staging-client-csharp/releases/download/v4.0-beta/tnm-2.0.zip), [EOD Public 3.0](https://github.com/imsweb/staging-client-csharp/releases/download/v4.0-beta/eod_public-3.0.zip), and [Toronto 0.1](https://github.com/imsweb/staging-client-csharp/releases/download/v4.0-beta/toronto-0.5.zip) here. 
+Data Requirements: You will need the algorithm data files for the TNM Staging Library to work properly. You can find a copy of these data files within the TNM Staging source code in the Resources\Algorithms directory. The algorithm data files can be either in separate JSON files, or can be collected together in a compressed file such as .ZIP or .GZ. You can download the zip versions of each specific algorithm above in the "Algorithm Zip File" list.
 
 ## Usage
 
