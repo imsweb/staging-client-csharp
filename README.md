@@ -4,26 +4,27 @@ A cancer staging client library for C# applications.
 
 ## Supported staging algorithms
 
-### Toronto Pedatric Staging
+### Pediatric Staging (formally Toronto Pediatric Staging)
 
-Toronto Stage was developed based on a consensus meeting by the Union for Internal Cancer Control (UICC) in 2014. Since this time, multiple countries have implemented the Toronto Staging Guidelines for pediatric cancers. Starting in 2024, the United States will also implement the Toronto Staging in the SEER program. For the US, this requires the collection of the EOD 2018 data and expects the EOD 2018 API/library to be called prior to a call to the Toronto API/library. Toronto Stage is effective for cases diagnosed in 2024 and later (2018 and later in beta testing).
+Pediatric Stage was developed based on a consensus meeting by the Union for Internal Cancer Control (UICC) in 2014. Since this time, multiple countries have implemented the Toronto Staging Guidelines for pediatric cancers. Starting in 2024, the United States will also implement Pediatric Staging in the SEER program. For the US, this requires the collection of the EOD 2018 data and expects the EOD 2018 API/library to be called prior to a call to the Pediatric API/library. Pediatric Stage is effective for cases diagnosed in 2024 and later (2018 and later in beta testing).
 
-In each Toronto schema, valid values, definitions, and registrar notes are provided for any Site-Specific Data Items (SSDIs) pertinent to the schema.
+In each Pediatric schema, valid values, definitions, and registrar notes are provided for any Site-Specific Data Items (SSDIs) pertinent to the schema.
 
-For cancer cases diagnosed January 1, 2024 and later (2018 and later in beta testing), the NCI SEER program will collect the related SSDIs for each schema. The schemas have been developed to be compatible with the Toronto Staging definitions. For some schemas, additional data items may be derived. Derived Toronto T, N, M and Stage Group will always be present, with defaults being set for those schemas where these concepts are not defined. A Toronto Schema ID will also be calculated.
+For cancer cases diagnosed January 1, 2024 and later (2018 and later in beta testing), the NCI SEER program will collect the related SSDIs for each schema. The schemas have been developed to be compatible with the Toronto Staging definitions. For some schemas, additional data items may be derived. Derived Pediatric T, N, M and Stage Group will always be present, with defaults being set for those schemas where these concepts are not defined. A Pediatric Schema ID will also be calculated.
 
 All the standard setting organizations will collect the predictive and prognostic factors through Site Specific Data Items (SSDIs). Unlike the SSFs, these data items have formats and code structures specific to the data item.
 
-To get started using the Toronto Pediatric algorithm, instantiate a `Staging` instance:
+To get started using the Pediatric algorithm, instantiate a `Staging` instance:
 
 ```csharp
-Staging staging = TNMStagingCSharp.Src.Staging.Staging.getInstance(TorontoDataProvider.getInstance(TorontoVersion.LATEST));
+Staging staging = TNMStagingCSharp.Src.Staging.Staging.getInstance(PediatricDataProvider.getInstance(PediatricVersion.LATEST));
 ```
 
 If a specific version is needed, the algorithm zip file can be downloaded and initialized using an ExternalStagingFileDataProvider.
 
 | Version | Release                                                                        | Algorithm ZIP                                                                                                  |
 |---------|--------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------|
+| 1.0     | [4.2](https://github.com/imsweb/staging-client-csharp/releases/tag/v4.2-beta)  | [pediatric-1.0.zip](https://github.com/imsweb/staging-client-csharp/releases/download/v4.2-beta/pediatric-1.0.zip) |
 | 0.5     | [4.0](https://github.com/imsweb/staging-client-csharp/releases/tag/v4.0-beta)  | [toronto-0.5.zip](https://github.com/imsweb/staging-client-csharp/releases/download/v4.0-beta/toronto-0.5.zip) |
 | 0.1     | [3.6](https://github.com/imsweb/staging-client-csharp/releases/tag/v3.6-beta)  | [toronto-0.1.zip](https://github.com/imsweb/staging-client-csharp/releases/download/v3.6-beta/toronto-0.1.zip) |
 
@@ -105,7 +106,7 @@ If a specific version is needed, the algorithm zip file can be downloaded and in
 
 ## Download
 
-To download [the beta version of staging library - TNMStagingCSharp_v41.zip](https://github.com/imsweb/staging-client-csharp/releases/download/v4.1-beta/TNMStagingCSharp_v41.zip).
+To download [the beta version of staging library - TNMStagingCSharp_v42.zip](https://github.com/imsweb/staging-client-csharp/releases/download/v4.2-beta/TNMStagingCSharp_v42.zip).
 
 The download zip file contains the TNM Staging DLL and associated files. For more information, please reference the accompanying readme.txt file. Detailed documentation on how to use the DLL can be found in the [Wiki](https://github.com/imsweb/staging-client-csharp/wiki/).
 
