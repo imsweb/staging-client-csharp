@@ -89,6 +89,7 @@
     <Compile Include="Src\Staging\ExternalStagingFileDataProviderTest.cs" />
     <Compile Include="Src\Staging\IntegrationUtils.cs" />
     <Compile Include="Src\Staging\Entities\SchemaLookupTest.cs" />
+    <Compile Include="Src\Staging\Pediatric\PediatricStagingTest.cs" />
     <Compile Include="Src\Staging\StagingDataProviderTest.cs" />
     <Compile Include="Src\Staging\Entities\Impl\StagingSchemaInputTest.cs" />
     <Compile Include="Src\Staging\Entities\StagingRangeTest.cs" />
@@ -99,7 +100,6 @@
     <Compile Include="Src\Staging\TNM\TnmIntegrationSchemaStage.cs" />
     <Compile Include="Src\Staging\TNM\TnmSchemaLookupTest.cs" />
     <Compile Include="Src\Staging\TNM\TnmStagingTest.cs" />
-    <Compile Include="Src\Staging\Toronto\TorontoStagingTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\TNMStagingCSharp\TNMStagingCSharp.csproj">

@@ -87,9 +87,9 @@
     <Compile Include="Src\Staging\EOD\EodSchemaLookup.cs" />
     <Compile Include="Src\Staging\EOD\EodStagingData.cs" />
     <Compile Include="Src\Staging\InMemoryDataProvider.cs" />
-    <Compile Include="Src\Staging\Toronto\TorontoDataProvider.cs" />
-    <Compile Include="Src\Staging\Toronto\TorontoSchemaLookup.cs" />
-    <Compile Include="Src\Staging\Toronto\TorontoStagingData.cs" />
+    <Compile Include="Src\Staging\Pediatric\PediatricDataProvider.cs" />
+    <Compile Include="Src\Staging\Pediatric\PediatricSchemaLookup.cs" />
+    <Compile Include="Src\Staging\Pediatric\PediatricStagingData.cs" />
     <Compile Include="Src\Tools\TestingTools.cs" />
     <Compile Include="Src\Staging\Entities\KeyMapping.cs" />
     <Compile Include="Src\Staging\Entities\KeyValue.cs" />

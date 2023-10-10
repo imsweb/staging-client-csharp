@@ -11,7 +11,7 @@ using TNMStagingCSharp.Src.Staging.Entities;
 using TNMStagingCSharp.Src.Staging.CS;
 using TNMStagingCSharp.Src.Staging.TNM;
 using TNMStagingCSharp.Src.Staging.EOD;
-using TNMStagingCSharp.Src.Staging.Toronto;
+using TNMStagingCSharp.Src.Staging.Pediatric;
 
 namespace TNMStaging_StagingViewerApp
 {
@@ -1481,12 +1481,12 @@ namespace TNMStaging_StagingViewerApp
             bool bCSStage = (mProvider.getAlgorithm().IndexOf("cs") >= 0);
             bool bTNMStage = (mProvider.getAlgorithm().IndexOf("tnm") >= 0);
             bool bEODStage = (mProvider.getAlgorithm().IndexOf("eod") >= 0);
-            bool bTorontoStage = (mProvider.getAlgorithm().IndexOf("toronto") >= 0);
+            bool bPediatricStage = (mProvider.getAlgorithm().IndexOf("pediatric") >= 0);
 
             if (bCSStage)           data = new CsStagingData();
             else if (bTNMStage)     data = new TnmStagingData();
             else if (bEODStage)     data = new EodStagingData();
-            else if (bTorontoStage) data = new TorontoStagingData();
+            else if (bPediatricStage) data = new PediatricStagingData();
 
 
             String sSite = cmbxSite.Text;
