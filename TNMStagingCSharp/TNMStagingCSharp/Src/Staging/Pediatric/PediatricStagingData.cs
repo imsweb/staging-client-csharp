@@ -35,6 +35,8 @@ namespace TNMStagingCSharp.Src.Staging.Pediatric
         public static readonly PediatricInput DERIVED_SUMMARY_GRADE = new PediatricInput("derived_summary_grade");
         public static readonly PediatricInput SURG_2023 = new PediatricInput("surg_2023");
         public static readonly PediatricInput SURGICAL_MARGINS = new PediatricInput("surgical_margins");
+        public static readonly PediatricInput INGRESS = new PediatricInput("inrgss");
+        public static readonly PediatricInput PRETEXT_CLINICAL_STAGING = new PediatricInput("pretext_clinical_staging");
 
         public static IEnumerable<PediatricInput> Values
         {
@@ -56,6 +58,8 @@ namespace TNMStagingCSharp.Src.Staging.Pediatric
                 yield return DERIVED_SUMMARY_GRADE;
                 yield return SURG_2023;
                 yield return SURGICAL_MARGINS;
+                yield return INGRESS;
+                yield return PRETEXT_CLINICAL_STAGING;
             }
         }
 
@@ -83,6 +87,10 @@ namespace TNMStagingCSharp.Src.Staging.Pediatric
         public static readonly PediatricOutput PEDIATRIC_N = new PediatricOutput("pediatric_n");
         public static readonly PediatricOutput PEDIATRIC_M = new PediatricOutput("pediatric_m");
         public static readonly PediatricOutput PEDIATRIC_GROUP = new PediatricOutput("pediatric_group");
+        public static readonly PediatricOutput TORONTO_T = new PediatricOutput("toronto_t");
+        public static readonly PediatricOutput TORONTO_N = new PediatricOutput("toronto_n");
+        public static readonly PediatricOutput TORONTO_M = new PediatricOutput("toronto_m");
+        public static readonly PediatricOutput TORONTO_STAGE_GROUP = new PediatricOutput("toronto_stage_group");
         public static readonly PediatricOutput DERIVED_VERSION = new PediatricOutput("derived_version");
 
         public static IEnumerable<PediatricOutput> Values
@@ -95,6 +103,10 @@ namespace TNMStagingCSharp.Src.Staging.Pediatric
                 yield return PEDIATRIC_N;
                 yield return PEDIATRIC_M;
                 yield return PEDIATRIC_GROUP;
+                yield return TORONTO_T;
+                yield return TORONTO_N;
+                yield return TORONTO_M;
+                yield return TORONTO_STAGE_GROUP;
                 yield return DERIVED_VERSION;
             }
         }

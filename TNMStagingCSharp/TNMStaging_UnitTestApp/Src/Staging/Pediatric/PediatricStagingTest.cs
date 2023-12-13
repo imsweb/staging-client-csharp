@@ -36,7 +36,7 @@ namespace TNMStaging_UnitTestApp.Src.Staging.Pediatric
 
         public override string getVersion()
         {
-            return PediatricVersion.V1_0.getVersion();
+            return PediatricVersion.V1_1.getVersion();
         }
 
         public override StagingFileDataProvider getProvider()
@@ -255,7 +255,7 @@ namespace TNMStaging_UnitTestApp.Src.Staging.Pediatric
             Assert.AreEqual(schemaId, lookup[0].getId());
 
             // now invalidate the cache
-            PediatricDataProvider.getInstance(PediatricVersion.V1_0).invalidateCache();
+            PediatricDataProvider.getInstance(PediatricVersion.V1_1).invalidateCache();
 
             // try the lookup again
             lookup = _STAGING.lookupSchema(new PediatricSchemaLookup(site, hist));
@@ -299,12 +299,12 @@ namespace TNMStaging_UnitTestApp.Src.Staging.Pediatric
             Assert.AreEqual("ovarian", data.getSchemaId());
             Assert.AreEqual(0, data.getErrors().Count);
             Assert.IsTrue(data.getPath().Contains("toronto_stage.pediatric_stage_78332"));
-            Assert.AreEqual(7, data.getOutput().Count);
+            Assert.AreEqual(11, data.getOutput().Count);
 
             // check outputs
             Assert.AreEqual(PediatricVersion.LATEST.getVersion(), data.getOutput(PediatricOutput.DERIVED_VERSION));
 
-            Assert.AreEqual(7, data.getOutput().Count);
+            Assert.AreEqual(11, data.getOutput().Count);
             Assert.AreEqual(PediatricVersion.LATEST.getVersion(), data.getOutput(PediatricOutput.DERIVED_VERSION));
             Assert.AreEqual("2", data.getOutput(PediatricOutput.TORONTO_VERSION_NUMBER));
             Assert.AreEqual("10c2", data.getOutput(PediatricOutput.PEDIATRIC_ID));

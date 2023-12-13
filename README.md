@@ -14,7 +14,7 @@ For cancer cases diagnosed January 1, 2024 and later (2018 and later in beta tes
 
 All the standard setting organizations will collect the predictive and prognostic factors through Site Specific Data Items (SSDIs). Unlike the SSFs, these data items have formats and code structures specific to the data item.
 
-To get started using the Pediatric algorithm, instantiate a `Staging` instance:
+To get started using the Pediatric staging algorithm, instantiate a `Staging` instance:
 
 ```csharp
 Staging staging = TNMStagingCSharp.Src.Staging.Staging.getInstance(PediatricDataProvider.getInstance(PediatricVersion.LATEST));
@@ -24,6 +24,7 @@ If a specific version is needed, the algorithm zip file can be downloaded and in
 
 | Version | Release                                                                        | Algorithm ZIP                                                                                                  |
 |---------|--------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------|
+| 1.1     | [4.3](https://github.com/imsweb/staging-client-csharp/releases/tag/v4.3-beta)  | [pediatric-1.1.zip](https://github.com/imsweb/staging-client-csharp/releases/download/v4.3-beta/pediatric-1.1.zip) |
 | 1.0     | [4.2](https://github.com/imsweb/staging-client-csharp/releases/tag/v4.2-beta)  | [pediatric-1.0.zip](https://github.com/imsweb/staging-client-csharp/releases/download/v4.2-beta/pediatric-1.0.zip) |
 | 0.5     | [4.0](https://github.com/imsweb/staging-client-csharp/releases/tag/v4.0-beta)  | [toronto-0.5.zip](https://github.com/imsweb/staging-client-csharp/releases/download/v4.0-beta/toronto-0.5.zip) |
 | 0.1     | [3.6](https://github.com/imsweb/staging-client-csharp/releases/tag/v3.6-beta)  | [toronto-0.1.zip](https://github.com/imsweb/staging-client-csharp/releases/download/v3.6-beta/toronto-0.1.zip) |
@@ -106,7 +107,7 @@ If a specific version is needed, the algorithm zip file can be downloaded and in
 
 ## Download
 
-To download [the beta version of staging library - TNMStagingCSharp_v42.zip](https://github.com/imsweb/staging-client-csharp/releases/download/v4.2-beta/TNMStagingCSharp_v42.zip).
+To download [the beta version of staging library - TNMStagingCSharp_v43.zip](https://github.com/imsweb/staging-client-csharp/releases/download/v4.3-beta/TNMStagingCSharp_v43.zip).
 
 The download zip file contains the TNM Staging DLL and associated files. For more information, please reference the accompanying readme.txt file. Detailed documentation on how to use the DLL can be found in the [Wiki](https://github.com/imsweb/staging-client-csharp/wiki/).
 

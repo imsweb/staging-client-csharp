@@ -15,8 +15,7 @@ namespace TNMStaging_UnitTestApp.Src.Staging
      */
     public abstract class StagingTest
     {
-
-        protected static TNMStagingCSharp.Src.Staging.Staging _STAGING;
+        protected static TNMStagingCSharp.Src.Staging.Staging _STAGING = null;
 
         //* Return the algorithm name
         public abstract String getAlgorithm();

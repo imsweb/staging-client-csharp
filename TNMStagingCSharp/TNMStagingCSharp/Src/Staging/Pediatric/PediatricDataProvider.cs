@@ -12,15 +12,15 @@ namespace TNMStagingCSharp.Src.Staging.Pediatric
     public class PediatricVersion
     {
 
-        public static readonly PediatricVersion LATEST = new PediatricVersion("1.0");
-        public static readonly PediatricVersion V1_0 = new PediatricVersion("1.0");
+        public static readonly PediatricVersion LATEST = new PediatricVersion("1.1");
+        public static readonly PediatricVersion V1_1 = new PediatricVersion("1.1");
 
         public static IEnumerable<PediatricVersion> Values
         {
             get
             {
                 yield return LATEST;
-                yield return V1_0;
+                yield return V1_1;
             }
         }
 

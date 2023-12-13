@@ -21,8 +21,7 @@ namespace TNMStagingCSharp.Src.Staging
         public static readonly String HISTOLOGY_TABLE = "histology";
 
         // output all dates in ISO-8061 format and UTC time
-        private static string _DATE_FORMAT = "yyyy-MM-dd'T'HH:mm:ss.zzz'Z'";
-
+        //private static string _DATE_FORMAT = "yyyy-MM-dd'T'HH:mm:ss.zzz'Z'";
         //private readonly static Entities.StagingRange _MATCH_ALL_ENDPOINT = new Entities.StagingRange();
         private static Range _matchAllEndpoint = null;
 
