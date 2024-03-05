@@ -148,6 +148,9 @@ namespace TNMStagingCSharp.Src.Staging
                 addGlossaryMatches(hits, table.getSubtitle());
                 addGlossaryMatches(hits, table.getNotes());
                 addGlossaryMatches(hits, table.getFootnotes());
+                addGlossaryMatches(hits, table.getRationale());
+                addGlossaryMatches(hits, table.getAdditionalInfo());
+                addGlossaryMatches(hits, table.getCodingGuidelines());
 
                 // add any DESCRIPTION columns glossary matches
                 if (table.getColumnDefinitions() != null && table.getRawRows() != null)

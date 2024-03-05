@@ -29,17 +29,23 @@ namespace TNMStagingCSharp.Src.Staging.Entities.Impl
         private String _subtitle;
         [JsonProperty("notes", Order = 8)]
         private String _notes;
-        [JsonProperty("footnotes", Order = 9)]
+        [JsonProperty("rational", Order = 9)]
+        private String _rationale;
+        [JsonProperty("additional_info", Order = 10)]
+        private String _additionalInfo;
+        [JsonProperty("coding_guildlines", Order = 11)]
+        private String _codingGuidelines;
+        [JsonProperty("footnotes", Order = 12)]
         private String _footnotes;
-        [JsonProperty("last_modified", Order = 10)]
+        [JsonProperty("last_modified", Order = 13)]
         private DateTime _lastModified;
-        [JsonProperty("definition", Order = 11)]
+        [JsonProperty("definition", Order = 14)]
         [JsonConverter(typeof(CustomListConverter_StagingColumnDefinition_IColumnDefinition))]
         private List<IColumnDefinition> _definition;
-        [JsonProperty("extra_input", Order = 12)]
+        [JsonProperty("extra_input", Order = 15)]
         [JsonConverter(typeof(CustomHashSetConverter<String>))]
         private HashSet<String> _extraInput;
-        [JsonProperty("rows", Order = 13)]
+        [JsonProperty("rows", Order = 16)]
         [JsonConverter(typeof(CustomListConverter<List<String>>))]
         private List<List<String>> _rows = new List<List<String>>();
 
@@ -146,6 +152,39 @@ namespace TNMStagingCSharp.Src.Staging.Entities.Impl
         public void setNotes(String notes)
         {
             _notes = notes;
+            ComputeHashCode();
+        }
+
+        public String getRationale()
+        {
+            return _rationale;
+        }
+
+        public void setRationale(String rationale)
+        {
+            _rationale = rationale;
+            ComputeHashCode();
+        }
+
+        public String getAdditionalInfo()
+        {
+            return _additionalInfo;
+        }
+
+        public void setAdditionalInfo(String additionalInformation)
+        {
+            _additionalInfo = additionalInformation;
+            ComputeHashCode();
+        }
+
+        public String getCodingGuidelines()
+        {
+            return _codingGuidelines;
+        }
+
+        public void setCodingGuidelines(String codingGuidelines)
+        {
+            _codingGuidelines = codingGuidelines;
             ComputeHashCode();
         }
 
@@ -286,6 +325,9 @@ namespace TNMStagingCSharp.Src.Staging.Entities.Impl
                    Equals(_description, table._description) &&
                    Equals(_subtitle, table._subtitle) &&
                    Equals(_notes, table._notes) &&
+                   Equals(_rationale, table._rationale) &&
+                   Equals(_additionalInfo, table._additionalInfo) &&
+                   Equals(_codingGuidelines, table._codingGuidelines) &&
                    Equals(_footnotes, table._footnotes) &&
                    Equals(_definition, table._definition) &&
                    Equals(_extraInput, table._extraInput) &&
@@ -309,6 +351,9 @@ namespace TNMStagingCSharp.Src.Staging.Entities.Impl
             MyStringBuilder.Append(_description);
             MyStringBuilder.Append(_subtitle);
             MyStringBuilder.Append(_notes);
+            MyStringBuilder.Append(_rationale);
+            MyStringBuilder.Append(_additionalInfo);
+            MyStringBuilder.Append(_codingGuidelines);
             MyStringBuilder.Append(_footnotes);
             MyStringBuilder.Append(_lastModified.ToString());
             if (_definition != null)
@@ -359,6 +404,9 @@ namespace TNMStagingCSharp.Src.Staging.Entities.Impl
             sRetval += indent + "Description:           " + _description + Strings.EOL;
             sRetval += indent + "Subtitle:              " + _subtitle + Strings.EOL;
             //sRetval += indent + "Notes:                 " + _notes + Strings.EOL;
+            sRetval += indent + "Rationale:             " + _rationale + Strings.EOL;
+            sRetval += indent + "AdditionalInfo:        " + _additionalInfo + Strings.EOL;
+            sRetval += indent + "CodingGuidelines:      " + _codingGuidelines + Strings.EOL;
             sRetval += indent + "Footnotes:             " + _footnotes + Strings.EOL;
             sRetval += indent + "LastModified:          " + _lastModified + Strings.EOL;
             sRetval += indent + "Definition:            " + Strings.EOL;

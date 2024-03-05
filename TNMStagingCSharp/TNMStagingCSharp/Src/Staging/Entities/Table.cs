@@ -30,6 +30,12 @@ namespace TNMStagingCSharp.Src.Staging.Entities
 
         String getFootnotes();
 
+        String getRationale();
+
+        String getAdditionalInfo();
+
+        String getCodingGuidelines();
+
         DateTime getLastModified();
 
         //========================================================================================================================
