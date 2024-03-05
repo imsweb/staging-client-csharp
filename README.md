@@ -4,15 +4,20 @@ A cancer staging client library for C# applications.
 
 ## Supported staging algorithms
 
-### Pediatric Staging (formally Toronto Pediatric Staging)
+### Pediatric Data Collection System (PDCS or Pediatric)
 
-Pediatric Stage was developed based on a consensus meeting by the Union for Internal Cancer Control (UICC) in 2014. Since this time, multiple countries have implemented the Toronto Staging Guidelines for pediatric cancers. Starting in 2024, the United States will also implement Pediatric Staging in the SEER program. For the US, this requires the collection of the EOD 2018 data and expects the EOD 2018 API/library to be called prior to a call to the Pediatric API/library. Pediatric Stage is effective for cases diagnosed in 2024 and later (2018 and later in beta testing).
+Pediatric Data Collection System (Pediatric) is a set of three data items that describe how far a cancer has spread at the time of diagnosis for Pediatric cancers. 
+PDCS can be collected for cases diagnosed in 2018 and later.
 
-In each Pediatric schema, valid values, definitions, and registrar notes are provided for any Site-Specific Data Items (SSDIs) pertinent to the schema.
+In each Pediatric schema, valid values, definitions, and registrar notes are provided for
 
-For cancer cases diagnosed January 1, 2024 and later (2018 and later in beta testing), the NCI SEER program will collect the related SSDIs for each schema. The schemas have been developed to be compatible with the Toronto Staging definitions. For some schemas, additional data items may be derived. Derived Pediatric T, N, M and Stage Group will always be present, with defaults being set for those schemas where these concepts are not defined. A Pediatric Schema ID will also be calculated.
+- Pediatric Primary Tumor
+- Pediatric Lymph Nodes
+- Pediatric Mets
+- Site-Specific Data Items (SSDIs)
 
-All the standard setting organizations will collect the predictive and prognostic factors through Site Specific Data Items (SSDIs). Unlike the SSFs, these data items have formats and code structures specific to the data item.
+For cancer cases diagnosed January 1, 2024 and later, the NCI SEER program will collect the Pediatric Data Collection System fields. The schemas have been 
+developed to be compatible with the Toronto Staging v1.1 definitions.
 
 To get started using the Pediatric staging algorithm, instantiate a `Staging` instance:
 
@@ -24,7 +29,7 @@ If a specific version is needed, the algorithm zip file can be downloaded and in
 
 | Version | Release                                                                        | Algorithm ZIP                                                                                                  |
 |---------|--------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------|
-| 1.1     | [4.3](https://github.com/imsweb/staging-client-csharp/releases/tag/v4.3-beta)  | [pediatric-1.1.zip](https://github.com/imsweb/staging-client-csharp/releases/download/v4.3-beta/pediatric-1.1.zip) |
+| 1.1     | [4.4](https://github.com/imsweb/staging-client-csharp/releases/tag/v4.4-beta)  | [pediatric-1.1.zip](https://github.com/imsweb/staging-client-csharp/releases/download/v4.4-beta/pediatric-1.1.zip) |
 | 1.0     | [4.2](https://github.com/imsweb/staging-client-csharp/releases/tag/v4.2-beta)  | [pediatric-1.0.zip](https://github.com/imsweb/staging-client-csharp/releases/download/v4.2-beta/pediatric-1.0.zip) |
 | 0.5     | [4.0](https://github.com/imsweb/staging-client-csharp/releases/tag/v4.0-beta)  | [toronto-0.5.zip](https://github.com/imsweb/staging-client-csharp/releases/download/v4.0-beta/toronto-0.5.zip) |
 | 0.1     | [3.6](https://github.com/imsweb/staging-client-csharp/releases/tag/v3.6-beta)  | [toronto-0.1.zip](https://github.com/imsweb/staging-client-csharp/releases/download/v3.6-beta/toronto-0.1.zip) |

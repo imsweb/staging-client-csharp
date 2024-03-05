@@ -129,7 +129,7 @@ namespace TNMStaging_UnitTestApp.Src.Staging
             HashSet<String> tablesIds = _STAGING.getTableIds();
             foreach (String id in tablesIds)
             {
-                if (!usedTables.Contains(id))
+                if (!usedTables.Contains(id) && !id.StartsWith("conversion_"))
                 {
                     usedTables.Add(id);
                 }
