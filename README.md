@@ -29,6 +29,7 @@ If a specific version is needed, the algorithm zip file can be downloaded and in
 
 | Version | Release                                                                        | Algorithm ZIP                                                                                                  |
 |---------|--------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------|
+| 1.2     | [4.7](https://github.com/imsweb/staging-client-csharp/releases/tag/v4.7-beta)  | [pediatric-1.2.zip](https://github.com/imsweb/staging-client-csharp/releases/download/v4.7-beta/pediatric-1.2.zip) |
 | 1.1     | [4.4](https://github.com/imsweb/staging-client-csharp/releases/tag/v4.4-beta)  | [pediatric-1.1.zip](https://github.com/imsweb/staging-client-csharp/releases/download/v4.4-beta/pediatric-1.1.zip) |
 | 1.0     | [4.2](https://github.com/imsweb/staging-client-csharp/releases/tag/v4.2-beta)  | [pediatric-1.0.zip](https://github.com/imsweb/staging-client-csharp/releases/download/v4.2-beta/pediatric-1.0.zip) |
 | 0.5     | [4.0](https://github.com/imsweb/staging-client-csharp/releases/tag/v4.0-beta)  | [toronto-0.5.zip](https://github.com/imsweb/staging-client-csharp/releases/download/v4.0-beta/toronto-0.5.zip) |
@@ -112,7 +113,7 @@ If a specific version is needed, the algorithm zip file can be downloaded and in
 
 ## Download
 
-To download [the beta version of staging library - TNMStagingCSharp_v45.zip](https://github.com/imsweb/staging-client-csharp/releases/download/v4.5-beta/TNMStagingCSharp_v45.zip).
+To download [the beta version of staging library - TNMStagingCSharp_v47.zip](https://github.com/imsweb/staging-client-csharp/releases/download/v4.7-beta/TNMStagingCSharp_v47.zip).
 
 The download zip file contains the TNM Staging DLL and associated files. For more information, please reference the accompanying readme.txt file. Detailed documentation on how to use the DLL can be found in the [Wiki](https://github.com/imsweb/staging-client-csharp/wiki/).
 
