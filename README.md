@@ -112,7 +112,7 @@ If a specific version is needed, the algorithm zip file can be downloaded and in
 
 ## Download
 
-To download [the beta version of staging library - TNMStagingCSharp_v47.zip](https://github.com/imsweb/staging-client-csharp/releases/download/v4.7-beta/TNMStagingCSharp_v47.zip).
+To download [the beta version of staging library - TNMStagingCSharp_v48.zip](https://github.com/imsweb/staging-client-csharp/releases/download/v4.8-beta/TNMStagingCSharp_v48.zip).
 
 The download zip file contains the TNM Staging DLL and associated files. For more information, please reference the accompanying readme.txt file. Detailed documentation on how to use the DLL can be found in the [Wiki](https://github.com/imsweb/staging-client-csharp/wiki/).
 
