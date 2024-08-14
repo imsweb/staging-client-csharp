@@ -32,7 +32,7 @@ namespace TNMStaging_UnitTestApp.Src.Staging.EOD
 
         public override string getVersion()
         {
-            return EodVersion.V3_1.getVersion();
+            return EodVersion.V3_2.getVersion();
         }
 
         public override StagingFileDataProvider getProvider()
@@ -58,7 +58,7 @@ namespace TNMStaging_UnitTestApp.Src.Staging.EOD
         [TestMethod]
         public void testBasicInitialization()
         {
-            Assert.AreEqual(_STAGING.getSchemaIds().Count, 135);
+            Assert.AreEqual(_STAGING.getSchemaIds().Count, 139);
             Assert.IsTrue(_STAGING.getTableIds().Count > 0);
 
             Assert.IsNotNull(_STAGING.getSchema("urethra"));
@@ -78,7 +78,7 @@ namespace TNMStaging_UnitTestApp.Src.Staging.EOD
         [TestMethod]
         public void testDescriminatorKeys()
         {
-            HashSet<String> hash1 = new HashSet<String>() { "discriminator_1" };
+            HashSet<String> hash1 = new HashSet<String>() { "discriminator_1", "year_dx" };
             HashSet<String> hash2 = _STAGING.getSchema("nasopharynx").getSchemaDiscriminators();
             Assert.IsTrue(hash1.SetEquals(hash2));
 
@@ -110,25 +110,41 @@ namespace TNMStaging_UnitTestApp.Src.Staging.EOD
 
             // test valid combination that requires a discriminator but is not supplied one
             lookup = _STAGING.lookupSchema(new EodSchemaLookup("C111", "8200"));
-            Assert.AreEqual(3, lookup.Count);
+            Assert.AreEqual(4, lookup.Count);
 
-            HashSet<String> hash1 = null;
-            HashSet<String> hash2 = null;
+            HashSet<String> hash1 = new HashSet<String>() {
+                    "oropharynx_p16_neg",
+                    "nasopharynx",
+                    "nasopharynx_v9_2025",
+                    "oropharynx_hpv_mediated_p16_pos" };
+            HashSet<String> hash2 = new HashSet<String>();
             foreach (Schema schema in lookup)
             {
-                hash1 = new HashSet<String>() { "discriminator_1", "discriminator_2" };
-                hash2 = schema.getSchemaDiscriminators();
-                Assert.IsTrue(hash1.IsSupersetOf(hash2));
+                hash2.Add(schema.getId());
             }
+            Assert.IsTrue(hash1.SetEquals(hash2));
+
+            //assertThat(lookup.stream().flatMap(d->d.getSchemaDiscriminators().stream()).collect(Collectors.toSet())).isEqualTo(new HashSet<>(Arrays.asList("year_dx", "discriminator_1", "discriminator_2")));
+            hash1 = new HashSet<String>() {
+                    "year_dx",
+                    "discriminator_1",
+                    "discriminator_2" };
+            hash2 = new HashSet<String>();
+            foreach (Schema schema in lookup)
+            {
+                hash2.UnionWith(schema.getSchemaDiscriminators());
+            }
+            Assert.IsTrue(hash1.SetEquals(hash2));
 
             // test valid combination that requires discriminator and a good discriminator is supplied
             schemaLookup = new EodSchemaLookup("C111", "8200");
             schemaLookup.setInput(EodInput.DISCRIMINATOR_1.toString(), "1");
+            schemaLookup.setInput(EodInput.DX_YEAR.toString(), "2022");
             lookup = _STAGING.lookupSchema(schemaLookup);
             Assert.AreEqual(1, lookup.Count);
             foreach (Schema schema in lookup)
             {
-                hash1 = new HashSet<String>() { "discriminator_1"};
+                hash1 = new HashSet<String>() { "discriminator_1", "year_dx" };
                 hash2 = schema.getSchemaDiscriminators();
                 Assert.IsTrue(hash1.SetEquals(hash2));
 
@@ -377,7 +393,8 @@ namespace TNMStaging_UnitTestApp.Src.Staging.EOD
                 "seer_mets_48348", "nodes_dcc", "grade_clinical_standard_non_ajcc_32473", "grade_pathological_standard_non_ajcc_5627",
                 "adnexa_uterine_other_97891", "nodes_pos_fpa", "tumor_size_pathological_25597", "tumor_size_clinical_60979", "primary_site", "histology",
                 "nodes_exam_76029", "grade_post_therapy_clin_69737", "grade_post_therapy_path_75348", "schema_selection_adnexa_uterine_other",
-                "year_dx_validation", "summary_stage_rpa", "tumor_size_summary_63115", "extension_bcn", "combined_grade_56638"};
+                "year_dx_validation", "summary_stage_rpa", "tumor_size_summary_63115", "extension_bcn", "combined_grade_56638", "neoadjuvant_therapy_37302",
+                "derived_grade_standard_non_ajcc_63932", "neoadj_tx_treatment_effect_18122", "neoadj_tx_clinical_response_31723", "ss2018_adnexa_uterine_other_values_44976"};
 
             Assert.IsTrue(tables.SetEquals(hash1));
         }
@@ -543,7 +560,7 @@ namespace TNMStaging_UnitTestApp.Src.Staging.EOD
             Assert.AreEqual(5, data.getErrors().Count);
             Assert.AreEqual(6, data.getPath().Count);
             Assert.AreEqual(8, data.getOutput().Count);
-            Assert.AreEqual("3.1", data.getOutput(EodOutput.DERIVED_VERSION.toString()));
+            Assert.AreEqual("3.2", data.getOutput(EodOutput.DERIVED_VERSION.toString()));
         }
 
         [TestMethod]

@@ -12,15 +12,15 @@ namespace TNMStagingCSharp.Src.Staging.EOD
     public class EodVersion
     {
 
-        public static readonly EodVersion LATEST = new EodVersion("3.1");
-        public static readonly EodVersion V3_1 = new EodVersion("3.1");
+        public static readonly EodVersion LATEST = new EodVersion("3.2");
+        public static readonly EodVersion V3_2 = new EodVersion("3.2");
 
         public static IEnumerable<EodVersion> Values
         {
             get
             {
                 yield return LATEST;
-                yield return V3_1;
+                yield return V3_2;
             }
         }
 

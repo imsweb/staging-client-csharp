@@ -26,6 +26,7 @@ namespace TNMStagingCSharp.Src.Staging.EOD
         public static readonly EodInput AGE_AT_DX = new EodInput("age_dx");
         public static readonly EodInput DISCRIMINATOR_1 = new EodInput("discriminator_1");
         public static readonly EodInput DISCRIMINATOR_2 = new EodInput("discriminator_2");
+        public static readonly EodInput YEAR_DX = new EodInput("year_dx");
         public static readonly EodInput NODES_POS = new EodInput("nodes_pos");
         public static readonly EodInput EOD_PRIMARY_TUMOR = new EodInput("eod_primary_tumor");
         public static readonly EodInput EOD_REGIONAL_NODES = new EodInput("eod_regional_nodes");
@@ -74,6 +75,7 @@ namespace TNMStagingCSharp.Src.Staging.EOD
                 yield return AGE_AT_DX;
                 yield return DISCRIMINATOR_1;
                 yield return DISCRIMINATOR_2;
+                yield return YEAR_DX;
                 yield return NODES_POS;
                 yield return EOD_PRIMARY_TUMOR;
                 yield return EOD_REGIONAL_NODES;
