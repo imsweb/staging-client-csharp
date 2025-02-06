@@ -29,7 +29,7 @@ If a specific version is needed, the algorithm zip file can be downloaded and in
 
 | Version       | Release                                                                         | Algorithm ZIP                                                                                                      |
 |---------------|---------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------|
-| 1.2 (revised) | [4.8.4](https://github.com/imsweb/staging-client-java/releases/tag/v4.8.4-beta) | [pediatric-1.2.zip](https://github.com/imsweb/staging-client-java/releases/download/v4.8.4-beta/pediatric-1.2.zip) |
+| 1.2 (revised) | [4.8.4](https://github.com/imsweb/staging-client-csharp/releases/tag/v4.8.4-beta) | [pediatric-1.2.zip](https://github.com/imsweb/staging-client-csharp/releases/download/v4.8.4-beta/pediatric-1.2.zip) |
 | 1.2           | [4.7](https://github.com/imsweb/staging-client-csharp/releases/tag/v4.7beta)    | [pediatric-1.2.zip](https://github.com/imsweb/staging-client-csharp/releases/download/v4.7beta/pediatric-1.2.zip)  |
 | 1.1           | [4.4](https://github.com/imsweb/staging-client-csharp/releases/tag/v4.4-beta)   | [pediatric-1.1.zip](https://github.com/imsweb/staging-client-csharp/releases/download/v4.4-beta/pediatric-1.1.zip) |
 | 1.0           | [4.2](https://github.com/imsweb/staging-client-csharp/releases/tag/v4.2-beta)   | [pediatric-1.0.zip](https://github.com/imsweb/staging-client-csharp/releases/download/v4.2-beta/pediatric-1.0.zip) |
