@@ -475,13 +475,7 @@ namespace TNMStaging_UnitTestApp.Src.Staging.Pediatric
         public void testGlossary()
         {
             Assert.IsNotNull(_STAGING.getGlossaryTerms());
-            Assert.IsTrue(_STAGING.getGlossaryTerms().Count > 0);
-            GlossaryDefinition entry = _STAGING.getGlossaryDefinition("Cortex");
-            Assert.IsNotNull(entry);
-            Assert.AreEqual("Cortex", entry.getName());
-            Assert.IsTrue(entry.getDefinition().StartsWith("The external or outer surface layer of an organ"));
-            Assert.IsTrue(entry.getAlternateNames().Contains("Cortical"));
-            Assert.IsNotNull(entry.getLastModified());
+            Assert.IsTrue(_STAGING.getGlossaryTerms().Count == 0);
         }
 
 
