@@ -27,13 +27,14 @@ Staging staging = TNMStagingCSharp.Src.Staging.Staging.getInstance(PediatricData
 
 If a specific version is needed, the algorithm zip file can be downloaded and initialized using an ExternalStagingFileDataProvider.
 
-| Version | Release                                                                        | Algorithm ZIP                                                                                                  |
-|---------|--------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------|
-| 1.2     | [4.7](https://github.com/imsweb/staging-client-csharp/releases/tag/v4.7beta)  | [pediatric-1.2.zip](https://github.com/imsweb/staging-client-csharp/releases/download/v4.7beta/pediatric-1.2.zip) |
-| 1.1     | [4.4](https://github.com/imsweb/staging-client-csharp/releases/tag/v4.4-beta)  | [pediatric-1.1.zip](https://github.com/imsweb/staging-client-csharp/releases/download/v4.4-beta/pediatric-1.1.zip) |
-| 1.0     | [4.2](https://github.com/imsweb/staging-client-csharp/releases/tag/v4.2-beta)  | [pediatric-1.0.zip](https://github.com/imsweb/staging-client-csharp/releases/download/v4.2-beta/pediatric-1.0.zip) |
-| 0.5     | [4.0](https://github.com/imsweb/staging-client-csharp/releases/tag/v4.0-beta)  | [toronto-0.5.zip](https://github.com/imsweb/staging-client-csharp/releases/download/v4.0-beta/toronto-0.5.zip) |
-| 0.1     | [3.6](https://github.com/imsweb/staging-client-csharp/releases/tag/v3.6-beta)  | [toronto-0.1.zip](https://github.com/imsweb/staging-client-csharp/releases/download/v3.6-beta/toronto-0.1.zip) |
+| Version       | Release                                                                         | Algorithm ZIP                                                                                                      |
+|---------------|---------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------|
+| 1.2 (revised) | [4.8.4](https://github.com/imsweb/staging-client-csharp/releases/tag/v4.8.4-beta) | [pediatric-1.2.zip](https://github.com/imsweb/staging-client-csharp/releases/download/v4.8.4-beta/pediatric-1.2.zip) |
+| 1.2           | [4.7](https://github.com/imsweb/staging-client-csharp/releases/tag/v4.7beta)    | [pediatric-1.2.zip](https://github.com/imsweb/staging-client-csharp/releases/download/v4.7beta/pediatric-1.2.zip)  |
+| 1.1           | [4.4](https://github.com/imsweb/staging-client-csharp/releases/tag/v4.4-beta)   | [pediatric-1.1.zip](https://github.com/imsweb/staging-client-csharp/releases/download/v4.4-beta/pediatric-1.1.zip) |
+| 1.0           | [4.2](https://github.com/imsweb/staging-client-csharp/releases/tag/v4.2-beta)   | [pediatric-1.0.zip](https://github.com/imsweb/staging-client-csharp/releases/download/v4.2-beta/pediatric-1.0.zip) |
+| 0.5           | [4.0](https://github.com/imsweb/staging-client-csharp/releases/tag/v4.0-beta)   | [toronto-0.5.zip](https://github.com/imsweb/staging-client-csharp/releases/download/v4.0-beta/toronto-0.5.zip)     |
+| 0.1           | [3.6](https://github.com/imsweb/staging-client-csharp/releases/tag/v3.6-beta)   | [toronto-0.1.zip](https://github.com/imsweb/staging-client-csharp/releases/download/v3.6-beta/toronto-0.1.zip)     |
 
 ### EOD
 
@@ -61,7 +62,7 @@ If a specific version is needed, the algorithm zip file can be downloaded and in
 
 | Version | Release                                                                       | Algorithm ZIP                                                                                                        |
 |---------|-------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------|
-| 3.2     | [4.8](https://github.com/imsweb/staging-client-csharp/releases/tag/v4.8.3-beta) | [eod_public-3.2.zip](https://github.com/imsweb/staging-client-csharp/releases/download/v4.8.3-beta/eod_public-3.2.zip) |
+| 3.2     | [4.8](https://github.com/imsweb/staging-client-csharp/releases/tag/v4.8.3.1) | [eod_public-3.2.zip](https://github.com/imsweb/staging-client-csharp/releases/download/v4.8.3.1/eod_public-3.2.zip) |
 | 3.1     | [4.5](https://github.com/imsweb/staging-client-csharp/releases/tag/v4.5-beta) | [eod_public-3.1.zip](https://github.com/imsweb/staging-client-csharp/releases/download/v4.5-beta/eod_public-3.1.zip) |
 | 3.0     | [3.6](https://github.com/imsweb/staging-client-csharp/releases/tag/v3.6-beta) | [eod_public-3.0.zip](https://github.com/imsweb/staging-client-csharp/releases/download/v3.6-beta/eod_public-3.0.zip) |
 | 2.1     | [3.5](https://github.com/imsweb/staging-client-csharp/releases/tag/v3.5-beta) | [eod_public-2.1.zip](https://github.com/imsweb/staging-client-csharp/releases/download/v3.5-beta/EOD_Public_21.zip)  |
