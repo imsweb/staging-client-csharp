@@ -8,6 +8,7 @@ using Newtonsoft.Json;
 using System.Runtime.Serialization;
 
 using TNMStagingCSharp.Src.Tools;
+using Newtonsoft.Json.Linq;
 
 
 namespace TNMStagingCSharp.Src.Staging.Entities.Impl
@@ -26,6 +27,8 @@ namespace TNMStagingCSharp.Src.Staging.Entities.Impl
         private String _naaccrXmlId;
         [JsonProperty("default", Order = 7)]
         private String _default;
+        [JsonProperty("default_table")]
+        private String _defaultTable;
         [JsonProperty("table", Order = 8)]
         private String _table;
         [JsonProperty("used_for_staging", Order = 9)]
@@ -76,6 +79,7 @@ namespace TNMStagingCSharp.Src.Staging.Entities.Impl
             setNaaccrItem(other.getNaaccrItem());
             setNaaccrXmlId(other.getNaaccrXmlId());
             setDefault(other.getDefault());
+            setDefaultTable(other.getDefaultTable());
             setTable(other.getTable());
             if (other.getMetadata() != null)
                 setMetadata(new List<StagingMetadata>(other._metadata));
@@ -150,6 +154,16 @@ namespace TNMStagingCSharp.Src.Staging.Entities.Impl
         {
             _default = aDefault;
             ComputeHashCode();
+        }
+
+        public String getDefaultTable()
+        {
+            return _defaultTable;
+        }
+
+        public void setDefaultTable(String defaultTable)
+        {
+            _defaultTable = defaultTable;
         }
 
         public String getTable()
@@ -227,6 +241,7 @@ namespace TNMStagingCSharp.Src.Staging.Entities.Impl
                           (_naaccrItem == that._naaccrItem) &&
                           (_naaccrXmlId == that._naaccrXmlId) &&
                           (_default == that._default) &&
+                          (_defaultTable == that._defaultTable) &&
                           (_table == that._table) &&
                           (_usedForStaging == that._usedForStaging) &&
                           (_unit == that._unit) &&
@@ -268,6 +283,7 @@ namespace TNMStagingCSharp.Src.Staging.Entities.Impl
             MyStringBuilder.Append(_naaccrItem);
             MyStringBuilder.Append(_naaccrXmlId);
             MyStringBuilder.Append(_default);
+            MyStringBuilder.Append(_defaultTable);
             MyStringBuilder.Append(_table);
             MyStringBuilder.Append(_usedForStaging);
             MyStringBuilder.Append(_unit);

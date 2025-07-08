@@ -20,7 +20,6 @@ namespace TNMStagingCSharp.Src.Staging
         public static readonly ReadOnlyCollection<String> CONTEXT_KEYS = new ReadOnlyCollection<String>(new List<String>
                 { CTX_ALGORITHM_VERSION, CTX_YEAR_CURRENT });
 
-
         private readonly DecisionEngineClass _engine;
         private readonly StagingDataProvider _provider;
 
@@ -182,7 +181,7 @@ namespace TNMStagingCSharp.Src.Staging
         // @param schemaId schema identifier
         // @param key input key
         // @param value value to check validity
-        // @return a boolean indicating whether the code exists for the the passed schema field
+        // @return a boolean indicating whether the code exists for the passed schema field
         public bool isCodeValid(String schemaId, String key, String value)
         {
             Dictionary<String, String> context = new Dictionary<String, String>(20, StringComparer.Ordinal);
@@ -206,7 +205,7 @@ namespace TNMStagingCSharp.Src.Staging
         // @param schemaId schema identifier
         // @param key input key
         // @param context Map of keys/values to validate against
-        // @return a boolean indicating whether the code exists for the the passed schema field
+        // @return a boolean indicating whether the code exists for the passed schema field
         public bool isContextValid(String schemaId, String key, Dictionary<String, String> context)
         {
             // first get the algorithm
@@ -352,7 +351,7 @@ namespace TNMStagingCSharp.Src.Staging
         // used in the inclusion and exclusion tables if any.  The inputs from each table path will only be included if it passes the inclusion/exclusion
         // criteria based on the context.
         // @param mapping a StagingMapping
-        // @param context a context of values used to to check mapping inclusion/exclusion
+        // @param context a context of values used to check mapping inclusion/exclusion
         // @param excludedInputs a list of input keys to not consider as inputs
         // @return a Set of unique input keys
         public HashSet<String> getInputs(IMapping mapping, Dictionary<String, String> context, HashSet<String> excludedInputs)
@@ -432,6 +431,20 @@ namespace TNMStagingCSharp.Src.Staging
             return inputs;
         }
 
+        // Calculates the default value for an Input using supplied context. This may be based on "default" or "default_table".
+        // @param schema Schema
+        // @param key Input key
+        // @param context a Map containing the context
+        // @return the default value for the input or blank if there is none
+        public String getInputDefault(Schema schema, String key, Dictionary<String, String> context)
+        {
+            IInput input = schema.getInputMap()[key];
+            if (input == null)
+                return "";
+
+            return _engine.getDefault(input, context, new Result(context));
+        }
+
         // Looks at a table path (and all jump tables within in) and returns a list of output keys that could be created.
         // @param path a StagingTablePath
         // @return a Set of unique output keys
@@ -453,7 +466,7 @@ namespace TNMStagingCSharp.Src.Staging
         // used in the inclusion and exclusion tables if any.  The outputs from each mapping will only be included if it passes the inclusion/exclusion
         // criteria based on the context.
         // @param mapping a StagingMapping
-        // @param context a context of values used to to check mapping inclusion/exclusion
+        // @param context a context of values used to check mapping inclusion/exclusion
         // @return a Set of unique output keys
         public HashSet<String> getOutputs(IMapping mapping, Dictionary<String, String> context)
         {
@@ -478,14 +491,14 @@ namespace TNMStagingCSharp.Src.Staging
         // outputs.  The outputs from each mapping will only be included if it passes the inclusion/exclusion criteria based on the context.  If the schema has StagingOutputs
         // defined, then the calulated output list is exactly the same as the schema output list.
         // @param schema a StagingSchema
-        // @param context a context of values used to to check mapping inclusion/exclusion
+        // @param context a context of values used to check mapping inclusion/exclusion
         // @return a Set of unique output keys
         public HashSet<String> getOutputs(Schema schema, Dictionary<String, String> context)
         {
             HashSet<String> outputs = new HashSet<String>();
 
             // if outputs are defined in the schema, then there is no reason to look any further into the mappings; the output defines exactly what keys will
-            // be returned and it doesn't matter what context is passed in that case
+            // be returned, and it doesn't matter what context is passed in that case
             if (schema.getOutputMap() != null)
             {
                 foreach (KeyValuePair<String, IOutput> entry in schema.getOutputMap())
@@ -625,7 +638,7 @@ namespace TNMStagingCSharp.Src.Staging
             return _provider.getGlossaryDefinition(term);
         }
 
-        // Return a list of glossary terms in the passed text
+        // Return a list of glossary terms in the supplied text
         // @param text text to match against
         // @return a list of glossary terms
         public List<GlossaryHit> getGlossaryMatches(String text)

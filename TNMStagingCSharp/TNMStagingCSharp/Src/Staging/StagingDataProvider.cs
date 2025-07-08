@@ -260,7 +260,7 @@ namespace TNMStagingCSharp.Src.Staging
             return valid;
         }
 
-        // Parse the string representation of an endpoint into a Endpoint object
+        // Parse the string representation of an endpoint into an Endpoint object
         // @param endpoint endpoint String
         // @return an Endpoint object
         public IEndpoint parseEndpoint(String endpoint)
@@ -313,7 +313,7 @@ namespace TNMStagingCSharp.Src.Staging
                     foreach (String range in ranges)
                     {
                         // Not sure if this is the best way to handle this, but I ran into a problem when I converted the CS data.  One of the tables had
-                        // a value of "N0(mol-)".  This fails since it considers it a range and we require our ranges to have the same size on both sides.
+                        // a value of "N0(mol-)".  This fails since it considers it a range, and we require our ranges to have the same size on both sides.
                         // The only thing I can think of is for cases like this, assume it is not a range and use the whole string as a non-range value.
                         // The problem is that if something is entered incorrectly and was supposed to be a range, we will not process it correctly.  We
                         // may need to revisit this issue later.
@@ -326,7 +326,7 @@ namespace TNMStagingCSharp.Src.Staging
                             // check if both sides of the range are numeric values; if so the length does not have to match
                             bool isNumericRange = isNumeric(low) && isNumeric(high);
 
-                            // if same length, a numeric range, or one of the parts is a context variable, use the low and high as range.  Otherwise consier
+                            // if same length, a numeric range, or one of the parts is a context variable, use the low and high as range; otherwise consider
                             // a single value (i.e. low = high)
                             if (low.Length == high.Length || isNumericRange || DecisionEngineFuncs.isReferenceVariable(low) || DecisionEngineFuncs.isReferenceVariable(high))
                                 convertedRanges.Add(getRange(low, high));
@@ -399,7 +399,7 @@ namespace TNMStagingCSharp.Src.Staging
         public abstract HashSet<String> getSchemaIds();
 
         // Return a set of all the table names
-        // @return a List of table identifier
+        // @return a Set of table identifier
         public abstract HashSet<String> getTableIds();
 
         // Return a set of supported glossary terms
@@ -534,7 +534,7 @@ namespace TNMStagingCSharp.Src.Staging
             String histology = lookup.getInput(StagingData.HISTOLOGY_KEY);
             bool hasDiscriminator = lookup.hasDiscriminator();
 
-            // site or histology must be supplied and they must be valid; I am assuming that all algorithms must have tables that validate
+            // site or histology must be supplied, and they must be valid; I am assuming that all algorithms must have tables that validate
             // both site and histology
             if ((site != null && !isValidSite(site)) || (histology != null && !isValidHistology(histology)))
                 return matchedSchemas;
@@ -628,12 +628,20 @@ namespace TNMStagingCSharp.Src.Staging
             if (sValue == null || sValue.Length >= minLength)
                 return sValue;
 
-            StringBuilder sb = new StringBuilder(minLength);
-            for (int i = sValue.Length; i < minLength; i++)
-                sb.Append(padChar);
-            sb.Append(sValue);
-
-            return sb.ToString();
+            //return String.valueOf(padChar).repeat(minLength - string.length()) + string;
+            int padLength = minLength - sValue.Length;
+            if (padLength > 0)
+            {
+                StringBuilder sb = new StringBuilder(minLength);
+                for (int i = 0; i < padLength; i++)
+                    sb.Append(padChar);
+                sb.Append(sValue);
+                return sb.ToString();
+            }
+            else
+            {
+                return sValue;
+            }
         }
     }
 }
