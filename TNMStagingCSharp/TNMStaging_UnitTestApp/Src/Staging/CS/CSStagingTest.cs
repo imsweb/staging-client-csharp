@@ -226,9 +226,9 @@ namespace TNMStaging_UnitTestApp.Src.Staging.CS
         [TestMethod]
         public void testFindTableRow()
         {
-            Assert.AreEqual(-1, _STAGING.findMatchingTableRow("size_apa", "size", null));
-            Assert.AreEqual(-1, _STAGING.findMatchingTableRow("size_apa", "size", "X"));
-            Assert.AreEqual(-1, _STAGING.findMatchingTableRow("size_apa", "size", "996"));
+            Assert.IsNull(_STAGING.findMatchingTableRow("size_apa", "size", null));
+            Assert.IsNull(_STAGING.findMatchingTableRow("size_apa", "size", "X"));
+            Assert.IsNull(_STAGING.findMatchingTableRow("size_apa", "size", "996"));
 
             Assert.AreEqual(0, _STAGING.findMatchingTableRow("size_apa", "size", "000"));
             Assert.AreEqual(1, _STAGING.findMatchingTableRow("size_apa", "size", "055"));

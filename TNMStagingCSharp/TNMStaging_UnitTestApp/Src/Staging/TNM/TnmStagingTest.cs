@@ -192,8 +192,8 @@ namespace TNMStaging_UnitTestApp.Src.Staging.TNM
         [TestMethod]
         public void testFindTableRow()
         {
-            Assert.AreEqual(-1, _STAGING.findMatchingTableRow("adrenal_gland_t_18187", "clin_t", "cZ"));
-            Assert.AreEqual(-1, _STAGING.findMatchingTableRow("adrenal_gland_t_18187", "clin_t", "c9"));
+            Assert.IsNull(_STAGING.findMatchingTableRow("adrenal_gland_t_18187", "clin_t", "cZ"));
+            Assert.IsNull(_STAGING.findMatchingTableRow("adrenal_gland_t_18187", "clin_t", "c9"));
 
             // null maps to blank
             Assert.AreEqual(7, _STAGING.findMatchingTableRow("adrenal_gland_t_18187", "clin_t", null));

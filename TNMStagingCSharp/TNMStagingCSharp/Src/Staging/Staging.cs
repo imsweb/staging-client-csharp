@@ -246,7 +246,7 @@ namespace TNMStagingCSharp.Src.Staging
         // @param key input key
         // @param value value
         // @return the index of the matching table row or null if no match was found
-        public int findMatchingTableRow(String tableId, String key, String value)
+        public int? findMatchingTableRow(String tableId, String key, String value)
         {
             Dictionary<String, String> context = new Dictionary<String, String>(1, StringComparer.Ordinal);
 
@@ -259,9 +259,9 @@ namespace TNMStagingCSharp.Src.Staging
         // @param tableId table identifier
         // @param context context of input key/values to use to match
         // @return the index of the matching table row or null if no match was found
-        public int findMatchingTableRow(String tableId, Dictionary<String, String> context)
+        public int? findMatchingTableRow(String tableId, Dictionary<String, String> context)
         {
-            int rowIndex = -1;
+            int? rowIndex = null;
 
             // add the context keys
             addContextKeys(context);
@@ -438,7 +438,11 @@ namespace TNMStagingCSharp.Src.Staging
         // @return the default value for the input or blank if there is none
         public String getInputDefault(Schema schema, String key, Dictionary<String, String> context)
         {
-            IInput input = schema.getInputMap()[key];
+            IInput input = null;
+            if (!schema.getInputMap().TryGetValue(key, out input))
+            {
+                input = null;
+            }
             if (input == null)
                 return "";
 

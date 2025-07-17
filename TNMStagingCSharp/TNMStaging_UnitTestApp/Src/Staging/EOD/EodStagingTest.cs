@@ -276,7 +276,7 @@ namespace TNMStaging_UnitTestApp.Src.Staging.EOD
         [TestMethod]
         public void testFindTableRow()
         {
-            Assert.AreEqual(-1, _STAGING.findMatchingTableRow("tumor_size_clinical_60979", "size_clin", "00X"));
+            Assert.IsNull(_STAGING.findMatchingTableRow("tumor_size_clinical_60979", "size_clin", "00X"));
 
             // null maps to blank
             Assert.AreEqual(0, _STAGING.findMatchingTableRow("tumor_size_clinical_60979", "size_clin", "000"));

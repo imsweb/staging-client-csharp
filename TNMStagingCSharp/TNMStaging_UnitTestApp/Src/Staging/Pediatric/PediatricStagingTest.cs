@@ -272,7 +272,7 @@ namespace TNMStaging_UnitTestApp.Src.Staging.Pediatric
 
             Assert.IsNotNull(_STAGING.getTable(tableId));
 
-            Assert.AreEqual(-1, _STAGING.findMatchingTableRow(tableId, colId, "XX"));
+            Assert.IsNull(_STAGING.findMatchingTableRow(tableId, colId, "XX"));
 
             // null maps to blank
             Assert.AreEqual(0, _STAGING.findMatchingTableRow(tableId, colId, "00"));

@@ -70,10 +70,10 @@ namespace TNMStagingCSharp.Src.Staging.Engine
         {
             List<IEndpoint> endpoints = null;
 
-            int index = findMatchingTableRow(table, context, keysToMatch);
+            int? index = findMatchingTableRow(table, context, keysToMatch);
 
-            if (index >= 0)
-                endpoints = table.getTableRows()[index].getEndpoints();
+            if (index != null)
+                endpoints = table.getTableRows()[(int)index].getEndpoints();
 
             return endpoints;
         }
@@ -85,7 +85,7 @@ namespace TNMStagingCSharp.Src.Staging.Engine
         // @param context a Map containing the context
         // @return the index of the matching table row or null if no match was found
         //========================================================================================================================
-        public static int findMatchingTableRow(ITable table, Dictionary<String, String> context)
+        public static int? findMatchingTableRow(ITable table, Dictionary<String, String> context)
         {
             return findMatchingTableRow(table, context, null);
         }
@@ -98,9 +98,9 @@ namespace TNMStagingCSharp.Src.Staging.Engine
         // @param keysToMatch if not null, only keys in this set will be matched against
         // @return the index of the matching table row or null if no match was found
         //========================================================================================================================
-        public static int findMatchingTableRow(ITable table, Dictionary<String, String> context, HashSet<String> keysToMatch)
+        public static int? findMatchingTableRow(ITable table, Dictionary<String, String> context, HashSet<String> keysToMatch)
         {
-            int rowIndex = -1;
+            int? rowIndex = null;
 
             if (context == null)
                 throw new System.InvalidOperationException(_CONTEXT_MISSING_MESSAGE);

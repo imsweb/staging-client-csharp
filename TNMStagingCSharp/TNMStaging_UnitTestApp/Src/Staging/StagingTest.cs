@@ -96,7 +96,7 @@ namespace TNMStaging_UnitTestApp.Src.Staging
             }
 
             Assert.IsNotNull(schemaId);
-            Assert.Equals("", _STAGING.getInputDefault(_STAGING.getSchema(schemaId), "i_do_not_exist", context));
+            Assert.AreEqual(string.Empty, _STAGING.getInputDefault(_STAGING.getSchema(schemaId), "i_do_not_exist", context));
 
             foreach (String id in _STAGING.getSchemaIds())
             {
@@ -107,7 +107,7 @@ namespace TNMStaging_UnitTestApp.Src.Staging
                         Assert.Fail("In " + getAlgorithm() + ", schema " + schema.getId() + " and input " + input.getKey() + " there is a default and default_table. That is not allowed.");
 
                     if (input.getDefault() != null)
-                        Assert.Equals(input.getDefault(), _STAGING.getInputDefault(schema, input.getKey(), context));
+                        Assert.AreEqual(input.getDefault(), _STAGING.getInputDefault(schema, input.getKey(), context));
                     else if (input.getDefaultTable() != null)
                         Assert.IsFalse(_STAGING.getInputDefault(schema, input.getKey(), context).Length == 0);
                     else
