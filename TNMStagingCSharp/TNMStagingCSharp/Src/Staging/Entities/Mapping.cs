@@ -37,7 +37,7 @@ namespace TNMStagingCSharp.Src.Staging.Entities
         // A list of initial key/value pairs which will be set at the start of the mapping
         // @return a Set of key/value pairs
         //========================================================================================================================
-        HashSet<IKeyValue> getInitialContext();
+        List<IKeyValue> getInitialContext();
 
         //========================================================================================================================
         // The list of table paths, in order, which will be processed

@@ -432,6 +432,8 @@ namespace TNMStagingCSharp.Src.Staging.Engine
                 IInput input = schema.getInputMap()[key];
                 if (input.getTable() != null)
                     getInvolvedTables(getProvider().getTable(input.getTable()), tables);
+                if (input.getDefaultTable() != null)
+                    getInvolvedTables(getProvider().getTable(input.getDefaultTable()), tables);
             }
             foreach (String key in schema.getOutputMap().Keys)
             {

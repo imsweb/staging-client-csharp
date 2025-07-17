@@ -105,12 +105,12 @@ namespace TNMStaging_UnitTestApp.Src.Staging.CS
             // test valid combinations that do not require a discriminator
             lookup = _STAGING.lookupSchema(new CsSchemaLookup("C629", "9231", ""));
             Assert.AreEqual(1, lookup.Count);
-            Assert.AreEqual("testis", lookup[0].getId());
-            Assert.AreEqual(122, lookup[0].getSchemaNum());
+            Assert.AreEqual("testis", lookup.First().getId());
+            Assert.AreEqual(122, lookup.First().getSchemaNum());
             lookup = _STAGING.lookupSchema(new CsSchemaLookup("C629", "9231", null));
             Assert.AreEqual(1, lookup.Count);
-            Assert.AreEqual("testis", lookup[0].getId());
-            Assert.AreEqual(122, lookup[0].getSchemaNum());
+            Assert.AreEqual("testis", lookup.First().getId());
+            Assert.AreEqual(122, lookup.First().getSchemaNum());
 
             // now test one that does do AJCC7
             lookup = _STAGING.lookupSchema(new CsSchemaLookup("C629", "9100", ""));
@@ -119,7 +119,7 @@ namespace TNMStaging_UnitTestApp.Src.Staging.CS
             // test value combinations that do not require a discriminator and are supplied 988
             lookup = _STAGING.lookupSchema(new CsSchemaLookup("C629", "9231", "988"));
             Assert.AreEqual(1, lookup.Count);
-            Assert.AreEqual("testis", lookup[0].getId());
+            Assert.AreEqual("testis", lookup.First().getId());
 
             // test valid combination that requires a discriminator but is not supplied one
             lookup = _STAGING.lookupSchema(new CsSchemaLookup("C111", "8200"));
@@ -144,8 +144,8 @@ namespace TNMStaging_UnitTestApp.Src.Staging.CS
                 Assert.IsTrue(hash1.SetEquals(hash2));
             }
 
-            Assert.AreEqual("nasopharynx", lookup[0].getId());
-            Assert.AreEqual(34, lookup[0].getSchemaNum());
+            Assert.AreEqual("nasopharynx", lookup.First().getId());
+            Assert.AreEqual(34, lookup.First().getSchemaNum());
 
             // test valid combination that requires a discriminator but is supplied a bad disciminator value
             lookup = _STAGING.lookupSchema(new CsSchemaLookup("C111", "8200", "999"));
@@ -154,8 +154,8 @@ namespace TNMStaging_UnitTestApp.Src.Staging.CS
             // test specific failure case:  Line #1995826 [C695,9701,100,lacrimal_gland] --> The schema selection should have found a schema, lacrimal_gland, but did not.
             lookup = _STAGING.lookupSchema(new CsSchemaLookup("C695", "9701", "100"));
             Assert.AreEqual(1, lookup.Count);
-            Assert.AreEqual("lacrimal_gland", lookup[0].getId());
-            Assert.AreEqual(138, lookup[0].getSchemaNum());
+            Assert.AreEqual("lacrimal_gland", lookup.First().getId());
+            Assert.AreEqual(138, lookup.First().getSchemaNum());
 
             // test searching on only site
             lookup = _STAGING.lookupSchema(new CsSchemaLookup("C401", null));
@@ -180,11 +180,11 @@ namespace TNMStaging_UnitTestApp.Src.Staging.CS
             // do the same lookup twice
             List<Schema> lookup = _STAGING.lookupSchema(new CsSchemaLookup("C629", "9231", ""));
             Assert.AreEqual(1, lookup.Count);
-            Assert.AreEqual("testis", lookup[0].getId());
+            Assert.AreEqual("testis", lookup.First().getId());
 
             lookup = _STAGING.lookupSchema(new CsSchemaLookup("C629", "9231", ""));
             Assert.AreEqual(1, lookup.Count);
-            Assert.AreEqual("testis", lookup[0].getId());
+            Assert.AreEqual("testis", lookup.First().getId());
 
             // now invalidate the cache
             getProvider().invalidateCache();
@@ -192,7 +192,7 @@ namespace TNMStaging_UnitTestApp.Src.Staging.CS
             // try the lookup again
             lookup = _STAGING.lookupSchema(new CsSchemaLookup("C629", "9231", ""));
             Assert.AreEqual(1, lookup.Count);
-            Assert.AreEqual("testis", lookup[0].getId());
+            Assert.AreEqual("testis", lookup.First().getId());
         }
 
 
@@ -379,7 +379,7 @@ namespace TNMStaging_UnitTestApp.Src.Staging.CS
 
             Assert.AreEqual(StagingData.Result.STAGED, data.getResult());
             Assert.AreEqual(4, data.getErrors().Count);
-            Error error = data.getErrors()[0];
+            Error error = data.getErrors().First();
             Assert.AreEqual("lymph_nodes_clinical_eval_v0205_ajcc7_xch", error.getTable());
             Assert.IsTrue(new List<string> { "ajcc7_n" }.SequenceEqual(error.getColumns()));
             Assert.AreEqual("Matching resulted in an error in table 'lymph_nodes_clinical_eval_v0205_ajcc7_xch' for column 'ajcc7_n' (000)", error.getMessage());
@@ -484,7 +484,7 @@ namespace TNMStaging_UnitTestApp.Src.Staging.CS
             Assert.AreEqual(StagingData.Result.STAGED, data.getResult());
             Assert.AreEqual("urethra", data.getSchemaId());
             Assert.AreEqual(1, data.getErrors().Count);
-            Assert.AreEqual(Error.Type.INVALID_REQUIRED_INPUT, data.getErrors()[0].getType());
+            Assert.AreEqual(Error.Type.INVALID_REQUIRED_INPUT, data.getErrors().First().getType());
 
             // test case with missing year_dx and valid version original
             data.setInput(CsInput.DX_YEAR, "");
@@ -672,7 +672,7 @@ namespace TNMStaging_UnitTestApp.Src.Staging.CS
             context[StagingData.HISTOLOGY_KEY] = "8120";
             context[StagingData.YEAR_DX_KEY] = "2004";
 
-            // for that context, neither AJCC6 or 7 should be calculated so "grade" and "ssf1" should not be list of inputs
+            // for that context, neither AJCC6 nor 7 should be calculated so "grade" and "ssf1" should not be list of inputs
             test1 = new HashSet<String>() {"site", "nodes_eval", "mets_eval", "ssf10", "cs_input_version_original", "ssf8", "extension", "extension_eval",
                     "ssf3", "hist", "nodes", "year_dx", "mets" };
             test2 = _STAGING.getInputs(_STAGING.getSchema("prostate"), context);

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 using TNMStagingCSharp.Src.Staging;
@@ -346,9 +347,9 @@ namespace TNMStaging_UnitTestApp.Src.Staging.Engine
             input["size"] = "014";
             List<IEndpoint> results = DecisionEngineFuncs.matchTable(matchTable, input);
             Assert.AreEqual(1, results.Count);
-            Assert.AreEqual(EndpointType.VALUE, results[0].getType());
-            Assert.AreEqual("medium_stuff", results[0].getValue());
-            Assert.AreEqual("size_result", results[0].getResultKey());
+            Assert.AreEqual(EndpointType.VALUE, results.First().getType());
+            Assert.AreEqual("medium_stuff", results.First().getValue());
+            Assert.AreEqual("size_result", results.First().getResultKey());
 
             input["size"] = "086";
             lst1 = new List<IEndpoint>() { new StagingEndpoint(EndpointType.ERROR, "Get that huge stuff out of here!", "size_result") };
@@ -509,14 +510,14 @@ namespace TNMStaging_UnitTestApp.Src.Staging.Engine
             input["a"] = "";
             endpoints = DecisionEngineFuncs.matchTable(tableMissing, input);
             Assert.AreEqual(1, endpoints.Count);
-            Assert.AreEqual(EndpointType.VALUE, endpoints[0].getType());
-            Assert.AreEqual("missing", endpoints[0].getValue());
+            Assert.AreEqual(EndpointType.VALUE, endpoints.First().getType());
+            Assert.AreEqual("missing", endpoints.First().getValue());
 
             input["a"] = "1";
             endpoints = DecisionEngineFuncs.matchTable(tableMissing, input);
             Assert.AreEqual(1, endpoints.Count);
-            Assert.AreEqual(EndpointType.VALUE, endpoints[0].getType());
-            Assert.AreEqual("all", endpoints[0].getValue());
+            Assert.AreEqual(EndpointType.VALUE, endpoints.First().getType());
+            Assert.AreEqual("all", endpoints.First().getValue());
         }
 
         [TestMethod]
@@ -594,15 +595,15 @@ namespace TNMStaging_UnitTestApp.Src.Staging.Engine
             input["b"] = "55";
             List<IEndpoint> endpoints = DecisionEngineFuncs.matchTable(tableSample, input);
             Assert.AreEqual(1, endpoints.Count);
-            Assert.AreEqual(EndpointType.VALUE, endpoints[0].getType());
-            Assert.AreEqual("LINE5", endpoints[0].getValue());
+            Assert.AreEqual(EndpointType.VALUE, endpoints.First().getType());
+            Assert.AreEqual("LINE5", endpoints.First().getValue());
 
             // then test with a random "a"
             input["a"] = "982";
             endpoints = DecisionEngineFuncs.matchTable(tableSample, input);
             Assert.AreEqual(1, endpoints.Count);
-            Assert.AreEqual(EndpointType.VALUE, endpoints[0].getType());
-            Assert.AreEqual("LINE5", endpoints[0].getValue());
+            Assert.AreEqual(EndpointType.VALUE, endpoints.First().getType());
+            Assert.AreEqual("LINE5", endpoints.First().getValue());
         }
 
         [TestMethod]
@@ -695,37 +696,37 @@ namespace TNMStaging_UnitTestApp.Src.Staging.Engine
             input["b"] = "3";
             List<IEndpoint> endpoints = DecisionEngineFuncs.matchTable(allValuesTable, input);
             Assert.AreEqual(1, endpoints.Count);
-            Assert.AreEqual(EndpointType.VALUE, endpoints[0].getType());
-            Assert.AreEqual("RESULT2", endpoints[0].getValue());
+            Assert.AreEqual(EndpointType.VALUE, endpoints.First().getType());
+            Assert.AreEqual("RESULT2", endpoints.First().getValue());
 
             input = new Dictionary<String, String>();
             input["a"] = "3";
             endpoints = DecisionEngineFuncs.matchTable(allValuesTable, input);
             Assert.AreEqual(1, endpoints.Count);
-            Assert.AreEqual(EndpointType.VALUE, endpoints[0].getType());
-            Assert.AreEqual("3A,ANY B", endpoints[0].getValue());
+            Assert.AreEqual(EndpointType.VALUE, endpoints.First().getType());
+            Assert.AreEqual("3A,ANY B", endpoints.First().getValue());
 
             input = new Dictionary<String, String>();
             input["a"] = "3";
             input["b"] = "9";
             endpoints = DecisionEngineFuncs.matchTable(allValuesTable, input);
             Assert.AreEqual(1, endpoints.Count);
-            Assert.AreEqual(EndpointType.VALUE, endpoints[0].getType());
-            Assert.AreEqual("3A,ANY B", endpoints[0].getValue());
+            Assert.AreEqual(EndpointType.VALUE, endpoints.First().getType());
+            Assert.AreEqual("3A,ANY B", endpoints.First().getValue());
 
             input = new Dictionary<String, String>();
             input["a"] = "6";
             input["b"] = "4";
             endpoints = DecisionEngineFuncs.matchTable(allValuesTable, input);
             Assert.AreEqual(1, endpoints.Count);
-            Assert.AreEqual(EndpointType.VALUE, endpoints[0].getType());
-            Assert.AreEqual("ANY A,4B", endpoints[0].getValue());
+            Assert.AreEqual(EndpointType.VALUE, endpoints.First().getType());
+            Assert.AreEqual("ANY A,4B", endpoints.First().getValue());
 
             input = new Dictionary<String, String>();
             Assert.AreEqual(1, endpoints.Count);
             endpoints = DecisionEngineFuncs.matchTable(allValuesTable, input);
-            Assert.AreEqual(EndpointType.VALUE, endpoints[0].getType());
-            Assert.AreEqual("CATCHALL", endpoints[0].getValue());
+            Assert.AreEqual(EndpointType.VALUE, endpoints.First().getType());
+            Assert.AreEqual("CATCHALL", endpoints.First().getValue());
         }
 
         [TestMethod]
@@ -837,9 +838,9 @@ namespace TNMStaging_UnitTestApp.Src.Staging.Engine
             Assert.IsTrue(result.hasErrors());
             Assert.AreEqual(3, result.getPath().Count);
             Assert.AreEqual(1, result.getErrors().Count);
-            Assert.AreEqual("Bad C value", result.getErrors()[0].getMessage());
-            Assert.IsNull(result.getErrors()[0].getKey());
-            Assert.AreEqual("table_jump_sample", result.getErrors()[0].getTable());
+            Assert.AreEqual("Bad C value", result.getErrors().First().getMessage());
+            Assert.IsNull(result.getErrors().First().getKey());
+            Assert.AreEqual("table_jump_sample", result.getErrors().First().getTable());
 
             // finally test that no match is found in the jump table
             input = new Dictionary<String, String>();
@@ -853,9 +854,9 @@ namespace TNMStaging_UnitTestApp.Src.Staging.Engine
             Assert.IsTrue(result.hasErrors());
             Assert.AreEqual(3, result.getPath().Count);
             Assert.AreEqual(1, result.getErrors().Count);
-            Assert.IsTrue(result.getErrors()[0].getMessage().StartsWith("Match not found"));
-            Assert.IsNull(result.getErrors()[0].getKey());
-            Assert.AreEqual("table_jump_sample", result.getErrors()[0].getTable());
+            Assert.IsTrue(result.getErrors().First().getMessage().StartsWith("Match not found"));
+            Assert.IsNull(result.getErrors().First().getKey());
+            Assert.AreEqual("table_jump_sample", result.getErrors().First().getTable());
         }
 
         [TestMethod]
@@ -870,10 +871,10 @@ namespace TNMStaging_UnitTestApp.Src.Staging.Engine
             Assert.IsTrue(result.hasErrors());
             Assert.AreEqual(1, result.getErrors().Count);
             Assert.AreEqual(2, result.getPath().Count);
-            Assert.AreEqual("999", result.getErrors()[0].getMessage());
-            Assert.IsNull(result.getErrors()[0].getKey());
-            Assert.AreEqual("table_sample_first", result.getErrors()[0].getTable());
-            CollectionAssert.AreEqual(new List<String> { "result" }, result.getErrors()[0].getColumns());
+            Assert.AreEqual("999", result.getErrors().First().getMessage());
+            Assert.IsNull(result.getErrors().First().getKey());
+            Assert.AreEqual("table_sample_first", result.getErrors().First().getTable());
+            CollectionAssert.AreEqual(new List<String> { "result" }, result.getErrors().First().getColumns());
 
             // test case with generated error message (i.e. the column is "ERROR:" without a message
             input["a"] = "8";
@@ -882,10 +883,10 @@ namespace TNMStaging_UnitTestApp.Src.Staging.Engine
             result = _ENGINE.process("starting_sample", input);
             Assert.AreEqual(1, result.getErrors().Count);
             Assert.AreEqual(2, result.getPath().Count);
-            Assert.AreEqual("Matching resulted in an error in table 'table_sample_first' for column 'result' (8,99)", result.getErrors()[0].getMessage());
-            Assert.IsNull(result.getErrors()[0].getKey());
-            Assert.AreEqual("table_sample_first", result.getErrors()[0].getTable());
-            CollectionAssert.AreEqual(new List<String> { "result" }, result.getErrors()[0].getColumns());
+            Assert.AreEqual("Matching resulted in an error in table 'table_sample_first' for column 'result' (8,99)", result.getErrors().First().getMessage());
+            Assert.IsNull(result.getErrors().First().getKey());
+            Assert.AreEqual("table_sample_first", result.getErrors().First().getTable());
+            CollectionAssert.AreEqual(new List<String> { "result" }, result.getErrors().First().getColumns());
         }
 
         [TestMethod]
@@ -1129,8 +1130,8 @@ namespace TNMStaging_UnitTestApp.Src.Staging.Engine
             Assert.IsTrue(result.hasErrors());
             Assert.AreEqual(1, result.getErrors().Count);
             Assert.AreEqual(1, result.getPath().Count);
-            Assert.AreEqual("table_recursion", result.getErrors()[0].getTable());
-            Assert.IsNull(result.getErrors()[0].getColumns());
+            Assert.AreEqual("table_recursion", result.getErrors().First().getTable());
+            Assert.IsNull(result.getErrors().First().getColumns());
         }
 
         [TestMethod]
@@ -1158,9 +1159,9 @@ namespace TNMStaging_UnitTestApp.Src.Staging.Engine
             Assert.AreEqual(Result.Type.STAGED, result.getType());
             Assert.IsTrue(result.hasErrors());
             Assert.AreEqual(1, result.getErrors().Count);
-            Assert.AreEqual("table_multiple_inputs", result.getErrors()[0].getTable());
-            CollectionAssert.AreEqual(new List<String> { "r2" }, result.getErrors()[0].getColumns());
-            Assert.AreEqual("2_LINE2", result.getErrors()[0].getMessage());
+            Assert.AreEqual("table_multiple_inputs", result.getErrors().First().getTable());
+            CollectionAssert.AreEqual(new List<String> { "r2" }, result.getErrors().First().getColumns());
+            Assert.AreEqual("2_LINE2", result.getErrors().First().getMessage());
             Assert.AreEqual(1, result.getPath().Count);
 
             Assert.AreEqual("1_LINE2", input["r1"]);
@@ -1175,10 +1176,10 @@ namespace TNMStaging_UnitTestApp.Src.Staging.Engine
 
             Assert.AreEqual(Result.Type.STAGED, result.getType());
             Assert.IsTrue(result.hasErrors());
-            Assert.IsTrue(result.getErrors()[0].getMessage().StartsWith("Match not found"));
-            Assert.IsNull(result.getErrors()[0].getKey());
-            Assert.AreEqual("table_jump_sample", result.getErrors()[0].getTable());
-            CollectionAssert.AreEqual(new List<String> { "result" }, result.getErrors()[0].getColumns());
+            Assert.IsTrue(result.getErrors().First().getMessage().StartsWith("Match not found"));
+            Assert.IsNull(result.getErrors().First().getKey());
+            Assert.AreEqual("table_jump_sample", result.getErrors().First().getTable());
+            CollectionAssert.AreEqual(new List<String> { "result" }, result.getErrors().First().getColumns());
 
             // test 1 JUMP and 2 VALUEs
             input.Clear();
@@ -1203,8 +1204,8 @@ namespace TNMStaging_UnitTestApp.Src.Staging.Engine
             Assert.AreEqual(Result.Type.STAGED, result.getType());
             Assert.IsTrue(result.hasErrors());
             Assert.AreEqual(3, result.getErrors().Count);
-            Assert.AreEqual("1_LINE4", result.getErrors()[0].getMessage());
-            Assert.IsNull(result.getErrors()[0].getKey());
+            Assert.AreEqual("1_LINE4", result.getErrors().First().getMessage());
+            Assert.IsNull(result.getErrors().First().getKey());
             Assert.AreEqual("2_LINE4", result.getErrors()[1].getMessage());
             Assert.IsNull(result.getErrors()[1].getKey());
             Assert.AreEqual("3_LINE4", result.getErrors()[2].getMessage());
@@ -1248,8 +1249,8 @@ namespace TNMStaging_UnitTestApp.Src.Staging.Engine
             Result result = engine.process("sample_outputs", input);
             Assert.IsTrue(result.hasErrors());
             Assert.AreEqual(1, result.getErrors().Count);
-            Assert.AreEqual("table_input", result.getErrors()[0].getTable());
-            CollectionAssert.AreEqual(new List<String> { "output1", "output2" }, result.getErrors()[0].getColumns());
+            Assert.AreEqual("table_input", result.getErrors().First().getTable());
+            CollectionAssert.AreEqual(new List<String> { "output1", "output2" }, result.getErrors().First().getColumns());
         }
 
         [TestMethod]
@@ -1477,7 +1478,7 @@ namespace TNMStaging_UnitTestApp.Src.Staging.Engine
             Assert.IsTrue(hash1.SetEquals(hash2));
 
             // modify the definition to create a bad default value for output1
-            schema.getOutputs()[0].setDefault("BAD");
+            schema.getOutputs().First().setDefault("BAD");
             provider.initSchema(schema);
             engine = new DecisionEngineClass(provider);
 
@@ -1487,9 +1488,9 @@ namespace TNMStaging_UnitTestApp.Src.Staging.Engine
 
             Assert.AreEqual(Result.Type.STAGED, result.getType());
             Assert.IsTrue(result.hasErrors());
-            Assert.AreEqual(Error.Type.INVALID_OUTPUT, result.getErrors()[0].getType());
-            Assert.AreEqual("table_output", result.getErrors()[0].getTable());
-            Assert.AreEqual("output1", result.getErrors()[0].getKey());
+            Assert.AreEqual(Error.Type.INVALID_OUTPUT, result.getErrors().First().getType());
+            Assert.AreEqual("table_output", result.getErrors().First().getTable());
+            Assert.AreEqual("output1", result.getErrors().First().getKey());
 
             // default value should be set
             Assert.AreEqual("BAD", input["output1"]);
@@ -1613,11 +1614,162 @@ namespace TNMStaging_UnitTestApp.Src.Staging.Engine
             DecisionEngineClass engine = new DecisionEngineClass(provider);
 
             HashSet<String> hash1 = new HashSet<String>() { "remapped1" };
-            HashSet<String> hash2 = engine.getInputs(schema.getMappings()[0].getTablePaths()[0]);
+            HashSet<String> hash2 = engine.getInputs(schema.getMappings().First().getTablePaths().First());
             Assert.IsTrue(hash1.SetEquals(hash2));
         }
 
+        [TestMethod]
+        public void testDefaultTable()
+        {
+            InMemoryDataProvider provider = new InMemoryDataProvider("default_table_testing", "1.0");
 
+            StagingTable table = new StagingTable("table_input1");
+            table.addColumnDefinition("input1", ColumnType.INPUT);
+            table.addColumnDefinition("description", ColumnType.DESCRIPTION);
+            table.addRawRow(new List<String>() { "000", "Alpha" });
+            table.addRawRow(new List<String>() { "001", "Beta" });
+            table.addRawRow(new List<String>() { "002", "Gamma" });
+            provider.addTable(table);
+
+            table = new StagingTable("table_input2");
+            table.addColumnDefinition("input2", ColumnType.INPUT);
+            table.addColumnDefinition("description", ColumnType.DESCRIPTION);
+            table.addRawRow(new List<String>() { "900", "Zeta" });
+            table.addRawRow(new List<String>() { "901", "Eta" });
+            table.addRawRow(new List<String>() { "902", "Theta" });
+            provider.addTable(table);
+
+            table = new StagingTable("table_input2_default");
+            table.addColumnDefinition("input1", ColumnType.INPUT);
+            table.addColumnDefinition("input2", ColumnType.ENDPOINT);
+            table.addRawRow(new List<String>() { "000", "VALUE:900" });
+            table.addRawRow(new List<String>() { "*", "VALUE:902" });
+            provider.addTable(table);
+
+            table = new StagingTable("table_mapping");
+            table.addColumnDefinition("input1", ColumnType.INPUT);
+            table.addColumnDefinition("input2", ColumnType.INPUT);
+            table.addColumnDefinition("output1", ColumnType.ENDPOINT);
+            table.addRawRow(new List<String>() { "000", "900", "VALUE:000-900" });
+            table.addRawRow(new List<String>() { "000", "*", "VALUE:000-*" });
+            table.addRawRow(new List<String>() { "001", "901", "VALUE:001-901" });
+            table.addRawRow(new List<String>() { "001", "*", "VALUE:001-*" });
+            table.addRawRow(new List<String>() { "002", "902", "VALUE:002-902" });
+            provider.addTable(table);
+
+            StagingSchema schema = new StagingSchema("test_default_table");
+            schema.setSchemaSelectionTable("table_selection");
+            schema.setOnInvalidInput(StagingInputErrorHandler.FAIL);
+            schema.addInput(new StagingSchemaInput("input1", "input1", "table_input1"));
+            StagingSchemaInput input2 = new StagingSchemaInput("input2", "input2", "table_input2");
+            input2.setDefaultTable("table_input2_default");
+            schema.addInput(input2);
+
+            schema.addOutput(new StagingSchemaOutput("output1"));
+
+            schema.addMapping(new StagingMapping("m1", new List<ITablePath>() { new StagingTablePath("table_mapping") }));
+
+            provider.addSchema(schema);
+
+            DecisionEngineClass engine = new DecisionEngineClass(provider);
+
+            // first, verify getInvolvedTables is working with default tables
+            HashSet<String> tables = engine.getInvolvedTables("test_default_table");
+            Assert.IsTrue(tables.Count == 4 && tables.Contains("table_input1") && tables.Contains("table_input2") && tables.Contains("table_input2_default") && tables.Contains("table_mapping"));
+
+            // test a case where the default_table make a successful lookup
+            Dictionary<String, String> context = new Dictionary<String, String>();
+            context["input1"] = "000";
+            Result result = engine.process("test_default_table", context);
+
+            Assert.AreEqual(Result.Type.STAGED, result.getType());
+            Assert.IsFalse(result.hasErrors());
+            Assert.AreEqual(1, result.getContext().Count);
+            Assert.AreEqual("000-900", result.getContext()["output1"]);
+
+            // check same case with getDefault method
+            context = new Dictionary<String, String>();
+            context["input1"] = "000";
+            Result result1 = new Result(context);
+            Assert.AreEqual("900", engine.getDefault(input2, context, result1));
+            Assert.IsFalse(result1.hasErrors());
+
+            // test a case where there was a fallthrough match in the default table
+            context = new Dictionary<String, String>();
+            context["input1"] = "002";
+            result = engine.process("test_default_table", context);
+
+            Assert.AreEqual(Result.Type.STAGED, result.getType());
+            Assert.IsFalse(result.hasErrors());
+            Assert.AreEqual(1, result.getContext().Count);
+            Assert.AreEqual("002-902", result.getContext()["output1"]);
+
+            // check same case with getDefault method
+            context = new Dictionary<String, String>();
+            context["input1"] = "002";
+            result1 = new Result(context);
+            Assert.AreEqual("902", engine.getDefault(input2, context, result1));
+            Assert.IsFalse(result1.hasErrors());
+
+            // test a case where the default_table did not exist
+            List<IInput> inputList = schema.getInputs();
+            foreach (IInput item in inputList)
+            {
+                if (item.getDefaultTable() != null)
+                {
+                    StagingSchemaInput input = (StagingSchemaInput)item;
+                    input.setDefaultTable("does_not_exist");
+                }
+            }
+
+            context = new Dictionary<String, String>();
+            context["input1"] = "000";
+            result = engine.process("test_default_table", context);
+            Assert.AreEqual(Result.Type.STAGED, result.getType());
+            Assert.AreEqual(1, result.getErrors().Count);
+            Assert.AreEqual("input2", result.getErrors().First().getKey());
+            Assert.AreEqual("Default table does not exist: does_not_exist", result.getErrors().First().getMessage());
+
+            // check same case with getDefault method
+            context = new Dictionary<String, String>();
+            context["input1"] = "000";
+            result1 = new Result(context);
+            Assert.AreEqual("", engine.getDefault(input2, context, result1));
+            Assert.AreEqual(1, result1.getErrors().Count);
+            Assert.AreEqual("input2", result1.getErrors().First().getKey());
+            Assert.AreEqual("Default table does not exist: does_not_exist", result1.getErrors().First().getMessage());
+
+            // test a case where the default table did not find a match
+            inputList = schema.getInputs();
+            foreach (IInput item in inputList)
+            {
+                if (item.getDefaultTable() != null)
+                {
+                    StagingSchemaInput input = (StagingSchemaInput)item;
+                    input.setDefaultTable("table_input2_default");
+                }
+            }
+
+            StagingTable thisTable = (StagingTable)provider.getTable("table_input2_default");
+            thisTable.setRawRows(new List<List<String>>());
+            provider.initTable(provider.getTable("table_input2_default"));
+            context = new Dictionary<String, String>();
+            context["input1"] = "001";
+            result = engine.process("test_default_table", context);
+            Assert.AreEqual(Result.Type.STAGED, result.getType());
+            Assert.AreEqual(1, result.getErrors().Count);
+            Assert.AreEqual("input2", result.getErrors().First().getKey());
+            Assert.AreEqual("Default table table_input2_default did not find a match", result.getErrors().First().getMessage());
+
+            // check same case with getDefault method
+            context = new Dictionary<String, String>();
+            context["input1"] = "001";
+            result1 = new Result(context);
+            Assert.AreEqual("", engine.getDefault(input2, context, result1));
+            Assert.AreEqual(1, result1.getErrors().Count);
+            Assert.AreEqual("input2", result.getErrors().First().getKey());
+            Assert.AreEqual("Default table table_input2_default did not find a match", result.getErrors().First().getMessage());
+        }
     }
 }
 

@@ -96,11 +96,11 @@ namespace TNMStaging_UnitTestApp.Src.Staging.TNM
             schemaLookup.setInput(TnmStagingData.SSF25_KEY, "");
             lookup = _STAGING.lookupSchema(schemaLookup);
             Assert.AreEqual(1, lookup.Count);
-            Assert.AreEqual("testis", lookup[0].getId());
+            Assert.AreEqual("testis", lookup.First().getId());
             schemaLookup.setInput(TnmStagingData.SSF25_KEY, null);
             lookup = _STAGING.lookupSchema(schemaLookup);
             Assert.AreEqual(1, lookup.Count);
-            Assert.AreEqual("testis", lookup[0].getId());
+            Assert.AreEqual("testis", lookup.First().getId());
 
             // now test one that does do AJCC7
             lookup = _STAGING.lookupSchema(new TnmSchemaLookup("C629", "9231"));
@@ -111,7 +111,7 @@ namespace TNMStaging_UnitTestApp.Src.Staging.TNM
             schemaLookup.setInput(TnmStagingData.SSF25_KEY, "988");
             lookup = _STAGING.lookupSchema(schemaLookup);
             Assert.AreEqual(1, lookup.Count);
-            Assert.AreEqual("testis", lookup[0].getId());
+            Assert.AreEqual("testis", lookup.First().getId());
 
             // test valid combination that requires a discriminator but is not supplied one
             lookup = _STAGING.lookupSchema(new TnmSchemaLookup("C111", "8200"));
@@ -137,7 +137,7 @@ namespace TNMStaging_UnitTestApp.Src.Staging.TNM
                 hash2 = schema.getSchemaDiscriminators();
                 Assert.IsTrue(hash1.SetEquals(hash2));
             }
-            Assert.AreEqual("nasopharynx", lookup[0].getId());
+            Assert.AreEqual("nasopharynx", lookup.First().getId());
 
             // test valid combination that requires a discriminator but is supplied a bad disciminator value
             schemaLookup = new TnmSchemaLookup("C111", "8200");
@@ -174,11 +174,11 @@ namespace TNMStaging_UnitTestApp.Src.Staging.TNM
             // do the same lookup twice
             List<Schema> lookup = _STAGING.lookupSchema(new TnmSchemaLookup("C629", "9231"));
             Assert.AreEqual(1, lookup.Count);
-            Assert.AreEqual("testis", lookup[0].getId());
+            Assert.AreEqual("testis", lookup.First().getId());
 
             lookup = _STAGING.lookupSchema(new TnmSchemaLookup("C629", "9231"));
             Assert.AreEqual(1, lookup.Count);
-            Assert.AreEqual("testis", lookup[0].getId());
+            Assert.AreEqual("testis", lookup.First().getId());
 
             // now invalidate the cache
             TnmDataProvider.getInstance(TnmVersion.LATEST).invalidateCache();
@@ -186,7 +186,7 @@ namespace TNMStaging_UnitTestApp.Src.Staging.TNM
             // try the lookup again
             lookup = _STAGING.lookupSchema(new TnmSchemaLookup("C629", "9231"));
             Assert.AreEqual(1, lookup.Count);
-            Assert.AreEqual("testis", lookup[0].getId());
+            Assert.AreEqual("testis", lookup.First().getId());
         }
 
         [TestMethod]
@@ -464,7 +464,7 @@ namespace TNMStaging_UnitTestApp.Src.Staging.TNM
             List<Schema> lookups = _STAGING.lookupSchema(lookup);
             Assert.AreEqual(1, lookups.Count);
 
-            Schema schema = _STAGING.getSchema(lookups[0].getId());
+            Schema schema = _STAGING.getSchema(lookups.First().getId());
             Assert.AreEqual("urethra", schema.getId());
 
             // build list of output keys
@@ -488,13 +488,13 @@ namespace TNMStaging_UnitTestApp.Src.Staging.TNM
             ITable table = _STAGING.getTable("path_n_daj");
 
             Assert.IsNotNull(table);
-            Assert.AreEqual("p0I-", table.getRawRows()[2][0]);
+            Assert.AreEqual("p0I-", table.getRawRows()[2].First());
 
             ITableRow tablerow = (table.getTableRows()[2] as ITableRow);
-            Assert.AreEqual("p0I-", tablerow.getColumnInput("path_n")[0].getLow());
+            Assert.AreEqual("p0I-", tablerow.getColumnInput("path_n").First().getLow());
 
             tablerow = (table.getTableRows()[2] as ITableRow);
-            Assert.AreEqual("p0I-", tablerow.getColumnInput("path_n")[0].getHigh());
+            Assert.AreEqual("p0I-", tablerow.getColumnInput("path_n").First().getHigh());
 
         }
 

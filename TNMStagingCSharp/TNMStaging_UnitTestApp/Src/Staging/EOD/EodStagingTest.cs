@@ -7,6 +7,7 @@ using TNMStagingCSharp.Src.Staging;
 using TNMStagingCSharp.Src.Staging.EOD;
 using TNMStagingCSharp.Src.Staging.Entities;
 using TNMStagingCSharp.Src.Staging.Entities.Impl;
+using System.Linq;
 
 namespace TNMStaging_UnitTestApp.Src.Staging.EOD
 {
@@ -102,11 +103,11 @@ namespace TNMStaging_UnitTestApp.Src.Staging.EOD
             schemaLookup.setInput(EodInput.DISCRIMINATOR_1.toString(), "");
             lookup = _STAGING.lookupSchema(schemaLookup);
             Assert.AreEqual(1, lookup.Count);
-            Assert.AreEqual("soft_tissue_rare", lookup[0].getId());
+            Assert.AreEqual("soft_tissue_rare", lookup.First().getId());
             schemaLookup.setInput(EodInput.DISCRIMINATOR_1.toString(), null);
             lookup = _STAGING.lookupSchema(schemaLookup);
             Assert.AreEqual(1, lookup.Count);
-            Assert.AreEqual("soft_tissue_rare", lookup[0].getId());
+            Assert.AreEqual("soft_tissue_rare", lookup.First().getId());
 
             // test valid combination that requires a discriminator but is not supplied one
             lookup = _STAGING.lookupSchema(new EodSchemaLookup("C111", "8200"));
@@ -167,7 +168,7 @@ namespace TNMStaging_UnitTestApp.Src.Staging.EOD
                 }
                 */
             }
-            Assert.AreEqual("nasopharynx", lookup[0].getId());
+            Assert.AreEqual("nasopharynx", lookup.First().getId());
 
             schemaLookup.setInput(EodInput.DISCRIMINATOR_1.toString(), "2");
             schemaLookup.setInput(EodInput.DISCRIMINATOR_2.toString(), "1");
@@ -179,7 +180,7 @@ namespace TNMStaging_UnitTestApp.Src.Staging.EOD
                 hash2 = schema.getSchemaDiscriminators();
                 Assert.IsTrue(hash1.SetEquals(hash2));
             }
-            Assert.AreEqual("oropharynx_p16_neg", lookup[0].getId());
+            Assert.AreEqual("oropharynx_p16_neg", lookup.First().getId());
 
             // test valid combination that requires a discriminator but is supplied a bad disciminator value
             schemaLookup = new EodSchemaLookup("C111", "8200");
@@ -216,7 +217,7 @@ namespace TNMStaging_UnitTestApp.Src.Staging.EOD
             schemaLookup.setInput(EodInput.SEX.toString(), "1");
             lookup = _STAGING.lookupSchema(schemaLookup);
             Assert.AreEqual(1, lookup.Count);
-            Assert.AreEqual("retroperitoneum", lookup[0].getId());
+            Assert.AreEqual("retroperitoneum", lookup.First().getId());
 
         }
 
@@ -257,11 +258,11 @@ namespace TNMStaging_UnitTestApp.Src.Staging.EOD
             // do the same lookup twice
             List<Schema> lookup = _STAGING.lookupSchema(new EodSchemaLookup("C629", "9231"));
             Assert.AreEqual(1, lookup.Count);
-            Assert.AreEqual("soft_tissue_rare", lookup[0].getId());
+            Assert.AreEqual("soft_tissue_rare", lookup.First().getId());
 
             lookup = _STAGING.lookupSchema(new EodSchemaLookup("C629", "9231"));
             Assert.AreEqual(1, lookup.Count);
-            Assert.AreEqual("soft_tissue_rare", lookup[0].getId());
+            Assert.AreEqual("soft_tissue_rare", lookup.First().getId());
 
             // now invalidate the cache
             EodDataProvider.getInstance(EodVersion.LATEST).invalidateCache();
@@ -269,7 +270,7 @@ namespace TNMStaging_UnitTestApp.Src.Staging.EOD
             // try the lookup again
             lookup = _STAGING.lookupSchema(new EodSchemaLookup("C629", "9231"));
             Assert.AreEqual(1, lookup.Count);
-            Assert.AreEqual("soft_tissue_rare", lookup[0].getId());
+            Assert.AreEqual("soft_tissue_rare", lookup.First().getId());
         }
 
         [TestMethod]
@@ -285,6 +286,14 @@ namespace TNMStaging_UnitTestApp.Src.Staging.EOD
             Assert.AreEqual(5, _STAGING.findMatchingTableRow("tumor_size_clinical_60979", "size_clin", "999"));
         }
 
+        [TestMethod]
+        public void testFindTableRowDecimal()
+        {
+            // only do float comparison of ranges if the low or high vaslues have a decimal
+            Assert.IsNull(_STAGING.findMatchingTableRow("age_at_diagnosis_validation_65093", "age_dx", "10.5"));
+
+            Assert.IsNotNull(_STAGING.findMatchingTableRow("age_at_diagnosis_validation_65093", "age_dx", "10"));
+        }
 
         [TestMethod]
         public void testStagePancreas()
@@ -492,7 +501,7 @@ namespace TNMStaging_UnitTestApp.Src.Staging.EOD
             List<Schema> lookups = _STAGING.lookupSchema(lookup);
             Assert.AreEqual(2, lookups.Count);
 
-            Schema schema = _STAGING.getSchema(lookups[0].getId());
+            Schema schema = _STAGING.getSchema(lookups.First().getId());
             Assert.AreEqual("urethra", schema.getId());
 
             // build list of output keys

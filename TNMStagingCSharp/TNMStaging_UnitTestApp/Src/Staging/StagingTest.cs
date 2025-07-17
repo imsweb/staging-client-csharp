@@ -83,6 +83,40 @@ namespace TNMStaging_UnitTestApp.Src.Staging
         }
 
         [TestMethod]
+        public void testInputDefault()
+        {
+            Dictionary<String, String> context = new Dictionary<String, String>();
+
+            // error conditions
+            String schemaId = null;
+            HashSet<string> schemas = _STAGING.getSchemaIds();
+            if (schemas.Count > 0)
+            {
+                schemaId = schemas.First();
+            }
+
+            Assert.IsNotNull(schemaId);
+            Assert.Equals("", _STAGING.getInputDefault(_STAGING.getSchema(schemaId), "i_do_not_exist", context));
+
+            foreach (String id in _STAGING.getSchemaIds())
+            {
+                Schema schema = _STAGING.getSchema(id);
+                foreach (IInput input in schema.getInputs())
+                {
+                    if (input.getDefault() != null && input.getDefaultTable() != null)
+                        Assert.Fail("In " + getAlgorithm() + ", schema " + schema.getId() + " and input " + input.getKey() + " there is a default and default_table. That is not allowed.");
+
+                    if (input.getDefault() != null)
+                        Assert.Equals(input.getDefault(), _STAGING.getInputDefault(schema, input.getKey(), context));
+                    else if (input.getDefaultTable() != null)
+                        Assert.IsFalse(_STAGING.getInputDefault(schema, input.getKey(), context).Length == 0);
+                    else
+                        Assert.IsTrue(_STAGING.getInputDefault(schema, input.getKey(), context).Length == 0);
+                }
+            }
+        }
+
+        [TestMethod]
         public void testValidSite()
         {
             Assert.IsFalse(_STAGING.isValidSite(null));
