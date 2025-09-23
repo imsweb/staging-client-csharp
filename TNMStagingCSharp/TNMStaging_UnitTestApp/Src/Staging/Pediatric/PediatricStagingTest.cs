@@ -37,7 +37,7 @@ namespace TNMStaging_UnitTestApp.Src.Staging.Pediatric
 
         public override string getVersion()
         {
-            return PediatricVersion.V1_2.getVersion();
+            return PediatricVersion.V1_3.getVersion();
         }
 
         public override StagingFileDataProvider getProvider()
@@ -256,7 +256,7 @@ namespace TNMStaging_UnitTestApp.Src.Staging.Pediatric
             Assert.AreEqual(schemaId, lookup.First().getId());
 
             // now invalidate the cache
-            PediatricDataProvider.getInstance(PediatricVersion.V1_2).invalidateCache();
+            PediatricDataProvider.getInstance(PediatricVersion.V1_3).invalidateCache();
 
             // try the lookup again
             lookup = _STAGING.lookupSchema(new PediatricSchemaLookup(site, hist));
