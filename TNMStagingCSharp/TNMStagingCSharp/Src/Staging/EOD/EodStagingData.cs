@@ -22,7 +22,7 @@ namespace TNMStagingCSharp.Src.Staging.EOD
         public static readonly EodInput PRIMARY_SITE = new EodInput("site");
         public static readonly EodInput HISTOLOGY = new EodInput("hist");
         public static readonly EodInput BEHAVIOR = new EodInput("behavior");
-        public static readonly EodInput SEX = new EodInput("sex");
+        public static readonly EodInput SEX = new EodInput("sex_at_birth");
         public static readonly EodInput AGE_AT_DX = new EodInput("age_dx");
         public static readonly EodInput DISCRIMINATOR_1 = new EodInput("discriminator_1");
         public static readonly EodInput DISCRIMINATOR_2 = new EodInput("discriminator_2");
