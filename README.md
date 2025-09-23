@@ -62,7 +62,7 @@ If a specific version is needed, the algorithm zip file can be downloaded and in
 
 | Version       | Release                                                                           | Algorithm ZIP                                                                                                        |
 |---------------|-----------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------|
-| 3.2 (revised) | [4.8.5](https://github.com/imsweb/staging-client-csharp/releases/tag/v4.8.5-beta) | [eod_public-3.2.zip](https://github.com/imsweb/staging-client-csharp/releases/download/v4.8.5/eod_public-3.2.zip)    |
+| 3.2 (revised) | [4.8.5](https://github.com/imsweb/staging-client-csharp/releases/tag/v4.8.5-beta) | [eod_public-3.2.zip](https://github.com/imsweb/staging-client-csharp/releases/download/v4.8.5-beta/eod_public-3.2.zip)    |
 | 3.2           | [4.8](https://github.com/imsweb/staging-client-csharp/releases/tag/v4.8.3.1)      | [eod_public-3.2.zip](https://github.com/imsweb/staging-client-csharp/releases/download/v4.8.3.1/eod_public-3.2.zip)  |
 | 3.1           | [4.5](https://github.com/imsweb/staging-client-csharp/releases/tag/v4.5-beta)     | [eod_public-3.1.zip](https://github.com/imsweb/staging-client-csharp/releases/download/v4.5-beta/eod_public-3.1.zip) |
 | 3.0           | [3.6](https://github.com/imsweb/staging-client-csharp/releases/tag/v3.6-beta)     | [eod_public-3.0.zip](https://github.com/imsweb/staging-client-csharp/releases/download/v3.6-beta/eod_public-3.0.zip) |
