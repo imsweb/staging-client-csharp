@@ -11,6 +11,7 @@ using TNMStagingCSharp.Src.Staging;
 using TNMStagingCSharp.Src.Staging.Pediatric;
 using TNMStagingCSharp.Src.Staging.Entities;
 using TNMStagingCSharp.Src.Staging.Entities.Impl;
+using System.Linq;
 
 namespace TNMStaging_UnitTestApp.Src.Staging.Pediatric
 {
@@ -36,7 +37,7 @@ namespace TNMStaging_UnitTestApp.Src.Staging.Pediatric
 
         public override string getVersion()
         {
-            return PediatricVersion.V1_2.getVersion();
+            return PediatricVersion.V1_3.getVersion();
         }
 
         public override StagingFileDataProvider getProvider()
@@ -162,7 +163,7 @@ namespace TNMStaging_UnitTestApp.Src.Staging.Pediatric
             PediatricSchemaLookup schemaLookup = new PediatricSchemaLookup("C220", "8970", "10", "3");
             lookup = _STAGING.lookupSchema(schemaLookup);
             Assert.AreEqual(1, lookup.Count);
-            Assert.AreEqual("hepatoblastoma", lookup[0].getId());
+            Assert.AreEqual("hepatoblastoma", lookup.First().getId());
 
             // test valid combination that requires a discriminator but is not supplied one
             lookup = _STAGING.lookupSchema(new PediatricSchemaLookup("C723", "9384"));
@@ -193,7 +194,7 @@ namespace TNMStaging_UnitTestApp.Src.Staging.Pediatric
                 hash2 = schema.getSchemaDiscriminators();
                 Assert.IsTrue(hash1.SetEquals(hash2));
             }
-            Assert.AreEqual("astrocytoma", lookup[0].getId());
+            Assert.AreEqual("astrocytoma", lookup.First().getId());
 
             // test valid combination that requires a discriminator but is supplied a bad disciminator value
             schemaLookup = new PediatricSchemaLookup("C723", "9384");
@@ -248,19 +249,19 @@ namespace TNMStaging_UnitTestApp.Src.Staging.Pediatric
             // do the same lookup twice
             List<Schema> lookup = _STAGING.lookupSchema(new PediatricSchemaLookup(site, hist));
             Assert.AreEqual(1, lookup.Count);
-            Assert.AreEqual(schemaId, lookup[0].getId());
+            Assert.AreEqual(schemaId, lookup.First().getId());
 
             lookup = _STAGING.lookupSchema(new PediatricSchemaLookup(site, hist));
             Assert.AreEqual(1, lookup.Count);
-            Assert.AreEqual(schemaId, lookup[0].getId());
+            Assert.AreEqual(schemaId, lookup.First().getId());
 
             // now invalidate the cache
-            PediatricDataProvider.getInstance(PediatricVersion.V1_2).invalidateCache();
+            PediatricDataProvider.getInstance(PediatricVersion.V1_3).invalidateCache();
 
             // try the lookup again
             lookup = _STAGING.lookupSchema(new PediatricSchemaLookup(site, hist));
             Assert.AreEqual(1, lookup.Count);
-            Assert.AreEqual(schemaId, lookup[0].getId());
+            Assert.AreEqual(schemaId, lookup.First().getId());
         }
 
         [TestMethod]
@@ -271,7 +272,7 @@ namespace TNMStaging_UnitTestApp.Src.Staging.Pediatric
 
             Assert.IsNotNull(_STAGING.getTable(tableId));
 
-            Assert.AreEqual(-1, _STAGING.findMatchingTableRow(tableId, colId, "XX"));
+            Assert.IsNull(_STAGING.findMatchingTableRow(tableId, colId, "XX"));
 
             // null maps to blank
             Assert.AreEqual(0, _STAGING.findMatchingTableRow(tableId, colId, "00"));

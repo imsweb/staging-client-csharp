@@ -16,9 +16,10 @@ namespace TNMStagingCSharp.Src.Staging.Entities
         public static readonly String YEAR_DX_KEY = "year_dx";
 
         // set of keys that are standard for all schema lookups; any other keys are considered a discriminator
-        public static readonly ReadOnlyCollection<String> STANDARD_LOOKUP_KEYS = new ReadOnlyCollection<String>(new List<String>
-                { PRIMARY_SITE_KEY, HISTOLOGY_KEY });
+        //public static readonly ReadOnlyCollection<String> STANDARD_LOOKUP_KEYS = new ReadOnlyCollection<String>(new List<String>
+        //        { PRIMARY_SITE_KEY, HISTOLOGY_KEY });
 
+        public static readonly HashSet<String> STANDARD_LOOKUP_KEYS = new HashSet<string> { PRIMARY_SITE_KEY, HISTOLOGY_KEY };
 
         [JsonProperty("result", Order = 1)]
         private Result _result;

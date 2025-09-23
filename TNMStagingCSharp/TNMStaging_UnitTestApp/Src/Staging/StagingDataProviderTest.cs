@@ -76,13 +76,13 @@ namespace TNMStaging_UnitTestApp.Src.Staging
 
             List<Range> ranges = provider.splitValues(",1,2,3,4");
             Assert.AreEqual(5, ranges.Count);
-            Assert.AreEqual("", ranges[0].getLow());
-            Assert.AreEqual("", ranges[0].getHigh());
+            Assert.AreEqual("", ranges.First().getLow());
+            Assert.AreEqual("", ranges.First().getHigh());
 
             ranges = provider.splitValues("     ,1,2,3,4");
             Assert.AreEqual(5, ranges.Count);
-            Assert.AreEqual("", ranges[0].getLow());
-            Assert.AreEqual("", ranges[0].getHigh());
+            Assert.AreEqual("", ranges.First().getLow());
+            Assert.AreEqual("", ranges.First().getHigh());
 
             ranges = provider.splitValues("1,2,3,4,");
             Assert.AreEqual(5, ranges.Count);
@@ -96,8 +96,8 @@ namespace TNMStaging_UnitTestApp.Src.Staging
 
             ranges = provider.splitValues("1,11,111-222");
             Assert.AreEqual(3, ranges.Count);
-            Assert.AreEqual("1", ranges[0].getLow());
-            Assert.AreEqual("1", ranges[0].getHigh());
+            Assert.AreEqual("1", ranges.First().getLow());
+            Assert.AreEqual("1", ranges.First().getHigh());
             Assert.AreEqual("11", ranges[1].getLow());
             Assert.AreEqual("11", ranges[1].getHigh());
             Assert.AreEqual("111", ranges[2].getLow());
@@ -105,8 +105,8 @@ namespace TNMStaging_UnitTestApp.Src.Staging
 
             ranges = provider.splitValues("88,90-95,99");
             Assert.AreEqual(3, ranges.Count);
-            Assert.AreEqual("88", ranges[0].getLow());
-            Assert.AreEqual("88", ranges[0].getHigh());
+            Assert.AreEqual("88", ranges.First().getLow());
+            Assert.AreEqual("88", ranges.First().getHigh());
             Assert.AreEqual("90", ranges[1].getLow());
             Assert.AreEqual("95", ranges[1].getHigh());
             Assert.AreEqual("99", ranges[2].getLow());
@@ -114,24 +114,24 @@ namespace TNMStaging_UnitTestApp.Src.Staging
 
             ranges = provider.splitValues("p0I-");
             Assert.AreEqual(1, ranges.Count);
-            Assert.AreEqual("p0I-", ranges[0].getLow());
-            Assert.AreEqual("p0I-", ranges[0].getHigh());
+            Assert.AreEqual("p0I-", ranges.First().getLow());
+            Assert.AreEqual("p0I-", ranges.First().getHigh());
 
             ranges = provider.splitValues("N0(mol-)");
             Assert.AreEqual(1, ranges.Count);
-            Assert.AreEqual("N0(mol-)", ranges[0].getLow());
-            Assert.AreEqual("N0(mol-)", ranges[0].getHigh());
+            Assert.AreEqual("N0(mol-)", ranges.First().getLow());
+            Assert.AreEqual("N0(mol-)", ranges.First().getHigh());
 
             // test numeric ranges
             ranges = provider.splitValues("1-21");
             Assert.AreEqual(1, ranges.Count);
-            Assert.AreEqual("1", ranges[0].getLow());
-            Assert.AreEqual("21", ranges[0].getHigh());
+            Assert.AreEqual("1", ranges.First().getLow());
+            Assert.AreEqual("21", ranges.First().getHigh());
 
             ranges = provider.splitValues("21-111");
             Assert.AreEqual(1, ranges.Count);
-            Assert.AreEqual("21", ranges[0].getLow());
-            Assert.AreEqual("111", ranges[0].getHigh());
+            Assert.AreEqual("21", ranges.First().getLow());
+            Assert.AreEqual("111", ranges.First().getHigh());
         }
 
         [TestMethod]

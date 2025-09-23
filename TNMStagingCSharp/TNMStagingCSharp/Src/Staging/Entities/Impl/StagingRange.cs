@@ -78,7 +78,7 @@ namespace TNMStagingCSharp.Src.Staging.Entities.Impl
             if (bHighIsRefContextValue)
                 high = DecisionEngineFuncs.translateValue(_high, context);
 
-            // if input, low and high values represent decimal numbers then do a float comparison
+            // if input, low and high values represent numbers then do a float comparison
             if (!low.Equals(high))
             {
                 float fConverted, fLow, fHigh;
@@ -89,6 +89,10 @@ namespace TNMStagingCSharp.Src.Staging.Entities.Impl
                 if ((bLowConv) && (bHighConv))
                 {
                     if (!bValueConv) return false;
+
+                    // if the numeric range is not using decimals then don't allow the value to match with a decimal
+                    if (!(low.Contains(".") || high.Contains(".")) && value.Contains("."))
+                        return false;
 
                     return (fConverted >= fLow) && (fConverted <= fHigh);
                 }

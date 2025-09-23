@@ -22,7 +22,7 @@ namespace TNMStagingCSharp.Src.Staging.EOD
         public static readonly EodInput PRIMARY_SITE = new EodInput("site");
         public static readonly EodInput HISTOLOGY = new EodInput("hist");
         public static readonly EodInput BEHAVIOR = new EodInput("behavior");
-        public static readonly EodInput SEX = new EodInput("sex");
+        public static readonly EodInput SEX = new EodInput("sex_at_birth");
         public static readonly EodInput AGE_AT_DX = new EodInput("age_dx");
         public static readonly EodInput DISCRIMINATOR_1 = new EodInput("discriminator_1");
         public static readonly EodInput DISCRIMINATOR_2 = new EodInput("discriminator_2");
@@ -129,29 +129,20 @@ namespace TNMStagingCSharp.Src.Staging.EOD
     public class EodOutput
     {
         public static readonly EodOutput NAACCR_SCHEMA_ID = new EodOutput("naaccr_schema_id");
-        public static readonly EodOutput AJCC_ID = new EodOutput("ajcc_id");
-        public static readonly EodOutput AJCC_VERSION_NUMBER = new EodOutput("ajcc_version_number");
         public static readonly EodOutput DERIVED_VERSION = new EodOutput("derived_version");
-        public static readonly EodOutput EOD_2018_T = new EodOutput("eod_2018_t");
-        public static readonly EodOutput EOD_2018_N = new EodOutput("eod_2018_n");
-        public static readonly EodOutput EOD_2018_M = new EodOutput("eod_2018_m");
-        public static readonly EodOutput EOD_2018_STAGE_GROUP = new EodOutput("eod_2018_stage_group");
         public static readonly EodOutput SS_2018_DERIVED = new EodOutput("ss2018_derived");
         public static readonly EodOutput DERIVED_RAI_STAGE = new EodOutput("derived_rai_stage");
+        public static readonly EodOutput DERIVED_SUMMARY_GRADE = new EodOutput("derived_summary_grade");
 
         public static IEnumerable<EodOutput> Values
         {
             get
             {
                 yield return NAACCR_SCHEMA_ID;
-                yield return AJCC_ID;
-                yield return AJCC_VERSION_NUMBER;
                 yield return DERIVED_VERSION;
-                yield return EOD_2018_T;
-                yield return EOD_2018_N;
-                yield return EOD_2018_M;
-                yield return EOD_2018_STAGE_GROUP;
                 yield return SS_2018_DERIVED;
+                yield return DERIVED_RAI_STAGE;
+                yield return DERIVED_SUMMARY_GRADE;
             }
         }
 

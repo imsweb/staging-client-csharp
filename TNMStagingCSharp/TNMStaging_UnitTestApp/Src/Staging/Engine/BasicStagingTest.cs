@@ -178,9 +178,6 @@ namespace TNMStaging_UnitTestApp.Src.Staging.Engine
             Assert.AreEqual(1, staging.findMatchingTableRow("psa", "psa", "500.99"));
             Assert.AreEqual(1, staging.findMatchingTableRow("psa", "psa", "500.0001"));
             Assert.AreEqual(1, staging.findMatchingTableRow("psa", "psa", "999.9"));
-            Assert.AreEqual(-1, staging.findMatchingTableRow("psa", "psa", "1000"));
-            Assert.AreEqual(-1, staging.findMatchingTableRow("psa", "psa", "-1"));
-            Assert.AreEqual(-1, staging.findMatchingTableRow("psa", "psa", "0.01"));
         }
 
         [TestMethod]

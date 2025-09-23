@@ -3,10 +3,13 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
+using System.Net;
 using System.Text;
 using System.Text.RegularExpressions;
 
 using TNMStagingCSharp.Src.Staging.Entities;
+using static TNMStagingCSharp.Src.Staging.Entities.Error;
 
 namespace TNMStagingCSharp.Src.Staging.Engine
 {
@@ -67,10 +70,10 @@ namespace TNMStagingCSharp.Src.Staging.Engine
         {
             List<IEndpoint> endpoints = null;
 
-            int index = findMatchingTableRow(table, context, keysToMatch);
+            int? index = findMatchingTableRow(table, context, keysToMatch);
 
-            if (index >= 0)
-                endpoints = table.getTableRows()[index].getEndpoints();
+            if (index != null)
+                endpoints = table.getTableRows()[(int)index].getEndpoints();
 
             return endpoints;
         }
@@ -82,7 +85,7 @@ namespace TNMStagingCSharp.Src.Staging.Engine
         // @param context a Map containing the context
         // @return the index of the matching table row or null if no match was found
         //========================================================================================================================
-        public static int findMatchingTableRow(ITable table, Dictionary<String, String> context)
+        public static int? findMatchingTableRow(ITable table, Dictionary<String, String> context)
         {
             return findMatchingTableRow(table, context, null);
         }
@@ -95,9 +98,9 @@ namespace TNMStagingCSharp.Src.Staging.Engine
         // @param keysToMatch if not null, only keys in this set will be matched against
         // @return the index of the matching table row or null if no match was found
         //========================================================================================================================
-        public static int findMatchingTableRow(ITable table, Dictionary<String, String> context, HashSet<String> keysToMatch)
+        public static int? findMatchingTableRow(ITable table, Dictionary<String, String> context, HashSet<String> keysToMatch)
         {
-            int rowIndex = -1;
+            int? rowIndex = null;
 
             if (context == null)
                 throw new System.InvalidOperationException(_CONTEXT_MISSING_MESSAGE);
@@ -429,6 +432,8 @@ namespace TNMStagingCSharp.Src.Staging.Engine
                 IInput input = schema.getInputMap()[key];
                 if (input.getTable() != null)
                     getInvolvedTables(getProvider().getTable(input.getTable()), tables);
+                if (input.getDefaultTable() != null)
+                    getInvolvedTables(getProvider().getTable(input.getDefaultTable()), tables);
             }
             foreach (String key in schema.getOutputMap().Keys)
             {
@@ -705,6 +710,70 @@ namespace TNMStagingCSharp.Src.Staging.Engine
             return outputs;
         }
 
+        //========================================================================================================================
+        // Calculates the default value for an Input using supplied context
+        // @param input Input definition
+        // @param context a Map containing the context
+        // @param result a Result object to store errors
+        // @return the default value for the input or blank if there is none
+        //========================================================================================================================
+        public String getDefault(IInput input, Dictionary<String, String> context, Result result)
+        {
+            String value = "";
+
+            if (input.getDefault() != null)
+            {
+                value = DecisionEngineFuncs.translateValue(input.getDefault(), context);
+            }
+            else if (input.getDefaultTable() != null)
+            {
+                ITable defaultTable = getProvider().getTable(input.getDefaultTable());
+                if (defaultTable == null)
+                {
+                    result.addError(new ErrorBuilder(Error.Type.UNKNOWN_TABLE).message("Default table does not exist: " + input.getDefaultTable()).key(input.getKey()).build());
+                    return value;
+                }
+
+                // look up default value from table
+                IEnumerable<IEndpoint> endpoints = DecisionEngineFuncs.matchTable(defaultTable, context);
+                if (endpoints != null)
+                {
+                    value = null;
+                    foreach (IEndpoint end in endpoints)
+                    {
+                        if (value == null)
+                        {
+                            if (end.getType().Equals(EndpointType.VALUE) &&
+                                end.getResultKey().Equals(input.getKey()))
+                            {
+                                value = DecisionEngineFuncs.translateValue(end.getValue(), context);
+                            }
+                        }
+                    }
+                    /*
+                    value = endpoints.stream()
+                    .filter(endpoint->EndpointType.VALUE.equals(endpoint.getType()))
+                    .filter(endpoint->endpoint.getResultKey().equals(input.getKey()))
+                    .map(endpoint->translateValue(endpoint.getValue(), context))
+                            .findFirst()
+                            .orElse(null);
+                    */
+                }
+
+                // if no match found, report the error
+                if (endpoints == null || value == null)
+                {
+                    result.addError(new ErrorBuilder(Error.Type.MATCH_NOT_FOUND)
+                            .message("Default table " + input.getDefaultTable() + " did not find a match")
+                            .key(input.getKey())
+                            .build());
+                    return "";
+                }
+            }
+
+            return value;
+        }
+
 
         //========================================================================================================================
         // Using the supplied context, process an schema.The results will be added to the context.
@@ -760,14 +829,21 @@ namespace TNMStagingCSharp.Src.Staging.Engine
 
 
                 // if value not supplied, use the default and set it back into the context; if not supplied and no default, set the input the blank
+                /*
                 if (value == null)
                 {
                     value = (input.getDefault() != null ? DecisionEngineFuncs.translateValue(input.getDefault(), context) : "");
                     context[input.getKey()] = value;
                 }
+                */
+                // if value not supplied, use the default or defaultTable and set it back into the context; if not supplied and no default, set the input the blank
+                if (value == null)
+                {
+                    context[input.getKey()] = getDefault(input, context, result);
+                }
 
-                // validate value against associated table, if supplied; if a value is not supplied, or blank, there is no need to validate it against the table
-                if (value.Length > 0 && input.getTable() != null)
+                // validate value against associated table if supplied; if a value is not supplied, or blank, there is no need to validate it against the table
+                if (value != null && value.Length > 0 && input.getTable() != null)
                 {
                     ITable lookup = getProvider().getTable(input.getTable());
                     if (lookup == null)

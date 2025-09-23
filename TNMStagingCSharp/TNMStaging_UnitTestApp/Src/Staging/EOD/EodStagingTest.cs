@@ -7,6 +7,7 @@ using TNMStagingCSharp.Src.Staging;
 using TNMStagingCSharp.Src.Staging.EOD;
 using TNMStagingCSharp.Src.Staging.Entities;
 using TNMStagingCSharp.Src.Staging.Entities.Impl;
+using System.Linq;
 
 namespace TNMStaging_UnitTestApp.Src.Staging.EOD
 {
@@ -32,7 +33,7 @@ namespace TNMStaging_UnitTestApp.Src.Staging.EOD
 
         public override string getVersion()
         {
-            return EodVersion.V3_2.getVersion();
+            return EodVersion.V3_3.getVersion();
         }
 
         public override StagingFileDataProvider getProvider()
@@ -58,7 +59,7 @@ namespace TNMStaging_UnitTestApp.Src.Staging.EOD
         [TestMethod]
         public void testBasicInitialization()
         {
-            Assert.AreEqual(_STAGING.getSchemaIds().Count, 139);
+            Assert.AreEqual(_STAGING.getSchemaIds().Count, 141);
             Assert.IsTrue(_STAGING.getTableIds().Count > 0);
 
             Assert.IsNotNull(_STAGING.getSchema("urethra"));
@@ -82,7 +83,7 @@ namespace TNMStaging_UnitTestApp.Src.Staging.EOD
             HashSet<String> hash2 = _STAGING.getSchema("nasopharynx").getSchemaDiscriminators();
             Assert.IsTrue(hash1.SetEquals(hash2));
 
-            hash1 = new HashSet<String>() { "discriminator_1", "discriminator_2" };
+            hash1 = new HashSet<String>() { "discriminator_1", "discriminator_2", "year_dx" };
             hash2 = _STAGING.getSchema("oropharynx_p16_neg").getSchemaDiscriminators();
             Assert.IsTrue(hash1.SetEquals(hash2));
         }
@@ -102,11 +103,11 @@ namespace TNMStaging_UnitTestApp.Src.Staging.EOD
             schemaLookup.setInput(EodInput.DISCRIMINATOR_1.toString(), "");
             lookup = _STAGING.lookupSchema(schemaLookup);
             Assert.AreEqual(1, lookup.Count);
-            Assert.AreEqual("soft_tissue_rare", lookup[0].getId());
+            Assert.AreEqual("soft_tissue_rare", lookup.First().getId());
             schemaLookup.setInput(EodInput.DISCRIMINATOR_1.toString(), null);
             lookup = _STAGING.lookupSchema(schemaLookup);
             Assert.AreEqual(1, lookup.Count);
-            Assert.AreEqual("soft_tissue_rare", lookup[0].getId());
+            Assert.AreEqual("soft_tissue_rare", lookup.First().getId());
 
             // test valid combination that requires a discriminator but is not supplied one
             lookup = _STAGING.lookupSchema(new EodSchemaLookup("C111", "8200"));
@@ -167,7 +168,7 @@ namespace TNMStaging_UnitTestApp.Src.Staging.EOD
                 }
                 */
             }
-            Assert.AreEqual("nasopharynx", lookup[0].getId());
+            Assert.AreEqual("nasopharynx", lookup.First().getId());
 
             schemaLookup.setInput(EodInput.DISCRIMINATOR_1.toString(), "2");
             schemaLookup.setInput(EodInput.DISCRIMINATOR_2.toString(), "1");
@@ -175,15 +176,15 @@ namespace TNMStaging_UnitTestApp.Src.Staging.EOD
             Assert.AreEqual(1, lookup.Count);
             foreach (Schema schema in lookup)
             {
-                hash1 = new HashSet<String>() { "discriminator_1", "discriminator_2" };
+                hash1 = new HashSet<String>() { "year_dx", "discriminator_1", "discriminator_2" };
                 hash2 = schema.getSchemaDiscriminators();
                 Assert.IsTrue(hash1.SetEquals(hash2));
             }
-            Assert.AreEqual("oropharynx_p16_neg", lookup[0].getId());
+            Assert.AreEqual("oropharynx_p16_neg", lookup.First().getId());
 
             // test valid combination that requires a discriminator but is supplied a bad disciminator value
             schemaLookup = new EodSchemaLookup("C111", "8200");
-            schemaLookup.setInput(EodInput.DISCRIMINATOR_1.toString(), "X");
+            schemaLookup.setInput(EodInput.YEAR_DX.toString(), "X");
             lookup = _STAGING.lookupSchema(schemaLookup);
             Assert.AreEqual(0, lookup.Count);
 
@@ -216,7 +217,7 @@ namespace TNMStaging_UnitTestApp.Src.Staging.EOD
             schemaLookup.setInput(EodInput.SEX.toString(), "1");
             lookup = _STAGING.lookupSchema(schemaLookup);
             Assert.AreEqual(1, lookup.Count);
-            Assert.AreEqual("retroperitoneum", lookup[0].getId());
+            Assert.AreEqual("retroperitoneum", lookup.First().getId());
 
         }
 
@@ -243,7 +244,7 @@ namespace TNMStaging_UnitTestApp.Src.Staging.EOD
 
             HashSet<String> test1 = new HashSet<String>();
             test1.Add("year_dx");
-            test1.Add("sex");
+            test1.Add("sex_at_birth");
             test1.Add("behavior");
             test1.Add("discriminator_1");
             test1.Add("discriminator_2");
@@ -257,11 +258,11 @@ namespace TNMStaging_UnitTestApp.Src.Staging.EOD
             // do the same lookup twice
             List<Schema> lookup = _STAGING.lookupSchema(new EodSchemaLookup("C629", "9231"));
             Assert.AreEqual(1, lookup.Count);
-            Assert.AreEqual("soft_tissue_rare", lookup[0].getId());
+            Assert.AreEqual("soft_tissue_rare", lookup.First().getId());
 
             lookup = _STAGING.lookupSchema(new EodSchemaLookup("C629", "9231"));
             Assert.AreEqual(1, lookup.Count);
-            Assert.AreEqual("soft_tissue_rare", lookup[0].getId());
+            Assert.AreEqual("soft_tissue_rare", lookup.First().getId());
 
             // now invalidate the cache
             EodDataProvider.getInstance(EodVersion.LATEST).invalidateCache();
@@ -269,13 +270,13 @@ namespace TNMStaging_UnitTestApp.Src.Staging.EOD
             // try the lookup again
             lookup = _STAGING.lookupSchema(new EodSchemaLookup("C629", "9231"));
             Assert.AreEqual(1, lookup.Count);
-            Assert.AreEqual("soft_tissue_rare", lookup[0].getId());
+            Assert.AreEqual("soft_tissue_rare", lookup.First().getId());
         }
 
         [TestMethod]
         public void testFindTableRow()
         {
-            Assert.AreEqual(-1, _STAGING.findMatchingTableRow("tumor_size_clinical_60979", "size_clin", "00X"));
+            Assert.IsNull(_STAGING.findMatchingTableRow("tumor_size_clinical_60979", "size_clin", "00X"));
 
             // null maps to blank
             Assert.AreEqual(0, _STAGING.findMatchingTableRow("tumor_size_clinical_60979", "size_clin", "000"));
@@ -285,6 +286,14 @@ namespace TNMStaging_UnitTestApp.Src.Staging.EOD
             Assert.AreEqual(5, _STAGING.findMatchingTableRow("tumor_size_clinical_60979", "size_clin", "999"));
         }
 
+        [TestMethod]
+        public void testFindTableRowDecimal()
+        {
+            // only do float comparison of ranges if the low or high vaslues have a decimal
+            Assert.IsNull(_STAGING.findMatchingTableRow("age_at_diagnosis_validation_65093", "age_dx", "10.5"));
+
+            Assert.IsNotNull(_STAGING.findMatchingTableRow("age_at_diagnosis_validation_65093", "age_dx", "10"));
+        }
 
         [TestMethod]
         public void testStagePancreas()
@@ -304,17 +313,14 @@ namespace TNMStaging_UnitTestApp.Src.Staging.EOD
             Assert.AreEqual(StagingData.Result.STAGED, data.getResult());
             Assert.AreEqual("pancreas", data.getSchemaId());
             Assert.AreEqual(0, data.getErrors().Count);
-            Assert.AreEqual(13, data.getPath().Count);
-            Assert.AreEqual(8, data.getOutput().Count);
+            Assert.AreEqual(5, data.getPath().Count);
+            Assert.AreEqual(4, data.getOutput().Count);
 
             // check outputs
             Assert.AreEqual(EodVersion.LATEST.getVersion(), data.getOutput(EodOutput.DERIVED_VERSION));
-            Assert.AreEqual("7", data.getOutput(EodOutput.SS_2018_DERIVED));
             Assert.AreEqual("00280", data.getOutput(EodOutput.NAACCR_SCHEMA_ID));
-            Assert.AreEqual("4", data.getOutput(EodOutput.EOD_2018_STAGE_GROUP));
-            Assert.AreEqual("TX", data.getOutput(EodOutput.EOD_2018_T));
-            Assert.AreEqual("N1", data.getOutput(EodOutput.EOD_2018_N));
-            Assert.AreEqual("M1", data.getOutput(EodOutput.EOD_2018_M));
+            Assert.AreEqual("7", data.getOutput(EodOutput.SS_2018_DERIVED));
+            Assert.AreEqual("9", data.getOutput(EodOutput.DERIVED_SUMMARY_GRADE));
         }
 
         [TestMethod]
@@ -346,17 +352,14 @@ namespace TNMStaging_UnitTestApp.Src.Staging.EOD
             Assert.AreEqual(StagingData.Result.STAGED, data.getResult());
             Assert.AreEqual("breast", data.getSchemaId());
             Assert.AreEqual(0, data.getErrors().Count);
-            Assert.AreEqual(16, data.getPath().Count);
-            Assert.AreEqual(8, data.getOutput().Count);
+            Assert.AreEqual(5, data.getPath().Count);
+            Assert.AreEqual(4, data.getOutput().Count);
 
             // check outputs
             Assert.AreEqual(EodDataProvider.getInstance().getVersion(), data.getOutput(EodOutput.DERIVED_VERSION));
             Assert.AreEqual("3", data.getOutput(EodOutput.SS_2018_DERIVED));
             Assert.AreEqual("00480", data.getOutput(EodOutput.NAACCR_SCHEMA_ID));
-            Assert.AreEqual("2B", data.getOutput(EodOutput.EOD_2018_STAGE_GROUP));
-            Assert.AreEqual("T2", data.getOutput(EodOutput.EOD_2018_T));
-            Assert.AreEqual("N1", data.getOutput(EodOutput.EOD_2018_N));
-            Assert.AreEqual("M0", data.getOutput(EodOutput.EOD_2018_M));
+            Assert.AreEqual("1", data.getOutput(EodOutput.DERIVED_SUMMARY_GRADE));
         }
 
         [TestMethod]
@@ -394,7 +397,8 @@ namespace TNMStaging_UnitTestApp.Src.Staging.EOD
                 "adnexa_uterine_other_97891", "nodes_pos_fpa", "tumor_size_pathological_25597", "tumor_size_clinical_60979", "primary_site", "histology",
                 "nodes_exam_76029", "grade_post_therapy_clin_69737", "grade_post_therapy_path_75348", "schema_selection_adnexa_uterine_other",
                 "year_dx_validation", "summary_stage_rpa", "tumor_size_summary_63115", "extension_bcn", "combined_grade_56638", "neoadjuvant_therapy_37302",
-                "derived_grade_standard_non_ajcc_63932", "neoadj_tx_treatment_effect_18122", "neoadj_tx_clinical_response_31723", "ss2018_adnexa_uterine_other_values_44976"};
+                "derived_grade_standard_non_ajcc_63932", "neoadj_tx_treatment_effect_18122", "neoadj_tx_clinical_response_31723", "ss2018_adnexa_uterine_other_values_44976",
+                "behavior", "type_of_reporting_source_76696"};
 
             Assert.IsTrue(tables.SetEquals(hash1));
         }
@@ -410,11 +414,11 @@ namespace TNMStaging_UnitTestApp.Src.Staging.EOD
         [TestMethod]
         public void testGetInputs()
         {
-            HashSet<String> test1 = new HashSet<String>() { "eod_mets", "site", "hist", "eod_primary_tumor", "eod_regional_nodes", "eod_regional_nodes", "grade_path", "grade_clin" };
+            HashSet<String> test1 = new HashSet<String>() { "eod_mets", "site", "hist", "eod_primary_tumor", "eod_regional_nodes", "grade_path", "grade_clin" };
             HashSet<String> test2 = _STAGING.getInputs(_STAGING.getSchema("adnexa_uterine_other"));
             Assert.IsTrue(test1.SetEquals(test2));
 
-            test1 = new HashSet<String>() { "eod_mets", "site", "hist", "nodes_pos", "s_category_path", "eod_primary_tumor", "s_category_clin", "eod_regional_nodes", "grade_path", "grade_clin" };
+            test1 = new HashSet<String>() { "eod_mets", "site", "hist", "eod_primary_tumor", "eod_regional_nodes", "grade_path", "grade_clin" };
             test2 = _STAGING.getInputs(_STAGING.getSchema("testis"));
             Assert.IsTrue(test1.SetEquals(test2));
         }
@@ -492,7 +496,7 @@ namespace TNMStaging_UnitTestApp.Src.Staging.EOD
             List<Schema> lookups = _STAGING.lookupSchema(lookup);
             Assert.AreEqual(2, lookups.Count);
 
-            Schema schema = _STAGING.getSchema(lookups[0].getId());
+            Schema schema = _STAGING.getSchema(lookups.First().getId());
             Assert.AreEqual("urethra", schema.getId());
 
             // build list of output keys
@@ -558,9 +562,9 @@ namespace TNMStaging_UnitTestApp.Src.Staging.EOD
             Assert.AreEqual(StagingData.Result.STAGED, data.getResult());
             Assert.AreEqual("brain", data.getSchemaId());
             Assert.AreEqual(5, data.getErrors().Count);
-            Assert.AreEqual(6, data.getPath().Count);
-            Assert.AreEqual(8, data.getOutput().Count);
-            Assert.AreEqual("3.2", data.getOutput(EodOutput.DERIVED_VERSION.toString()));
+            Assert.AreEqual(5, data.getPath().Count);
+            Assert.AreEqual(4, data.getOutput().Count);
+            Assert.AreEqual("3.3", data.getOutput(EodOutput.DERIVED_VERSION.toString()));
         }
 
         [TestMethod]
@@ -588,18 +592,20 @@ namespace TNMStaging_UnitTestApp.Src.Staging.EOD
         [TestMethod]
         public void testGlossary()
         {
-            Assert.AreEqual(23, _STAGING.getGlossaryTerms().Count);
-            GlossaryDefinition entry = _STAGING.getGlossaryDefinition("Medulla");
+            Assert.AreEqual(2, _STAGING.getGlossaryTerms().Count);
+            GlossaryDefinition entry = _STAGING.getGlossaryDefinition("Level VA");
             Assert.IsNotNull(entry);
-            Assert.AreEqual("Medulla", entry.getName());
-            Assert.IsTrue(entry.getDefinition().StartsWith("The central portion of an organ, in contrast to the outer layer"));
-            CollectionAssert.AreEqual(new List<string>() { "Medullary" }, entry.getAlternateNames());
+            Assert.AreEqual("Level V lymph nodes", entry.getName());
+            Assert.IsTrue(entry.getDefinition().StartsWith("The two groups dorsal cervical nodes along the spinal"));
+            CollectionAssert.AreEqual(new List<string>() { "Level VA", "Level VB" }, entry.getAlternateNames());
             Assert.IsNotNull(entry.getLastModified());
 
+        /* There are hardly any glossary terms anymore
             HashSet<String> hits = _STAGING.getSchemaGlossary("urethra");
             Assert.AreEqual(1, hits.Count);
             hits = _STAGING.getTableGlossary("extension_baj");
             Assert.AreEqual(3, hits.Count);
+        */
         }
 
         [TestMethod]
@@ -641,6 +647,63 @@ namespace TNMStaging_UnitTestApp.Src.Staging.EOD
                 Assert.IsTrue(provider.getValidHistologies().Contains(hist), "The histology '" + hist + "' is not in the valid histology list");
             foreach (String hist in invalidHist)
                 Assert.IsFalse(provider.getValidHistologies().Contains(hist), "The histology '" + hist + "' is not supposed to be in the valid histology list");
+        }
+
+        [TestMethod]
+        void testInputsAndOutputs()
+        {
+            HashSet<String> inputs = new HashSet<String>();
+            HashSet<String> outputs = new HashSet<String>();
+
+            // collect all unique input and output keys
+            foreach (String schemaId in _STAGING.getSchemaIds())
+            {
+                Schema schema = _STAGING.getSchema(schemaId);
+                foreach (IInput input in schema.getInputs())
+                {
+                    inputs.Add(input.getKey());
+                }
+                foreach (IOutput output in schema.getOutputs())
+                {
+                    outputs.Add(output.getKey());
+                }
+            }
+
+            // test outputs
+            HashSet<String> enumOutputKeys = new HashSet<String>();
+            foreach (EodOutput value in EodOutput.Values)
+            {
+                enumOutputKeys.Add(value.toString());
+            }
+
+            HashSet<String> missingInOutputEnum = new HashSet<String>(outputs);
+            foreach (string key in enumOutputKeys)
+            {
+                missingInOutputEnum.Remove(key);
+            }
+
+            HashSet<String> unusedOutputEnum = new HashSet<String>(enumOutputKeys);
+            foreach (string key in outputs)
+            {
+                unusedOutputEnum.Remove(key);
+            }
+
+            Assert.AreEqual(0, missingInOutputEnum.Count, "Output keys found in staging data but not in EodOutput enum");
+            Assert.AreEqual(0, unusedOutputEnum.Count, "EodOutput enum values never appear in staging outputs");
+
+            // test inputs (don't need every input to be in enum)
+            HashSet<String> unusedInputEnum = new HashSet<String>();
+            foreach (EodInput value in EodInput.Values)
+            {
+                unusedInputEnum.Add(value.toString());
+            }
+
+            foreach (string key in inputs)
+            {
+                unusedInputEnum.Remove(key);
+            }
+
+            Assert.AreEqual(0, unusedInputEnum.Count, "EodInput enum values never appear in staging inputs");
         }
     }
 }

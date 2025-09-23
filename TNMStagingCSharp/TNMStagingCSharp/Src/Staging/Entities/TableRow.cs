@@ -14,7 +14,7 @@ namespace TNMStagingCSharp.Src.Staging.Entities
 
         //========================================================================================================================
         // Return the list of columns
-        // @return a Map of field name to list of Range objects
+        // @return a Set of columns
         //========================================================================================================================
         HashSet<String> getColumns();
 

@@ -101,6 +101,18 @@ namespace TNMStaging_UnitTestApp.Src.Staging.Entities
 
             // nothing checks that a decimal is there.  Non-decimal value will still be considered in the range.
             Assert.IsTrue(new StagingRange("0.1", "99999.9").contains("1000", new Dictionary<String, String>()));
+
+            // however if the range do not contain decimals, then do not allow a mtch on decimals
+            Assert.IsFalse(new StagingRange("001", "999").contains("10.5", new Dictionary<String, String>()));
+            Assert.IsTrue(new StagingRange("001.1", "999").contains("10.5", new Dictionary<String, String>()));
+            Assert.IsTrue(new StagingRange("001", "999.99").contains("10.5", new Dictionary<String, String>()));
+            Assert.IsTrue(new StagingRange("001", "999").contains("10", new Dictionary<String, String>()));
+
+            Assert.IsFalse(new StagingRange("1.0", "999.999").contains("0.1", new Dictionary<String, String>()));
+            Assert.IsTrue(new StagingRange("1.0", "999.999").contains("1.000001", new Dictionary<String, String>()));
+            Assert.IsTrue(new StagingRange("1.0", "999.999").contains("1.9", new Dictionary<String, String>()));
+            Assert.IsTrue(new StagingRange("1.0", "999.999").contains("10.934215", new Dictionary<String, String>()));
+            Assert.IsFalse(new StagingRange("1.0", "999.999").contains("999.9991", new Dictionary<String, String>()));
         }
     }
 }

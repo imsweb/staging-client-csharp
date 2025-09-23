@@ -1,5 +1,6 @@
 ﻿// Copyright (C) 2017 Information Management Services, Inc.
 
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 
@@ -34,7 +35,7 @@ namespace TNMStagingCSharp.Src.Staging.Entities
 
         //========================================================================================================================
         // A list of initial key/value pairs which will be set at the start of the mapping
-        // @return a List of key/value pairs
+        // @return a Set of key/value pairs
         //========================================================================================================================
         List<IKeyValue> getInitialContext();
 
