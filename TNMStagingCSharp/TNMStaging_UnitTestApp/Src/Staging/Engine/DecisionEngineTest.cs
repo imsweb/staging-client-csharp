@@ -1,8 +1,8 @@
-﻿using System;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-
+using System.Net;
 using TNMStagingCSharp.Src.Staging;
 using TNMStagingCSharp.Src.Staging.Engine;
 using TNMStagingCSharp.Src.Staging.Entities;
@@ -490,6 +490,23 @@ namespace TNMStaging_UnitTestApp.Src.Staging.Engine
             }
 
             return bRetval;
+        }
+
+        [TestMethod]
+        public void testMatchTableWithNoRows()
+        {
+            InMemoryDataProvider provider = new InMemoryDataProvider("Test", "1.0");
+            StagingTable table = new StagingTable("testNoRows");
+            table.addColumnDefinition("a", ColumnType.INPUT);
+            table.addColumnDefinition("result", ColumnType.ENDPOINT);
+            provider.addTable(table);
+
+            ITable tableMissing = provider.getTable("testNoRows");
+
+            Dictionary<String, String> input = new Dictionary<String, String>();
+            input["a"] = "";
+            List<IEndpoint> endpoints = DecisionEngineFuncs.matchTable(tableMissing, input);
+            Assert.IsNull(endpoints);
         }
 
         [TestMethod]

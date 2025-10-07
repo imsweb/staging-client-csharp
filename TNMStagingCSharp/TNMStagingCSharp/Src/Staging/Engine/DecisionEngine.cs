@@ -115,27 +115,30 @@ namespace TNMStagingCSharp.Src.Staging.Engine
             IColumnDefinition col = null;
             bool matchAll = false;
 
-            for (int i = 0; i < iRowCount; i++)
+            if (table.getTableRows() != null)
             {
-                matchAll = true;
-                for (int c = 0; c < iColCount; c++)
+                for (int i = 0; i < iRowCount; i++)
                 {
-                    col = pColDefs[c];
-                    sColKey = col.getKey();
-                    if ((keysToMatch == null || keysToMatch.Contains(sColKey)))
+                    matchAll = true;
+                    for (int c = 0; c < iColCount; c++)
                     {
-                        context.TryGetValue(sColKey, out sContextValue);
-                        matchAll = testMatch(pRows[i].getColumnInput(sColKey), sContextValue, context);
+                        col = pColDefs[c];
+                        sColKey = col.getKey();
+                        if ((keysToMatch == null || keysToMatch.Contains(sColKey)))
+                        {
+                            context.TryGetValue(sColKey, out sContextValue);
+                            matchAll = testMatch(pRows[i].getColumnInput(sColKey), sContextValue, context);
+                        }
+                        if (!matchAll)
+                            break;
                     }
-                    if (!matchAll)
-                        break;
-                }
 
-                // if all inputs match, we are done
-                if (matchAll)
-                {
-                    rowIndex = i;
-                    break;
+                    // if all inputs match, we are done
+                    if (matchAll)
+                    {
+                        rowIndex = i;
+                        break;
+                    }
                 }
             }
 
