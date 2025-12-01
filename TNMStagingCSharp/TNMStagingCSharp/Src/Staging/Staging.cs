@@ -39,6 +39,23 @@ namespace TNMStagingCSharp.Src.Staging
             return new Staging(provider);
         }
 
+        /*
+        // Create an instance of the Staging object based on a Path representing an algorithm zip file
+        // @param algorithmPath path to an algorithm zip file
+        // @return a Staging instance
+        public static Staging getInstance(Path algorithmPath) 
+        {
+            return new Staging(new ExternalStagingFileDataProvider(algorithmPath));
+        }
+        */
+
+        // Create an instance of the Staging object based on the String representing a full path to an algorithm zip file
+        // @param algorithmPath path to an algorithm zip file
+        // @return a Staging instance
+        public static Staging getInstance(String algorithmPath) 
+        {
+            return new Staging(new ExternalStagingFileDataProvider(algorithmPath));
+        }
         // Return the algorithm name
         // @return an Algorithm
         public String getAlgorithm()

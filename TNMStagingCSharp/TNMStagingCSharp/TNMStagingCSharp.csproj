@@ -83,11 +83,9 @@
     <Compile Include="Src\Staging\Entities\GlossaryHit.cs" />
     <Compile Include="Src\Staging\Entities\Metadata.cs" />
     <Compile Include="Src\Staging\Entities\Schema.cs" />
-    <Compile Include="Src\Staging\EOD\EodDataProvider.cs" />
     <Compile Include="Src\Staging\EOD\EodSchemaLookup.cs" />
     <Compile Include="Src\Staging\EOD\EodStagingData.cs" />
     <Compile Include="Src\Staging\InMemoryDataProvider.cs" />
-    <Compile Include="Src\Staging\Pediatric\PediatricDataProvider.cs" />
     <Compile Include="Src\Staging\Pediatric\PediatricSchemaLookup.cs" />
     <Compile Include="Src\Staging\Pediatric\PediatricStagingData.cs" />
     <Compile Include="Src\Tools\TestingTools.cs" />
@@ -101,7 +99,6 @@
     <Compile Include="Src\Staging\Entities\TablePath.cs" />
     <Compile Include="Src\Staging\Entities\TableRow.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Src\Staging\CS\CsDataProvider.cs" />
     <Compile Include="Src\Staging\CS\CsSchemaLookup.cs" />
     <Compile Include="Src\Staging\CS\CsStagingData.cs" />
     <Compile Include="Src\Staging\Entities\Impl\StagingColumnDefinition.cs" />
@@ -121,8 +118,6 @@
     <Compile Include="Src\Staging\Staging.cs" />
     <Compile Include="Src\Staging\Entities\StagingData.cs" />
     <Compile Include="Src\Staging\StagingDataProvider.cs" />
-    <Compile Include="Src\Staging\StagingFileDataProvider.cs" />
-    <Compile Include="Src\Staging\TNM\TnmDataProvider.cs" />
     <Compile Include="Src\Staging\TNM\TnmSchemaLookup.cs" />
     <Compile Include="Src\Staging\TNM\TnmStagingData.cs" />
   </ItemGroup>

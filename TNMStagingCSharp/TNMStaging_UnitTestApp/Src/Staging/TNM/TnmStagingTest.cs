@@ -21,7 +21,9 @@ namespace TNMStaging_UnitTestApp.Src.Staging.TNM
         [ClassInitialize()]
         public static void ClassInit(TestContext context)
         {
-            _STAGING = TNMStagingCSharp.Src.Staging.Staging.getInstance(TnmDataProvider.getInstance(TnmVersion.LATEST));
+            _PROVIDER = new ExternalStagingFileDataProvider(getAlgorithmPath("tnm"));
+            _STAGING = TNMStagingCSharp.Src.Staging.Staging.getInstance(_PROVIDER);
+            //_STAGING = TNMStagingCSharp.Src.Staging.Staging.getInstance(TnmDataProvider.getInstance(TnmVersion.LATEST));
 
             /*
             String filename = "TNM_14.zip";
@@ -41,12 +43,7 @@ namespace TNMStaging_UnitTestApp.Src.Staging.TNM
 
         public override String getVersion()
         {
-            return TnmVersion.LATEST.getVersion();
-        }
-
-        public override StagingFileDataProvider getProvider()
-        {
-            return TnmDataProvider.getInstance(TnmVersion.LATEST);
+            return "2.0";
         }
 
         [TestMethod]
@@ -57,16 +54,6 @@ namespace TNMStaging_UnitTestApp.Src.Staging.TNM
 
             Assert.IsNotNull(_STAGING.getSchema("urethra"));
             Assert.IsNotNull(_STAGING.getTable("ssf4_mpn"));
-        }
-
-        [TestMethod]
-        public void testVersionInitializationTypes()
-        {
-            TNMStagingCSharp.Src.Staging.Staging staging10 = TNMStagingCSharp.Src.Staging.Staging.getInstance(TnmDataProvider.getInstance(TnmVersion.LATEST));
-            Assert.AreEqual(TnmVersion.LATEST.getVersion(), staging10.getVersion());
-
-            TNMStagingCSharp.Src.Staging.Staging stagingLatest = TNMStagingCSharp.Src.Staging.Staging.getInstance(TnmDataProvider.getInstance());
-            Assert.AreEqual(TnmVersion.LATEST.getVersion(), stagingLatest.getVersion());
         }
 
         [TestMethod]
@@ -181,7 +168,7 @@ namespace TNMStaging_UnitTestApp.Src.Staging.TNM
             Assert.AreEqual("testis", lookup.First().getId());
 
             // now invalidate the cache
-            TnmDataProvider.getInstance(TnmVersion.LATEST).invalidateCache();
+            _PROVIDER.invalidateCache();
 
             // try the lookup again
             lookup = _STAGING.lookupSchema(new TnmSchemaLookup("C629", "9231"));
@@ -289,7 +276,7 @@ namespace TNMStaging_UnitTestApp.Src.Staging.TNM
             Assert.AreEqual(10, data.getOutput().Count);
 
             // check outputs
-            Assert.AreEqual(TnmVersion.LATEST.getVersion(), data.getOutput(TnmOutput.DERIVED_VERSION));
+            Assert.AreEqual(getVersion(), data.getOutput(TnmOutput.DERIVED_VERSION));
             Assert.AreEqual("3", data.getOutput(TnmOutput.CLIN_STAGE_GROUP));
             Assert.AreEqual("4", data.getOutput(TnmOutput.PATH_STAGE_GROUP));
             Assert.AreEqual("4", data.getOutput(TnmOutput.COMBINED_STAGE_GROUP));
@@ -544,7 +531,7 @@ namespace TNMStaging_UnitTestApp.Src.Staging.TNM
         [TestMethod]
         public virtual void testCachedSiteAndHistology()
         {
-            StagingDataProvider provider = getProvider();
+            StagingDataProvider provider = _PROVIDER;
             Assert.IsTrue(provider.getValidSites().Count > 0);
             Assert.IsTrue(provider.getValidHistologies().Count > 0);
 

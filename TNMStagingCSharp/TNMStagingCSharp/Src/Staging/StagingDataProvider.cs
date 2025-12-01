@@ -34,6 +34,27 @@ namespace TNMStagingCSharp.Src.Staging
 
         protected HashSet<String> _trie;
 
+        // NOT USING THIS. Our cache is implemented differently than the Java version.
+        /**
+         * SchemaLookup is mutable which is not good when using it as a key in the lookup cache; switch
+         * to a lookup key made up of the inputs as the cache key
+         */
+        /*
+        record SchemaLookupKey(Map<String, String> inputs)
+        {
+
+            public SchemaLookupKey(Map<String, String> inputs)
+            {
+                this.inputs = inputs.entrySet().stream()
+                        .filter(e->e.getKey() != null) // keep keys non-null
+                        .collect(Collectors.toUnmodifiableMap(
+                                Map.Entry::getKey,
+                                e->e.getValue() == null ? "" : e.getValue() // normalize null values
+                        ));
+            }
+        }
+        */
+
         // Constructor loads all schemas and sets up cache
         public StagingDataProvider()
         {

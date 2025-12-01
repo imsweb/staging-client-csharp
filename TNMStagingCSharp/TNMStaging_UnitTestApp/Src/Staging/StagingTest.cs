@@ -1,12 +1,14 @@
-﻿using System;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-
 using TNMStagingCSharp.Src.Staging;
 using TNMStagingCSharp.Src.Staging.Entities;
+using static TNMStagingCSharp.Src.Staging.InMemoryDataProvider;
 
 namespace TNMStaging_UnitTestApp.Src.Staging
 {
@@ -16,6 +18,7 @@ namespace TNMStaging_UnitTestApp.Src.Staging
     public abstract class StagingTest
     {
         protected static TNMStagingCSharp.Src.Staging.Staging _STAGING = null;
+        protected static StagingDataProvider _PROVIDER = null;
 
         //* Return the algorithm name
         public abstract String getAlgorithm();
@@ -24,7 +27,47 @@ namespace TNMStaging_UnitTestApp.Src.Staging
         public abstract String getVersion();
 
         // * Return the staging data provider
-        public abstract StagingFileDataProvider getProvider();
+        //public abstract StagingFileDataProvider getProvider();
+
+        // Return the full path of specified algorithm
+        public static string getAlgorithmPath(String algorithm) 
+        {
+            string retval = string.Empty;
+            String basedir = System.IO.Directory.GetCurrentDirectory() + "\\..\\..\\..\\";
+            if (System.IO.Directory.GetCurrentDirectory().IndexOf("x64") >= 0) basedir += "\\..\\";
+
+            string algorithmsDir = basedir + "Resources\\Test\\algorithms\\";
+
+            //string algorithmsDir = Paths.get(Objects.requireNonNull(Thread.currentThread()
+            //    .getContextClassLoader()
+            //    .getResource("algorithms")).toURI());
+
+            //try (Stream<Path> files = Files.list(algorithmsDir)) 
+            //{
+            //    return files
+            //        .filter(Files::isRegularFile)
+            //        .filter(path -> path.getFileName().toString().startsWith(algorithm + "-"))
+            //        .findFirst()
+            //        .orElseThrow(() -> new IllegalStateException("No " + algorithm + "  file found in algorithms directory"));
+            //}
+
+            string[] files = Directory.GetFiles(algorithmsDir, "*.zip");
+            if (files.Length > 0)
+            {
+                foreach (string file in files)
+                {
+                    if (file.StartsWith(algorithm))
+                    {
+                        retval = file;
+                    }
+                }
+            }
+            if (retval.Length == 0)
+            {
+                throw new Exception("No " + algorithm + "  file found in algorithms directory");
+            }
+            return retval;
+        }
 
         [TestMethod]
         public void testInitialization()

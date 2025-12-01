@@ -35,6 +35,54 @@ namespace TNMStaging_UnitTestApp.Src.Staging
         {
             return _STAGING;
         }
+
+        /*
+        [TestMethod]
+        public void testConstructorWithPath()
+        {
+            string zipPath = Paths.get("src/test/resources/external_algorithm.zip");
+            ExternalStagingFileDataProvider provider = new ExternalStagingFileDataProvider(zipPath);
+            Assert.IsTrue(provider.getAlgorithm().Length > 0);
+            Assert.IsTrue(provider.getVersion().Length > 0);
+            Assert.IsTrue(provider.getSchemaIds().Count > 0);
+            Assert.IsTrue(provider.getTableIds().Count > 0);
+
+            // test the direct Staging instance
+            Staging staging = Staging.getInstance(zipPath);
+            Assert.IsTrue(staging.getSchemaIds().Count > 0);
+            Assert.IsTrue(staging.getTableIds().Count > 0);
+        }
+        */
+
+        [TestMethod]
+        public void testConstructorWithString()
+        {
+            String zipFileName = "src/test/resources/external_algorithm.zip";
+            ExternalStagingFileDataProvider provider = new ExternalStagingFileDataProvider(zipFileName);
+            Assert.IsTrue(provider.getAlgorithm().Length > 0);
+            Assert.IsTrue(provider.getVersion().Length > 0);
+            Assert.IsTrue(provider.getSchemaIds().Count > 0);
+            Assert.IsTrue(provider.getTableIds().Count > 0);
+
+            // test the direct Staging instance
+            TNMStagingCSharp.Src.Staging.Staging staging = TNMStagingCSharp.Src.Staging.Staging.getInstance(zipFileName);
+            Assert.IsTrue(staging.getSchemaIds().Count > 0);
+            Assert.IsTrue(staging.getTableIds().Count > 0);
+        }
+
+        [TestMethod]
+        public void testInvalidPathThrowsException() 
+        {
+            try
+            {
+                string invalidPath = "src/test/resources/missing.zip";
+                ExternalStagingFileDataProvider provider = new ExternalStagingFileDataProvider(invalidPath);
+            }
+            catch (System.InvalidOperationException e)
+            {
+                Assert.IsTrue(e.Message.Contains("missing.zip"));
+            }
+        }
     }
 }
 

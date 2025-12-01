@@ -23,8 +23,6 @@ namespace TNMStaging_UnitTestApp.Src.Staging.TNM
             return processSchemaSelection_MultiTask(staging, fileName, inputStream, testLog);
         }
 
-
-
         public class MultiTask_DataObj
         {
             public String[] mParts;

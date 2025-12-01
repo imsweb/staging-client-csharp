@@ -21,7 +21,7 @@ namespace TNMStaging_TestApp.Src
     {
         static void Main(string[] args)
         {
-
+            /*
             CSBigIntegrationTest CSTestObj = new CSBigIntegrationTest();
 
             CSTestObj.testCSBigIntegrationTestGood();
@@ -32,7 +32,7 @@ namespace TNMStaging_TestApp.Src
 
             TNMTestObj.testTNMBigIntegrationTestGood();
             TNMTestObj.testTNMBigIntegrationTestBad();
-
+            */
         }
 
         public static void WritelineToLog(String s)

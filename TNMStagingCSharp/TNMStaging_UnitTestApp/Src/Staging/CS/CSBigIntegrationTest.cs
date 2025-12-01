@@ -13,6 +13,7 @@ namespace TNMStaging_UnitTestApp.Src.Staging.CS
     public class CSBigIntegrationTest
     {
 
+        /*
         public void testCSBigIntegrationTestGood()
         {
             if (DebugSettings.RUN_HUGE_GOOD_CS_TESTS)
@@ -77,7 +78,7 @@ namespace TNMStaging_UnitTestApp.Src.Staging.CS
 
             }
         }
-
+        */
 
         public long PerformCSSchemaSelection(TNMStagingCSharp.Src.Staging.Staging staging, String sFilePath) 
         {

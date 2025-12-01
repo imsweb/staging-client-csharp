@@ -13,8 +13,7 @@ namespace TNMStaging_UnitTestApp.Src.Staging.TNM
 {
     public class TnmBigIntegrationTest
     {
-
-
+        /*
         public void testTNMBigIntegrationTestGood() 
         {
             if (DebugSettings.RUN_HUGE_GOOD_TNM_TESTS)
@@ -90,7 +89,7 @@ namespace TNMStaging_UnitTestApp.Src.Staging.TNM
 
             }
         }
-
+        */
 
         public long PerformTNMSchemaSelection(TNMStagingCSharp.Src.Staging.Staging staging, String sFilePath) 
         {

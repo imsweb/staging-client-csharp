@@ -33,18 +33,15 @@ namespace TNMStaging_UnitTestApp.Src.Staging.EOD
 
         public override string getVersion()
         {
-            return EodVersion.V3_3.getVersion();
-        }
-
-        public override StagingFileDataProvider getProvider()
-        {
-            return EodDataProvider.getInstance(EodVersion.LATEST);
+            return "3.3";
         }
 
         [ClassInitialize()]
         public static void ClassInit(TestContext context)
         {
-            _STAGING = TNMStagingCSharp.Src.Staging.Staging.getInstance(EodDataProvider.getInstance(EodVersion.LATEST));
+            _PROVIDER = new ExternalStagingFileDataProvider(getAlgorithmPath("eod_public"));
+            _STAGING = TNMStagingCSharp.Src.Staging.Staging.getInstance(_PROVIDER);
+            //_STAGING = TNMStagingCSharp.Src.Staging.Staging.getInstance(EodDataProvider.getInstance(EodVersion.LATEST));
 
             /*
             String filename = "CS_02_05_50.zip";
@@ -64,16 +61,6 @@ namespace TNMStaging_UnitTestApp.Src.Staging.EOD
 
             Assert.IsNotNull(_STAGING.getSchema("urethra"));
             Assert.IsNotNull(_STAGING.getTable("ss2018_urethra_14363"));
-        }
-
-        [TestMethod]
-        public void testVersionInitializationTypes()
-        {
-            TNMStagingCSharp.Src.Staging.Staging staging10 = TNMStagingCSharp.Src.Staging.Staging.getInstance(EodDataProvider.getInstance(EodVersion.LATEST));
-            Assert.AreEqual(EodVersion.LATEST.getVersion(), staging10.getVersion());
-
-            TNMStagingCSharp.Src.Staging.Staging stagingLatest = TNMStagingCSharp.Src.Staging.Staging.getInstance(EodDataProvider.getInstance());
-            Assert.AreEqual(EodVersion.LATEST.getVersion(), stagingLatest.getVersion());
         }
 
         [TestMethod]
@@ -265,7 +252,7 @@ namespace TNMStaging_UnitTestApp.Src.Staging.EOD
             Assert.AreEqual("soft_tissue_rare", lookup.First().getId());
 
             // now invalidate the cache
-            EodDataProvider.getInstance(EodVersion.LATEST).invalidateCache();
+            _PROVIDER.invalidateCache();
 
             // try the lookup again
             lookup = _STAGING.lookupSchema(new EodSchemaLookup("C629", "9231"));
@@ -317,7 +304,7 @@ namespace TNMStaging_UnitTestApp.Src.Staging.EOD
             Assert.AreEqual(4, data.getOutput().Count);
 
             // check outputs
-            Assert.AreEqual(EodVersion.LATEST.getVersion(), data.getOutput(EodOutput.DERIVED_VERSION));
+            Assert.AreEqual(data.getOutput(EodOutput.DERIVED_VERSION), getVersion());
             Assert.AreEqual("00280", data.getOutput(EodOutput.NAACCR_SCHEMA_ID));
             Assert.AreEqual("7", data.getOutput(EodOutput.SS_2018_DERIVED));
             Assert.AreEqual("9", data.getOutput(EodOutput.DERIVED_SUMMARY_GRADE));
@@ -356,7 +343,7 @@ namespace TNMStaging_UnitTestApp.Src.Staging.EOD
             Assert.AreEqual(4, data.getOutput().Count);
 
             // check outputs
-            Assert.AreEqual(EodDataProvider.getInstance().getVersion(), data.getOutput(EodOutput.DERIVED_VERSION));
+            Assert.AreEqual(data.getOutput(EodOutput.DERIVED_VERSION), getVersion());
             Assert.AreEqual("3", data.getOutput(EodOutput.SS_2018_DERIVED));
             Assert.AreEqual("00480", data.getOutput(EodOutput.NAACCR_SCHEMA_ID));
             Assert.AreEqual("1", data.getOutput(EodOutput.DERIVED_SUMMARY_GRADE));
@@ -592,20 +579,13 @@ namespace TNMStaging_UnitTestApp.Src.Staging.EOD
         [TestMethod]
         public void testGlossary()
         {
-            Assert.AreEqual(2, _STAGING.getGlossaryTerms().Count);
-            GlossaryDefinition entry = _STAGING.getGlossaryDefinition("Level VA");
+            Assert.AreEqual(1, _STAGING.getGlossaryTerms().Count);
+            GlossaryDefinition entry = _STAGING.getGlossaryDefinition("Level V lymph nodes");
             Assert.IsNotNull(entry);
             Assert.AreEqual("Level V lymph nodes", entry.getName());
             Assert.IsTrue(entry.getDefinition().StartsWith("The two groups dorsal cervical nodes along the spinal"));
             CollectionAssert.AreEqual(new List<string>() { "Level VA", "Level VB" }, entry.getAlternateNames());
             Assert.IsNotNull(entry.getLastModified());
-
-        /* There are hardly any glossary terms anymore
-            HashSet<String> hits = _STAGING.getSchemaGlossary("urethra");
-            Assert.AreEqual(1, hits.Count);
-            hits = _STAGING.getTableGlossary("extension_baj");
-            Assert.AreEqual(3, hits.Count);
-        */
         }
 
         [TestMethod]
@@ -628,7 +608,7 @@ namespace TNMStaging_UnitTestApp.Src.Staging.EOD
         [TestMethod]
         public virtual void testCachedSiteAndHistology()
         {
-            StagingDataProvider provider = getProvider();
+            StagingDataProvider provider = _PROVIDER;
             Assert.IsTrue(provider.getValidSites().Count > 0);
             Assert.IsTrue(provider.getValidHistologies().Count > 0);
 

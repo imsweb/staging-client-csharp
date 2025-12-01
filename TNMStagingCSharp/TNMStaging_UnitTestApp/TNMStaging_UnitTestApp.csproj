@@ -93,7 +93,6 @@
     <Compile Include="Src\Staging\StagingDataProviderTest.cs" />
     <Compile Include="Src\Staging\Entities\Impl\StagingSchemaInputTest.cs" />
     <Compile Include="Src\Staging\Entities\StagingRangeTest.cs" />
-    <Compile Include="Src\Staging\StagingFileDataProviderTest.cs" />
     <Compile Include="Src\Staging\StagingTest.cs" />
     <Compile Include="Src\Staging\TNM\TnmBigIntegrationTest.cs" />
     <Compile Include="Src\Staging\TNM\TnmIntegrationSchemaSelection.cs" />

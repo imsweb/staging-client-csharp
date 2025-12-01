@@ -133,9 +133,11 @@ namespace TNMStaging_UnitTestApp.Src.Staging.CS
             MultiTask_DataObj thisDataObj = (MultiTask_DataObj)task_data;
             try
             {
-                SchemaLookup lookup = new SchemaLookup(thisDataObj.mParts[0], thisDataObj.mParts[1]);
-                lookup.setInput(CsStagingData.SSF25_KEY, thisDataObj.mParts[2]);
-
+                Dictionary<String, String> inputs = new Dictionary<String, String>();
+                inputs[StagingData.PRIMARY_SITE_KEY] = thisDataObj.mParts[0];
+                inputs[StagingData.HISTOLOGY_KEY] = thisDataObj.mParts[1];
+                inputs[CsStagingData.SSF25_KEY] = thisDataObj.mParts[2];
+                SchemaLookup lookup = new SchemaLookup(inputs);
 
                 List<Schema> lookups = mMultiTask_Staging.lookupSchema(lookup);
                 if (lookups == null)

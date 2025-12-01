@@ -1,15 +1,15 @@
-﻿using System;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 using System.Collections.Generic;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.IO;
 using System.IO.Compression;
-
-using TNMStagingCSharp.Src.Tools;
+using System.Linq;
+using System.Runtime.Remoting.Messaging;
 using TNMStagingCSharp.Src.Staging;
 using TNMStagingCSharp.Src.Staging.CS;
 using TNMStagingCSharp.Src.Staging.Entities;
 using TNMStagingCSharp.Src.Staging.Entities.Impl;
-using System.Linq;
+using TNMStagingCSharp.Src.Tools;
 
 namespace TNMStaging_UnitTestApp.Src.Staging.CS
 {
@@ -22,7 +22,10 @@ namespace TNMStaging_UnitTestApp.Src.Staging.CS
         [ClassInitialize()]
         public static void ClassInit(TestContext context)
         {
-            _STAGING = TNMStagingCSharp.Src.Staging.Staging.getInstance(CsDataProvider.getInstance(CsVersion.V020550));
+            _PROVIDER = new ExternalStagingFileDataProvider(getAlgorithmPath("cs"));
+            _STAGING = TNMStagingCSharp.Src.Staging.Staging.getInstance(_PROVIDER);
+
+            //_STAGING = TNMStagingCSharp.Src.Staging.Staging.getInstance(CsDataProvider.getInstance(CsVersion.V020550));
 
             /*
             String filename = "CS_02_05_50.zip";
@@ -51,13 +54,7 @@ namespace TNMStaging_UnitTestApp.Src.Staging.CS
 
         public override String getVersion()
         {
-            return CsVersion.V020550.getVersion();
-        }
-
-
-        public override StagingFileDataProvider getProvider()
-        {
-            return CsDataProvider.getInstance(CsVersion.V020550);
+            return "02.05.50";
         }
 
         [TestMethod]
@@ -68,16 +65,6 @@ namespace TNMStaging_UnitTestApp.Src.Staging.CS
 
             Assert.IsNotNull(_STAGING.getSchema("urethra"));
             Assert.IsNotNull(_STAGING.getTable("extension_bdi"));
-        }
-
-        [TestMethod]
-        public void testVersionInitializationTypes()
-        {
-            TNMStagingCSharp.Src.Staging.Staging staging020550 = TNMStagingCSharp.Src.Staging.Staging.getInstance(CsDataProvider.getInstance(CsVersion.V020550));
-            Assert.AreEqual("02.05.50", staging020550.getVersion());
-
-            TNMStagingCSharp.Src.Staging.Staging stagingLatest = TNMStagingCSharp.Src.Staging.Staging.getInstance(CsDataProvider.getInstance());
-            Assert.AreEqual("02.05.50", stagingLatest.getVersion());
         }
 
         [TestMethod]
@@ -187,7 +174,7 @@ namespace TNMStaging_UnitTestApp.Src.Staging.CS
             Assert.AreEqual("testis", lookup.First().getId());
 
             // now invalidate the cache
-            getProvider().invalidateCache();
+            _PROVIDER.invalidateCache();
 
             // try the lookup again
             lookup = _STAGING.lookupSchema(new CsSchemaLookup("C629", "9231", ""));

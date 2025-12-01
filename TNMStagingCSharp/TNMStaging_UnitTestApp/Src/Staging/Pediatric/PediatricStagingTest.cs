@@ -37,18 +37,15 @@ namespace TNMStaging_UnitTestApp.Src.Staging.Pediatric
 
         public override string getVersion()
         {
-            return PediatricVersion.V1_3.getVersion();
-        }
-
-        public override StagingFileDataProvider getProvider()
-        {
-            return PediatricDataProvider.getInstance(PediatricVersion.LATEST);
+            return "1.3";
         }
 
         [ClassInitialize()]
         public static void ClassInit(TestContext context)
         {
-            _STAGING = TNMStagingCSharp.Src.Staging.Staging.getInstance(PediatricDataProvider.getInstance(PediatricVersion.LATEST));
+            _PROVIDER = new ExternalStagingFileDataProvider(getAlgorithmPath("pediatric"));
+            _STAGING = TNMStagingCSharp.Src.Staging.Staging.getInstance(_PROVIDER);
+            //_STAGING = TNMStagingCSharp.Src.Staging.Staging.getInstance(PediatricDataProvider.getInstance(PediatricVersion.LATEST));
         }
 
         [TestMethod]
@@ -59,16 +56,6 @@ namespace TNMStaging_UnitTestApp.Src.Staging.Pediatric
 
             Assert.IsNotNull(_STAGING.getSchema("ependymoma"));
             Assert.IsNotNull(_STAGING.getTable("n_myc_amplification_57417"));
-        }
-
-        [TestMethod]
-        public void testVersionInitializationTypes()
-        {
-            TNMStagingCSharp.Src.Staging.Staging staging10 = TNMStagingCSharp.Src.Staging.Staging.getInstance(PediatricDataProvider.getInstance(PediatricVersion.LATEST));
-            Assert.AreEqual(PediatricVersion.LATEST.getVersion(), staging10.getVersion());
-
-            TNMStagingCSharp.Src.Staging.Staging stagingLatest = TNMStagingCSharp.Src.Staging.Staging.getInstance(PediatricDataProvider.getInstance());
-            Assert.AreEqual(PediatricVersion.LATEST.getVersion(), stagingLatest.getVersion());
         }
 
         [TestMethod]
@@ -256,7 +243,7 @@ namespace TNMStaging_UnitTestApp.Src.Staging.Pediatric
             Assert.AreEqual(schemaId, lookup.First().getId());
 
             // now invalidate the cache
-            PediatricDataProvider.getInstance(PediatricVersion.V1_3).invalidateCache();
+            _PROVIDER.invalidateCache();
 
             // try the lookup again
             lookup = _STAGING.lookupSchema(new PediatricSchemaLookup(site, hist));
@@ -303,10 +290,10 @@ namespace TNMStaging_UnitTestApp.Src.Staging.Pediatric
             Assert.AreEqual(11, data.getOutput().Count);
 
             // check outputs
-            Assert.AreEqual(PediatricVersion.LATEST.getVersion(), data.getOutput(PediatricOutput.DERIVED_VERSION));
+            Assert.AreEqual(data.getOutput(PediatricOutput.DERIVED_VERSION), getVersion());
 
             Assert.AreEqual(11, data.getOutput().Count);
-            Assert.AreEqual(PediatricVersion.LATEST.getVersion(), data.getOutput(PediatricOutput.DERIVED_VERSION));
+            Assert.AreEqual(PediatricOutput.DERIVED_VERSION.toString(), getVersion());
             Assert.AreEqual("2", data.getOutput(PediatricOutput.TORONTO_VERSION_NUMBER));
             Assert.AreEqual("10c2", data.getOutput(PediatricOutput.PEDIATRIC_ID));
             Assert.AreEqual("1", data.getOutput(PediatricOutput.PEDIATRIC_GROUP));
@@ -498,7 +485,7 @@ namespace TNMStaging_UnitTestApp.Src.Staging.Pediatric
         [TestMethod]
         public virtual void testCachedSiteAndHistology()
         {
-            StagingDataProvider provider = getProvider();
+            StagingDataProvider provider = _PROVIDER;
             Assert.IsTrue(provider.getValidSites().Count > 0);
             Assert.IsTrue(provider.getValidHistologies().Count > 0);
 

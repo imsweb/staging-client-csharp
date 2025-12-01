@@ -2,13 +2,14 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.IO.Compression;
-using System.Diagnostics;
-
-using TNMStagingCSharp.Src.Tools;
+using System.Runtime.InteropServices.ComTypes;
+using TNMStagingCSharp.Src.Staging;
 using TNMStagingCSharp.Src.Staging.Entities;
 using TNMStagingCSharp.Src.Staging.Entities.Impl;
+using TNMStagingCSharp.Src.Tools;
 
 
 namespace TNMStagingCSharp.Src.Staging
@@ -22,6 +23,36 @@ namespace TNMStagingCSharp.Src.Staging
         private readonly HashSet<String> _TableKeys = new HashSet<String>();
         private readonly HashSet<String> _SchemaKeys = new HashSet<String>();
         private readonly Dictionary<String, GlossaryDefinition> _glossaryTerms = new Dictionary<String, GlossaryDefinition>();
+
+        private readonly int THRESHOLD_ENTRIES = 10000;
+        private readonly long THRESHOLD_ENTRY_SIZE = 10L * 1024 * 1024;
+        private readonly long THRESHOLD_SIZE = 100_000_000; // 100 MB
+        private readonly double THRESHOLD_RATIO = 50;
+
+        /*
+        // Constructor loads all schemas and sets up table cache
+        // @param zipFilePath full path to algorithm zip file
+        // @throws IOException exception for file operations
+        public ExternalStagingFileDataProvider(Path zipFilePath) : base()
+        {
+            using (FileStream SourceStream = File.Open(zipFilePath, FileMode.Open))
+            {
+                this(SourceStream);
+            }
+        }
+        */
+
+        // Constructor loads all schemas and sets up table cache
+        // @param zipFileName full path to algorithm zip file
+        // @throws IOException exception for file operations
+        public ExternalStagingFileDataProvider(String zipFileName)
+        {
+            //this(Paths.get(zipFileName));
+            using (FileStream inStream = File.Open(zipFileName, FileMode.Open))
+            {
+                init(inStream);
+            }
+        }
 
         // Constructor loads all schemas and sets up table cache
         // @param is InputStream pointing to the zip file
@@ -47,6 +78,8 @@ namespace TNMStagingCSharp.Src.Staging
         {
             HashSet<String> algorithms = new HashSet<String>();
             HashSet<String> versions = new HashSet<String>();
+            long totalSizeArchive = 0L;
+            int totalEntries = 0;
 
             //TrieBuilder builder = Trie.builder().onlyWholeWords().ignoreCase();
             _trie = new HashSet<String>();
@@ -57,6 +90,25 @@ namespace TNMStagingCSharp.Src.Staging
                 {
                     if ((entry.Name.Length == 0) || (!entry.Name.EndsWith(".json")))
                         continue;
+
+                    totalEntries++;
+
+                    if (totalEntries > THRESHOLD_ENTRIES)
+                        throw new System.InvalidOperationException("Algorithm zip file has too many entries; maximum permitted is " + THRESHOLD_ENTRIES);
+
+                    //EntryData data = readEntrySafely(stream);
+
+                    totalSizeArchive += entry.Length;
+                    if (totalSizeArchive > THRESHOLD_SIZE)
+                        throw new System.InvalidOperationException("Algorithm zip file uncompressed size is too large; maximum permitted is " + THRESHOLD_SIZE + " bytes");
+
+                    long compressedSize = entry.CompressedLength; // may be -1 if unknown
+                    if (compressedSize > 0)
+                    {
+                        double ratio = (double)entry.Length / (double)compressedSize;
+                        if (ratio > THRESHOLD_RATIO)
+                            throw new System.InvalidOperationException("Zip entry compression ratio too high (" + ratio + "); potential zip bomb");
+                    }
 
                     if (entry.FullName.StartsWith("tables"))
                     {
