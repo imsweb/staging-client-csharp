@@ -21,7 +21,7 @@ developed to be compatible with the Toronto Staging v1.1 definitions.
 
 | Version       | Release                                                                         | Algorithm ZIP                                                                                                      |
 |---------------|---------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------|
-| 1.3           | [4.9.2](https://github.com/imsweb/staging-client-csharp/releases/tag/v4.9.2-beta)   | [pediatric-1.3.zip](https://github.com/imsweb/staging-client-csharp/releases/download/v4.9.2-beta/pediatric-1.3.zip) |
+| 1.3           | [4.9.2](https://github.com/imsweb/staging-client-csharp/releases/tag/v4.9.2b-beta)   | [pediatric-1.3.zip](https://github.com/imsweb/staging-client-csharp/releases/download/v4.9.2b-beta/pediatric-1.3.zip) |
 | 1.3 (**BETA**)    | [4.9](https://github.com/imsweb/staging-client-csharp/releases/tag/v4.9-beta)   | [pediatric-1.3.zip](https://github.com/imsweb/staging-client-csharp/releases/download/v4.9-beta/pediatric-1.3.zip) |
 | 1.2 (revised) | [4.8.4](https://github.com/imsweb/staging-client-csharp/releases/tag/v4.8.4-beta) | [pediatric-1.2.zip](https://github.com/imsweb/staging-client-csharp/releases/download/v4.8.4-beta/pediatric-1.2.zip) |
 | 1.2           | [4.7](https://github.com/imsweb/staging-client-csharp/releases/tag/v4.7beta)    | [pediatric-1.2.zip](https://github.com/imsweb/staging-client-csharp/releases/download/v4.7beta/pediatric-1.2.zip)  |
@@ -49,7 +49,7 @@ All of the standard setting organizations will collect the predictive and progno
 
 | Version       | Release                                                                           | Algorithm ZIP                                                                                                        |
 |---------------|-----------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------|
-| 3.3           | [4.9.2](https://github.com/imsweb/staging-client-csharp/releases/tag/v4.9.2-beta)     | [eod_public-3.3.zip](https://github.com/imsweb/staging-client-csharp/releases/download/v4.9.2-beta/eod_public-3.3.zip) |
+| 3.3           | [4.9.2](https://github.com/imsweb/staging-client-csharp/releases/tag/v4.9.2b-beta)     | [eod_public-3.3.zip](https://github.com/imsweb/staging-client-csharp/releases/download/v4.9.2b-beta/eod_public-3.3.zip) |
 | 3.3 (**BETA**)    | [4.9](https://github.com/imsweb/staging-client-csharp/releases/tag/v4.9-beta)     | [eod_public-3.3.zip](https://github.com/imsweb/staging-client-csharp/releases/download/v4.9-beta/eod_public-3.3.zip) |
 | 3.2 (revised) | [4.8.5](https://github.com/imsweb/staging-client-csharp/releases/tag/v4.8.5-beta) | [eod_public-3.2.zip](https://github.com/imsweb/staging-client-csharp/releases/download/v4.8.5-beta/eod_public-3.2.zip)    |
 | 3.2           | [4.8](https://github.com/imsweb/staging-client-csharp/releases/tag/v4.8.3.1)      | [eod_public-3.2.zip](https://github.com/imsweb/staging-client-csharp/releases/download/v4.8.3.1/eod_public-3.2.zip)  |
@@ -88,7 +88,7 @@ assessments, and compatibility across all of the systems for all cancer sites.
 
 ## Download
 
-To download [the beta version of staging library - TNMStagingCSharp_v492.zip](https://github.com/imsweb/staging-client-csharp/releases/download/v4.9.2-beta/TNMStagingCSharp_v492.zip).
+To download [the beta version of staging library - TNMStagingCSharp_v492.zip](https://github.com/imsweb/staging-client-csharp/releases/download/v4.9.2b-beta/TNMStagingCSharp_v492.zip).
 
 The download zip file contains the TNM Staging DLL and associated files. For more information, please reference the accompanying readme.txt file. Detailed documentation on how to use the DLL can be found in the [Wiki](https://github.com/imsweb/staging-client-csharp/wiki/).
 
