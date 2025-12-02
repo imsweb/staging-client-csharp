@@ -19,16 +19,9 @@ In each Pediatric schema, valid values, definitions, and registrar notes are pro
 For cancer cases diagnosed January 1, 2024 and later, the NCI SEER program will collect the Pediatric Data Collection System fields. The schemas have been 
 developed to be compatible with the Toronto Staging v1.1 definitions.
 
-To get started using the Pediatric staging algorithm, instantiate a `Staging` instance:
-
-```csharp
-Staging staging = TNMStagingCSharp.Src.Staging.Staging.getInstance(PediatricDataProvider.getInstance(PediatricVersion.LATEST));
-```
-
-If a specific version is needed, the algorithm zip file can be downloaded and initialized using an ExternalStagingFileDataProvider.
-
 | Version       | Release                                                                         | Algorithm ZIP                                                                                                      |
 |---------------|---------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------|
+| 1.3           | [4.9.2](https://github.com/imsweb/staging-client-csharp/releases/tag/v4.9.2-beta)   | [pediatric-1.3.zip](https://github.com/imsweb/staging-client-csharp/releases/download/v4.9.2-beta/pediatric-1.3.zip) |
 | 1.3 (**BETA**)    | [4.9](https://github.com/imsweb/staging-client-csharp/releases/tag/v4.9-beta)   | [pediatric-1.3.zip](https://github.com/imsweb/staging-client-csharp/releases/download/v4.9-beta/pediatric-1.3.zip) |
 | 1.2 (revised) | [4.8.4](https://github.com/imsweb/staging-client-csharp/releases/tag/v4.8.4-beta) | [pediatric-1.2.zip](https://github.com/imsweb/staging-client-csharp/releases/download/v4.8.4-beta/pediatric-1.2.zip) |
 | 1.2           | [4.7](https://github.com/imsweb/staging-client-csharp/releases/tag/v4.7beta)    | [pediatric-1.2.zip](https://github.com/imsweb/staging-client-csharp/releases/download/v4.7beta/pediatric-1.2.zip)  |
@@ -53,16 +46,10 @@ For cancer cases diagnosed January 1, 2018 and later, the NCI SEER program will 
 
 All of the standard setting organizations will collect the predictive and prognostic factors through Site Specific Data Items (SSDIs). Unlike the SSFs, these data items have formats and code structures specific to the data item.
  
-To get started using the EOD algorithm, instantiate a `Staging` instance:
-
-```csharp
-Staging staging = TNMStagingCSharp.Src.Staging.Staging.getInstance(EodDataProvider.getInstance(EodVersion.LATEST));
-```
-
-If a specific version is needed, the algorithm zip file can be downloaded and initialized using an ExternalStagingFileDataProvider.
 
 | Version       | Release                                                                           | Algorithm ZIP                                                                                                        |
 |---------------|-----------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------|
+| 3.3           | [4.9.2](https://github.com/imsweb/staging-client-csharp/releases/tag/v4.9.2-beta)     | [eod_public-3.3.zip](https://github.com/imsweb/staging-client-csharp/releases/download/v4.9.2-beta/eod_public-3.3.zip) |
 | 3.3 (**BETA**)    | [4.9](https://github.com/imsweb/staging-client-csharp/releases/tag/v4.9-beta)     | [eod_public-3.3.zip](https://github.com/imsweb/staging-client-csharp/releases/download/v4.9-beta/eod_public-3.3.zip) |
 | 3.2 (revised) | [4.8.5](https://github.com/imsweb/staging-client-csharp/releases/tag/v4.8.5-beta) | [eod_public-3.2.zip](https://github.com/imsweb/staging-client-csharp/releases/download/v4.8.5-beta/eod_public-3.2.zip)    |
 | 3.2           | [4.8](https://github.com/imsweb/staging-client-csharp/releases/tag/v4.8.3.1)      | [eod_public-3.2.zip](https://github.com/imsweb/staging-client-csharp/releases/download/v4.8.3.1/eod_public-3.2.zip)  |
@@ -81,14 +68,6 @@ TNM categories, stage groups, and definitions are based on the Union for Interna
 
 For diagnosis years 2016-2017, SEER Summary Stage 2000 is required. SEER Summary Stage 2000 should be collected manually unless the registry is collecting Collaborative Stage, which would derive Summary Stage 2000.
 
-To get started using the TNM algorithm, instantiate a `Staging` instance:
-
-```csharp
-Staging staging = TNMStagingCSharp.Src.Staging.Staging.getInstance(TnmDataProvider.getInstance(TnmVersion.LATEST));
-```
-
-If a specific version is needed, the algorithm zip file can be downloaded and initialized using an ExternalStagingFileDataProvider.
-
 | Version | Release                                                                        | Algorithm ZIP                                                                                          |
 |---------|--------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------|
 | 2.0     | [3.6](https://github.com/imsweb/staging-client-csharp/releases/tag/v3.6-beta)  | [tnm-2.0.zip](https://github.com/imsweb/staging-client-csharp/releases/download/v3.6-beta/tnm-2.0.zip) |
@@ -101,14 +80,6 @@ If a specific version is needed, the algorithm zip file can be downloaded and in
 staging systems (TNM, SEER EOD, and SEER SS). It provides a comprehensive system to improve data quality by standardizing rules for timing, clinical and pathologic
 assessments, and compatibility across all of the systems for all cancer sites.
 
-To get started using the TNM algorithm, instantiate a `Staging` instance:
-
-```csharp
-Staging staging = TNMStagingCSharp.Src.Staging.Staging.getInstance(CsDataProvider.getInstance(CsVersion.LATEST));
-```
-
-If a specific version is needed, the algorithm zip file can be downloaded and initialized using an ExternalStagingFileDataProvider.
-
 | Version  | Release                                                                       | Algorithm ZIP                                                                                                  |
 |----------|-------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------|
 | 02.05.50 | [4.0](https://github.com/imsweb/staging-client-csharp/releases/tag/v4.0-beta) | [cs-02.05.50.zip](https://github.com/imsweb/staging-client-csharp/releases/download/v4.0-beta/cs-02.05.50.zip) |
@@ -117,7 +88,7 @@ If a specific version is needed, the algorithm zip file can be downloaded and in
 
 ## Download
 
-To download [the beta version of staging library - TNMStagingCSharp_v48.zip](https://github.com/imsweb/staging-client-csharp/releases/download/v4.8beta/TNMStagingCSharp_v48.zip).
+To download [the beta version of staging library - TNMStagingCSharp_v492.zip](https://github.com/imsweb/staging-client-csharp/releases/download/v4.9.2-beta/TNMStagingCSharp_v492.zip).
 
 The download zip file contains the TNM Staging DLL and associated files. For more information, please reference the accompanying readme.txt file. Detailed documentation on how to use the DLL can be found in the [Wiki](https://github.com/imsweb/staging-client-csharp/wiki/).
 
@@ -145,18 +116,7 @@ using System.IO;
 using TNMStagingCSharp.Src.Staging;
 
 TNMStagingCSharp.Src.Staging.Staging _STAGING;
-FileStream SourceStream = File.Open("CS_02_05_50.zip", FileMode.Open);
-ExternalStagingFileDataProvider provider = new ExternalStagingFileDataProvider(SourceStream);
-
-_STAGING = TNMStagingCSharp.Src.Staging.Staging.getInstance(provider);
-```
-
-To use the Collaborative Stage algorithm (in separate JSON files), use the CsDataProvider class. This option requires that you have the Algorithm files (JSON) in a directory named Algorithms \ CS \ [Version Number].
-```csharp
-using TNMStagingCSharp.Src.Staging.CS;
-
-TNMStagingCSharp.Src.Staging.Staging _STAGING;
-_STAGING = TNMStagingCSharp.Src.Staging.Staging.getInstance(CsDataProvider.getInstance(CsVersion.LATEST));
+_STAGING = TNMStagingCSharp.Src.Staging.Staging.getInstance("C:/path/to/algorithm/cs-02.05.50.zip");
 ```
 
 

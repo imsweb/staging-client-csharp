@@ -56,6 +56,7 @@ namespace TNMStagingCSharp.Src.Staging
         {
             return new Staging(new ExternalStagingFileDataProvider(algorithmPath));
         }
+
         // Return the algorithm name
         // @return an Algorithm
         public String getAlgorithm()
