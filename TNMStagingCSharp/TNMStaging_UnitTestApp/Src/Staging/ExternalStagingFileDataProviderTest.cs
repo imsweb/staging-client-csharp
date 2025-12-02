@@ -15,14 +15,18 @@ namespace TNMStaging_UnitTestApp.Src.Staging
     public class ExternalStagingFileDataProviderTest : FileDataProviderTest
     {
         private static TNMStagingCSharp.Src.Staging.Staging _STAGING;
+        private static String _basePath = string.Empty;
+
 
         [ClassInitialize()]
         public static void ClassInit(TestContext context)
         {
-            String basedir = System.IO.Directory.GetCurrentDirectory() + "\\..\\..\\..\\";
-            if (System.IO.Directory.GetCurrentDirectory().IndexOf("x64") >= 0) basedir += "\\..\\";
+            String relPath = "\\..\\..\\..\\";
+            if (System.IO.Directory.GetCurrentDirectory().IndexOf("x64") >= 0) relPath += "\\..\\";
 
-            String sFilePath = basedir + "Resources\\Test\\Misc\\external_algorithm.zip";
+            _basePath = Path.GetFullPath(System.IO.Directory.GetCurrentDirectory() + relPath);
+
+            String sFilePath = _basePath + "Resources\\Test\\external_algorithm.zip";
 
             FileStream SourceStream = File.Open(sFilePath, FileMode.Open);
 
@@ -57,7 +61,7 @@ namespace TNMStaging_UnitTestApp.Src.Staging
         [TestMethod]
         public void testConstructorWithString()
         {
-            String zipFileName = "src/test/resources/external_algorithm.zip";
+            String zipFileName = _basePath + "resources\\test\\external_algorithm.zip";
             ExternalStagingFileDataProvider provider = new ExternalStagingFileDataProvider(zipFileName);
             Assert.IsTrue(provider.getAlgorithm().Length > 0);
             Assert.IsTrue(provider.getVersion().Length > 0);
@@ -75,10 +79,10 @@ namespace TNMStaging_UnitTestApp.Src.Staging
         {
             try
             {
-                string invalidPath = "src/test/resources/missing.zip";
+                string invalidPath = _basePath + "\\resources\\test\\missing.zip";
                 ExternalStagingFileDataProvider provider = new ExternalStagingFileDataProvider(invalidPath);
             }
-            catch (System.InvalidOperationException e)
+            catch (Exception e)
             {
                 Assert.IsTrue(e.Message.Contains("missing.zip"));
             }

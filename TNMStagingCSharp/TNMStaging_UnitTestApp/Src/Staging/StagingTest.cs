@@ -19,6 +19,7 @@ namespace TNMStaging_UnitTestApp.Src.Staging
     {
         protected static TNMStagingCSharp.Src.Staging.Staging _STAGING = null;
         protected static StagingDataProvider _PROVIDER = null;
+        protected static String _basePath = string.Empty;
 
         //* Return the algorithm name
         public abstract String getAlgorithm();
@@ -33,10 +34,14 @@ namespace TNMStaging_UnitTestApp.Src.Staging
         public static string getAlgorithmPath(String algorithm) 
         {
             string retval = string.Empty;
-            String basedir = System.IO.Directory.GetCurrentDirectory() + "\\..\\..\\..\\";
-            if (System.IO.Directory.GetCurrentDirectory().IndexOf("x64") >= 0) basedir += "\\..\\";
 
-            string algorithmsDir = basedir + "Resources\\Test\\algorithms\\";
+            String relPath = "\\..\\..\\..\\";
+            if (System.IO.Directory.GetCurrentDirectory().IndexOf("x64") >= 0) relPath += "\\..\\";
+
+            _basePath = Path.GetFullPath(System.IO.Directory.GetCurrentDirectory() + relPath);
+
+            String algorithmsDir = _basePath + "Resources\\Test\\algorithms\\";
+
 
             //string algorithmsDir = Paths.get(Objects.requireNonNull(Thread.currentThread()
             //    .getContextClassLoader()
@@ -56,7 +61,8 @@ namespace TNMStaging_UnitTestApp.Src.Staging
             {
                 foreach (string file in files)
                 {
-                    if (file.StartsWith(algorithm))
+                    string thisFilename = Path.GetFileName(file);
+                    if (thisFilename.StartsWith(algorithm))
                     {
                         retval = file;
                     }

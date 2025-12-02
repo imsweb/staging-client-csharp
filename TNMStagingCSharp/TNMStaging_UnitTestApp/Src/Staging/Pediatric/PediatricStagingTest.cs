@@ -293,7 +293,7 @@ namespace TNMStaging_UnitTestApp.Src.Staging.Pediatric
             Assert.AreEqual(data.getOutput(PediatricOutput.DERIVED_VERSION), getVersion());
 
             Assert.AreEqual(11, data.getOutput().Count);
-            Assert.AreEqual(PediatricOutput.DERIVED_VERSION.toString(), getVersion());
+            Assert.AreEqual(data.getOutput(PediatricOutput.DERIVED_VERSION.toString()), getVersion());
             Assert.AreEqual("2", data.getOutput(PediatricOutput.TORONTO_VERSION_NUMBER));
             Assert.AreEqual("10c2", data.getOutput(PediatricOutput.PEDIATRIC_ID));
             Assert.AreEqual("1", data.getOutput(PediatricOutput.PEDIATRIC_GROUP));
