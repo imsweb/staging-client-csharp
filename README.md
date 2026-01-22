@@ -70,6 +70,7 @@ For diagnosis years 2016-2017, SEER Summary Stage 2000 is required. SEER Summary
 
 | Version | Release                                                                        | Algorithm ZIP                                                                                          |
 |---------|--------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------|
+| 2.1     | [4.9.3](https://github.com/imsweb/staging-client-csharp/releases/tag/v4.9.3-beta)  | [tnm-2.1.zip](https://github.com/imsweb/staging-client-csharp/releases/download/v4.9.3-beta/tnm-2.1.zip) |
 | 2.0     | [3.6](https://github.com/imsweb/staging-client-csharp/releases/tag/v3.6-beta)  | [tnm-2.0.zip](https://github.com/imsweb/staging-client-csharp/releases/download/v3.6-beta/tnm-2.0.zip) |
 | 1.9     | [3.5](https://github.com/imsweb/staging-client-csharp/releases/tag/v3.5-beta)  | [tnm-1.9.zip](https://github.com/imsweb/staging-client-csharp/releases/download/v3.5-beta/TNM_19.zip)  |
 
