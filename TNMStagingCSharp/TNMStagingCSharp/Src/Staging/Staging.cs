@@ -3,7 +3,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-
+using System.IO;
 using TNMStagingCSharp.Src.Staging.Engine;
 using TNMStagingCSharp.Src.Staging.Entities;
 
@@ -37,6 +37,14 @@ namespace TNMStagingCSharp.Src.Staging
         public static Staging getInstance(StagingDataProvider provider)
         {
             return new Staging(provider);
+        }
+
+        // Create an instance of the Staging object based on an InputStream
+        // @param is InputStream pointing to algoruthm zip file
+        // @return a Staging instance
+        public static Staging getInstance(Stream inStream)
+        {
+            return new Staging(new ExternalStagingFileDataProvider(inStream));
         }
 
         /*

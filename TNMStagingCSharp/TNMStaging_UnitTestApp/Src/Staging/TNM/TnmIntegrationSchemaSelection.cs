@@ -138,7 +138,7 @@ namespace TNMStaging_UnitTestApp.Src.Staging.TNM
             {
                 SchemaLookup lookup = new SchemaLookup(thisDataObj.mParts[0], thisDataObj.mParts[1]);
                 lookup.setInput(TnmStagingData.SSF25_KEY, thisDataObj.mParts[2]);
-                lookup.setInput(TnmStagingData.SEX_KEY, thisDataObj.mParts[2]);
+                lookup.setInput(TnmStagingData.SEX_AT_BIRTH_KEY, thisDataObj.mParts[2]);
 
                 List<Schema> lookups = mMultiTask_Staging.lookupSchema(lookup);
                 if (lookups == null)

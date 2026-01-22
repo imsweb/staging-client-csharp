@@ -30,9 +30,9 @@ namespace TNMStaging_UnitTestApp.Src.Staging
 
             FileStream SourceStream = File.Open(sFilePath, FileMode.Open);
 
-            ExternalStagingFileDataProvider provider = new ExternalStagingFileDataProvider(SourceStream);
+            //ExternalStagingFileDataProvider provider = new ExternalStagingFileDataProvider(SourceStream);
 
-            _STAGING = TNMStagingCSharp.Src.Staging.Staging.getInstance(provider);
+            _STAGING = TNMStagingCSharp.Src.Staging.Staging.getInstance(SourceStream);
         }
 
         public override TNMStagingCSharp.Src.Staging.Staging getStaging()

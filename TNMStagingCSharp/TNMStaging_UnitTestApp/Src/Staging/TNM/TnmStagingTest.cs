@@ -43,7 +43,7 @@ namespace TNMStaging_UnitTestApp.Src.Staging.TNM
 
         public override String getVersion()
         {
-            return "2.0";
+            return "2.1";
         }
 
         [TestMethod]
@@ -63,7 +63,7 @@ namespace TNMStaging_UnitTestApp.Src.Staging.TNM
             HashSet<String> hash2 = _STAGING.getSchema("nasopharynx").getSchemaDiscriminators();
             Assert.IsTrue(hash1.SetEquals(hash2));
 
-            hash1 = new HashSet<String>() { "sex" };
+            hash1 = new HashSet<String>() { "sex_at_birth" };
             hash2 = _STAGING.getSchema("peritoneum_female_gen").getSchemaDiscriminators();
             Assert.IsTrue(hash1.SetEquals(hash2));
         }

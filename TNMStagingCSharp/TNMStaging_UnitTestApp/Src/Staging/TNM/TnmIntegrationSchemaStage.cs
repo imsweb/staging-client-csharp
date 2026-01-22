@@ -329,7 +329,7 @@ namespace TNMStaging_UnitTestApp.Src.Staging.TNM
 
                 // run collaborative stage; if no schema found, set the output to empty
                 SchemaLookup lookup = new SchemaLookup(data.getInput(TnmInput.PRIMARY_SITE), data.getInput(TnmInput.HISTOLOGY));
-                lookup.setInput(TnmStagingData.SEX_KEY, data.getInput(TnmInput.SEX));
+                lookup.setInput(TnmStagingData.SEX_AT_BIRTH_KEY, data.getInput(TnmInput.SEX));
                 //lookup.setInput(TnmStagingData.SSF25_KEY, data.getInput(TnmInput.SSF25));
                 List<Schema> schemas = mMultiTask_Staging.lookupSchema(lookup);
 

@@ -16,7 +16,7 @@ namespace TNMStagingCSharp.Src.Staging.TNM
         public static readonly TnmInput HISTOLOGY = new TnmInput("hist");
         public static readonly TnmInput BEHAVIOR = new TnmInput("behavior");
         public static readonly TnmInput GRADE = new TnmInput("grade");
-        public static readonly TnmInput SEX = new TnmInput("sex");
+        public static readonly TnmInput SEX = new TnmInput("sex_at_birth");
         public static readonly TnmInput DX_YEAR = new TnmInput("year_dx");
         public static readonly TnmInput AGE_AT_DX = new TnmInput("age_dx");
         public static readonly TnmInput CLIN_STAGE_GROUP_DIRECT = new TnmInput("clin_stage_group_direct");
@@ -167,7 +167,7 @@ namespace TNMStagingCSharp.Src.Staging.TNM
     public class TnmStagingData: StagingData
     {
         // key definitions
-        public static readonly String SEX_KEY = "sex";
+        public static readonly String SEX_AT_BIRTH_KEY = "sex_at_birth";
         public static readonly String SSF25_KEY = "ssf25";
 
         // SSF prefix

@@ -12,7 +12,7 @@ namespace TNMStagingCSharp.Src.Staging.TNM
     {
 
         private static readonly HashSet<String> _ALLOWED_KEYS = new HashSet<String>(new List<String>
-                { TnmStagingData.PRIMARY_SITE_KEY, TnmStagingData.HISTOLOGY_KEY, TnmStagingData.SSF25_KEY, TnmStagingData.SEX_KEY });
+                { TnmStagingData.PRIMARY_SITE_KEY, TnmStagingData.HISTOLOGY_KEY, TnmStagingData.SSF25_KEY, TnmStagingData.SEX_AT_BIRTH_KEY });
 
 
         // Constructor
