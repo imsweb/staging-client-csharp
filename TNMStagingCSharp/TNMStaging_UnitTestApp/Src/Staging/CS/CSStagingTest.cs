@@ -845,7 +845,7 @@ namespace TNMStaging_UnitTestApp.Src.Staging.CS
                 String basedir = System.IO.Directory.GetCurrentDirectory() + "\\..\\..\\..\\";
                 if (System.IO.Directory.GetCurrentDirectory().IndexOf("x64") >= 0) basedir += "\\..\\";
 
-                String sFilePath = basedir + "Resources\\Test\\CS\\valid_inputs.020550.txt.gz";
+                String sFilePath = basedir + "Resources\\CS\\valid_inputs.020550.txt.gz";
 
                 FileStream fstream = File.Open(sFilePath, FileMode.Open, FileAccess.Read, FileShare.Read);
                 GZipStream decompressionStream = new GZipStream(fstream, CompressionMode.Decompress);
@@ -970,7 +970,7 @@ namespace TNMStaging_UnitTestApp.Src.Staging.CS
                 if (System.IO.Directory.GetCurrentDirectory().IndexOf("x64") >= 0) basedir += "\\..\\";
 
                 // test complete file of cases
-                String sFilePath = basedir + "Resources\\Test\\CS\\cs_schema_identification_unit_test.txt.gz";
+                String sFilePath = basedir + "Resources\\CS\\cs_schema_identification_unit_test.txt.gz";
 
                 FileStream fstream = File.Open(sFilePath, FileMode.Open, FileAccess.Read, FileShare.Read);
                 GZipStream decompressionStream = new GZipStream(fstream, CompressionMode.Decompress);
@@ -990,7 +990,7 @@ namespace TNMStaging_UnitTestApp.Src.Staging.CS
                 String basedir = System.IO.Directory.GetCurrentDirectory() + "\\..\\..\\..\\";
                 if (System.IO.Directory.GetCurrentDirectory().IndexOf("x64") >= 0) basedir += "\\..\\";
 
-                String sFilePath = basedir + "Resources\\Test\\CS\\AJCC_6.V020550.10000.txt.gz";
+                String sFilePath = basedir + "Resources\\CS\\AJCC_6.V020550.10000.txt.gz";
 
                 FileStream fstream = File.Open(sFilePath, FileMode.Open, FileAccess.Read, FileShare.Read);
                 GZipStream decompressionStream = new GZipStream(fstream, CompressionMode.Decompress);
@@ -1002,7 +1002,7 @@ namespace TNMStaging_UnitTestApp.Src.Staging.CS
                 decompressionStream.Close();
 
 
-                sFilePath = basedir + "Resources\\Test\\CS\\AJCC_7.V020550.10000.txt.gz";
+                sFilePath = basedir + "Resources\\CS\\AJCC_7.V020550.10000.txt.gz";
 
                 fstream = File.Open(sFilePath, FileMode.Open, FileAccess.Read, FileShare.Read);
                 decompressionStream = new GZipStream(fstream, CompressionMode.Decompress);
