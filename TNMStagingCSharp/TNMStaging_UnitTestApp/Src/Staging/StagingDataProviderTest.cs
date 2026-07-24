@@ -162,6 +162,116 @@ namespace TNMStaging_UnitTestApp.Src.Staging
         }
 
         [TestMethod]
+        void testInMemoryProviderContract() 
+        {
+            InMemoryDataProvider provider = new InMemoryDataProvider("Test Algorithm", "1.2.3");
+
+            Assert.AreEqual("Test Algorithm", provider.getAlgorithm());
+            Assert.AreEqual("1.2.3", provider.getVersion());
+            Assert.IsTrue(provider.getTableIds().isEmpty());
+            Assert.IsTrue(provider.getSchemaIds().isEmpty());
+            Assert.IsNull(provider.getTable("missing"));
+            Assert.IsNull(provider.getSchema("missing"));
+
+            StagingSchema schema = new StagingSchema("present");
+            schema.setSchemaSelectionTable("selection");
+            provider.addSchema(schema);
+            Assert.AreEqual(Set.of("present"), provider.getSchemaIds());
+            Assert.AreEqual(schema, provider.getSchema("present"));
+        }
+
+        [TestMethod]
+        void testInMemoryGlossaryIsUnsupported() 
+        {
+            InMemoryDataProvider provider = new InMemoryDataProvider("test", "1.0");
+
+            assertGlossaryUnsupported(provider::getGlossaryTerms);
+            assertGlossaryUnsupported(() -> provider.getGlossaryDefinition("term"));
+            assertGlossaryUnsupported(() -> provider.getGlossaryMatches("text"));
+        }
+
+        private static void assertGlossaryUnsupported(Runnable operation) 
+        {
+            IllegalStateException exception = assertThrows(IllegalStateException.class, operation::run);
+            Assert.AreEqual("Glossary not supported in this provider", exception.getMessage());
+        }
+
+        [TestMethod]
+        void testValidValuesForMissingTable() 
+        {
+            StagingDataProvider provider = new InMemoryDataProvider("test", "1.0");
+
+            Assert.AreEqual(Collections.emptySet(), provider.getValidSites());
+        }
+
+        [TestMethod]
+        void testValidValuesRequireExactlyOneInputDefinition() 
+        {
+            InMemoryDataProvider noInputs = new InMemoryDataProvider("test", "1.0");
+            noInputs.addTable(
+                table(
+                    StagingDataProvider.PRIMARY_SITE_TABLE,
+                    new StagingColumnDefinition("result", "Result", ColumnType.ENDPOINT)
+                )
+            );
+
+            RuntimeException noInputException = assertThrows(RuntimeException.class, noInputs::getValidSites);
+            assertInvalidInputDefinition(noInputException);
+
+            InMemoryDataProvider multipleInputs = new InMemoryDataProvider("test", "1.0");
+            multipleInputs.addTable(
+                table(
+                    StagingDataProvider.PRIMARY_SITE_TABLE,
+                    new StagingColumnDefinition("site", "Site", ColumnType.INPUT),
+                    new StagingColumnDefinition("other", "Other", ColumnType.INPUT)
+                )
+            );
+
+            RuntimeException multipleInputException = assertThrows(RuntimeException.class, multipleInputs::getValidSites);
+            assertInvalidInputDefinition(multipleInputException);
+        }
+
+        private static void assertInvalidInputDefinition(RuntimeException exception) 
+        {
+            Assert.IsTrue(exception.getCause() instanceof IllegalStateException);
+            Assert.AreEqual(
+                "Table 'primary_site' must have one and only one INPUT column.",
+                exception.getCause().getMessage()
+            );
+        }
+
+        [TestMethod]
+        void testValidValuesExpandRangesWithZeroPadding() 
+        {
+            InMemoryDataProvider provider = new InMemoryDataProvider("test", "1.0");
+            StagingTable table = table(
+                StagingDataProvider.PRIMARY_SITE_TABLE,
+                new StagingColumnDefinition("site", "Site", ColumnType.INPUT)
+            );
+            table.setRawRows(
+                Arrays.asList(
+                    Collections.singletonList("001"),
+                    Collections.singletonList("003-005"),
+                    Collections.singletonList("010")
+                )
+            );
+            provider.addTable(table);
+
+            Assert.AreEqual(Set.of("001", "003", "004", "005", "010"), provider.getValidSites());
+            Assert.IsTrue(provider.isValidSite("004"));
+            Assert.IsFalse((provider.isValidSite("4"));
+        }
+
+        private static StagingTable table(String id, StagingColumnDefinition... definitions) 
+        {
+            StagingTable table = new StagingTable(id);
+            table.setColumnDefinitions(Arrays.asList(definitions));
+            table.setRawRows(Collections.emptyList());
+            return table;
+        }
+
+
+        [TestMethod]
         public void testPadStart()
         {
             Assert.IsNull(StagingDataProvider.padStart(null, 1, '0'));

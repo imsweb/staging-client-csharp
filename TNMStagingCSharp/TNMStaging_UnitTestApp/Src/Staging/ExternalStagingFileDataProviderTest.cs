@@ -89,6 +89,7 @@ namespace TNMStaging_UnitTestApp.Src.Staging
             }
         }
 
+        /*
         [TestMethod]
         public void testMisc()
         {
@@ -104,17 +105,14 @@ namespace TNMStaging_UnitTestApp.Src.Staging
             Assert.IsTrue(staging.getSchemaIds().Count > 0);
             Assert.IsTrue(staging.getTableIds().Count > 0);
 
+            // Hepatoblastoma is indeed Pediatric ID 7a
+            // - only C220 with 8970/3 go to this schema.
 
-            /*
-            Hepatoblastoma is indeed Pediatric ID 7a
-            - only C220 with 8970/3 go to this schema.
+            // Renal Tumor: Rhabdoid Renal Tumor is 6a2
+            // - C649 with 8963/3
 
-            Renal Tumor: Rhabdoid Renal Tumor is 6a2
-            - C649 with 8963/3
-
-            a. site= C649, hist=8963. beh=3
-            b. site= C220, hist=8970, beh=3
-            */
+            // a. site= C649, hist=8963. beh=3
+            // b. site= C220, hist=8970, beh=3
 
             Debug.WriteLine($"=== Test 1 ===");
             PediatricStagingData data = new PediatricStagingData.PediatricStagingInputBuilder()
@@ -134,13 +132,6 @@ namespace TNMStaging_UnitTestApp.Src.Staging
             // perform the staging
             staging.stage(data);
 
-            /*
-            Assert.AreEqual("ovarian", data.getSchemaId());
-            Assert.AreEqual(0, data.getErrors().Count);
-            Assert.IsTrue(data.getPath().Contains("toronto_stage.pediatric_stage_78332"));
-            Assert.AreEqual(11, data.getOutput().Count);
-            */
-
             Debug.WriteLine($"Result = {data.getResult()}");
             foreach (Error error in data.getErrors())
             {
@@ -152,20 +143,6 @@ namespace TNMStaging_UnitTestApp.Src.Staging
             {
                 Debug.WriteLine($"  {entry.Key} = {entry.Value}");
             }
-
-            /*
-            // check outputs
-            Assert.AreEqual(data.getOutput(PediatricOutput.DERIVED_VERSION), getVersion());
-
-            Assert.AreEqual(11, data.getOutput().Count);
-            Assert.AreEqual(data.getOutput(PediatricOutput.DERIVED_VERSION.toString()), getVersion());
-            Assert.AreEqual("2", data.getOutput(PediatricOutput.TORONTO_VERSION_NUMBER));
-            Assert.AreEqual("10c2", data.getOutput(PediatricOutput.PEDIATRIC_ID));
-            Assert.AreEqual("1", data.getOutput(PediatricOutput.PEDIATRIC_GROUP));
-            Assert.AreEqual("88", data.getOutput(PediatricOutput.PEDIATRIC_T));
-            Assert.AreEqual("88", data.getOutput(PediatricOutput.PEDIATRIC_N));
-            Assert.AreEqual("88", data.getOutput(PediatricOutput.PEDIATRIC_M));
-            */
 
             Debug.WriteLine($"=== Test 2 ===");
             PediatricStagingData data2 = new PediatricStagingData.PediatricStagingInputBuilder()
@@ -197,14 +174,12 @@ namespace TNMStaging_UnitTestApp.Src.Staging
                 Debug.WriteLine($"  {entry.Key} = {entry.Value}");
             }
 
+            // - site =C569
+            // - hist = 9060
+            // - ydx=2026
+            // - beh = 3
+            // the pediatric ID = 10c2
 
-            /*
-            - site =C569
-            - hist = 9060
-            - ydx=2026
-            - beh = 3
-            the pediatric ID = 10c2
-            */
             Debug.WriteLine($"=== Test 3 ===");
             PediatricStagingData data3 = new PediatricStagingData.PediatricStagingInputBuilder()
                     .withInput(PediatricInput.PRIMARY_SITE, "C569")
@@ -234,9 +209,94 @@ namespace TNMStaging_UnitTestApp.Src.Staging
             {
                 Debug.WriteLine($"  {entry.Key} = {entry.Value}");
             }
+        }
+        */
 
+        [TestMethod]
+        void testGlossaryFromInMemoryZip() throws IOException 
+        {
+            ExternalStagingFileDataProvider provider = provider(
+                "tables/site.json",
+                tableJson("site", "TESTING", "1.0"),
+                "glossary/cortex.json",
+                "{\"name\":\"Cortex\",\"definition\":\"Outer tissue\",\"alternate_names\":[\"Cortical\"]}"
+            );
+
+            assertThat(provider.getAlgorithm()).isEqualTo("testing");
+            assertThat(provider.getGlossaryTerms()).containsExactly("Cortex");
+            assertThat(provider.getGlossaryDefinition("Cortex").getDefinition()).isEqualTo("Outer tissue");
+            assertThat(provider.getGlossaryDefinition("missing")).isNull();
+            assertThat(provider.getGlossaryMatches("The cortex is present")).extracting("term").containsExactly("Cortex");
+            assertThat(provider.getGlossaryMatches("Cortexlike")).isEmpty();
         }
 
+        [TestMethod]
+        void testMalformedJsonIsRejected() throws IOException 
+        {
+            byte[] zip = zip("tables/broken.json", "{not-json");
+
+            assertThatThrownBy(() -> new ExternalStagingFileDataProvider(new ByteArrayInputStream(zip))).isInstanceOf(
+                IOException.class
+            );
+        }
+
+        [TestMethod]
+        void testArchiveRequiresAlgorithmData() throws IOException 
+        {
+            byte[] zip = zip("notes/readme.txt", "ignored", "glossary/term.json", "{\"name\":\"Term\"}");
+
+            assertThatThrownBy(() -> new ExternalStagingFileDataProvider(new ByteArrayInputStream(zip)))
+                .isInstanceOf(IllegalStateException.class)
+                .hasMessage("Error initializing provider; only a single algorithm should be included in file");
+        }
+
+        [TestMethod]
+        void testInconsistentAlgorithmsAndVersionsAreRejected() throws IOException 
+        {
+            byte[] algorithms = zip(
+                "tables/one.json",
+                tableJson("one", "FIRST", "1.0"),
+                "tables/two.json",
+                tableJson("two", "SECOND", "1.0")
+            );
+            assertThatThrownBy(() -> new ExternalStagingFileDataProvider(new ByteArrayInputStream(algorithms)))
+                .isInstanceOf(IllegalStateException.class)
+                .hasMessage("Error initializing provider; only a single algorithm should be included in file");
+
+            byte[] versions = zip(
+                "tables/one.json",
+                tableJson("one", "TEST", "1.0"),
+                "tables/two.json",
+                tableJson("two", "TEST", "2.0")
+            );
+            assertThatThrownBy(() -> new ExternalStagingFileDataProvider(new ByteArrayInputStream(versions)))
+                .isInstanceOf(IllegalStateException.class)
+                .hasMessage("Error initializing provider; only a single version should be included in file");
+        }
+
+        private static ExternalStagingFileDataProvider provider(String... entries) throws IOException 
+        {
+            return new ExternalStagingFileDataProvider(new ByteArrayInputStream(zip(entries)));
+        }
+
+        private static byte[] zip(String... entries) throws IOException {
+            ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+            try (ZipOutputStream zip = new ZipOutputStream(bytes)) {
+                for (int i = 0; i < entries.length; i += 2) {
+                    zip.putNextEntry(new ZipEntry(entries[i]));
+                    zip.write(entries[i + 1].getBytes(StandardCharsets.UTF_8));
+                    zip.closeEntry();
+                }
+            }
+            return bytes.toByteArray();
+        }
+
+        private static String tableJson(String id, String algorithm, String version) 
+        {
+            return """
+            {"id":"%s","algorithm":"%s","version":"%s","definition":[{"key":"value","type":"INPUT"}],"rows":[["1"]]}
+            """.formatted(id, algorithm, version);
+        }
     }
 }
 

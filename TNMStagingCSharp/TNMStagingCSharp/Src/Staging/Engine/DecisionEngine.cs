@@ -1,5 +1,6 @@
 ﻿// Copyright (C) 2017 Information Management Services, Inc.
 
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -7,7 +8,7 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Text.RegularExpressions;
-
+using TNMStagingCSharp.Src.Staging.CS;
 using TNMStagingCSharp.Src.Staging.Entities;
 using static TNMStagingCSharp.Src.Staging.Entities.Error;
 
@@ -18,7 +19,7 @@ namespace TNMStagingCSharp.Src.Staging.Engine
         private readonly static Regex _TEMPLATE_REFERENCE = new Regex("\\{\\{(.*?)\\}\\}", RegexOptions.CultureInvariant | RegexOptions.Compiled);
 
         // string to use for blank or null in error strings
-        public static readonly String _BLANK_OUTPUT = "<blank>";
+        public static readonly String BLANK_OUTPUT = "<blank>";
 
         public static readonly String _CONTEXT_MISSING_MESSAGE = "Context must not be missing";
 
@@ -221,7 +222,7 @@ namespace TNMStagingCSharp.Src.Staging.Engine
                         if (context.ContainsKey(def.getKey()))
                             value = context[def.getKey()];
 
-                        inputs.Add(((value == null || value.Trim().Length == 0) ? _BLANK_OUTPUT : value.Trim()));
+                        inputs.Add(((value == null || value.Trim().Length == 0) ? BLANK_OUTPUT : value.Trim()));
                     }
 
             StringBuilder MyStringBuilder = new StringBuilder("");
@@ -249,7 +250,11 @@ namespace TNMStagingCSharp.Src.Staging.Engine
         //========================================================================================================================
         public DecisionEngineClass(IDataProvider provider)
         {
-            setProvider(provider);
+            if (provider == null)
+            {
+                throw new ArgumentNullException("Provider must not be null");
+            }
+            _provider = provider;
         }
 
         //========================================================================================================================
@@ -260,17 +265,6 @@ namespace TNMStagingCSharp.Src.Staging.Engine
         {
             return _provider;
         }
-
-
-        //========================================================================================================================
-        // Sets the provider and initiaizes all definitions and tables
-        // @param provider a DataProvider
-        //========================================================================================================================
-        public void setProvider(IDataProvider provider)
-        {
-            _provider = provider;
-        }
-
 
         //========================================================================================================================
         // Given a mapping and a context, check the inclusion/exclusion tables to see if mapping should be processed
@@ -796,7 +790,11 @@ namespace TNMStagingCSharp.Src.Staging.Engine
 
 
         //========================================================================================================================
-        // Using the supplied context, process a schema.The results will be added to the context.
+        // Using the supplied context, process a schema.  The results will be added to the context.
+        // <p>
+        // Input-mapping destination keys on a table path are temporary aliases scoped to that path. They are added before the path is processed and removed afterward. An input-mapping
+        // destination must therefore not be used to preserve a pre-existing context value; any previous value with the same key is overwritten and is not restored.
+        // </p>
         // @param schema a schema
         // @param context a Map containing the context
         // @return a Result
@@ -805,22 +803,55 @@ namespace TNMStagingCSharp.Src.Staging.Engine
         {
             Result result = new Result(context);
 
-            // trim all context Strings; " " will match ""
+            trimContext(context);
+
+            if (!validateInputs(schema, context, result))
+            {
+                result.setType(Result.Type.FAILED_INPUT);
+                return result;
+            }
+
+            initializeSchemaContext(schema, context);
+
+            executeMappings(schema, context, result);
+
+            validateOutputs(schema, context, result);
+
+            return result;
+        }
+
+        //========================================================================================================================
+        // Trims every non-null value in the supplied context.
+        // @param context the context to normalize
+        //========================================================================================================================
+        private void trimContext(Dictionary<String, String> context)
+        {
+            // Trim all context strings so whitespace-only values are treated as blank.
             List<String> lstKeys = new List<String>(context.Count);
             List<String> lstValues = new List<String>(context.Count);
             foreach (KeyValuePair<String, String> entry in context)
+            {
                 if (entry.Value != null)
                 {
                     lstKeys.Add(entry.Key);
                     lstValues.Add(entry.Value.Trim());
                 }
-            for (int i=0; i < lstKeys.Count; i++)
+            }
+            for (int i = 0; i < lstKeys.Count; i++)
             {
                 context[lstKeys[i]] = lstValues[i];
             }
+        }
 
-
-            // validate inputs
+        //========================================================================================================================
+        // Resolves missing input defaults and validates non-blank inputs against their configured tables.
+        // @param schema the schema being processed
+        // @param context the current processing context
+        // @param result the result to receive validation errors
+        // @return {@code true} when processing should continue; {@code false} when the schema's invalid-input policy requires failure
+        //========================================================================================================================
+        private bool validateInputs(Schema schema, Dictionary<String, String> context, Result result)
+        {
             bool stopForBadInput = false;
             foreach (String key in schema.getInputMap().Keys)
             {
@@ -828,24 +859,18 @@ namespace TNMStagingCSharp.Src.Staging.Engine
 
                 String value = null;
                 if (context.ContainsKey(input.getKey()))
+                {
                     value = context[input.getKey()];
+                }
 
-
-                // if value not supplied, use the default and set it back into the context; if not supplied and no default, set the input the blank
-                /*
+                // If no value was supplied, resolve its default and add it to the context.
                 if (value == null)
                 {
-                    value = (input.getDefault() != null ? DecisionEngineFuncs.translateValue(input.getDefault(), context) : "");
+                    value = getDefault(input, context, result);
                     context[input.getKey()] = value;
                 }
-                */
-                // if value not supplied, use the default or defaultTable and set it back into the context; if not supplied and no default, set the input the blank
-                if (value == null)
-                {
-                    context[input.getKey()] = getDefault(input, context, result);
-                }
 
-                // validate value against associated table if supplied; if a value is not supplied, or blank, there is no need to validate it against the table
+                // Blank inputs do not need validation against their associated table.
                 if (value != null && value.Length > 0 && input.getTable() != null)
                 {
                     ITable lookup = getProvider().getTable(input.getTable());
@@ -859,119 +884,204 @@ namespace TNMStagingCSharp.Src.Staging.Engine
                     if (endpoints == null)
                     {
                         result.addError(new Error.ErrorBuilder(input.getUsedForStaging() ? Error.Type.INVALID_REQUIRED_INPUT : Error.Type.INVALID_NON_REQUIRED_INPUT).message(
-                                "Invalid '" + input.getKey() + "' value (" + (value.Length == 0 ? DecisionEngineFuncs._BLANK_OUTPUT : value) + ")").key(input.getKey()).table(input.getTable()).build());
+                                "Invalid '" + input.getKey() + "' value (" + (value.Length == 0 ? DecisionEngineFuncs.BLANK_OUTPUT : value) + ")").key(input.getKey()).table(input.getTable()).build());
 
-                        // if the schema error handling is set to FAIL or if the input is required for staging and the error handling is set to FAIL_WHEN_REQUIRED_FOR_STAGING,
-                        // then stop processing and return a failure result
+                        // The schema controls whether this invalid input should stop processing.
                         if ((StagingInputErrorHandler.FAIL == schema.getOnInvalidInput()) || (input.getUsedForStaging()
                                 && (StagingInputErrorHandler.FAIL_WHEN_USED_FOR_STAGING == schema.getOnInvalidInput())))
                             stopForBadInput = true;
                     }
                 }
-
             }
+            return !stopForBadInput;
+        }
 
-            // if an invalid input was flagged to stop processing, set result and exit
-            if (stopForBadInput)
-            {
-                result.setType(Result.Type.FAILED_INPUT);
-                return result;
-            }
 
-            // add all output keys to the context; if no default is supplied, use an empty string
+        //========================================================================================================================
+        // Initializes output defaults followed by schema-level initial-context values.
+        // @param schema the schema being processed
+        // @param context the context to initialize
+        //========================================================================================================================
+        private void initializeSchemaContext(Schema schema, Dictionary<String, String> context)
+        {
+            // Output defaults must be available to the schema's initial-context expressions.
             foreach (KeyValuePair<String, IOutput> entry in schema.getOutputMap())
                 context[entry.Value.getKey()] = (entry.Value.getDefault() != null ? DecisionEngineFuncs.translateValue(entry.Value.getDefault(), context) : "");
 
-            // add the initial context
             if (schema.getInitialContext() != null)
                 foreach (IKeyValue keyValue in schema.getInitialContext())
                     context[keyValue.getKey()] = DecisionEngineFuncs.translateValue(keyValue.getValue(), context);
+        }
 
-            // process each mapping if it is "involved", which is checked using the current context against inclusion/exclusion criteria
-            if (schema.getMappings() != null)
+        //========================================================================================================================
+        // Executes each mapping whose inclusion and exclusion criteria match the current context.
+        // @param schema the schema containing the mappings
+        // @param context the current processing context
+        // @param result the result to update
+        //========================================================================================================================
+        private void executeMappings(Schema schema, Dictionary<String, String> context, Result result)
+        {
+            if (schema.getMappings() == null)
+                return;
+
+            foreach (IMapping mapping in schema.getMappings())
             {
-                foreach (IMapping mapping in schema.getMappings())
+                // Only mappings that pass their inclusion and exclusion criteria are processed.
+                if (!isMappingInvolved(mapping, context))
+                    continue;
+
+                recordInvolvementPaths(mapping, result);
+                initializeMappingContext(mapping, context);
+                executeTablePaths(mapping, context, result);
+            }
+        }
+
+        //========================================================================================================================
+        // Records the mapping's inclusion and exclusion tables in the result path.
+        // @param mapping the involved mapping
+        // @param result the result to update
+        //========================================================================================================================
+        private void recordInvolvementPaths(IMapping mapping, Result result)
+        {
+            // Inclusion and exclusion tables participate in processing and belong in the result path.
+            recordPaths(mapping.getId(), mapping.getInclusionTables(), result);
+            recordPaths(mapping.getId(), mapping.getExclusionTables(), result);
+        }
+
+        //========================================================================================================================
+        // Records a collection of table paths for a mapping.
+        // @param mappingId the mapping identifier
+        // @param paths the table paths to record, or {@code null}
+        // @param result the result to update
+        //========================================================================================================================
+        private void recordPaths(String mappingId, List<ITablePath> paths, Result result)
+        {
+            if (paths != null)
+            {
+                foreach (ITablePath path in paths)
                 {
-
-                    // make sure mapping passes inclusion/exclusion tables if present
-                    if (isMappingInvolved(mapping, context))
-                    {
-
-                        // if there are any inclusion/exclusion tables, add them to path
-                        if (mapping.getInclusionTables() != null)
-                            foreach (ITablePath path in mapping.getInclusionTables())
-                                result.addPath(mapping.getId(), path.getId());
-                        if (mapping.getExclusionTables() != null)
-                            foreach (ITablePath path in mapping.getExclusionTables())
-                                result.addPath(mapping.getId(), path.getId());
-
-                        // set the mapping-specific initial context if any
-                        if (mapping.getInitialContext() != null)
-                            foreach (IKeyValue keyValue in mapping.getInitialContext())
-                                context[keyValue.getKey()] = keyValue.getValue();
-
-                        // loop over all table paths in the mapping
-                        if (mapping.getTablePaths() != null)
-                        {
-                            foreach (ITablePath path in mapping.getTablePaths())
-                            {
-                                String tableId = path.getId();
-
-                                // if there is input mapping defined, add the new mapping to the context
-                                if (path.getInputMapping() != null)
-                                {
-                                    foreach (IKeyMapping key in path.getInputMapping())
-                                    {
-                                        String mapFromKey = key.getFrom();
-
-                                        if (!context.ContainsKey(mapFromKey))
-                                        {
-                                            result.addError(new Error.ErrorBuilder(Error.Type.UNKNOWN_INPUT_MAPPING).message("Input mapping '" + mapFromKey + "' does not exist for table '" + tableId + "'").key(
-                                                    mapFromKey).table(tableId).build());
-                                            continue;
-                                        }
-
-                                        String sContextValue = "";
-                                        if (context.ContainsKey(mapFromKey))
-                                            sContextValue = context[mapFromKey];
-
-                                        // DEBUG
-                                        //Debug.WriteLine("Table " + tableId + ":  Change " + key.getTo() + " to " + sContextValue);
-
-
-                                        context[key.getTo()] = sContextValue;
-
-
-                                    }
-                                }
-
-                                // create a stack to keep track of table calls and ensure there is no infinite recursion
-                                Stack<String> stack = new Stack<String>(30);
-
-                                // recursively process the mapping; if false is returned, stop all processing
-                                bool continueProcessing = process(mapping.getId(), tableId, path, result, stack);
-
-                                // remove the temporary input mappings
-                                if (path.getInputMapping() != null)
-                                {
-                                    foreach (IKeyMapping key in path.getInputMapping())
-                                        context.Remove(key.getTo());
-                                }
-
-                                if (!continueProcessing)
-                                    break;
-                            }
-
-                        }
-                    }
-
+                    result.addPath(mappingId, path.getId());
                 }
             }
+        }
 
-            // if outputs were specified, remove any extra keys and validate the others if a table was specified
+        //========================================================================================================================
+        // Adds mapping-level initial-context values to the processing context.
+        // @param mapping the mapping being processed
+        // @param context the context to initialize
+        //========================================================================================================================
+        private void initializeMappingContext(IMapping mapping, Dictionary<String, String> context)
+        {
+            // Mapping-specific values are available to every table path in this mapping.
+            if (mapping.getInitialContext() != null)
+            {
+                foreach (IKeyValue keyValue in mapping.getInitialContext())
+                {
+                    context[keyValue.getKey()] = keyValue.getValue();
+                }
+            }
+        }
+
+        //========================================================================================================================
+        // Executes the mapping's table paths in order until all paths complete or a STOP endpoint is reached.
+        // @param mapping the mapping being processed
+        // @param context the current processing context
+        // @param result the result to update
+        //========================================================================================================================
+        private void executeTablePaths(IMapping mapping, Dictionary<String, String> context, Result result)
+        {
+            if (mapping.getTablePaths() == null)
+                return;
+
+            // A STOP endpoint ends the remaining table paths for this mapping.
+            foreach (ITablePath path in mapping.getTablePaths())
+            {
+                if (!executeTablePath(mapping.getId(), path, context, result))
+                {
+                    break;
+                }
+            }
+        }
+
+        //========================================================================================================================
+        // Applies temporary input mappings and executes one table path, including any JUMP tables.
+        // @param mappingId the mapping identifier
+        // @param path the table path to execute
+        // @param context the current processing context
+        // @param result the result to update
+        // @return {@code true} when processing should continue; {@code false} when a STOP endpoint was reached
+        //========================================================================================================================
+        private bool executeTablePath(String mappingId, ITablePath path, Dictionary<String, String> context, Result result)
+        {
+            // Input mappings create aliases used while processing this path and any JUMP tables it reaches.
+            applyInputMappings(path, context, result);
+            try
+            {
+                Stack<String> stack = new Stack<String>(30);
+                return process(mappingId, path.getId(), path, result, stack);
+            }
+            finally
+            {
+                // Input-mapping destinations are temporary aliases scoped to this table path.
+                removeInputMappings(path, context);
+            }
+        }
+
+        //========================================================================================================================
+        // Adds the table path's temporary input aliases to the context.
+        // @param path the table path defining the aliases
+        // @param context the context to update
+        // @param result the result to receive unknown-source errors
+        //========================================================================================================================
+        private void applyInputMappings(ITablePath path, Dictionary<String, String> context, Result result)
+        {
+            if (path.getInputMapping() == null)
+                return;
+
+            foreach (IKeyMapping key in path.getInputMapping())
+            {
+                String sourceKey = key.getFrom();
+                if (!context.ContainsKey(sourceKey))
+                {
+                    result.addError(new Error.ErrorBuilder(Error.Type.UNKNOWN_INPUT_MAPPING).message("Input mapping '" + sourceKey + "' does not exist for table '" + path.getId() + "'").key(
+                            sourceKey).table(path.getId()).build());
+                    continue;
+                }
+
+                String sContextValue = "";
+                if (context.ContainsKey(sourceKey))
+                    sContextValue = context[sourceKey];
+
+                context[key.getTo()] = sContextValue;
+            }
+        }
+
+        //========================================================================================================================
+        // Removes the table path's temporary input aliases from the context.
+        // @param path the table path defining the aliases
+        // @param context the context to update
+        //========================================================================================================================
+        private void removeInputMappings(ITablePath path, Dictionary<String, String> context)
+        {
+            if (path.getInputMapping() != null)
+            {
+                foreach (IKeyMapping key in path.getInputMapping())
+                {
+                    context.Remove(key.getTo());
+                }
+            }
+        }
+
+        //========================================================================================================================
+        // Removes non-output values and validates configured outputs against their associated tables.
+        // @param schema the schema defining the outputs
+        // @param context the final processing context
+        // @param result the result to receive validation errors
+        //========================================================================================================================
+        private void validateOutputs(Schema schema, Dictionary<String, String> context, Result result)
+        {
             if (schema.getOutputMap() != null && schema.getOutputMap().Count > 0)
             {
-
                 // Remove all of the undefined keys.
                 List<String> lstKeysToRemove = new List<String>();
                 foreach (KeyValuePair<String, String> entry in context)
@@ -982,7 +1092,7 @@ namespace TNMStagingCSharp.Src.Staging.Engine
                     }
                 }
 
-                foreach(String sKeyName in lstKeysToRemove)
+                foreach (String sKeyName in lstKeysToRemove)
                 {
                     context.Remove(sKeyName);
                 }
@@ -998,10 +1108,10 @@ namespace TNMStagingCSharp.Src.Staging.Engine
                         output = schema.getOutputMap()[entry.Key];
                     }
 
-                    // if the key is not defined in the output, remove it
+                    // Once outputs are defined, internal and input values are removed from the returned context.
                     if (output == null)
                     {
-                        // Do nothing.
+                        // Done above.
                     }
                     else if (output.getTable() != null)
                     {
@@ -1013,24 +1123,23 @@ namespace TNMStagingCSharp.Src.Staging.Engine
                             continue;
                         }
 
-                        // verify the value of the output key is contained in the associated table
+                        // Validate the final output value when the output declares a validation table.
                         IEnumerable<IEndpoint> endpoints = DecisionEngineFuncs.matchTable(lookup, context);
                         if (endpoints == null)
                         {
                             String value = "";
                             if (context.ContainsKey(output.getKey()))
+                            {
                                 value = context[output.getKey()];
+                            }
 
-                            result.addError(new Error.ErrorBuilder(Error.Type.INVALID_OUTPUT).message("Invalid '" + output.getKey() + "' value (" + (value.Length == 0 ? DecisionEngineFuncs._BLANK_OUTPUT : value) + ")").key(
+                            result.addError(new Error.ErrorBuilder(Error.Type.INVALID_OUTPUT).message("Invalid '" + output.getKey() + "' value (" + (value.Length == 0 ? DecisionEngineFuncs.BLANK_OUTPUT : value) + ")").key(
                                     output.getKey()).table(output.getTable()).build());
                         }
                     }
                 }
             }
-
-            return result;
         }
-
 
         //========================================================================================================================
         // Internal method to recursively process a table
@@ -1090,20 +1199,19 @@ namespace TNMStagingCSharp.Src.Staging.Engine
             {
                 EndpointType endpType = 0;
                 String endpValue = "";
-                String endpResultKey = "";
-                String sNewValue = "";
+                //String endpResultKey = "";
+                //String sNewValue = "";
                 Dictionary<String, String> ResDict = result.getContext();
 
                 foreach (IEndpoint endpoint in endpoints)
                 {
                     endpType = endpoint.getType();
                     endpValue = endpoint.getValue();
-                    endpResultKey = endpoint.getResultKey();
-
+                    //endpResultKey = endpoint.getResultKey();
 
                     if (EndpointType.STOP == endpType)
                         continueProcessing = false;
-                    else if (EndpointType.JUMP == endpType)
+                    else if (EndpointType.JUMP == endpType && continueProcessing)
                         continueProcessing = process(mappingId, endpValue, path, result, stack);
                     else if (EndpointType.ERROR == endpType)
                     {
@@ -1115,35 +1223,7 @@ namespace TNMStagingCSharp.Src.Staging.Engine
                     }
                     else if (EndpointType.VALUE == endpType)
                     {
-                        // if output mapping(s) were provided, check whether the key was mapped
-                        List<String> mappedKeys = new List<String>();
-                        if (path.getOutputMapping() != null)
-                        {
-                            foreach (IKeyMapping key in path.getOutputMapping())
-                            {
-                                if (key.getFrom() == endpResultKey)
-                                    mappedKeys.Add(key.getTo());
-                            }
-                        }
-
-                        // if the value if null, that is indicating that the key should be removed from the context; otherwise set the value into the context
-                        if (mappedKeys.Count == 0)
-                        {
-                            mappedKeys.Add(endpResultKey);
-                        }
-
-                        // iterate over all the mappings for this endpoint key
-
-                        foreach (String key in mappedKeys)
-                        {
-                            if (endpValue == null)
-                                ResDict.Remove(key);
-                            else
-                            {
-                                sNewValue = DecisionEngineFuncs.translateValue(endpValue, ResDict);
-                                ResDict[key] = sNewValue;
-                            }
-                        }
+                        applyEndpointValue(endpoint, path, result.getContext());
                     }
                 }
             }
@@ -1154,6 +1234,61 @@ namespace TNMStagingCSharp.Src.Staging.Engine
             return continueProcessing;
         }
 
+        //========================================================================================================================
+        // Applies a value endpoint to its mapped output keys, resolving templates against the current context.
+        // @param endpoint the value endpoint to apply
+        // @param path the table path defining output mappings
+        // @param context the context to update
+        //========================================================================================================================
+        private void applyEndpointValue(IEndpoint endpoint, ITablePath path, Dictionary<String, String> context)
+        {
+            // A null endpoint value removes its destination; otherwise templates resolve against the current context.
+            foreach (String key in getMappedOutputKeys(endpoint.getResultKey(), path))
+            {
+                if (endpoint.getValue() == null)
+                {
+                    context.Remove(key);
+                }
+                else
+                {
+                    context[key] = DecisionEngineFuncs.translateValue(endpoint.getValue(), context);
+                }
+            }
+        }
+
+        //========================================================================================================================
+        // Resolves the destination keys for an endpoint result key.
+        // @param resultKey the endpoint result key
+        // @param path the table path defining output mappings
+        // @return the mapped destination keys, or the original result key when no mapping applies
+        //========================================================================================================================
+        private List<String> getMappedOutputKeys(String resultKey, ITablePath path)
+        {
+            if (path.getOutputMapping() == null)
+            {
+                List<String> retval = new List<String>();
+                retval.Add(resultKey);
+                return retval;
+            }
+
+            // if output mapping(s) were provided, check whether the key was mapped
+            List<String> mappedKeys = new List<String>();
+            if (path.getOutputMapping() != null)
+            {
+                foreach (IKeyMapping key in path.getOutputMapping())
+                {
+                    if (key.getFrom() == resultKey)
+                        mappedKeys.Add(key.getTo());
+                }
+            }
+
+            // if the value if null, that is indicating that the key should be removed from the context; otherwise set the value into the context
+            if (mappedKeys.Count == 0)
+            {
+                mappedKeys.Add(resultKey);
+            }
+            return mappedKeys;
+        }
     }
 }
 
