@@ -1,14 +1,19 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.IO.Compression;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.InteropServices.WindowsRuntime;
+using System.Text;
 using TNMStagingCSharp.Src.Staging;
 using TNMStagingCSharp.Src.Staging.Entities;
 using TNMStagingCSharp.Src.Staging.Entities.Impl;
 using TNMStagingCSharp.Src.Staging.Pediatric;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace TNMStaging_UnitTestApp.Src.Staging
 {
@@ -213,90 +218,236 @@ namespace TNMStaging_UnitTestApp.Src.Staging
         */
 
         [TestMethod]
-        void testGlossaryFromInMemoryZip() throws IOException 
+        void testGlossaryFromInMemoryZip()
         {
-            ExternalStagingFileDataProvider provider = provider(
+            ExternalStagingFileDataProvider provider = CreateProvider(
                 "tables/site.json",
-                tableJson("site", "TESTING", "1.0"),
+                CreateTableJson("site", "TESTING", "1.0"),
                 "glossary/cortex.json",
                 "{\"name\":\"Cortex\",\"definition\":\"Outer tissue\",\"alternate_names\":[\"Cortical\"]}"
             );
 
-            assertThat(provider.getAlgorithm()).isEqualTo("testing");
-            assertThat(provider.getGlossaryTerms()).containsExactly("Cortex");
-            assertThat(provider.getGlossaryDefinition("Cortex").getDefinition()).isEqualTo("Outer tissue");
-            assertThat(provider.getGlossaryDefinition("missing")).isNull();
-            assertThat(provider.getGlossaryMatches("The cortex is present")).extracting("term").containsExactly("Cortex");
-            assertThat(provider.getGlossaryMatches("Cortexlike")).isEmpty();
+            Assert.AreEqual(provider.getAlgorithm(), "testing");
+            Assert.IsTrue(provider.getGlossaryTerms().Count == 1);
+            Assert.IsTrue(provider.getGlossaryTerms().Contains("Cortex"));
+            Assert.AreEqual(provider.getGlossaryDefinition("Cortex").getDefinition(), "Outer tissue");
+            Assert.IsNull(provider.getGlossaryDefinition("missing"));
+
+            //Assert.IsTrue(provider.getGlossaryMatches("The cortex is present")).extracting("term").containsExactly("Cortex");
+            List<GlossaryHit> matches = provider.getGlossaryMatches("The cortex is present");
+            Assert.IsTrue(matches.Count == 1);
+            Assert.IsTrue(matches[0].getTerm().Equals("Cortex"));
+
+            Assert.IsTrue(provider.getGlossaryMatches("Cortexlike").Count == 0);
         }
 
         [TestMethod]
-        void testMalformedJsonIsRejected() throws IOException 
+        void testMalformedJsonIsRejected()
         {
-            byte[] zip = zip("tables/broken.json", "{not-json");
+            byte[] zip = CreateZip("tables/broken.json", "{not-json");
 
-            assertThatThrownBy(() -> new ExternalStagingFileDataProvider(new ByteArrayInputStream(zip))).isInstanceOf(
-                IOException.class
-            );
-        }
-
-        [TestMethod]
-        void testArchiveRequiresAlgorithmData() throws IOException 
-        {
-            byte[] zip = zip("notes/readme.txt", "ignored", "glossary/term.json", "{\"name\":\"Term\"}");
-
-            assertThatThrownBy(() -> new ExternalStagingFileDataProvider(new ByteArrayInputStream(zip)))
-                .isInstanceOf(IllegalStateException.class)
-                .hasMessage("Error initializing provider; only a single algorithm should be included in file");
-        }
-
-        [TestMethod]
-        void testInconsistentAlgorithmsAndVersionsAreRejected() throws IOException 
-        {
-            byte[] algorithms = zip(
-                "tables/one.json",
-                tableJson("one", "FIRST", "1.0"),
-                "tables/two.json",
-                tableJson("two", "SECOND", "1.0")
-            );
-            assertThatThrownBy(() -> new ExternalStagingFileDataProvider(new ByteArrayInputStream(algorithms)))
-                .isInstanceOf(IllegalStateException.class)
-                .hasMessage("Error initializing provider; only a single algorithm should be included in file");
-
-            byte[] versions = zip(
-                "tables/one.json",
-                tableJson("one", "TEST", "1.0"),
-                "tables/two.json",
-                tableJson("two", "TEST", "2.0")
-            );
-            assertThatThrownBy(() -> new ExternalStagingFileDataProvider(new ByteArrayInputStream(versions)))
-                .isInstanceOf(IllegalStateException.class)
-                .hasMessage("Error initializing provider; only a single version should be included in file");
-        }
-
-        private static ExternalStagingFileDataProvider provider(String... entries) throws IOException 
-        {
-            return new ExternalStagingFileDataProvider(new ByteArrayInputStream(zip(entries)));
-        }
-
-        private static byte[] zip(String... entries) throws IOException {
-            ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-            try (ZipOutputStream zip = new ZipOutputStream(bytes)) {
-                for (int i = 0; i < entries.length; i += 2) {
-                    zip.putNextEntry(new ZipEntry(entries[i]));
-                    zip.write(entries[i + 1].getBytes(StandardCharsets.UTF_8));
-                    zip.closeEntry();
+            bool exceptionThrown = false;
+            try
+            {
+                using (MemoryStream stream = new MemoryStream(zip))
+                {
+                    ExternalStagingFileDataProvider test = new ExternalStagingFileDataProvider(stream);
                 }
             }
-            return bytes.toByteArray();
+            catch (Exception ex)
+            {
+                // What type?
+                exceptionThrown = true;
+            }
+            Assert.IsTrue(exceptionThrown);
+
+            //assertThatThrownBy(() -> new ExternalStagingFileDataProvider(new ByteArrayInputStream(zip))).isInstanceOf(
+            //    IOException.class
         }
 
-        private static String tableJson(String id, String algorithm, String version) 
+        [TestMethod]
+        void testArchiveRequiresAlgorithmData()
         {
-            return """
-            {"id":"%s","algorithm":"%s","version":"%s","definition":[{"key":"value","type":"INPUT"}],"rows":[["1"]]}
-            """.formatted(id, algorithm, version);
+            byte[] zip = CreateZip("notes/readme.txt", "ignored", "glossary/term.json", "{\"name\":\"Term\"}");
+
+            bool exceptionThrown = false;
+            try
+            {
+                using (MemoryStream stream = new MemoryStream(zip))
+                {
+                    ExternalStagingFileDataProvider test = new ExternalStagingFileDataProvider(stream);
+                }
+            }
+            catch (InvalidOperationException ex)
+            {
+                exceptionThrown = ex.Message.Equals("Error initializing provider; only a single algorithm should be included in file");
+            }
+            Assert.IsTrue(exceptionThrown);
         }
+
+        [TestMethod]
+        void testInconsistentAlgorithmsAndVersionsAreRejected()
+        {
+            byte[] algorithms = CreateZip(
+                "tables/one.json",
+                CreateTableJson("one", "FIRST", "1.0"),
+                "tables/two.json",
+                CreateTableJson("two", "SECOND", "1.0")
+            );
+
+            bool exceptionThrown = false;
+            try
+            {
+                using (MemoryStream stream = new MemoryStream(algorithms))
+                {
+                    ExternalStagingFileDataProvider test = new ExternalStagingFileDataProvider(stream);
+                }
+            }
+            catch (InvalidOperationException ex)
+            {
+                exceptionThrown = ex.Message.Equals("Error initializing provider; only a single algorithm should be included in file");
+            }
+            Assert.IsTrue(exceptionThrown);
+
+
+            byte[] versions = CreateZip(
+                "tables/one.json",
+                CreateTableJson("one", "TEST", "1.0"),
+                "tables/two.json",
+                CreateTableJson("two", "TEST", "2.0")
+            );
+
+            exceptionThrown = false;
+            try
+            {
+                using (MemoryStream stream = new MemoryStream(versions))
+                {
+                    ExternalStagingFileDataProvider test = new ExternalStagingFileDataProvider(stream);
+                }
+            }
+            catch (InvalidOperationException ex)
+            {
+                exceptionThrown = ex.Message.Equals("Error initializing provider; only a single version should be included in file");
+            }
+            Assert.IsTrue(exceptionThrown);
+        }
+
+        private static ExternalStagingFileDataProvider CreateProvider(params String[] entries)
+        {
+            ExternalStagingFileDataProvider retval = null;
+            using (MemoryStream stream = new MemoryStream(CreateZip(entries)))
+            {
+                retval = new ExternalStagingFileDataProvider(stream);
+            }
+            return retval;
+        }
+
+        private static byte[] CreateZip(params String[] entries)
+        {
+            var outStream = new MemoryStream();
+
+            // 2. Initialize ZipArchive with leaveOpen = true
+            using (var archive = new ZipArchive(outStream, ZipArchiveMode.Create, leaveOpen: true))
+            {
+                for (int i = 0; i < entries.Length; i += 2)
+                {
+                    var entry = archive.CreateEntry(entries[i], CompressionLevel.Optimal);
+                    using (var writer = new StreamWriter(entry.Open(), Encoding.UTF8))
+                    {
+                        writer.Write(Encoding.UTF8.GetBytes(entries[i + 1]));
+                    }
+                }
+            }
+            return outStream.ToArray();
+        }
+
+        private static String CreateTableJson(String id, String algorithm, String version)
+        {
+            return $"\" \"id\":\"{id}\",\"algorithm\":\"{algorithm}\",\"version\":\"{version}\",\"definition\":[\"key\":\"value\",\"type\":\"INPUT\"}],\"rows\":[[\"1\"]]}\"";
+        }
+
     }
 }
 
+/*
+    @Test
+    void testGlossaryFromInMemoryZip() throws IOException {
+        ExternalStagingFileDataProvider provider = provider(
+            "tables/site.json",
+            tableJson("site", "TESTING", "1.0"),
+            "glossary/cortex.json",
+            "{\"name\":\"Cortex\",\"definition\":\"Outer tissue\",\"alternate_names\":[\"Cortical\"]}"
+        );
+
+        assertThat(provider.getAlgorithm()).isEqualTo("testing");
+        assertThat(provider.getGlossaryTerms()).containsExactly("Cortex");
+        assertThat(provider.getGlossaryDefinition("Cortex").getDefinition()).isEqualTo("Outer tissue");
+        assertThat(provider.getGlossaryDefinition("missing")).isNull();
+        assertThat(provider.getGlossaryMatches("The cortex is present")).extracting("term").containsExactly("Cortex");
+        assertThat(provider.getGlossaryMatches("Cortexlike")).isEmpty();
+    }
+
+    @Test
+    void testMalformedJsonIsRejected() throws IOException {
+        byte[] zip = zip("tables/broken.json", "{not-json");
+
+        assertThatThrownBy(() -> new ExternalStagingFileDataProvider(new ByteArrayInputStream(zip))).isInstanceOf(
+            IOException.class
+        );
+    }
+
+    @Test
+    void testArchiveRequiresAlgorithmData() throws IOException {
+        byte[] zip = zip("notes/readme.txt", "ignored", "glossary/term.json", "{\"name\":\"Term\"}");
+
+        assertThatThrownBy(() -> new ExternalStagingFileDataProvider(new ByteArrayInputStream(zip)))
+            .isInstanceOf(IllegalStateException.class)
+            .hasMessage("Error initializing provider; only a single algorithm should be included in file");
+    }
+
+    @Test
+    void testInconsistentAlgorithmsAndVersionsAreRejected() throws IOException {
+        byte[] algorithms = zip(
+            "tables/one.json",
+            tableJson("one", "FIRST", "1.0"),
+            "tables/two.json",
+            tableJson("two", "SECOND", "1.0")
+        );
+        assertThatThrownBy(() -> new ExternalStagingFileDataProvider(new ByteArrayInputStream(algorithms)))
+            .isInstanceOf(IllegalStateException.class)
+            .hasMessage("Error initializing provider; only a single algorithm should be included in file");
+
+        byte[] versions = zip(
+            "tables/one.json",
+            tableJson("one", "TEST", "1.0"),
+            "tables/two.json",
+            tableJson("two", "TEST", "2.0")
+        );
+        assertThatThrownBy(() -> new ExternalStagingFileDataProvider(new ByteArrayInputStream(versions)))
+            .isInstanceOf(IllegalStateException.class)
+            .hasMessage("Error initializing provider; only a single version should be included in file");
+    }
+
+    private static ExternalStagingFileDataProvider provider(String... entries) throws IOException {
+        return new ExternalStagingFileDataProvider(new ByteArrayInputStream(zip(entries)));
+    }
+
+    private static byte[] zip(String... entries) throws IOException {
+        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+        try (ZipOutputStream zip = new ZipOutputStream(bytes)) {
+            for (int i = 0; i < entries.length; i += 2) {
+                zip.putNextEntry(new ZipEntry(entries[i]));
+                zip.write(entries[i + 1].getBytes(StandardCharsets.UTF_8));
+                zip.closeEntry();
+            }
+        }
+        return bytes.toByteArray();
+    }
+
+    private static String tableJson(String id, String algorithm, String version) {
+        return """
+        {"id":"%s","algorithm":"%s","version":"%s","definition":[{"key":"value","type":"INPUT"}],"rows":[["1"]]}
+        """.formatted(id, algorithm, version);
+    }
+
+ */

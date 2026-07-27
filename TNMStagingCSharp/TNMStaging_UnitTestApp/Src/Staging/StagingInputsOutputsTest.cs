@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Policy;
@@ -6,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TNMStagingCSharp.Src.Staging;
 using TNMStagingCSharp.Src.Staging.CS;
+using TNMStagingCSharp.Src.Staging.Engine;
 using TNMStagingCSharp.Src.Staging.Entities;
 using TNMStagingCSharp.Src.Staging.Entities.Impl;
 using TNMStagingCSharp.Src.Staging.EOD;
@@ -19,48 +21,50 @@ namespace TNMStaging_UnitTestApp.Src.Staging
     internal class StagingInputsOutputsTest
     {
         private InMemoryDataProvider _provider;
-        private Staging _staging;
+        private TNMStagingCSharp.Src.Staging.Staging _staging;
         private StagingTablePath _mainPath;
         private StagingMapping _mapping;
 
-        @BeforeEach
-        void setUp()
+        [ClassInitialize()]
+        public void ClassInit(TestContext context)
         {
             _provider = new InMemoryDataProvider("test", "1.0");
             _provider.addTable(
                 table(
                     "selection",
-                    List.of(
+                    new List<StagingColumnDefinition>()
+                    {
                         new StagingColumnDefinition("selector", "Selector", ColumnType.INPUT),
-                        new StagingColumnDefinition(Staging.CTX_YEAR_CURRENT, "Current year", ColumnType.INPUT)
-                    ),
-                    List.of("*", "*")
+                        new StagingColumnDefinition(TNMStagingCSharp.Src.Staging.Staging.CTX_YEAR_CURRENT, "Current year", ColumnType.INPUT)
+                    },
+                    new List<string>() {"*", "*"}
                 )
             );
             _provider.addTable(
                 table(
                     "inclusion",
-                    Collections.singletonList(new StagingColumnDefinition("include_flag", "Include", ColumnType.INPUT)),
-                    Collections.singletonList("Y")
+                    new List<StagingColumnDefinition>() { new StagingColumnDefinition("include_flag", "Include", ColumnType.INPUT) },
+                    new List<string>() { "Y" }
                 )
             );
             _provider.addTable(
                 table(
                     "exclusion",
-                    Collections.singletonList(new StagingColumnDefinition("exclude_flag", "Exclude", ColumnType.INPUT)),
-                    Collections.singletonList("Y")
+                    new List<StagingColumnDefinition>() { new StagingColumnDefinition("exclude_flag", "Exclude", ColumnType.INPUT) },
+                    new List<string>() { "Y" }
                 )
             );
             _provider.addTable(
                 table(
                     "main",
-                    List.of(
+                    new List<StagingColumnDefinition>()
+                    {
                         new StagingColumnDefinition("raw_input", "Raw input", ColumnType.INPUT),
-                        new StagingColumnDefinition(Staging.CTX_ALGORITHM_VERSION, "Algorithm version", ColumnType.INPUT),
-                        new StagingColumnDefinition(Staging.CTX_YEAR_CURRENT, "Current year", ColumnType.INPUT),
+                        new StagingColumnDefinition(TNMStagingCSharp.Src.Staging.Staging.CTX_ALGORITHM_VERSION, "Algorithm version", ColumnType.INPUT),
+                        new StagingColumnDefinition(TNMStagingCSharp.Src.Staging.Staging.CTX_YEAR_CURRENT, "Current year", ColumnType.INPUT),
                         new StagingColumnDefinition("raw_output", "Raw output", ColumnType.ENDPOINT)
-                    ),
-                    List.of("*", "*", "*", "VALUE:result")
+                    },
+                    new List<string>() { "*", "*", "*", "VALUE:result" }
                 )
             );
 
@@ -68,11 +72,11 @@ namespace TNMStaging_UnitTestApp.Src.Staging
             _mainPath.addInputMapping("case_input", "raw_input");
             _mainPath.addOutputMapping("raw_output", "mapped_output");
 
-            _mapping = new StagingMapping("conditional", Collections.singletonList(_mainPath));
-            _mapping.setInclusionTables(Collections.singletonList(new StagingTablePath("inclusion")));
-            _mapping.setExclusionTables(Collections.singletonList(new StagingTablePath("exclusion")));
+            _mapping = new StagingMapping("conditional", new List<ITablePath>() { _mainPath });
+            _mapping.setInclusionTables(new List<ITablePath>() { new StagingTablePath("inclusion") });
+            _mapping.setExclusionTables(new List<ITablePath>() { new StagingTablePath("exclusion") });
 
-            _staging = Staging.getInstance(_provider);
+            _staging = TNMStagingCSharp.Src.Staging.Staging.getInstance(_provider);
         }
 
         [TestMethod]
@@ -88,9 +92,9 @@ namespace TNMStaging_UnitTestApp.Src.Staging
         [TestMethod]
         void getsMappingInputsAndOutputsWithExclusionsAndContext()
         {
-            Map<String, String> included = Map.of("include_flag", "Y", "exclude_flag", "N");
-            Map<String, String> notIncluded = Map.of("include_flag", "N", "exclude_flag", "N");
-            Map<String, String> excluded = Map.of("include_flag", "Y", "exclude_flag", "Y");
+            Dictionary<String, String> included = Map.of("include_flag", "Y", "exclude_flag", "N");
+            Dictionary<String, String> notIncluded = Map.of("include_flag", "N", "exclude_flag", "N");
+            Dictionary<String, String> excluded = Map.of("include_flag", "Y", "exclude_flag", "Y");
 
             assertThat(_staging.getInputs(_mapping)).containsExactlyInAnyOrder(
                 "include_flag",
@@ -119,7 +123,7 @@ namespace TNMStaging_UnitTestApp.Src.Staging
         [TestMethod]
         void getsSchemaInputsAndExplicitOrInferredOutputs()
         {
-            Map<String, String> excluded = Map.of("include_flag", "Y", "exclude_flag", "Y");
+            Dictionary<String, String> excluded = Map.of("include_flag", "Y", "exclude_flag", "Y");
 
             StagingSchema inferred = schema("inferred", _mapping);
             _provider.addSchema(inferred);
@@ -156,14 +160,14 @@ namespace TNMStaging_UnitTestApp.Src.Staging
         {
             StagingSchema schema = new StagingSchema(id);
             schema.setSchemaSelectionTable("selection");
-            schema.setMappings(Collections.singletonList(mapping));
+            schema.setMappings(new List<IMapping>() { mapping });
             return schema;
         }
 
         private StagingTable table(String id, List<StagingColumnDefinition> definitions, List<String> row)
         {
             StagingTable table = new StagingTable(id);
-            table.setColumnDefinitions(definitions);
+            table.setColumnDefinitions((List<IColumnDefinition>)definitions);
             table.setRawRows(Collections.singletonList(row));
             return table;
         }

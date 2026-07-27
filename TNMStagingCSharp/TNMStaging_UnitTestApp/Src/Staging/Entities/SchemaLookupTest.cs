@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-
 using TNMStagingCSharp.Src.Staging.Entities;
-
 
 namespace TNMStaging_UnitTestApp.Src.Staging.Entities
 {
@@ -53,7 +51,7 @@ namespace TNMStaging_UnitTestApp.Src.Staging.Entities
             Assert.AreEqual(lookup2, lookup1);
             Assert.AreEqual(lookup2, lookup3);
             Assert.AreEqual(lookup1, lookup3);
-            Assert.AreEqual(lookup1.hashCode(), lookup2.hashCode());
+            Assert.AreEqual(lookup1.GetHashString(), lookup2.GetHashString());
         }
 
         [TestMethod]
@@ -76,7 +74,7 @@ namespace TNMStaging_UnitTestApp.Src.Staging.Entities
 
             lookup.clear();
 
-            Assert.IsTrue(lookup.getInputs().isEmpty());
+            Assert.IsTrue(lookup.getInputs().Count == 0);
         }
 
         [TestMethod]
@@ -89,7 +87,16 @@ namespace TNMStaging_UnitTestApp.Src.Staging.Entities
             TestSchemaLookup restrictedLookup = new TestSchemaLookup();
             restrictedLookup.setInput("allowed", "value");
             Assert.AreEqual("value", restrictedLookup.getInput("allowed"));
-            assertThrows(IllegalStateException.class, () -> restrictedLookup.setInput("disallowed", "value"));
+            bool exceptionThrown = false;
+            try
+            {
+                restrictedLookup.setInput("disallowed", "value");
+            }
+            catch (System.InvalidOperationException ex)
+            {
+                exceptionThrown = true;
+            }
+            Assert.IsTrue(exceptionThrown);
         }
 
         [TestMethod]
