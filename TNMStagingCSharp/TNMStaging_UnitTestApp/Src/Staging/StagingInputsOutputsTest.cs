@@ -30,9 +30,9 @@ namespace TNMStaging_UnitTestApp.Src.Staging
         {
             _provider = new InMemoryDataProvider("test", "1.0");
             _provider.addTable(
-                table(
+                CreateTable(
                     "selection",
-                    new List<StagingColumnDefinition>()
+                    new List<IColumnDefinition>()
                     {
                         new StagingColumnDefinition("selector", "Selector", ColumnType.INPUT),
                         new StagingColumnDefinition(TNMStagingCSharp.Src.Staging.Staging.CTX_YEAR_CURRENT, "Current year", ColumnType.INPUT)
@@ -41,23 +41,23 @@ namespace TNMStaging_UnitTestApp.Src.Staging
                 )
             );
             _provider.addTable(
-                table(
+                CreateTable(
                     "inclusion",
-                    new List<StagingColumnDefinition>() { new StagingColumnDefinition("include_flag", "Include", ColumnType.INPUT) },
+                    new List<IColumnDefinition>() { new StagingColumnDefinition("include_flag", "Include", ColumnType.INPUT) },
                     new List<string>() { "Y" }
                 )
             );
             _provider.addTable(
-                table(
+                CreateTable(
                     "exclusion",
-                    new List<StagingColumnDefinition>() { new StagingColumnDefinition("exclude_flag", "Exclude", ColumnType.INPUT) },
+                    new List<IColumnDefinition>() { new StagingColumnDefinition("exclude_flag", "Exclude", ColumnType.INPUT) },
                     new List<string>() { "Y" }
                 )
             );
             _provider.addTable(
-                table(
+                CreateTable(
                     "main",
-                    new List<StagingColumnDefinition>()
+                    new List<IColumnDefinition>()
                     {
                         new StagingColumnDefinition("raw_input", "Raw input", ColumnType.INPUT),
                         new StagingColumnDefinition(TNMStagingCSharp.Src.Staging.Staging.CTX_ALGORITHM_VERSION, "Algorithm version", ColumnType.INPUT),
@@ -82,81 +82,154 @@ namespace TNMStaging_UnitTestApp.Src.Staging
         [TestMethod]
         void getsMappedTablePathInputsAndOutputs()
         {
-            assertThat(_staging.getInputs(_mainPath)).containsExactly("case_input");
-            assertThat(_staging.getInputs(_mainPath, new HashSet<>(Set.of("case_input")))).isEmpty();
-            assertThat(_staging.getInputs((StagingTablePath)null)).isEmpty();
+            //assertThat(_staging.getInputs(_mainPath)).containsExactly("case_input");
+            Assert.IsTrue(_staging.getInputs(_mainPath).Count == 1);
+            Assert.IsTrue(_staging.getInputs(_mainPath).Contains("case_input"));
 
-            assertThat(_staging.getOutputs(_mainPath)).containsExactly("mapped_output");
+            //assertThat(_staging.getInputs(_mainPath, new HashSet<>(Set.of("case_input")))).isEmpty();
+            var test = new HashSet<string>() { "case_input" };
+            Assert.IsTrue(_staging.getInputs(_mainPath, test).Count == 0);
+
+            //assertThat(_staging.getInputs((StagingTablePath)null)).isEmpty();
+            Assert.IsTrue(_staging.getInputs((StagingTablePath)null).Count == 0);
+
+            //assertThat(_staging.getOutputs(_mainPath)).containsExactly("mapped_output");
+            Assert.IsTrue(_staging.getOutputs(_mainPath).Count == 1);
+            Assert.IsTrue(_staging.getOutputs(_mainPath).Contains("mapped_output"));
         }
 
         [TestMethod]
         void getsMappingInputsAndOutputsWithExclusionsAndContext()
         {
-            Dictionary<String, String> included = Map.of("include_flag", "Y", "exclude_flag", "N");
-            Dictionary<String, String> notIncluded = Map.of("include_flag", "N", "exclude_flag", "N");
-            Dictionary<String, String> excluded = Map.of("include_flag", "Y", "exclude_flag", "Y");
+            //Dictionary<String, String> included = Map.of("include_flag", "Y", "exclude_flag", "N");
+            //Dictionary<String, String> notIncluded = Map.of("include_flag", "N", "exclude_flag", "N");
+            //Dictionary<String, String> excluded = Map.of("include_flag", "Y", "exclude_flag", "Y");
+            Dictionary<String, String> included = new Dictionary<String, String>();
+            included["include_flag"] = "Y";
+            included["exclude_flag"] = "N";
+            Dictionary<String, String> notIncluded = new Dictionary<String, String>();
+            notIncluded["include_flag"] = "N";
+            notIncluded["exclude_flag"] = "N";
+            Dictionary<String, String> excluded = new Dictionary<String, String>();
+            excluded["include_flag"] = "Y";
+            excluded["exclude_flag"] = "Y";
 
-            assertThat(_staging.getInputs(_mapping)).containsExactlyInAnyOrder(
-                "include_flag",
-                "exclude_flag",
-                "case_input"
-            );
-            assertThat(_staging.getInputs(_mapping, included, new HashSet<>())).containsExactlyInAnyOrder(
-                "include_flag",
-                "exclude_flag",
-                "case_input"
-            );
-            assertThat(_staging.getInputs(_mapping, notIncluded, new HashSet<>())).containsExactlyInAnyOrder(
-                "include_flag",
-                "exclude_flag"
-            );
-            assertThat(_staging.getInputs(_mapping, excluded, new HashSet<>(Set.of("include_flag")))).containsExactly(
-                "exclude_flag"
-            );
+            //assertThat(_staging.getInputs(_mapping)).containsExactlyInAnyOrder(
+            //    "include_flag",
+            //    "exclude_flag",
+            //    "case_input"
+            //);
+            Assert.IsTrue(_staging.getInputs(_mapping).Count == 3);
+            Assert.IsTrue(_staging.getInputs(_mapping).Contains("include_flag"));
+            Assert.IsTrue(_staging.getInputs(_mapping).Contains("exclude_flag"));
+            Assert.IsTrue(_staging.getInputs(_mapping).Contains("case_input"));
 
-            assertThat(_staging.getOutputs(_mapping)).containsExactly("mapped_output");
-            assertThat(_staging.getOutputs(_mapping, included)).containsExactly("mapped_output");
-            assertThat(_staging.getOutputs(_mapping, notIncluded)).isEmpty();
-            assertThat(_staging.getOutputs(_mapping, excluded)).isEmpty();
+            //assertThat(_staging.getInputs(_mapping, included, new HashSet<>())).containsExactlyInAnyOrder(
+            //    "include_flag",
+            //    "exclude_flag",
+            //    "case_input"
+            //);
+            var testInputs = _staging.getInputs(_mapping, included, new HashSet<string>());
+            Assert.IsTrue(testInputs.Count == 3);
+            Assert.IsTrue(testInputs.Contains("include_flag"));
+            Assert.IsTrue(testInputs.Contains("exclude_flag"));
+            Assert.IsTrue(testInputs.Contains("case_input"));
+
+
+            //assertThat(_staging.getInputs(_mapping, notIncluded, new HashSet<>())).containsExactlyInAnyOrder(
+            //    "include_flag",
+            //    "exclude_flag"
+            //);
+            testInputs = _staging.getInputs(_mapping, notIncluded, new HashSet<string>());
+            Assert.IsTrue(testInputs.Count == 2);
+            Assert.IsTrue(testInputs.Contains("include_flag"));
+            Assert.IsTrue(testInputs.Contains("exclude_flag"));
+
+            //assertThat(_staging.getInputs(_mapping, excluded, new HashSet<>(Set.of("include_flag")))).containsExactly(
+            //    "exclude_flag"
+            //);
+            testInputs = _staging.getInputs(_mapping, excluded, new HashSet<string>());
+            Assert.IsTrue(testInputs.Count == 1);
+            Assert.IsTrue(testInputs.Contains("exclude_flag"));
+
+
+            //assertThat(_staging.getOutputs(_mapping)).containsExactly("mapped_output");
+            Assert.IsTrue(_staging.getOutputs(_mapping).Count == 1);
+            Assert.IsTrue(_staging.getOutputs(_mapping).Contains("mapped_output"));
+
+            //assertThat(_staging.getOutputs(_mapping, included)).containsExactly("mapped_output");
+            Assert.IsTrue(_staging.getOutputs(_mapping, included).Count == 1);
+            Assert.IsTrue(_staging.getOutputs(_mapping, included).Contains("mapped_output"));
+
+            Assert.IsTrue(_staging.getOutputs(_mapping, notIncluded).Count == 0);
+            Assert.IsTrue(_staging.getOutputs(_mapping, excluded).Count == 0);
         }
 
         [TestMethod]
         void getsSchemaInputsAndExplicitOrInferredOutputs()
         {
-            Dictionary<String, String> excluded = Map.of("include_flag", "Y", "exclude_flag", "Y");
+            Dictionary<String, String> excluded = new Dictionary<String, String>();
+            excluded["include_flag"] = "Y";
+            excluded["exclude_flag"] = "Y";
 
-            StagingSchema inferred = schema("inferred", _mapping);
+            StagingSchema inferred = CreateSchema("inferred", _mapping);
             _provider.addSchema(inferred);
             inferred.setOutputMap(null);
 
-            assertThat(_staging.getInputs(inferred)).containsExactlyInAnyOrder(
-                "selector",
-                "include_flag",
-                "exclude_flag",
-                "case_input"
-            );
-            assertThat(_staging.getInputs(inferred, excluded)).containsExactlyInAnyOrder(
-                "selector",
-                "include_flag",
-                "exclude_flag"
-            );
-            assertThat(_staging.getOutputs(inferred)).containsExactly("mapped_output");
-            assertThat(_staging.getOutputs(inferred, excluded)).isEmpty();
+            //assertThat(_staging.getInputs(inferred)).containsExactlyInAnyOrder(
+            //    "selector",
+            //    "include_flag",
+            //    "exclude_flag",
+            //    "case_input"
+            //);
+            var testInputs = _staging.getInputs(inferred);
+            Assert.IsTrue(testInputs.Count == 4);
+            Assert.IsTrue(testInputs.Contains("selector"));
+            Assert.IsTrue(testInputs.Contains("include_flag"));
+            Assert.IsTrue(testInputs.Contains("exclude_flag"));
+            Assert.IsTrue(testInputs.Contains("case_input"));
 
-            StagingSchema explicit = schema("explicit", _mapping);
-            explicit.setOutputs(
-            Arrays.asList(
+            //assertThat(_staging.getInputs(inferred, excluded)).containsExactlyInAnyOrder(
+            //    "selector",
+            //    "include_flag",
+            //    "exclude_flag"
+            //);
+            testInputs = _staging.getInputs(inferred, excluded);
+            Assert.IsTrue(testInputs.Count == 3);
+            Assert.IsTrue(testInputs.Contains("selector"));
+            Assert.IsTrue(testInputs.Contains("include_flag"));
+            Assert.IsTrue(testInputs.Contains("exclude_flag"));
+
+            //assertThat(_staging.getOutputs(inferred)).containsExactly("mapped_output");
+            Assert.IsTrue(_staging.getOutputs(inferred).Count == 3);
+            Assert.IsTrue(_staging.getOutputs(inferred).Contains("mapped_output"));
+
+            Assert.IsTrue(_staging.getOutputs(inferred, excluded).Count == 0);
+
+            StagingSchema explicitSchema = CreateSchema("explicit", _mapping);
+            explicitSchema.setOutputs(
+                new List<StagingSchemaOutput>()
+                {
                     new StagingSchemaOutput("declared_one", "Declared one"),
                     new StagingSchemaOutput("declared_two", "Declared two")
-                )
+                }
             );
-            _provider.addSchema(explicit);
+            _provider.addSchema(explicitSchema);
 
-            assertThat(_staging.getOutputs(explicit)).containsExactlyInAnyOrder("declared_one", "declared_two");
-            assertThat(_staging.getOutputs(explicit, excluded)).containsExactlyInAnyOrder("declared_one", "declared_two");
+            //assertThat(_staging.getOutputs(explicitSchema)).containsExactlyInAnyOrder("declared_one", "declared_two");
+            var testOutputs = _staging.getOutputs(explicitSchema);
+            Assert.IsTrue(testOutputs.Count == 2);
+            Assert.IsTrue(testOutputs.Contains("declared_one"));
+            Assert.IsTrue(testOutputs.Contains("declared_two"));
+
+            //assertThat(_staging.getOutputs(explicitSchema, excluded)).containsExactlyInAnyOrder("declared_one", "declared_two");
+            testOutputs = _staging.getOutputs(explicitSchema, excluded);
+            Assert.IsTrue(testOutputs.Count == 2);
+            Assert.IsTrue(testOutputs.Contains("declared_one"));
+            Assert.IsTrue(testOutputs.Contains("declared_two"));
         }
 
-        private StagingSchema schema(String id, StagingMapping mapping)
+        private StagingSchema CreateSchema(String id, StagingMapping mapping)
         {
             StagingSchema schema = new StagingSchema(id);
             schema.setSchemaSelectionTable("selection");
@@ -164,11 +237,11 @@ namespace TNMStaging_UnitTestApp.Src.Staging
             return schema;
         }
 
-        private StagingTable table(String id, List<StagingColumnDefinition> definitions, List<String> row)
+        private StagingTable CreateTable(String id, List<IColumnDefinition> definitions, List<String> row)
         {
             StagingTable table = new StagingTable(id);
-            table.setColumnDefinitions((List<IColumnDefinition>)definitions);
-            table.setRawRows(Collections.singletonList(row));
+            table.setColumnDefinitions(definitions);
+            table.setRawRows(new List<List<string>>() { row });
             return table;
         }
 

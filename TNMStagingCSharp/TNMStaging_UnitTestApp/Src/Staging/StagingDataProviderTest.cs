@@ -168,15 +168,15 @@ namespace TNMStaging_UnitTestApp.Src.Staging
 
             Assert.AreEqual("Test Algorithm", provider.getAlgorithm());
             Assert.AreEqual("1.2.3", provider.getVersion());
-            Assert.IsTrue(provider.getTableIds().isEmpty());
-            Assert.IsTrue(provider.getSchemaIds().isEmpty());
+            Assert.IsTrue(provider.getTableIds().Count == 0);
+            Assert.IsTrue(provider.getSchemaIds().Count == 0);
             Assert.IsNull(provider.getTable("missing"));
             Assert.IsNull(provider.getSchema("missing"));
 
             StagingSchema schema = new StagingSchema("present");
             schema.setSchemaSelectionTable("selection");
             provider.addSchema(schema);
-            Assert.AreEqual(Set.of("present"), provider.getSchemaIds());
+            Assert.IsTrue(provider.getSchemaIds().SetEquals(new HashSet<string>() { "present" }));
             Assert.AreEqual(schema, provider.getSchema("present"));
         }
 
@@ -185,89 +185,158 @@ namespace TNMStaging_UnitTestApp.Src.Staging
         {
             InMemoryDataProvider provider = new InMemoryDataProvider("test", "1.0");
 
-            assertGlossaryUnsupported(provider::getGlossaryTerms);
-            assertGlossaryUnsupported(() -> provider.getGlossaryDefinition("term"));
-            assertGlossaryUnsupported(() -> provider.getGlossaryMatches("text"));
+            //assertGlossaryUnsupported(provider::getGlossaryTerms);
+            bool exceptionThrown = false;
+            try
+            {
+                provider.getGlossaryTerms();
+            }
+            catch (InvalidOperationException ex)
+            {
+                if (ex.Message.Equals("Glossary not supported in this provider"))
+                {
+                    exceptionThrown = true;
+                }
+            }
+            Assert.IsTrue(exceptionThrown);
+
+            //assertGlossaryUnsupported(() -> provider.getGlossaryDefinition("term"));
+            exceptionThrown = false;
+            try
+            {
+                provider.getGlossaryDefinition("term");
+            }
+            catch (InvalidOperationException ex)
+            {
+                if (ex.Message.Equals("Glossary not supported in this provider"))
+                {
+                    exceptionThrown = true;
+                }
+            }
+            Assert.IsTrue(exceptionThrown);
+
+            //assertGlossaryUnsupported(() -> provider.getGlossaryMatches("text"));
+            exceptionThrown = false;
+            try
+            {
+                provider.getGlossaryMatches("text");
+            }
+            catch (InvalidOperationException ex)
+            {
+                if (ex.Message.Equals("Glossary not supported in this provider"))
+                {
+                    exceptionThrown = true;
+                }
+            }
+            Assert.IsTrue(exceptionThrown);
         }
 
-        private static void assertGlossaryUnsupported(Runnable operation) 
-        {
-            IllegalStateException exception = assertThrows(IllegalStateException.class, operation::run);
-            Assert.AreEqual("Glossary not supported in this provider", exception.getMessage());
-        }
+        //private static void assertGlossaryUnsupported(Runnable operation) 
+        //{
+        //    IllegalStateException exception = assertThrows(IllegalStateException.class, operation::run);
+        //    Assert.AreEqual("Glossary not supported in this provider", exception.getMessage());
+        //}
+
+        //private static void assertInvalidInputDefinition(RuntimeException exception)
+        //{
+        //    Assert.IsTrue(exception.getCause() instanceof IllegalStateException);
+        //    Assert.AreEqual(
+        //        "Table 'primary_site' must have one and only one INPUT column.",
+        //        exception.getCause().getMessage()
+        //    );
+        //}
 
         [TestMethod]
         void testValidValuesForMissingTable() 
         {
             StagingDataProvider provider = new InMemoryDataProvider("test", "1.0");
 
-            Assert.AreEqual(Collections.emptySet(), provider.getValidSites());
+            Assert.IsTrue(provider.getValidSites().Count == 0);
         }
+
+        private static StagingTable CreateTable(String id, params StagingColumnDefinition[] definitions)
+        {
+            StagingTable table = new StagingTable(id);
+            table.setColumnDefinitions(definitions.ToList<IColumnDefinition>());
+            table.setRawRows(new List<List<string>>());
+            return table;
+        }
+
 
         [TestMethod]
         void testValidValuesRequireExactlyOneInputDefinition() 
         {
             InMemoryDataProvider noInputs = new InMemoryDataProvider("test", "1.0");
             noInputs.addTable(
-                table(
+                CreateTable(
                     StagingDataProvider.PRIMARY_SITE_TABLE,
                     new StagingColumnDefinition("result", "Result", ColumnType.ENDPOINT)
                 )
             );
 
-            RuntimeException noInputException = assertThrows(RuntimeException.class, noInputs::getValidSites);
-            assertInvalidInputDefinition(noInputException);
+            //RuntimeException noInputException = assertThrows(RuntimeException.class, noInputs::getValidSites);
+            //assertInvalidInputDefinition(noInputException);
+            bool exceptionThrown = false;
+            try
+            {
+                noInputs.getValidSites();
+            }
+            catch (InvalidOperationException ex)
+            {
+                if (ex.Message.Equals("Table 'primary_site' must have one and only one INPUT column."))
+                {
+                    exceptionThrown = true;
+                }
+            }
+            Assert.IsTrue(exceptionThrown);
 
             InMemoryDataProvider multipleInputs = new InMemoryDataProvider("test", "1.0");
             multipleInputs.addTable(
-                table(
+                CreateTable(
                     StagingDataProvider.PRIMARY_SITE_TABLE,
                     new StagingColumnDefinition("site", "Site", ColumnType.INPUT),
                     new StagingColumnDefinition("other", "Other", ColumnType.INPUT)
                 )
             );
 
-            RuntimeException multipleInputException = assertThrows(RuntimeException.class, multipleInputs::getValidSites);
-            assertInvalidInputDefinition(multipleInputException);
-        }
-
-        private static void assertInvalidInputDefinition(RuntimeException exception) 
-        {
-            Assert.IsTrue(exception.getCause() instanceof IllegalStateException);
-            Assert.AreEqual(
-                "Table 'primary_site' must have one and only one INPUT column.",
-                exception.getCause().getMessage()
-            );
+            //RuntimeException multipleInputException = assertThrows(RuntimeException.class, multipleInputs::getValidSites);
+            //assertInvalidInputDefinition(multipleInputException);
+            exceptionThrown = false;
+            try
+            {
+                multipleInputs.getValidSites();
+            }
+            catch (InvalidOperationException ex)
+            {
+                if (ex.Message.Equals("Table 'primary_site' must have one and only one INPUT column."))
+                {
+                    exceptionThrown = true;
+                }
+            }
+            Assert.IsTrue(exceptionThrown);
         }
 
         [TestMethod]
         void testValidValuesExpandRangesWithZeroPadding() 
         {
             InMemoryDataProvider provider = new InMemoryDataProvider("test", "1.0");
-            StagingTable table = table(
+            StagingTable table = CreateTable(
                 StagingDataProvider.PRIMARY_SITE_TABLE,
                 new StagingColumnDefinition("site", "Site", ColumnType.INPUT)
             );
             table.setRawRows(
-                Arrays.asList(
-                    Collections.singletonList("001"),
-                    Collections.singletonList("003-005"),
-                    Collections.singletonList("010")
-                )
+                new List<List<string>>()
+                {
+                    new List<string>() { "001" },
+                    new List<string>() { "003-005" },
+                    new List<string>() { "010" },
+                }
             );
             provider.addTable(table);
 
-            Assert.AreEqual(Set.of("001", "003", "004", "005", "010"), provider.getValidSites());
+            Assert.IsTrue(provider.getValidSites().SetEquals(new HashSet<string>() { "001", "003", "004", "005", "010" }));
             Assert.IsTrue(provider.isValidSite("004"));
-            Assert.IsFalse((provider.isValidSite("4"));
-        }
-
-        private static StagingTable table(String id, StagingColumnDefinition... definitions) 
-        {
-            StagingTable table = new StagingTable(id);
-            table.setColumnDefinitions(Arrays.asList(definitions));
-            table.setRawRows(Collections.emptyList());
-            return table;
+            Assert.IsFalse(provider.isValidSite("4"));
         }
 
 
