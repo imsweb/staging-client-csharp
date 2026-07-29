@@ -363,9 +363,12 @@ namespace TNMStaging_UnitTestApp.Src.Staging
 
         private static String CreateTableJson(String id, String algorithm, String version)
         {
-            return $"\" \"id\":\"{id}\",\"algorithm\":\"{algorithm}\",\"version\":\"{version}\",\"definition\":[\"key\":\"value\",\"type\":\"INPUT\"}],\"rows\":[[\"1\"]]}\"";
-        }
+            return $"\" {{ \"id\":\"{id}\",\"algorithm\":\"{algorithm}\",\"version\":\"{version}\",\"definition\":[{{\"key\":\"value\",\"type\":\"INPUT\"}}],\"rows\":[[\"1\"]]}}\"";
 
+            //return """
+            //{"id":"%s","algorithm":"%s","version":"%s","definition":[{"key":"value","type":"INPUT"}],"rows":[["1"]]}
+            //""".formatted(id, algorithm, version);
+        }
     }
 }
 

@@ -106,18 +106,18 @@ namespace TNMStagingCSharp.Src.Staging.Engine
             if (context == null)
                 throw new System.InvalidOperationException(_CONTEXT_MISSING_MESSAGE);
 
-            List<ITableRow> pRows = table.getTableRows();
-            List<IColumnDefinition> pColDefs = table.getInputColumnDefinitions();
-            int iRowCount = pRows.Count;
-            int iColCount = pColDefs.Count;
-
-            String sColKey = "";
-            String sContextValue = "";
-            IColumnDefinition col = null;
-            bool matchAll = false;
-
             if (table.getTableRows() != null)
             {
+                List<ITableRow> pRows = table.getTableRows();
+                List<IColumnDefinition> pColDefs = table.getInputColumnDefinitions();
+                int iRowCount = pRows.Count;
+                int iColCount = pColDefs.Count;
+
+                String sColKey = "";
+                String sContextValue = "";
+                IColumnDefinition col = null;
+                bool matchAll = false;
+
                 for (int i = 0; i < iRowCount; i++)
                 {
                     matchAll = true;
@@ -1150,7 +1150,7 @@ namespace TNMStagingCSharp.Src.Staging.Engine
         // @param stack a stack which tracks the path and makes sure the path doesn't enter an infinite recusive state
         // @return a boolean indicating whether processing should continue
         //========================================================================================================================
-        protected bool process(String mappingId, String tableId, ITablePath path, Result result, Stack<String> stack)
+        public bool process(String mappingId, String tableId, ITablePath path, Result result, Stack<String> stack)
         {
             bool continueProcessing = true;
 

@@ -314,22 +314,31 @@ namespace TNMStaging_UnitTestApp.Src.Staging.Engine
             Assert.AreEqual("{{", DecisionEngineFuncs.trimBraces("{{"));
             Assert.AreEqual("key", DecisionEngineFuncs.trimBraces("{{key}}"));
 
-            Assert.IsTrue(DecisionEngineFuncs.testMatch(null, "anything", new HashMap<>()));
-            Assert.IsTrue(DecisionEngineFuncs.testMatch(Collections.emptyList(), "anything", new HashMap<>()));
-            Assert.IsNull(DecisionEngineFuncs.translateValue(null, new HashMap<>()));
-            Assert.AreEqual("{{key", DecisionEngineFuncs.translateValue("{{key", new HashMap<>()));
+            Assert.IsTrue(DecisionEngineFuncs.testMatch(null, "anything", new Dictionary<string, string>()));
+            Assert.IsTrue(DecisionEngineFuncs.testMatch(new List<Range>(), "anything", new Dictionary<string, string>()));
+            Assert.IsNull(DecisionEngineFuncs.translateValue(null, new Dictionary<string, string>()));
+            Assert.AreEqual("{{key", DecisionEngineFuncs.translateValue("{{key", new Dictionary<string, string>()));
 
             StagingTable table = new StagingTable("matching");
             table.addColumnDefinition("input", ColumnType.INPUT);
-            table.addRawRow("A");
+            table.addRawRow(new List<string>() { "A" });
             InMemoryDataProvider provider = new InMemoryDataProvider("Test", "1.0");
             provider.addTable(table);
 
-            Map<String, String> context = new HashMap<>();
-            context.put("input", "A");
-            Table matchingTable = provider.getTable("matching");
+            Dictionary<String, String> context = new Dictionary<string, string>();
+            context["input"] = "A";
+            ITable matchingTable = provider.getTable("matching");
             Assert.AreEqual(0, DecisionEngineFuncs.findMatchingTableRow(matchingTable, context));
-            assertThrows(IllegalStateException.class, () -> DecisionEngine.findMatchingTableRow(matchingTable, null));
+            bool exceptionThrown = false;
+            try
+            {
+                DecisionEngineFuncs.findMatchingTableRow(matchingTable, null);
+            }
+            catch (InvalidOperationException ex)
+            {
+                exceptionThrown = true;
+            }
+            Assert.IsTrue(exceptionThrown);
         }
 
 
@@ -558,7 +567,7 @@ namespace TNMStaging_UnitTestApp.Src.Staging.Engine
 
             // A malformed table with no parsed row collection also has no match.
             ((StagingTable)tableMissing).setTableRows(null);
-            Assert.IsNull(DecisionEngine.matchTable(tableMissing, input));
+            Assert.IsNull(DecisionEngineFuncs.matchTable(tableMissing, input));
 
         }
 
@@ -970,7 +979,7 @@ namespace TNMStaging_UnitTestApp.Src.Staging.Engine
             table.addRawRow(new List<String>() { "1", "VALUE:FOUND1" });
             table.addRawRow(new List<String>() { "2", "VALUE" });
             table.addRawRow(new List<String>() { "3", "VALUE:" });
-            table.addRawRow("4", "ERROR");
+            table.addRawRow(new List<String>() { "4", "ERROR" });
 
             table.addRawRow(new List<String>() { "*", "MATCH" });
             provider.addTable(table);
@@ -984,7 +993,7 @@ namespace TNMStaging_UnitTestApp.Src.Staging.Engine
 
             StagingTablePath nullValuePath = new StagingTablePath("table_null_values");
             nullValuePath.addOutputMapping("other", "mapped");
-            schema.addMapping(new StagingMapping("m1", Collections.singletonList(nullValuePath)));
+            schema.addMapping(new StagingMapping("m1", new List<ITablePath> { nullValuePath }));
             //schema.addMapping(new StagingMapping("m1", new List<ITablePath>() { new StagingTablePath("table_null_values") }));
 
             provider.addSchema(schema);
@@ -995,12 +1004,11 @@ namespace TNMStaging_UnitTestApp.Src.Staging.Engine
 
 
             Assert.IsFalse(result.hasErrors());
-            Assert.AreEqual("0", input.get("result"));
+            Assert.AreEqual("0", input["result"]);
 
-            input.clear();
-            input.put("a", null);
+            input.Clear();
+            input["a"] = null;
             result = engine.process("starting_null_values", input);
-
 
             Assert.IsFalse(result.hasErrors());
             Assert.AreEqual("0", input["result"]);
@@ -1023,19 +1031,18 @@ namespace TNMStaging_UnitTestApp.Src.Staging.Engine
             Assert.IsFalse(result.hasErrors());
             Assert.AreEqual("", input["result"]);
 
-            input.clear();
-            input.put("a", "4");
+            input.Clear();
+            input["a"] = "4";
             result = engine.process("starting_null_values", input);
-            assertThat(result.getErrors())
-                .extracting(Error::getType, Error::getMessage, Error::getTable, Error::getColumns)
-                .containsExactly(
-                    tuple(
-                        Error.Type.STAGING_ERROR,
-                        "Matching resulted in an error in table 'table_null_values' for column 'result' (4)",
-                        "table_null_values",
-                        Collections.singletonList("result")
-                    )
-                );
+
+            List<Error> errors = result.getErrors();
+            Assert.AreEqual(1, errors.Count);
+            Assert.AreEqual(Error.Type.STAGING_ERROR, errors[0].getType());
+            Assert.AreEqual("Matching resulted in an error in table 'table_null_values' for column 'result' (4)", errors[0].getMessage());
+            Assert.AreEqual("table_null_values", errors[0].getTable());
+
+            List<string> cols = errors[0].getColumns();
+            Assert.IsTrue(cols.SequenceEqual(new List<string>() { "result" }));
         }
 
         [TestMethod]
@@ -1079,19 +1086,19 @@ namespace TNMStaging_UnitTestApp.Src.Staging.Engine
             table.addColumnDefinition("input", ColumnType.INPUT);
             table.addColumnDefinition("stop", ColumnType.ENDPOINT);
             table.addColumnDefinition("jump", ColumnType.ENDPOINT);
-            table.addRawRow("1", "STOP", "JUMP:table_jump_target");
+            table.addRawRow(new List<string>() { "1", "STOP", "JUMP:table_jump_target" });
             provider.addTable(table);
 
             table = new StagingTable("table_jump_target");
             table.addColumnDefinition("input", ColumnType.INPUT);
             table.addColumnDefinition("jumped", ColumnType.ENDPOINT);
-            table.addRawRow("1", "VALUE:YES");
+            table.addRawRow(new List<string>() { "1", "VALUE:YES" });
             provider.addTable(table);
 
             table = new StagingTable("table_after_stop");
             table.addColumnDefinition("input", ColumnType.INPUT);
             table.addColumnDefinition("continued", ColumnType.ENDPOINT);
-            table.addRawRow("1", "VALUE:YES");
+            table.addRawRow(new List<string>() { "1", "VALUE:YES" });
             provider.addTable(table);
 
             StagingSchema schema = new StagingSchema("stop_then_jump");
@@ -1100,19 +1107,19 @@ namespace TNMStaging_UnitTestApp.Src.Staging.Engine
             schema.addMapping(
                 new StagingMapping(
                     "m1",
-                    Arrays.asList(new StagingTablePath("table_stop_then_jump"), new StagingTablePath("table_after_stop"))
+                    new List<ITablePath>() { new StagingTablePath("table_stop_then_jump"), new StagingTablePath("table_after_stop") }
                 )
             );
             provider.addSchema(schema);
 
-            Map<String, String> context = new HashMap<>();
-            context.put("input", "1");
-            Result result = new DecisionEngine(provider).process(schema, context);
+            Dictionary<String, String> context = new Dictionary<string, string>();
+            context["input"] = "1";
+            Result result = new DecisionEngineClass(provider).process(schema, context);
 
             Assert.IsFalse(result.hasErrors());
-            Assert.AreEqual(Collections.singletonList("m1.table_stop_then_jump"), result.getPath());
-            Assert.IsFalse(context.containsKey("jumped"));
-            Assert.IsFalse(context.containsKey("continued"));
+            Assert.AreEqual(new List<string>() { "m1.table_stop_then_jump" }, result.getPath());
+            Assert.IsFalse(context.ContainsKey("jumped"));
+            Assert.IsFalse(context.ContainsKey("continued"));
         }
 
 
@@ -1463,37 +1470,76 @@ namespace TNMStaging_UnitTestApp.Src.Staging.Engine
             table.addRawRow("A");
             provider.addTable(table);
 
-            DecisionEngine engine = new DecisionEngine(provider);
+            DecisionEngineClass engine = new DecisionEngineClass(provider);
             StagingTablePath path = new StagingTablePath("criteria");
             path.addInputMapping("source", "mapped");
 
             StagingMapping inclusion = new StagingMapping("inclusion");
-            inclusion.setInclusionTables(Collections.singletonList(path));
-            Map<String, String> context = new HashMap<>();
-            context.put("source", "A");
+            inclusion.setInclusionTables(new List<ITablePath>() { path });
+            Dictionary<string, string> context = new Dictionary<string, string>();
+            context["source"] = "A";
             Assert.IsTrue(engine.isMappingInvolved(inclusion, context));
-            context.put("source", "B");
+            context["source"] = "B";
             Assert.IsFalse(engine.isMappingInvolved(inclusion, context));
 
             StagingMapping exclusion = new StagingMapping("exclusion");
-            exclusion.setExclusionTables(Collections.singletonList(path));
-            context.put("source", "A");
+            exclusion.setExclusionTables(new List<ITablePath>() { path });
+            context["source"] = "A";
             Assert.IsFalse(engine.isMappingInvolved(exclusion, context));
-            context.put("source", "B");
+            context["source"] = "B";
             Assert.IsTrue(engine.isMappingInvolved(exclusion, context));
 
-            context.clear();
+            context.Clear();
             Assert.IsFalse(engine.isMappingInvolved(inclusion, context));
             Assert.IsTrue(engine.isMappingInvolved(exclusion, context));
 
-            assertThrows(IllegalStateException.class, ()->engine.isMappingInvolved(inclusion, null));
-            StagingSchema schema = new StagingSchema("schema");
-            assertThrows(IllegalStateException.class, ()->engine.getInvolvedMappings(schema, null));
+            bool exceptionThrown = false;
+            try
+            {
+                engine.isMappingInvolved(inclusion, null);
+            }
+            catch (InvalidOperationException ex)
+            {
+                exceptionThrown = true;
+            }
+            Assert.IsTrue(exceptionThrown);
 
-            inclusion.setInclusionTables(Collections.singletonList(new StagingTablePath("missing")));
-            assertThrows(IllegalStateException.class, ()->engine.isMappingInvolved(inclusion, context));
-            exclusion.setExclusionTables(Collections.singletonList(new StagingTablePath("missing")));
-            assertThrows(IllegalStateException.class, ()->engine.isMappingInvolved(exclusion, context));
+            StagingSchema schema = new StagingSchema("schema");
+            exceptionThrown = false;
+            try
+            {
+                engine.getInvolvedMappings(schema, null);
+            }
+            catch (InvalidOperationException ex)
+            {
+                exceptionThrown = true;
+            }
+            Assert.IsTrue(exceptionThrown);
+
+            inclusion.setInclusionTables(new List<ITablePath>() { new StagingTablePath("missing") });
+            exceptionThrown = false;
+            try
+            {
+                engine.isMappingInvolved(inclusion, context);
+            }
+            catch (InvalidOperationException ex)
+            {
+                exceptionThrown = true;
+            }
+            Assert.IsTrue(exceptionThrown);
+
+
+            exclusion.setExclusionTables(new List<ITablePath>() { new StagingTablePath("missing") });
+            exceptionThrown = false;
+            try
+            {
+                engine.isMappingInvolved(exclusion, context);
+            }
+            catch (InvalidOperationException ex)
+            {
+                exceptionThrown = true;
+            }
+            Assert.IsTrue(exceptionThrown);
         }
 
         [TestMethod]
@@ -1503,22 +1549,45 @@ namespace TNMStaging_UnitTestApp.Src.Staging.Engine
             StagingTable table = new StagingTable("null_output_key");
             table.addColumnDefinition(null, ColumnType.ENDPOINT);
             provider.addTable(table);
-            DecisionEngine engine = new DecisionEngine(provider);
+            DecisionEngineClass engine = new DecisionEngineClass(provider);
 
-            assertThrows(IllegalStateException.class, ()->engine.process("missing", new HashMap<>()));
-            assertThrows(IllegalStateException.class, ()->engine.getInvolvedTables("missing"));
-            Assert.IsTrue(engine.getInputs(new StagingTablePath("missing")).isEmpty());
-            Assert.IsTrue(engine.getOutputs(new StagingTablePath("missing")).isEmpty());
-            Assert.IsTrue(engine.getInputs((StagingTablePath)null).isEmpty());
-            Assert.IsTrue(engine.getOutputs((StagingTablePath)null).isEmpty());
-            Assert.IsTrue(engine.getInputs(new StagingMapping("empty"), new HashSet<>()).isEmpty());
-            Assert.IsTrue(engine.getOutputs(new StagingMapping("empty")).isEmpty());
-            Assert.IsTrue(engine.getOutputs(new StagingTablePath("null_output_key")).isEmpty());
+
+            bool exceptionThrown = false;
+            try
+            {
+                engine.process("missing", new Dictionary<string, string>());
+            }
+            catch (InvalidOperationException ex)
+            {
+                exceptionThrown = true;
+            }
+            Assert.IsTrue(exceptionThrown);
+
+            exceptionThrown = false;
+            try
+            {
+                engine.getInvolvedTables("missing");
+            }
+            catch (InvalidOperationException ex)
+            {
+                exceptionThrown = true;
+            }
+            Assert.IsTrue(exceptionThrown);
+
+
+            Assert.IsTrue(engine.getInputs(new StagingTablePath("missing")).Count == 0);
+            Assert.IsTrue(engine.getOutputs(new StagingTablePath("missing")).Count == 0);
+            Assert.IsTrue(engine.getInputs((StagingTablePath)null).Count == 0);
+            Assert.IsTrue(engine.getOutputs((StagingTablePath)null).Count == 0);
+            Assert.IsTrue(engine.getInputs(new StagingMapping("empty"), new HashSet<String>()).Count == 0);
+            Assert.IsTrue(engine.getOutputs(new StagingMapping("empty")).Count == 0);
+            Assert.IsTrue(engine.getOutputs(new StagingTablePath("null_output_key")).Count == 0);
 
             StagingTablePath path = new StagingTablePath("starting_table");
-            Result result = new Result(new HashMap<>());
-            Assert.IsTrue(engine.process("mapping", "missing", path, result, new ArrayDeque<>()));
-            Assert.AreEqual(Error.Type.UNKNOWN_TABLE, result.getErrors().getFirst().getType());
+            Result result = new Result(new Dictionary<string, string>());
+
+            Assert.IsTrue(engine.process("mapping", "missing", path, result, new Stack<String>()));
+            Assert.AreEqual(Error.Type.UNKNOWN_TABLE, result.getErrors()[0].getType());
         }
 
 
@@ -1687,19 +1756,14 @@ namespace TNMStaging_UnitTestApp.Src.Staging.Engine
 
             Assert.IsFalse(result.hasErrors());
 
-
-
             // a blank default should use the standard blank marker in validation errors
-            schema.getOutputs().getFirst().setDefault(null);
+            schema.getOutputs()[0].setDefault(null);
             provider.initSchema(schema);
-            input = new HashMap<>();
-            input.put("input1", "000");
+            input = new Dictionary<string, string>();
+            input["input1"] = "000";
             result = engine.process("sample_outputs", input);
             Assert.IsTrue(result.hasErrors());
-            Assert.AreEqual("Invalid 'output1' value (" + BLANK_OUTPUT + ")", result.getErrors().getFirst().getMessage());
-
-
-
+            Assert.AreEqual("Invalid 'output1' value (" + DecisionEngineFuncs.BLANK_OUTPUT + ")", result.getErrors()[0].getMessage());
 
 
             HashSet<String> hash1 = new HashSet<String>() { "table_input", "table_output" };
@@ -1746,7 +1810,7 @@ namespace TNMStaging_UnitTestApp.Src.Staging.Engine
 
             StagingSchema schema = new StagingSchema("valid_literal_default");
             schema.setSchemaSelectionTable("valid_inputs");
-            schema.setOnInvalidInput(Schema.StagingInputErrorHandler.FAIL);
+            schema.setOnInvalidInput(StagingInputErrorHandler.FAIL);
             StagingSchemaInput input = new StagingSchemaInput("input", "input", "valid_inputs");
             input.setDefault("A");
             schema.addInput(input);
@@ -1754,7 +1818,7 @@ namespace TNMStaging_UnitTestApp.Src.Staging.Engine
 
             schema = new StagingSchema("invalid_literal_default");
             schema.setSchemaSelectionTable("valid_inputs");
-            schema.setOnInvalidInput(Schema.StagingInputErrorHandler.FAIL);
+            schema.setOnInvalidInput(StagingInputErrorHandler.FAIL);
             input = new StagingSchemaInput("input", "input", "valid_inputs");
             input.setDefault("X");
             schema.addInput(input);
@@ -1762,7 +1826,7 @@ namespace TNMStaging_UnitTestApp.Src.Staging.Engine
 
             schema = new StagingSchema("invalid_required_default");
             schema.setSchemaSelectionTable("valid_inputs");
-            schema.setOnInvalidInput(Schema.StagingInputErrorHandler.FAIL_WHEN_USED_FOR_STAGING);
+            schema.setOnInvalidInput(StagingInputErrorHandler.FAIL_WHEN_USED_FOR_STAGING);
             input = new StagingSchemaInput("input", "input", "valid_inputs");
             input.setDefault("X");
             input.setUsedForStaging(true);
@@ -1771,7 +1835,7 @@ namespace TNMStaging_UnitTestApp.Src.Staging.Engine
 
             schema = new StagingSchema("invalid_required_continue");
             schema.setSchemaSelectionTable("valid_inputs");
-            schema.setOnInvalidInput(Schema.StagingInputErrorHandler.CONTINUE);
+            schema.setOnInvalidInput(StagingInputErrorHandler.CONTINUE);
             input = new StagingSchemaInput("input", "input", "valid_inputs");
             input.setDefault("X");
             input.setUsedForStaging(true);
@@ -1780,7 +1844,7 @@ namespace TNMStaging_UnitTestApp.Src.Staging.Engine
 
             schema = new StagingSchema("invalid_non_required_default");
             schema.setSchemaSelectionTable("valid_inputs");
-            schema.setOnInvalidInput(Schema.StagingInputErrorHandler.FAIL_WHEN_USED_FOR_STAGING);
+            schema.setOnInvalidInput(StagingInputErrorHandler.FAIL_WHEN_USED_FOR_STAGING);
             input = new StagingSchemaInput("input", "input", "valid_inputs");
             input.setDefault("X");
             input.setUsedForStaging(false);
@@ -1789,40 +1853,40 @@ namespace TNMStaging_UnitTestApp.Src.Staging.Engine
 
             schema = new StagingSchema("invalid_table_default");
             schema.setSchemaSelectionTable("valid_inputs");
-            schema.setOnInvalidInput(Schema.StagingInputErrorHandler.FAIL);
+            schema.setOnInvalidInput(StagingInputErrorHandler.FAIL);
             input = new StagingSchemaInput("input", "input", "valid_inputs");
             input.setDefaultTable("invalid_default");
             schema.addInput(input);
             provider.addSchema(schema);
 
-            DecisionEngine engine = new DecisionEngine(provider);
+            DecisionEngineClass engine = new DecisionEngineClass(provider);
 
-            Result result = engine.process("valid_literal_default", new HashMap<>());
-            Assert.AreEqual(Type.STAGED, result.getType());
+            Result result = engine.process("valid_literal_default", new Dictionary<string, string>());
+            Assert.AreEqual(Result.Type.STAGED, result.getType());
             Assert.IsFalse(result.hasErrors());
-            Assert.AreEqual("A", result.getContext().get("input"));
+            Assert.AreEqual("A", result.getContext()["input"]);
 
-            result = engine.process("invalid_literal_default", new HashMap<>());
-            Assert.AreEqual(Type.FAILED_INPUT, result.getType());
-            Assert.AreEqual(Error.Type.INVALID_NON_REQUIRED_INPUT, result.getErrors().getFirst().getType());
-            Assert.AreEqual("X", result.getContext().get("input"));
+            result = engine.process("invalid_literal_default", new Dictionary<string, string>());
+            Assert.AreEqual(Result.Type.FAILED_INPUT, result.getType());
+            Assert.AreEqual(Error.Type.INVALID_NON_REQUIRED_INPUT, result.getErrors()[0].getType());
+            Assert.AreEqual("X", result.getContext()["input"]);
 
-            result = engine.process("invalid_required_default", new HashMap<>());
-            Assert.AreEqual(Type.FAILED_INPUT, result.getType());
-            Assert.AreEqual(Error.Type.INVALID_REQUIRED_INPUT, result.getErrors().getFirst().getType());
+            result = engine.process("invalid_required_default", new Dictionary<string, string>());
+            Assert.AreEqual(Result.Type.FAILED_INPUT, result.getType());
+            Assert.AreEqual(Error.Type.INVALID_REQUIRED_INPUT, result.getErrors()[0].getType());
 
-            result = engine.process("invalid_required_continue", new HashMap<>());
-            Assert.AreEqual(Type.STAGED, result.getType());
-            Assert.AreEqual(Error.Type.INVALID_REQUIRED_INPUT, result.getErrors().getFirst().getType());
+            result = engine.process("invalid_required_continue", new Dictionary<string, string>());
+            Assert.AreEqual(Result.Type.STAGED, result.getType());
+            Assert.AreEqual(Error.Type.INVALID_REQUIRED_INPUT, result.getErrors()[0].getType());
 
-            result = engine.process("invalid_non_required_default", new HashMap<>());
-            Assert.AreEqual(Type.STAGED, result.getType());
-            Assert.AreEqual(Error.Type.INVALID_NON_REQUIRED_INPUT, result.getErrors().getFirst().getType());
+            result = engine.process("invalid_non_required_default", new Dictionary<string, string>());
+            Assert.AreEqual(Result.Type.STAGED, result.getType());
+            Assert.AreEqual(Error.Type.INVALID_NON_REQUIRED_INPUT, result.getErrors()[0].getType());
 
-            result = engine.process("invalid_table_default", new HashMap<>());
-            Assert.AreEqual(Type.FAILED_INPUT, result.getType());
-            Assert.AreEqual(Error.Type.INVALID_NON_REQUIRED_INPUT, result.getErrors().getFirst().getType());
-            Assert.AreEqual("X", result.getContext().get("input"));
+            result = engine.process("invalid_table_default", new Dictionary<string, string>());
+            Assert.AreEqual(Result.Type.FAILED_INPUT, result.getType());
+            Assert.AreEqual(Error.Type.INVALID_NON_REQUIRED_INPUT, result.getErrors()[0].getType());
+            Assert.AreEqual("X", result.getContext()["input"]);
         }
 
         [TestMethod]
@@ -1837,14 +1901,16 @@ namespace TNMStaging_UnitTestApp.Src.Staging.Engine
 
             StagingSchemaInput input = new StagingSchemaInput("requested");
             input.setDefaultTable("malformed_default");
-            Result result = new Result(new HashMap<>());
+            Result result = new Result(new Dictionary<string, string>());
 
-            Assert.AreEqual("", new DecisionEngine(provider).getDefault(input, result.getContext(), result));
-            assertThat(result.getErrors())
-                .extracting(Error::getType, Error::getKey, Error::getMessage)
-                .containsExactly(
-                    tuple(Error.Type.MATCH_NOT_FOUND, "requested", "Default table malformed_default did not find a match")
-                );
+            Assert.AreEqual("", new DecisionEngineClass(provider).getDefault(input, result.getContext(), result));
+
+
+            List<Error> errors = result.getErrors();
+            Assert.IsTrue(errors.Count == 1);
+            Assert.IsTrue(errors[0].getType() == Error.Type.MATCH_NOT_FOUND);
+            Assert.IsTrue(errors[0].getKey().Equals("requested"));
+            Assert.IsTrue(errors[0].getMessage().Equals("Default table malformed_default did not find a match"));
         }
 
         [TestMethod]
@@ -1867,7 +1933,7 @@ namespace TNMStaging_UnitTestApp.Src.Staging.Engine
             schema.setSchemaSelectionTable("selection");
             schema.addOutput(new StagingSchemaOutput("result"));
             StagingMapping mapping = new StagingMapping("mapping");
-            mapping.setInitialContext(Collections.singleton(new StagingKeyValue("temporary", "A")));
+            mapping.setInitialContext(new List<IKeyValue>() { new StagingKeyValue("temporary", "A") });
             mapping.addTablePath(new StagingTablePath("mapping_table"));
             schema.addMapping(mapping);
             provider.addSchema(schema);
@@ -1877,7 +1943,7 @@ namespace TNMStaging_UnitTestApp.Src.Staging.Engine
             schema.addOutput(new StagingSchemaOutput("result"));
             StagingTablePath path = new StagingTablePath("mapping_table");
             path.addInputMapping("missing_source", "temporary");
-            schema.addMapping(new StagingMapping("mapping", Collections.singletonList(path)));
+            schema.addMapping(new StagingMapping("mapping", new List<ITablePath>() { path }));
             provider.addSchema(schema);
 
             schema = new StagingSchema("unknown_input_table");
@@ -1890,22 +1956,37 @@ namespace TNMStaging_UnitTestApp.Src.Staging.Engine
             schema.addOutput(new StagingSchemaOutput("result", "result", "missing_output_table"));
             provider.addSchema(schema);
 
-            DecisionEngine engine = new DecisionEngine(provider);
-            Assert.IsTrue(engine.getInputs(mapping, new HashSet<>()).isEmpty());
-            Result result = engine.process("mapping_initial_context", new HashMap<>());
+            DecisionEngineClass engine = new DecisionEngineClass(provider);
+            Assert.IsTrue(engine.getInputs(mapping, new HashSet<String>()).Count == 0);
+            Result result = engine.process("mapping_initial_context", new Dictionary<string, string>());
             Assert.IsFalse(result.hasErrors());
-            Assert.AreEqual("OK", result.getContext().get("result"));
+            Assert.AreEqual("OK", result.getContext()["result"]);
 
-            result = engine.process("unknown_input_mapping", new HashMap<>());
-            assertThat(result.getErrors()).extracting(Error::getType).contains(Error.Type.UNKNOWN_INPUT_MAPPING);
+            result = engine.process("unknown_input_mapping", new Dictionary<string, string>());
 
-            Map<String, String> context = new HashMap<>();
-            context.put("input", "A");
+            List<Error> errors = result.getErrors();
+            bool foundUnknown = false;
+            foreach (Error error in errors)
+            {
+                if (error.getType() == Error.Type.UNKNOWN_INPUT_MAPPING)
+                {
+                    foundUnknown = true;
+                }
+            }
+            Assert.IsTrue(foundUnknown);
+
+
+            Dictionary<String, String> context = new Dictionary<string, string>();
+            context["input"] = "A";
             result = engine.process("unknown_input_table", context);
-            assertThat(result.getErrors()).extracting(Error::getType).containsExactly(Error.Type.UNKNOWN_TABLE);
+            errors = result.getErrors();
+            Assert.IsTrue(errors.Count == 1);
+            Assert.IsTrue(errors[0].getType() == Error.Type.UNKNOWN_TABLE);
 
-            result = engine.process("unknown_output_table", new HashMap<>());
-            assertThat(result.getErrors()).extracting(Error::getType).containsExactly(Error.Type.UNKNOWN_TABLE);
+            result = engine.process("unknown_output_table", new Dictionary<string, string>());
+            errors = result.getErrors();
+            Assert.IsTrue(errors.Count == 1);
+            Assert.IsTrue(errors[0].getType() == Error.Type.UNKNOWN_TABLE);
         }
 
 
@@ -2010,7 +2091,7 @@ namespace TNMStaging_UnitTestApp.Src.Staging.Engine
             table.addRawRow(new List<String>() { "001", "VALUE:000" });
             table.addRawRow(new List<String>() { "002", "VALUE:{{input1}}" });
             provider.addTable(table);
-            table.setExtraInput(new HashSet<>(Arrays.asList("input1", "unmapped", "output1")));
+            table.setExtraInput(new HashSet<string>() { "input1", "unmapped", "output1" });
 
             StagingSchema schema = new StagingSchema("sample_outputs");
             schema.setSchemaSelectionTable("table_selection");
@@ -2026,20 +2107,20 @@ namespace TNMStaging_UnitTestApp.Src.Staging.Engine
 
             DecisionEngineClass engine = new DecisionEngineClass(provider);
 
+            HashSet<string> inputs = engine.getInputs(schema.getMappings()[0].getTablePaths()[0]);
+            Assert.IsTrue(inputs.SetEquals(new HashSet<string> { "remapped1", "unmapped" }));
 
-
-            Assert.AreEqual(
-                new HashSet<>(Arrays.asList("remapped1", "unmapped")),
-                engine.getInputs(schema.getMappings().getFirst().getTablePaths().getFirst())
-            );
+            //Assert.AreEqual(
+            //    new HashSet<string>(Arrays.asList("remapped1", "unmapped")),
+            //    engine.getInputs(schema.getMappings().getFirst().getTablePaths().getFirst())
+            //);
 
             StagingTable sharedKeyTable = new StagingTable("shared_input_output");
             sharedKeyTable.addColumnDefinition("shared", ColumnType.INPUT);
             sharedKeyTable.addColumnDefinition("shared", ColumnType.ENDPOINT);
             provider.addTable(sharedKeyTable);
 
-            Assert.AreEqual(Collections.singleton("shared"), engine.getInputs(new StagingTablePath("shared_input_output")));
-
+            Assert.IsTrue(engine.getInputs(new StagingTablePath("shared_input_output")).SetEquals(new HashSet<string>() { "shared" }));
             //HashSet<String> hash1 = new HashSet<String>() { "remapped1" };
             //HashSet<String> hash2 = engine.getInputs(schema.getMappings().First().getTablePaths().First());
             //Assert.IsTrue(hash1.SetEquals(hash2));

@@ -1,11 +1,12 @@
 ﻿// Copyright (C) 2017 Information Management Services, Inc.
 
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
-using System.Text;
-using Newtonsoft.Json;
+using System.Linq;
 using System.Runtime.Serialization;
-
+using System.Text;
 using TNMStagingCSharp.Src.Tools;
 
 
@@ -284,6 +285,14 @@ namespace TNMStagingCSharp.Src.Staging.Entities.Impl
                 _rows = new List<List<String>>();
 
             _rows.Add(row);
+        }
+
+        public void addRawRow(params String[] row)
+        {
+            if (_rows == null)
+                _rows = new List<List<String>>();
+
+            _rows.Add(row.ToList());
         }
 
         public List<ITableRow> getTableRows()
