@@ -581,13 +581,13 @@ namespace TNMStaging_UnitTestApp.Src.Staging.TNM
                 String basedir = System.IO.Directory.GetCurrentDirectory() + "\\..\\..\\..\\";
                 if (System.IO.Directory.GetCurrentDirectory().IndexOf("x64") >= 0) basedir += "\\..\\";
 
-                String sFilePath = basedir + "Resources\\Test\\TNM\\TNM_13.zip";
+                String sFilePath = basedir + "Resources\\TNM\\TNM_13.zip";
 
                 FileStream SourceStream = File.Open(sFilePath, FileMode.Open);
                 ExternalStagingFileDataProvider provider = new ExternalStagingFileDataProvider(SourceStream);
                 TNMStagingCSharp.Src.Staging.Staging TNM13_STAGING = TNMStagingCSharp.Src.Staging.Staging.getInstance(provider);
 
-                sFilePath = basedir + "Resources\\Test\\TNM\\TNM_V13_StagingTestLarge.txt.gz";
+                sFilePath = basedir + "Resources\\TNM\\TNM_V13_StagingTestLarge.txt.gz";
 
                 FileStream fstream = File.Open(sFilePath, FileMode.Open, FileAccess.Read, FileShare.Read);
                 GZipStream decompressionStream = new GZipStream(fstream, CompressionMode.Decompress);

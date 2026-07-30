@@ -46,6 +46,8 @@ namespace TNMStaging_StagingViewerApp
             wbSchemaNotes.DocumentText = "";
             wbSchemaDescr.DocumentText = "";
 
+            // ABH 7/30/2026: Remove the Stage tab until we can get it working properly.
+            tabControl.TabPages.Remove(tabStage);
 
             LoadAlgorithms();
             UpdateAlgorithmHeaderValues();
@@ -1586,5 +1588,8 @@ namespace TNMStaging_StagingViewerApp
             return sRetval;
         }
 
+        private void FrmMain_Load(object sender, EventArgs e)
+        {
+        }
     }
 }

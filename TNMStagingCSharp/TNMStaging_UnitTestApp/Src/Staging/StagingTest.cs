@@ -40,7 +40,7 @@ namespace TNMStaging_UnitTestApp.Src.Staging
 
             _basePath = Path.GetFullPath(System.IO.Directory.GetCurrentDirectory() + relPath);
 
-            String algorithmsDir = _basePath + "Resources\\Test\\algorithms\\";
+            String algorithmsDir = _basePath + "Resources\\algorithms\\";
 
 
             //string algorithmsDir = Paths.get(Objects.requireNonNull(Thread.currentThread()

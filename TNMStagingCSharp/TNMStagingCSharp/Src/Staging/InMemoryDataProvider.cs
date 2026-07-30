@@ -133,17 +133,17 @@ namespace TNMStagingCSharp.Src.Staging
 
         public override HashSet<String> getGlossaryTerms()
         {
-            throw new Exception(_UNSUPPORTED_MESSAGE);
+            throw new InvalidOperationException(_UNSUPPORTED_MESSAGE);
         }
 
         public override GlossaryDefinition getGlossaryDefinition(String term)
         {
-            throw new Exception(_UNSUPPORTED_MESSAGE);
+            throw new InvalidOperationException(_UNSUPPORTED_MESSAGE);
         }
 
         public override List<GlossaryHit> getGlossaryMatches(String text)
         {
-            throw new Exception(_UNSUPPORTED_MESSAGE);
+            throw new InvalidOperationException(_UNSUPPORTED_MESSAGE);
         }
     }
 }
