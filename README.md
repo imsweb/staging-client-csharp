@@ -21,6 +21,7 @@ developed to be compatible with the Toronto Staging v1.1 definitions.
 
 | Version       | Release                                                                         | Algorithm ZIP                                                                                                      |
 |---------------|---------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------|
+| 1.4           | [4.9.5](https://github.com/imsweb/staging-client-csharp/releases/tag/v4.9.5-beta)   | [pediatric-1.4.zip](https://github.com/imsweb/staging-client-csharp/releases/download/v4.9.5-beta/pediatric-1.4.zip) |
 | 1.3           | [4.9.2](https://github.com/imsweb/staging-client-csharp/releases/tag/v4.9.2b-beta)   | [pediatric-1.3.zip](https://github.com/imsweb/staging-client-csharp/releases/download/v4.9.2b-beta/pediatric-1.3.zip) |
 | 1.3 (**BETA**)    | [4.9](https://github.com/imsweb/staging-client-csharp/releases/tag/v4.9-beta)   | [pediatric-1.3.zip](https://github.com/imsweb/staging-client-csharp/releases/download/v4.9-beta/pediatric-1.3.zip) |
 | 1.2 (revised) | [4.8.4](https://github.com/imsweb/staging-client-csharp/releases/tag/v4.8.4-beta) | [pediatric-1.2.zip](https://github.com/imsweb/staging-client-csharp/releases/download/v4.8.4-beta/pediatric-1.2.zip) |
