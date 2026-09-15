@@ -46,7 +46,6 @@ namespace TNMStagingCSharp.Src.Staging.EOD
         public static readonly EodInput GESTATIONAL_PROG_INDEX = new EodInput("gestational_prog_index");
         public static readonly EodInput HER2_SUMMARY = new EodInput("her2_summary");
         public static readonly EodInput LDH_LEVEL = new EodInput("ldh_level");
-        public static readonly EodInput LN_POS_AXILLARY_LEVEL_1_2 = new EodInput("ln_pos_axillary_level_1_2");
         public static readonly EodInput LN_SIZE_OF_METS = new EodInput("ln_size_of_mets");
         public static readonly EodInput MEASURED_BASAL_DIAMETER = new EodInput("measured_basal_diameter");
         public static readonly EodInput MEASURED_THICKNESS = new EodInput("measured_thickness");
@@ -95,7 +94,6 @@ namespace TNMStagingCSharp.Src.Staging.EOD
                 yield return GESTATIONAL_PROG_INDEX;
                 yield return HER2_SUMMARY;
                 yield return LDH_LEVEL;
-                yield return LN_POS_AXILLARY_LEVEL_1_2;
                 yield return LN_SIZE_OF_METS;
                 yield return MEASURED_BASAL_DIAMETER;
                 yield return MEASURED_THICKNESS;

@@ -50,6 +50,7 @@ All of the standard setting organizations will collect the predictive and progno
 
 | Version       | Release                                                                           | Algorithm ZIP                                                                                                        |
 |---------------|-----------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------|
+| 3.4           | [4.9.6](https://github.com/imsweb/staging-client-csharp/releases/tag/v4.9.6-beta)     | [eod_public-3.4.zip](https://github.com/imsweb/staging-client-csharp/releases/download/v4.9.6-beta/eod_public-3.4.zip) |
 | 3.3           | [4.9.2](https://github.com/imsweb/staging-client-csharp/releases/tag/v4.9.2b-beta)     | [eod_public-3.3.zip](https://github.com/imsweb/staging-client-csharp/releases/download/v4.9.2b-beta/eod_public-3.3.zip) |
 | 3.3 (**BETA**)    | [4.9](https://github.com/imsweb/staging-client-csharp/releases/tag/v4.9-beta)     | [eod_public-3.3.zip](https://github.com/imsweb/staging-client-csharp/releases/download/v4.9-beta/eod_public-3.3.zip) |
 | 3.2 (revised) | [4.8.5](https://github.com/imsweb/staging-client-csharp/releases/tag/v4.8.5-beta) | [eod_public-3.2.zip](https://github.com/imsweb/staging-client-csharp/releases/download/v4.8.5-beta/eod_public-3.2.zip)    |
@@ -106,21 +107,14 @@ More detailed documentation can be found in the [Wiki](https://github.com/imsweb
 
 ### Get a `Staging` instance
 
-Everything starts with getting an instance of the `Staging` object.  There are `DataProvider` objects for each staging algorithm and version.  The `Staging`
-object is thread safe and cached so subsequent calls to `Staging.getInstance()` will return the same object.
+Everything starts with getting an instance of the `Staging` object. You will need an algorithm zip file to load. All avaiable algorithm and version
+download links are listed at the top of this file. Creating a staging instance involves loading all the information from the algorithms and is
+expensive. The staging instance should be maintained once loaded.
 
-To use a DataProvider, you will need a copy of a staging algorithm with the staging library. Each algorithm is composed of a collection of JSON files which represent the schemas and tables of that algorithm. These algorithm files can either be separate JSON files and in a directory on your hard drive, or they can be in a single zip file. 
-The staging library contains 4 algorithms in the Resources sub directory. Included with the release of the staging library, we also include zip versions of the algorithms. We recommend using the zip versions as they are easier to maintain and replace with newer versions. 
-
-For example, to use the Collaborative Stage algorithm (in a single zip file), use the ExternalStagingFileDataProvider class. This option allows you to use a single zip file containing the entire CS algorithm.
 ```csharp
-using System.IO;
 using TNMStagingCSharp.Src.Staging;
-
-TNMStagingCSharp.Src.Staging.Staging _STAGING;
-_STAGING = TNMStagingCSharp.Src.Staging.Staging.getInstance("C:/path/to/algorithm/cs-02.05.50.zip");
+Staging staging = Staging.getInstance(Paths.get("C:/path/to/algorithm/cs.02.05.50.zip"));
 ```
-
 
 ### Schemas
 

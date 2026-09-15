@@ -33,7 +33,7 @@ namespace TNMStaging_UnitTestApp.Src.Staging.EOD
 
         public override string getVersion()
         {
-            return "3.3";
+            return "3.4";
         }
 
         [ClassInitialize()]
@@ -56,7 +56,7 @@ namespace TNMStaging_UnitTestApp.Src.Staging.EOD
         [TestMethod]
         public void testBasicInitialization()
         {
-            Assert.AreEqual(_STAGING.getSchemaIds().Count, 141);
+            Assert.AreEqual(_STAGING.getSchemaIds().Count, 149);
             Assert.IsTrue(_STAGING.getTableIds().Count > 0);
 
             Assert.IsNotNull(_STAGING.getSchema("urethra"));
@@ -181,7 +181,7 @@ namespace TNMStaging_UnitTestApp.Src.Staging.EOD
 
             // test searching on only hist
             lookup = _STAGING.lookupSchema(new EodSchemaLookup(null, "9702"));
-            Assert.AreEqual(8, lookup.Count);
+            Assert.AreEqual(2, lookup.Count);
 
             // test that searching on only discriminator_1 returns no results
             schemaLookup = new EodSchemaLookup(null, null);
@@ -379,13 +379,31 @@ namespace TNMStaging_UnitTestApp.Src.Staging.EOD
         public void testInvolvedTables()
         {
             HashSet<String> tables = _STAGING.getInvolvedTables("adnexa_uterine_other");
+
             HashSet<String> hash1 = new HashSet<String>() {
-                "seer_mets_48348", "nodes_dcc", "grade_clinical_standard_non_ajcc_32473", "grade_pathological_standard_non_ajcc_5627",
-                "adnexa_uterine_other_97891", "nodes_pos_fpa", "tumor_size_pathological_25597", "tumor_size_clinical_60979", "primary_site", "histology",
-                "nodes_exam_76029", "grade_post_therapy_clin_69737", "grade_post_therapy_path_75348", "schema_selection_adnexa_uterine_other",
-                "year_dx_validation", "summary_stage_rpa", "tumor_size_summary_63115", "extension_bcn", "combined_grade_56638", "neoadjuvant_therapy_37302",
-                "derived_grade_standard_non_ajcc_63932", "neoadj_tx_treatment_effect_18122", "neoadj_tx_clinical_response_31723", "ss2018_adnexa_uterine_other_values_44976",
-                "behavior", "type_of_reporting_source_76696"};
+                "seer_mets_48348",
+                "nodes_dcc",
+                "grade_clinical_standard_non_ajcc_32473",
+                "grade_pathological_standard_non_ajcc_5627",
+                "adnexa_uterine_other_97891",
+                "nodes_pos_fpa",
+                "tumor_size_pathological_25597",
+                "tumor_size_clinical_60979",
+                "primary_site",
+                "histology",
+                "nodes_exam_76029",
+                "grade_post_therapy_clin_69737",
+                "grade_post_therapy_path_75348",
+                "schema_selection_adnexa_uterine_other",
+                "year_dx_validation",
+                "summary_stage_rpa",
+                "tumor_size_summary_63115",
+                "extension_bcn",
+                "combined_grade_56638",
+                "derived_grade_standard_non_ajcc_63932",
+                "ss2018_adnexa_uterine_other_values_44976",
+                "behavior",
+                "type_of_reporting_source_76696" };
 
             Assert.IsTrue(tables.SetEquals(hash1));
         }
@@ -394,7 +412,7 @@ namespace TNMStaging_UnitTestApp.Src.Staging.EOD
         public void testInvolvedSchemas()
         {
             HashSet<String> schemas = _STAGING.getInvolvedSchemas("her2_summary_30512");
-            HashSet<String> hash1 = new HashSet<String>() { "breast" };
+            HashSet<String> hash1 = new HashSet<String>() { "breast", "breast_v9_2027" };
             Assert.IsTrue(hash1.SetEquals(schemas));
         }
 
@@ -551,7 +569,7 @@ namespace TNMStaging_UnitTestApp.Src.Staging.EOD
             Assert.AreEqual(5, data.getErrors().Count);
             Assert.AreEqual(5, data.getPath().Count);
             Assert.AreEqual(4, data.getOutput().Count);
-            Assert.AreEqual("3.3", data.getOutput(EodOutput.DERIVED_VERSION.toString()));
+            Assert.AreEqual("3.4", data.getOutput(EodOutput.DERIVED_VERSION.toString()));
         }
 
         [TestMethod]
