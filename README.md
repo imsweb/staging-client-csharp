@@ -50,7 +50,7 @@ All of the standard setting organizations will collect the predictive and progno
 
 | Version       | Release                                                                           | Algorithm ZIP                                                                                                        |
 |---------------|-----------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------|
-| 3.4           | [4.9.6](https://github.com/imsweb/staging-client-csharp/releases/tag/v4.9.6-beta)     | [eod_public-3.4.zip](https://github.com/imsweb/staging-client-csharp/releases/download/v4.9.6-beta/eod_public-3.4.zip) |
+| 3.4           | [4.9.7](https://github.com/imsweb/staging-client-csharp/releases/tag/v4.9.7-beta)     | [eod_public-3.4.zip](https://github.com/imsweb/staging-client-csharp/releases/download/v4.9.7-beta/eod_public-3.4.zip) |
 | 3.3           | [4.9.2](https://github.com/imsweb/staging-client-csharp/releases/tag/v4.9.2b-beta)     | [eod_public-3.3.zip](https://github.com/imsweb/staging-client-csharp/releases/download/v4.9.2b-beta/eod_public-3.3.zip) |
 | 3.3 (**BETA**)    | [4.9](https://github.com/imsweb/staging-client-csharp/releases/tag/v4.9-beta)     | [eod_public-3.3.zip](https://github.com/imsweb/staging-client-csharp/releases/download/v4.9-beta/eod_public-3.3.zip) |
 | 3.2 (revised) | [4.8.5](https://github.com/imsweb/staging-client-csharp/releases/tag/v4.8.5-beta) | [eod_public-3.2.zip](https://github.com/imsweb/staging-client-csharp/releases/download/v4.8.5-beta/eod_public-3.2.zip)    |
